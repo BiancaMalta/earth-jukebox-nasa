@@ -1,0 +1,24 @@
+{
+  "id": "clima-ozonio",
+  "title": { "pt": "Ozônio perto da superfície (O₃)", "en": "Near-surface ozone (O₃)" },
+  "quantity": { "pt": "concentração de ozônio perto da superfície", "en": "near-surface ozone concentration" },
+  "measure": {
+    "pt": "Média dos pixels de ozônio coloridos e confiáveis",
+    "en": "Mean of confidently color-matched ozone pixels"
+  },
+  "svsId": 5152,
+  "unit": "ppbv",
+  "frames": "data/clima-ozonio/frames/",
+  "projection": "equirectangular",
+  "colorbar": {
+    "file": "data/clima-ozonio/colorbar.json",
+    "vmin": 5,
+    "vmax": 60,
+    "unit": "ppbv",
+    "scale": "linear"
+  },
+  "preset": "campo-continuo",
+  "sound": {},
+  "speech": {},
+  "credit": "NASA Scientific Visualization Studio / GMAO GEOS-CF"
+}

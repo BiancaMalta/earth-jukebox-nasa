@@ -236,7 +236,7 @@ export function initPlayer(index, hooks = {}) {
   for (const id of trackIds) {
     const option = document.createElement("option");
     option.value = id;
-    option.textContent = ({ "clima-temperatura": "Temperature", "clima-vento": "Wind", "clima-chuva": "Precipitation", "clima-umidade": "Humidity" })[id] ?? id;
+    option.textContent = ({ "clima-temperatura": "Temperature", "clima-vento": "Wind", "clima-chuva": "Precipitation", "clima-umidade": "Humidity", "clima-ozonio": "Ozone" })[id] ?? id;
     select.append(option);
   }
   if (trackIds.length) void loadTrack(trackIds[0]);

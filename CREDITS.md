@@ -14,6 +14,7 @@ Visualizations courtesy of **NASA's Scientific Visualization Studio**.
 | 5148 | GEOS-FP Near-Surface Wind Speed | https://svs.gsfc.nasa.gov/5148/ | | clima-vento |
 | 5149 | GEOS-FP Precipitation and Clouds | https://svs.gsfc.nasa.gov/5149/ | | clima-chuva |
 | 5150 | GEOS-FP Near-Surface Humidity (Q2M) | https://svs.gsfc.nasa.gov/5150/ | | clima-umidade |
+| 5152 | Near surface Ozone (O3) | https://svs.gsfc.nasa.gov/5152/ | | clima-ozonio |
 
 ## Other data / APIs
 

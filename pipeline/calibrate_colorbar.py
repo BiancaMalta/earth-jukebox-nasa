@@ -31,7 +31,7 @@ PROFILES = {
         "bar_y": 95,
         "value_min": -40.0,
         "value_max": 40.0,
-        "unit": "°C",
+        "unit": "Â°C",
         "reference_pixels": ((122, -30.0), (268, 0.0), (415, 30.0)),
         "output_path": Path("public/data/clima-temperatura/colorbar.json"),
     },
@@ -110,19 +110,44 @@ PROFILES = {
         },
         "output_path": Path("public/data/clima-umidade/colorbar.json"),
     },
+    5152: {
+        "plain_url": (
+            "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005152/"
+            "O3_colorbar_plain.png"
+        ),
+        "labeled_url": (
+            "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005152/"
+            "O3_colorbar.png"
+        ),
+        "source": "NASA SVS 5152 O3_colorbar_plain.png",
+        "image_size": (528, 125),
+        "bar_x_min": 70,
+        "bar_x_max": 462,
+        "sample_x_min": 70,
+        "bar_y": 58,
+        "value_min": 5.0,
+        "value_max": 60.0,
+        "unit": "ppbv",
+        "reference_pixels": ((70, 5.0), (177, 20.0), (319, 40.0), (462, 60.0)),
+        "pixel_filter": {
+            "minSaturation": 40,
+            "maxColorDistance": 30,
+        },
+        "output_path": Path("public/data/clima-ozonio/colorbar.json"),
+    },
 }
 
 
-def _download_image(url: str) -> Image.Image:
+def _download_image(url: str, expected_size: tuple[int, int] = IMAGE_SIZE) -> Image.Image:
     response = requests.get(url, timeout=(15, 60))
     response.raise_for_status()
     try:
         with Image.open(BytesIO(response.content)) as source:
             image = source.convert("RGB")
     except (OSError, UnidentifiedImageError) as error:
-        raise ValueError(f"Imagem de legenda inválida em {url}: {error}") from error
-    if image.size != IMAGE_SIZE:
-        raise ValueError(f"Dimensão inesperada para a legenda em {url}: {image.size}")
+        raise ValueError(f"Imagem de legenda invÃ¡lida em {url}: {error}") from error
+    if image.size != expected_size:
+        raise ValueError(f"DimensÃ£o inesperada para a legenda em {url}: {image.size}")
     return image
 
 
@@ -184,27 +209,28 @@ def _calibrate(plain: Image.Image, labeled: Image.Image, profile: dict) -> dict:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Calibra a legenda de uma visualização meteorológica NASA SVS."
+        description="Calibra a legenda de uma visualizaÃ§Ã£o meteorolÃ³gica NASA SVS."
     )
     parser.add_argument(
         "--svs-id",
         type=int,
         choices=sorted(PROFILES),
         default=5147,
-        help="ID SVS da visualização (padrão: 5147).",
+        help="ID SVS da visualizaÃ§Ã£o (padrÃ£o: 5147).",
     )
     parser.add_argument(
         "--output",
         type=Path,
-        help="arquivo de saída (padrão: caminho correspondente ao ID SVS).",
+        help="arquivo de saÃ­da (padrÃ£o: caminho correspondente ao ID SVS).",
     )
     args = parser.parse_args(argv)
     profile = PROFILES[args.svs_id]
     output_path = args.output or profile["output_path"]
 
     try:
-        plain = _download_image(profile["plain_url"])
-        labeled = _download_image(profile["labeled_url"])
+        image_size = profile.get("image_size", IMAGE_SIZE)
+        plain = _download_image(profile["plain_url"], image_size)
+        labeled = _download_image(profile["labeled_url"], image_size)
         colorbar = _calibrate(plain, labeled, profile)
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_text(
@@ -215,7 +241,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Erro: {error}", file=sys.stderr)
         return 1
 
-    print(f"Concluído: {output_path} ({len(colorbar['samples'])} cores)")
+    print(f"ConcluÃ­do: {output_path} ({len(colorbar['samples'])} cores)")
     return 0
 
 

@@ -3,6 +3,7 @@
     "clima-temperatura",
     "clima-vento",
     "clima-chuva",
-    "clima-umidade"
+    "clima-umidade",
+    "clima-ozonio"
   ]
 }
