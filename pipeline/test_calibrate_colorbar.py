@@ -2,7 +2,7 @@ import unittest
 
 from PIL import Image
 
-from calibrate_colorbar import PROFILES, _calibrate
+from calibrate_colorbar import PROFILES, _calibrate, _value_at_x
 
 
 class CalibrateColorbarTests(unittest.TestCase):
@@ -46,6 +46,20 @@ class CalibrateColorbarTests(unittest.TestCase):
         self.assertEqual(colorbar["unit"], "ppbv")
         self.assertEqual(len(colorbar["samples"]), 256)
         self.assertEqual(colorbar["pixelFilter"], profile["pixel_filter"])
+
+    def test_pm25_profile_calibrates_logarithmic_microgram_scale(self):
+        profile = PROFILES[5151]
+        plain = Image.new("RGB", (528, 125))
+        for x in range(profile["bar_x_min"], profile["bar_x_max"] + 1):
+            plain.putpixel((x, profile["bar_y"]), (x % 256, (x * 3) % 256, (x * 7) % 256))
+
+        colorbar = _calibrate(plain, plain.copy(), profile)
+
+        self.assertEqual((colorbar["vmin"], colorbar["vmax"]), (0.4, 409.6))
+        self.assertEqual(colorbar["unit"], "µg/m³")
+        self.assertEqual(colorbar["scale"], "log")
+        self.assertAlmostEqual(_value_at_x(73, profile), 0.4)
+        self.assertAlmostEqual(_value_at_x(463, profile), 409.6)
 
 
 if __name__ == "__main__":

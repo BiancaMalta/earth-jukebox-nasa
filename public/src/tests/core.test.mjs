@@ -113,6 +113,29 @@ test("the ozone track loads ppbv data without assigning a sound mapping", async 
   assert.equal(describeReading(result.frames[0], track).soundLabel, "Sound mapping");
 });
 
+test("the PM2.5 track uses its logarithmic concentration range without assigning sound", async () => {
+  const [index, track, data] = await Promise.all([
+    readFile(new URL("../../tracks/index.json", import.meta.url)).then(JSON.parse),
+    readFile(new URL("../../tracks/ar-pm25.json", import.meta.url)).then(JSON.parse),
+    readFile(new URL("../../data/ar-pm25/features.json", import.meta.url)).then(JSON.parse),
+  ]);
+  const result = validateFeatures(data, track.id, track.unit);
+
+  assert.ok(index.tracks.includes("ar-pm25"));
+  assert.equal(track.svsId, 5151);
+  assert.equal(result.unit, "µg/m³");
+  assert.equal(result.vmin, 0.4);
+  assert.equal(result.vmax, 409.6);
+  assert.equal(result.frames.length, 372);
+  assert.equal(result.frames[0].date, "2026-10-30T05:00");
+  assert.equal(result.frames.at(-1).date, "2026-11-14T15:00");
+  assert.ok(result.frames.every((frame) => frame.coverage > 0 && frame.coverage < 1));
+  const firstFrame = result.frames[0];
+  assert.equal(firstFrame.norm, Number(((Math.log(firstFrame.mean) - Math.log(0.4)) / (Math.log(409.6) - Math.log(0.4))).toFixed(3)));
+  assert.equal(soundKind(track), null);
+  assert.equal(mapFrameSound(firstFrame, track), null);
+});
+
 test("invalid structure and unsafe or duplicate frame filenames fail explicitly", () => {
   for (const data of [null, {}, { ...sample(), mock: undefined }, { ...sample(), unit: "" }, { ...sample(), frames: [] }]) {
     assert.throws(() => validateFeatures(data, "test"));

@@ -1,5 +1,5 @@
 # AI-assisted: Copilot
-"""Calibrate colorbars for supported NASA SVS weather visualizations."""
+"""Calibrate colorbars for supported NASA SVS visualizations."""
 
 from __future__ import annotations
 
@@ -110,6 +110,17 @@ PROFILES = {
         },
         "output_path": Path("public/data/clima-umidade/colorbar.json"),
     },
+    5151: {
+        "plain_url": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005151/PM2.5_colorbar_plain.png",
+        "labeled_url": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005151/PM2.5_colorbar.png",
+        "source": "NASA SVS 5151 PM2.5_colorbar_plain.png",
+        "image_size": (528, 125), "bar_x_min": 73, "bar_x_max": 463,
+        "sample_x_min": 73, "bar_y": 58, "value_min": 0.4, "value_max": 409.6,
+        "scale": "log", "unit": "µg/m³", "reference_tolerance": 2.0,
+        "reference_pixels": ((73, 0.4), (226, 6.4), (384, 102.4), (463, 409.6)),
+        "pixel_filter": {"minSaturation": 18, "maxColorDistance": 34},
+        "output_path": Path("public/data/ar-pm25/colorbar.json"),
+    },
     5152: {
         "plain_url": (
             "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005152/"
@@ -155,6 +166,11 @@ def _value_at_x(x: int, profile: dict) -> float:
     position = (x - profile["bar_x_min"]) / (
         profile["bar_x_max"] - profile["bar_x_min"]
     )
+    if profile.get("scale") == "log":
+        import math
+        return math.exp(math.log(profile["value_min"]) + position * (
+            math.log(profile["value_max"]) - math.log(profile["value_min"])
+        ))
     return profile["value_min"] + position * (
         profile["value_max"] - profile["value_min"]
     )
@@ -167,7 +183,7 @@ def _calibrate(plain: Image.Image, labeled: Image.Image, profile: dict) -> dict:
         if plain_rgb != labeled_rgb:
             raise ValueError(f"A legenda simples e a rotulada divergem no pixel x={x}.")
         actual_value = _value_at_x(x, profile)
-        if abs(actual_value - expected_value) > 0.5:
+        if abs(actual_value - expected_value) > profile.get("reference_tolerance", 0.5):
             raise ValueError(
                 f"Pixel x={x} representa {actual_value:.2f}{profile['unit']}, "
                 f"mas a legenda indica {expected_value:g}{profile['unit']}."
@@ -194,7 +210,7 @@ def _calibrate(plain: Image.Image, labeled: Image.Image, profile: dict) -> dict:
     colorbar = {
         "source": profile["source"],
         "unit": profile["unit"],
-        "scale": "linear",
+        "scale": profile.get("scale", "linear"),
         "vmin": profile["value_min"],
         "vmax": profile["value_max"],
         "samples": samples,
@@ -209,7 +225,7 @@ def _calibrate(plain: Image.Image, labeled: Image.Image, profile: dict) -> dict:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Calibra a legenda de uma visualizaÃ§Ã£o meteorolÃ³gica NASA SVS."
+        description="Calibra a legenda de uma visualização NASA SVS."
     )
     parser.add_argument(
         "--svs-id",

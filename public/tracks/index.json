@@ -4,6 +4,7 @@
     "clima-vento",
     "clima-chuva",
     "clima-umidade",
+    "ar-pm25",
     "clima-ozonio"
   ]
 }

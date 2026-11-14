@@ -45,6 +45,22 @@ python pipeline/features.py --frames-dir public/data/clima-umidade/frames --colo
 The mean and p90 use confidently color-matched humidity pixels; `coverage`
 records their share of the analyzed frame.
 
+For PM2.5 (SVS 5151), retain the source movie's 12 fps samples, calibrate
+the logarithmic NASA colorbar, and align the first and last displayed times:
+
+```bash
+python pipeline/download.py --kind mp4 5151
+python pipeline/extract_frames.py raw/5151/MC01_stage4_GMAO_pm25_2048x1024_en.mp4 ar-pm25 --fps 12 --max-frames 0
+python pipeline/calibrate_colorbar.py --svs-id 5151
+python pipeline/features.py --frames-dir public/data/ar-pm25/frames --colorbar public/data/ar-pm25/colorbar.json --output public/data/ar-pm25/features.json --track ar-pm25 --svs-id 5151 --start-utc 2026-10-30T09:00:00Z --end-utc 2026-11-14T20:00:00Z
+```
+
+SVS 5151 estimates near-surface PM2.5 with NASA GMAO GEOS-CF. Its legend is
+logarithmic from 0.4 to 409.6 µg/m³. Values are decoded estimates from rendered
+pixels, not raw model-grid values; coverage is the matched share of image
+pixels, not geographic area. This visual-only track has no sound mapping and
+does not provide a health assessment.
+
 For near-surface ozone (SVS 5152), download and extract the hourly movie frames,
 then calibrate NASA's 5–60 ppbv colorbar and calculate their features:
 

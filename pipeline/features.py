@@ -60,17 +60,24 @@ def decode_pixels(pixels: np.ndarray, colorbar: dict, cache: dict) -> np.ndarray
     return values[inverse]
 
 
-def summarize_values(values: np.ndarray, vmin: float, vmax: float) -> dict:
+def summarize_values(
+    values: np.ndarray, vmin: float, vmax: float, scale: str = "linear"
+) -> dict:
     """Same pixel weighting, rounding and fixed scale in every spatial scope."""
     valid = values[np.isfinite(values)]
     coverage = round(float(valid.size / values.size), 3) if values.size else 0.0
     if not valid.size:
         return {"mean": None, "p90": None, "norm": None, "coverage": coverage}
     mean = round(float(np.mean(valid)), 3)
+    norm_value = (
+        (np.log(mean) - np.log(vmin)) / (np.log(vmax) - np.log(vmin))
+        if scale == "log"
+        else (mean - vmin) / (vmax - vmin)
+    )
     return {
         "mean": mean,
         "p90": round(float(np.percentile(valid, 90)), 3),
-        "norm": round(float(np.clip((mean - vmin) / (vmax - vmin), 0.0, 1.0)), 3),
+        "norm": round(float(np.clip(norm_value, 0.0, 1.0)), 3),
         "coverage": coverage,
     }
 
@@ -154,6 +161,7 @@ def generate_features(
     svs_id: int = SVS_ID,
     frame_start_utc: datetime = FRAME_START_UTC,
     frame_interval: timedelta = FRAME_INTERVAL,
+    frame_end_utc: datetime | None = None,
 ) -> dict:
     frame_files = sorted(frames_dir.glob("frame_*.webp"))
     if not frame_files:
@@ -180,6 +188,11 @@ def generate_features(
     if len(palette_colors) != len(palette_values):
         raise ValueError(f"Colorbar samples in {colorbar_path} are inconsistent.")
 
+    scale = colorbar.get("scale", "linear")
+    if scale == "log" and vmin <= 0:
+        raise ValueError("A log colorbar requires a positive minimum.")
+    if frame_end_utc is not None and len(frame_files) > 1:
+        frame_interval = (frame_end_utc - frame_start_utc) / (len(frame_files) - 1)
     value_cache: dict[tuple[int, int, int], tuple[float, float]] = {}
     pixel_filter = colorbar.get("pixelFilter")
     frame_features = []
@@ -187,7 +200,7 @@ def generate_features(
         with Image.open(frame_path) as image:
             pixels = analysis_pixels(image)
         values = decode_pixels(pixels, colorbar, value_cache)
-        summary = summarize_values(values, vmin, vmax)
+        summary = summarize_values(values, vmin, vmax, scale)
         if summary["mean"] is None:
             raise ValueError(f"No confidently color-matched pixels in {frame_path.name}.")
         frame_feature = {
@@ -228,6 +241,11 @@ def main(argv: list[str] | None = None) -> int:
         help="início em UTC no formato YYYY-MM-DDTHH:MM:SSZ.",
     )
     parser.add_argument("--interval-hours", type=float, default=3.0)
+    parser.add_argument(
+        "--end-utc",
+        type=_parse_utc,
+        help="UTC do último frame; interpola os horários entre início e fim.",
+    )
     args = parser.parse_args(argv)
 
     try:
@@ -238,6 +256,7 @@ def main(argv: list[str] | None = None) -> int:
             args.svs_id,
             args.start_utc,
             timedelta(hours=args.interval_hours),
+            args.end_utc,
         )
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(

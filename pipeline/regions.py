@@ -73,6 +73,7 @@ def generate_regions(track_id: str, data_dir: Path, geojson_path: Path) -> dict:
     vmin, vmax = source["vmin"], source["vmax"]
     if not vmin < vmax or (vmin, vmax) != (colorbar["vmin"], colorbar["vmax"]):
         raise ValueError("The global and regional normalization scales must match.")
+    scale = colorbar.get("scale", "linear")
     frames = source["frames"]
     if not frames:
         raise ValueError("No source frames.")
@@ -93,12 +94,12 @@ def generate_regions(track_id: str, data_dir: Path, geojson_path: Path) -> dict:
             pixels = np.asarray(image.convert("RGB"))[included]
         values = decode_pixels(pixels, colorbar, cache)
         # Detect stale source features, including mismatched filtering/calibration.
-        summary = summarize_values(values, vmin, vmax)
+        summary = summarize_values(values, vmin, vmax, scale)
         for field in COLUMNS:
             if field in frame and frame[field] != summary[field]:
                 raise ValueError(f"Source {frame['file']} has stale {field}; regenerate features first.")
         for key, offsets in indices.items():
-            stats = summarize_values(values[offsets], vmin, vmax)
+            stats = summarize_values(values[offsets], vmin, vmax, scale)
             regions[key]["values"].append([stats[column] for column in COLUMNS])
         if index % 10 == 9 or index == len(frames) - 1:
             print(f"{track_id}: {index + 1}/{len(frames)} frames, {len(regions)} regions", flush=True)
