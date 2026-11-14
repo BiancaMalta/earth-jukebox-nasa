@@ -8,10 +8,11 @@ import { createHumiditySound } from "./humiditySound.js";
 // Shared context/master/limiter. Instrument resources are allocated once after
 // explicit interaction. No audio module owns a frame timer or dataset position.
 export function createAudioEngine(loadTone = () => import("tone")) {
-  let tone, volume, limiter, duck, pending;
+  let tone, volume, limiter, duck, mix, pending;
   let enabled = false, muted = false, level = 25, disposed = false, ambience = true, ducking = false;
+  let combined = false;
   const instruments = {}, channels = {};
-  const calibration = { temperature: 0.65, wind: 1.2, precipitation: 1, humidity: 1 };
+  const calibration = { temperature: 0.65, wind: 1.2, precipitation: 1.5, humidity: 2 };
   const layerGain = Object.fromEntries(Object.keys(calibration).map((kind) => [kind, 1]));
   const layerMuted = Object.fromEntries(Object.keys(calibration).map((kind) => [kind, false]));
   const decibels = () => level === 0 ? -Infinity : -30 + 20 * Math.log10(level / 25);
@@ -19,8 +20,8 @@ export function createAudioEngine(loadTone = () => import("tone")) {
   function releaseNodes() {
     for (const kind of Object.keys(instruments)) { instruments[kind].dispose(); delete instruments[kind]; }
     for (const kind of Object.keys(channels)) { channels[kind].dispose(); delete channels[kind]; }
-    duck?.dispose(); volume?.dispose(); limiter?.dispose();
-    duck = volume = limiter = undefined;
+    mix?.dispose(); duck?.dispose(); volume?.dispose(); limiter?.dispose();
+    mix = duck = volume = limiter = undefined;
   }
   async function enable() {
     if (disposed) throw new Error("Audio has been disposed.");
@@ -37,9 +38,10 @@ export function createAudioEngine(loadTone = () => import("tone")) {
           volume.mute = muted;
           duck = new tone.Gain(ducking ? 0.35 : 1);
           duck.chain(volume, limiter);
+          mix = new tone.Gain(combined ? 0.5 : 1).connect(duck);
           for (const kind of Object.keys(calibration)) {
             channels[kind] = new tone.Gain(layerMuted[kind] ? 0 : calibration[kind] * layerGain[kind]);
-            channels[kind].connect(duck);
+            channels[kind].connect(mix);
           }
           instruments.temperature = createTemperatureSound(tone, channels.temperature);
           instruments.temperature.setAmbience(ambience);
@@ -73,6 +75,20 @@ export function createAudioEngine(loadTone = () => import("tone")) {
   }
   return {
     enable, stop, updateInstrument,
+    setCombinedMode(value) { combined = Boolean(value); mix?.gain.rampTo(combined ? 0.5 : 1, 0.08); },
+    playLayers(entries, duration) {
+      const parameters = new Map(entries.map(({ frame, track }) => {
+        const sound = mapFrameSound(frame, track);
+        return [sound?.kind, sound];
+      }).filter(([kind]) => kind));
+      let played = false;
+      for (const kind of Object.keys(instruments)) {
+        const sound = parameters.get(kind);
+        if (!sound || !updateInstrument(sound, duration)) instruments[kind].stop();
+        else played = true;
+      }
+      return played;
+    },
     playFrame(frame, track, duration) { return playMapped(mapFrameSound(frame, track), duration); },
     playNote(note, duration) { return playMapped({ kind: "temperature", note }, duration); },
     playWind(speed, duration) {

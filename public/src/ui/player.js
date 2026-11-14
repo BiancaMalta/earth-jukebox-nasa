@@ -22,7 +22,7 @@ export function initPlayer(index, hooks = {}) {
     <p id="data-caveat" class="data-caveat" hidden></p>
     <figure class="player-visualization"><div class="frame-map"><img id="frame-image" alt="Global map of near-surface air temperature from NASA GEOS-FP." hidden width="1024" height="512"><svg id="region-overlay" viewBox="0 0 1024 512" aria-hidden="true" hidden></svg></div><figcaption id="frame-description">Select a visualization to begin.</figcaption></figure>
     <section id="regional-explorer" class="regional-explorer" aria-labelledby="regional-heading" hidden>
-      <div><p class="eyebrow">Explore a place</p><h3 id="regional-heading">Focus the map and listen to a region</h3><p class="control-help">Choose a continent or country. The area stays highlighted as the video plays, and its confidently matched pixels determine the reading and sound.</p></div>
+      <div><p class="eyebrow">Explore a place</p><h3 id="regional-heading">Focus the map and listen to a region</h3><p class="control-help">Choose a continent or country. The area stays highlighted as the video plays, and Python-calculated regional values determine the reading and sound.</p></div>
       <div class="region-controls">
         <label for="region-level">Explore by</label><select id="region-level"><option value="continent">Continent</option><option value="country">Country</option></select>
         <label for="region-continent">Continent</label><select id="region-continent"><option value="">Choose a continent</option></select>

@@ -162,3 +162,8 @@ button, dt, h1 { overflow-wrap: anywhere; }
 
 .data-caveat { background: #162e3e; border-left: 3px solid #8dc8f2; border-radius: 4px; color: #d5e9f7; font-size: .82rem; padding: 12px 14px; margin-top: 14px; }
 #instrument-name { font-size: .85rem; font-weight: 600; color: #edf3f7; }
+
+.combined-panel > .checkbox-label { margin-top: 16px; }
+.combined-layer { display: grid; gap: 6px; padding: 14px 0; border-top: 1px solid var(--line); min-width: 0; }
+.combined-layer input[type="range"] { width: 100%; min-width: 0; }
+.combined-layer .control-help, #combined-scope { overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }

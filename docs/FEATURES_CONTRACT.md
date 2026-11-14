@@ -51,3 +51,56 @@ cada quadro.
 - **Front/Som** só lê. Não edita o arquivo; se precisar de campo novo, combina e atualiza este documento primeiro.
 - O número de frames é `frames.length` (o player não precisa mais descobrir um a um).
 - Campos novos podem ser adicionados; os existentes não mudam de nome nem de significado.
+
+## Dados regionais pré-calculados (`regions.json`, versão 1)
+
+Gerados por `python pipeline/regions.py` em `public/data/<faixa>/regions.json`.
+O front só lê esses valores: não decodifica cores, calcula médias ou normaliza
+valores regionais. `features.json` continua sendo o contrato do quadro completo.
+
+O documento regional contém:
+
+- `schemaVersion: 1`, `track`, `svsId`, `mock: false`, `unit`, `vmin`, `vmax`.
+- `frames`: cópia dos registros de `features.json`, com nomes, datas e valores
+  originais. O consumidor compara todos esses campos para rejeitar tabelas
+  desatualizadas. O gerador verifica também que as estatísticas do quadro
+  completo coincidem com os frames e a calibração atuais antes de publicar.
+- `columns: ["mean", "p90", "norm", "coverage"]` define a ordem das linhas.
+- `regions`: objeto indexado por `country:<NAME_EN>` ou `continent:<CONTINENT>`
+  do arquivo `public/data/world-countries.geojson` (fallback do nome: ADMIN/NAME).
+  Cada entrada contém `kind`, `name` e `values`, com uma linha por frame, na
+  mesma ordem de `frames`.
+
+Exemplo de entrada: `"country:Brazil": {"kind":"country","name":"Brazil",
+"values":[[24.1,29.2,0.801,0.95], ...]}`. Números meramente ilustrativos.
+
+### Método e limitações
+
+Média, percentil, normalização e filtros usam as mesmas funções Python do
+quadro completo em `features.py`. A normalização mantém os limites fixos da
+legenda da faixa, compartilhados por todas as regiões; não se adapta à amplitude
+de cada país. Os campos são arredondados para três casas decimais.
+
+Os contornos são rasterizados na resolução nativa de cada frame e na projeção
+equiretangular: o centro do pixel determina sua inclusão. Buracos e múltiplos
+polígonos são preservados; continentes são a união dos países do GeoJSON, sem
+adicionar áreas oceânicas. O arquivo de origem já divide os polígonos na linha
+de mudança de data. Logos e timestamps são excluídos com a mesma máscara do
+quadro completo. Não há redimensionamento nem mistura de pixels na borda.
+
+`coverage` é a fração dos pixels analisáveis **dentro da região** que passaram
+nos filtros da faixa. Sem filtro, todos os pixels analisáveis são usados, como
+no cálculo geral atual. Essa fração não é uma porcentagem da área da Terra.
+Sem pixels válidos (inclusive regiões menores que um pixel), a linha é
+`[null,null,null,0]`. Ausência não é zero medido e não produz som.
+
+As médias continuam sendo estimativas extraídas de imagens, com pesos iguais
+por pixel, sem ponderação por área terrestre. Padronizar os dois caminhos não
+remove limitações da legenda, filtros e resolução da imagem. O gerador copia os
+timestamps existentes; não determina novos fusos ou instantes científicos.
+
+Após alterar frames, legenda, filtros, limites geográficos ou `features.json`,
+regenere as tabelas antes de publicar. O navegador detecta incompatibilidade com
+os registros fonte, mas não calcula hashes de todas as imagens ou calibrações.
+Falhas no carregamento/validação mantêm o áudio regional silencioso e exibem
+uma mensagem; limpar a seleção retorna aos valores originais do quadro completo.

@@ -60,3 +60,33 @@ Outputs go to `public/data/<track>/`:
 - `features.json`
 
 Raw downloads stay in `raw/` (git-ignored) and on the shared Drive.
+
+## Regional statistics (countries and continents)
+
+After generating `features.json`, run from the repository root:
+
+```bash
+python pipeline/regions.py
+# Or select one or more tracks:
+python pipeline/regions.py --track clima-temperatura --track clima-vento
+```
+
+The generator reuses `features.py` for pixel decoding, filtering, mean, p90 and
+normalization, and writes compact `public/data/<track>/regions.json` files.
+It reads existing local frames and `world-countries.geojson`; no downloads,
+new dependencies or Python server are needed. Publish those JSONs with the site.
+The browser loads a table on regional selection and reuses it while that track
+is active, without recalculating statistics. Regenerate after changing any
+input; the generator rejects stale full-frame features.
+
+All frame times are copied from existing features. Regions with no valid pixels
+have null statistics, not zero values. Country/continent means use equal pixel
+weights and retain image-derived limitations. See `docs/FEATURES_CONTRACT.md`
+for the versioned regional schema and pixel-center mask definition.
+
+Validation:
+
+```bash
+python -m unittest discover -s pipeline -p 'test_*.py'
+node --test public/src/tests/*.test.mjs
+```
