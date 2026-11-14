@@ -7,7 +7,7 @@ import unittest
 import numpy as np
 from PIL import Image
 
-from features import analysis_mask, generate_features, summarize_values
+from features import AREA_STATISTICS, area_weights, analysis_mask, generate_features, summarize_values
 from regions import generate_regions, region_mask
 
 
@@ -20,11 +20,33 @@ WORLD = [[-180, -90], [180, -90], [180, 90], [-180, 90], [-180, -90]]
 
 
 class RegionTests(unittest.TestCase):
+    def test_area_weights_are_positive_symmetric_and_smaller_near_poles(self):
+        weights = area_weights(4, 6)
+        self.assertEqual(weights.shape, (6, 4))
+        self.assertTrue(np.all(weights > 0))
+        np.testing.assert_allclose(weights, weights[::-1])
+        self.assertGreater(weights[2, 0], weights[0, 0])
+
+    def test_weighted_mean_uses_accepted_area_but_coverage_and_p90_remain_pixel_statistics(self):
+        stats = summarize_values(np.array([0., 10., np.nan]), 0, 10, np.array([1., 3., 100.]))
+        self.assertEqual(stats, {"mean": 7.5, "norm": .75, "p90": 9., "coverage": .666667})
+        for weights in [np.array([0., 1.]), np.array([-1., 1.]), np.array([np.nan, 1.]), np.array([1.])]:
+            with self.assertRaises(ValueError):
+                summarize_values(np.array([0., 10.]), 0, 10, weights)
+
     def test_missing_pixels_are_not_measured_zero(self):
         self.assertEqual(summarize_values(np.array([np.nan]), 0, 20),
                          {"mean": None, "p90": None, "norm": None, "coverage": 0.0})
         self.assertEqual(summarize_values(np.array([0., np.nan]), 0, 20),
                          {"mean": 0., "p90": 0., "norm": 0., "coverage": .5})
+
+    def test_small_positive_inclusion_is_not_rounded_to_absence(self):
+        values = np.full(10000, np.nan)
+        values[0] = 4.73
+        stats = summarize_values(values, 0, 40)
+        self.assertEqual(stats["coverage"], .0001)
+        self.assertEqual(stats["mean"], 4.73)
+        self.assertIsNotNone(stats["norm"])
 
     def test_world_mask_matches_full_frame_and_retains_antimeridian_edges(self):
         np.testing.assert_array_equal(region_mask([feature("World", [WORLD])], 360, 180), analysis_mask(360, 180))
@@ -56,6 +78,8 @@ class RegionTests(unittest.TestCase):
             geo = root / "world.json"; geo.write_text(json.dumps({"features": [feature("World", [WORLD]), feature("Tiny", [tiny])]}))
             result = generate_regions("test", root, geo)
             self.assertEqual(result["frames"], source["frames"])
+            self.assertEqual(result["statistics"], AREA_STATISTICS)
+            self.assertEqual(result["schemaVersion"], 2)
             for i, row in enumerate(result["regions"]["country:World"]["values"]):
                 self.assertEqual(row[:3], [source["frames"][i][key] for key in ["mean", "p90", "norm"]])
                 self.assertEqual(row[3], 1)

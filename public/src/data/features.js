@@ -24,11 +24,18 @@ export function validateFeatures(data, trackId, expectedUnit) {
       mean: isFiniteNumber(frame.mean) ? frame.mean : null,
       p90: isFiniteNumber(frame.p90) ? frame.p90 : null,
       norm: isFiniteNumber(frame.norm) && frame.norm >= 0 && frame.norm <= 1 ? frame.norm : null,
+      visualSignal: isFiniteNumber(frame.visualSignal) && frame.visualSignal >= 0 && frame.visualSignal <= 1 ? frame.visualSignal : null,
       coverage: isFiniteNumber(frame.coverage) && frame.coverage >= 0 && frame.coverage <= 1 ? frame.coverage : null,
     };
   });
+  const sonification = data.sonification ?? null;
+  if (sonification && (trackId !== "clima-vento" || sonification.input !== "visualSignal" || sonification.unit !== "1")) throw new Error("Unsupported sonification input in features.json.");
+  const statistics = data.statistics ?? null;
+  if (statistics && (statistics.mean !== "area_weighted" || statistics.weighting !== "cos_latitude" || statistics.p90 !== "unweighted_pixel_percentile" || statistics.coverage !== "accepted_pixel_fraction")) {
+    throw new Error("Unsupported statistics method in features.json.");
+  }
   const validRange = isFiniteNumber(data.vmin) && isFiniteNumber(data.vmax) && data.vmin < data.vmax;
-  return { mock: data.mock, unit: data.unit, frames, vmin: validRange ? data.vmin : null, vmax: validRange ? data.vmax : null };
+  return { mock: data.mock, unit: data.unit, statistics, sonification, frames, vmin: validRange ? data.vmin : null, vmax: validRange ? data.vmax : null };
 }
 
 // Keep the producer's wall time and explicit offset. Never apply the browser's zone.

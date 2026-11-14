@@ -1,0 +1,1977 @@
+{
+  "scope": "Exploratory comparison, not independent validation or an accuracy probability. Same GEOS family, coarse 1.25 degree sample and half-hour center assumption.",
+  "eligibility": {
+    "minimum_reference_grid_points": 8,
+    "minimum_analyzed_image_pixels": 100
+  },
+  "samples": [
+    {
+      "frame": 1,
+      "label": "2026-10-30T06:00",
+      "reference_utc_center": "2026-10-30T10:30:00Z",
+      "rows": [
+        {
+          "country": "Tanzania",
+          "reference": 2.399258878935957,
+          "conditional_mean": 4.627,
+          "visual_signal": 0.000189,
+          "visible_area": 0.0016306013986823907
+        },
+        {
+          "country": "Canada",
+          "reference": 3.2371927967971708,
+          "conditional_mean": 6.105300975402292,
+          "visual_signal": 0.023177,
+          "visible_area": 0.15184535098979288
+        },
+        {
+          "country": "United States of America",
+          "reference": 2.50395880824116,
+          "conditional_mean": 5.211736399870529,
+          "visual_signal": 0.007566,
+          "visible_area": 0.05807276906021786
+        },
+        {
+          "country": "Kazakhstan",
+          "reference": 3.743913239683923,
+          "conditional_mean": 5.741271679730491,
+          "visual_signal": 0.039961,
+          "visible_area": 0.2784088342829694
+        },
+        {
+          "country": "Uzbekistan",
+          "reference": 3.5654721764078867,
+          "conditional_mean": 6.381072819021464,
+          "visual_signal": 0.031553,
+          "visible_area": 0.19779263051011498
+        },
+        {
+          "country": "Papua New Guinea",
+          "reference": 1.282559860251911,
+          "conditional_mean": 4.697784161727507,
+          "visual_signal": 0.006087,
+          "visible_area": 0.05182907307952871
+        },
+        {
+          "country": "Indonesia",
+          "reference": 1.265381797232088,
+          "conditional_mean": 4.736996329469089,
+          "visual_signal": 0.002948,
+          "visible_area": 0.024890230057155703
+        },
+        {
+          "country": "Argentina",
+          "reference": 2.7964869665761154,
+          "conditional_mean": 5.482724932346825,
+          "visual_signal": 0.01513,
+          "visible_area": 0.11038641573836408
+        },
+        {
+          "country": "Chile",
+          "reference": 2.3151250619529917,
+          "conditional_mean": 8.738899891933844,
+          "visual_signal": 0.004923,
+          "visible_area": 0.02253595401587934
+        },
+        {
+          "country": "Somalia",
+          "reference": 4.337273745502637,
+          "conditional_mean": 4.745109633632479,
+          "visual_signal": 0.066153,
+          "visible_area": 0.5576558895908844
+        },
+        {
+          "country": "Kenya",
+          "reference": 3.919203543446827,
+          "conditional_mean": 4.950734700408769,
+          "visual_signal": 0.044481,
+          "visible_area": 0.3593860581218137
+        },
+        {
+          "country": "Sudan",
+          "reference": 4.642546029967067,
+          "conditional_mean": 5.392235152573761,
+          "visual_signal": 0.082984,
+          "visible_area": 0.6155850205055077
+        },
+        {
+          "country": "Chad",
+          "reference": 3.903918972815676,
+          "conditional_mean": 5.2341380996490505,
+          "visual_signal": 0.059263,
+          "visible_area": 0.452896726886026
+        },
+        {
+          "country": "Russia",
+          "reference": 2.5706740472286516,
+          "conditional_mean": 5.896685804187169,
+          "visual_signal": 0.017243,
+          "visible_area": 0.1169640564496408
+        },
+        {
+          "country": "Norway",
+          "reference": 1.7816320353427713,
+          "conditional_mean": 18.92124170760343,
+          "visual_signal": 0.010297,
+          "visible_area": 0.02176769168399339
+        },
+        {
+          "country": "Greenland",
+          "reference": 7.617760840080695,
+          "conditional_mean": 9.745499624107492,
+          "visual_signal": 0.143955,
+          "visible_area": 0.5908591260017758
+        },
+        {
+          "country": "South Africa",
+          "reference": 3.473538357631503,
+          "conditional_mean": 4.77096815490956,
+          "visual_signal": 0.015737,
+          "visible_area": 0.1319383376454474
+        },
+        {
+          "country": "Mexico",
+          "reference": 1.4932923372686937,
+          "conditional_mean": 4.845969722983134,
+          "visual_signal": 0.001729,
+          "visible_area": 0.014273004944428467
+        },
+        {
+          "country": "Uruguay",
+          "reference": 3.6336913638713852,
+          "conditional_mean": 6.422402271174307,
+          "visual_signal": 0.0212,
+          "visible_area": 0.13203563948354158
+        },
+        {
+          "country": "Brazil",
+          "reference": 1.4837793260440417,
+          "conditional_mean": 4.933143973353678,
+          "visual_signal": 0.006572,
+          "visible_area": 0.05328954916586205
+        },
+        {
+          "country": "Peru",
+          "reference": 0.8036268864218553,
+          "conditional_mean": 4.95047760330202,
+          "visual_signal": 0.002995,
+          "visible_area": 0.024202247301262796
+        },
+        {
+          "country": "Colombia",
+          "reference": 0.7757763144607167,
+          "conditional_mean": 4.9090686485288035,
+          "visual_signal": 0.001272,
+          "visible_area": 0.010360432245986446
+        },
+        {
+          "country": "Venezuela",
+          "reference": 1.2604526971201018,
+          "conditional_mean": 5.021401206112343,
+          "visual_signal": 0.001252,
+          "visible_area": 0.009969351962200211
+        },
+        {
+          "country": "Guyana",
+          "reference": 0.787714330588501,
+          "conditional_mean": 4.593183821504839,
+          "visual_signal": 0.002544,
+          "visible_area": 0.02215646379546725
+        },
+        {
+          "country": "France",
+          "reference": 3.0671756920702746,
+          "conditional_mean": 4.743941231045728,
+          "visual_signal": 0.02754,
+          "visible_area": 0.23221110122316804
+        },
+        {
+          "country": "Ecuador",
+          "reference": 0.5439591248721024,
+          "conditional_mean": 4.558660698596082,
+          "visual_signal": 0.002035,
+          "visible_area": 0.017857893689760027
+        },
+        {
+          "country": "Zimbabwe",
+          "reference": 3.822054005964903,
+          "conditional_mean": 4.86931538303903,
+          "visual_signal": 0.02714,
+          "visible_area": 0.2229440273750912
+        },
+        {
+          "country": "Botswana",
+          "reference": 5.556482984579124,
+          "conditional_mean": 5.767152559140249,
+          "visual_signal": 0.106954,
+          "visible_area": 0.7418127307740218
+        },
+        {
+          "country": "Namibia",
+          "reference": 3.7254581086519334,
+          "conditional_mean": 5.084719005723859,
+          "visual_signal": 0.036446,
+          "visible_area": 0.2867076187434005
+        },
+        {
+          "country": "Senegal",
+          "reference": 1.974598509221191,
+          "conditional_mean": 34.396,
+          "visual_signal": 0.006661,
+          "visible_area": 0.007746566398884071
+        },
+        {
+          "country": "Mali",
+          "reference": 3.3983674999046327,
+          "conditional_mean": 4.800148550802686,
+          "visual_signal": 0.033793,
+          "visible_area": 0.28160191431335413
+        },
+        {
+          "country": "Mauritania",
+          "reference": 3.900216340366154,
+          "conditional_mean": 4.682157048333701,
+          "visual_signal": 0.035239,
+          "visible_area": 0.3010500675455207
+        },
+        {
+          "country": "Niger",
+          "reference": 3.592532817879681,
+          "conditional_mean": 4.564910286460798,
+          "visual_signal": 0.032143,
+          "visible_area": 0.28165199057570967
+        },
+        {
+          "country": "Nigeria",
+          "reference": 3.297465779249053,
+          "conditional_mean": 4.741010769813906,
+          "visual_signal": 0.040031,
+          "visible_area": 0.33774406173926863
+        },
+        {
+          "country": "Cameroon",
+          "reference": 0.7989655626410411,
+          "conditional_mean": 5.1613903915979655,
+          "visual_signal": 0.002064,
+          "visible_area": 0.015998679886309538
+        },
+        {
+          "country": "Central African Republic",
+          "reference": 1.2460564174043385,
+          "conditional_mean": 4.362656486058619,
+          "visual_signal": 0.001827,
+          "visible_area": 0.016750529782752446
+        },
+        {
+          "country": "Mozambique",
+          "reference": 2.537459330792625,
+          "conditional_mean": 4.812257340862689,
+          "visual_signal": 0.006101,
+          "visible_area": 0.05070843164332885
+        },
+        {
+          "country": "Madagascar",
+          "reference": 5.059829136633271,
+          "conditional_mean": 5.425745389426543,
+          "visual_signal": 0.061585,
+          "visible_area": 0.45402187131682764
+        },
+        {
+          "country": "Tunisia",
+          "reference": 2.646341616926888,
+          "conditional_mean": 4.7181562459173705,
+          "visual_signal": 0.016771,
+          "visible_area": 0.14218662036748683
+        },
+        {
+          "country": "Algeria",
+          "reference": 3.534594870632756,
+          "conditional_mean": 5.201799502016408,
+          "visual_signal": 0.04276,
+          "visible_area": 0.32880919355024907
+        },
+        {
+          "country": "Iraq",
+          "reference": 2.8287410278054197,
+          "conditional_mean": 4.8209789021439695,
+          "visual_signal": 0.006071,
+          "visible_area": 0.050367786707663224
+        },
+        {
+          "country": "Oman",
+          "reference": 3.5630850353843506,
+          "conditional_mean": 4.690404630469578,
+          "visual_signal": 0.015937,
+          "visible_area": 0.13591052804376408
+        },
+        {
+          "country": "Vietnam",
+          "reference": 1.3793349428526231,
+          "conditional_mean": 4.946723962197062,
+          "visual_signal": 0.005384,
+          "visible_area": 0.04353409825682024
+        },
+        {
+          "country": "North Korea",
+          "reference": 1.8845750995203754,
+          "conditional_mean": 4.831335775451383,
+          "visual_signal": 0.003445,
+          "visible_area": 0.028524009629005836
+        },
+        {
+          "country": "Mongolia",
+          "reference": 2.94152999396775,
+          "conditional_mean": 5.072340797955435,
+          "visual_signal": 0.016427,
+          "visible_area": 0.12954207365777584
+        },
+        {
+          "country": "India",
+          "reference": 2.7039160105442623,
+          "conditional_mean": 5.012426797548456,
+          "visual_signal": 0.014327,
+          "visible_area": 0.11432865627898503
+        },
+        {
+          "country": "Nepal",
+          "reference": 1.5361565060864084,
+          "conditional_mean": 4.73025,
+          "visual_signal": 0.004211,
+          "visible_area": 0.035608168802455153
+        },
+        {
+          "country": "Pakistan",
+          "reference": 3.145307800098388,
+          "conditional_mean": 5.0691442926580095,
+          "visual_signal": 0.011531,
+          "visible_area": 0.09099210172237018
+        },
+        {
+          "country": "Afghanistan",
+          "reference": 3.331914409213486,
+          "conditional_mean": 4.67186120625982,
+          "visual_signal": 0.003895,
+          "visible_area": 0.03334537114144464
+        },
+        {
+          "country": "Tajikistan",
+          "reference": 2.4672302712408873,
+          "conditional_mean": 4.730493219254389,
+          "visual_signal": 0.002056,
+          "visible_area": 0.01738259546726625
+        },
+        {
+          "country": "Kyrgyzstan",
+          "reference": 3.141752200753549,
+          "conditional_mean": 15.39502809741619,
+          "visual_signal": 0.017908,
+          "visible_area": 0.0465285143765475
+        },
+        {
+          "country": "Turkmenistan",
+          "reference": 3.5391661087460626,
+          "conditional_mean": 5.6055741360469025,
+          "visual_signal": 0.038809,
+          "visible_area": 0.2769308054573812
+        },
+        {
+          "country": "Iran",
+          "reference": 3.146889275650219,
+          "conditional_mean": 4.982067208612238,
+          "visual_signal": 0.010042,
+          "visible_area": 0.08062829118530199
+        },
+        {
+          "country": "Syria",
+          "reference": 3.8086332398965785,
+          "conditional_mean": 4.70334932998966,
+          "visual_signal": 0.027066,
+          "visible_area": 0.2301854962959417
+        },
+        {
+          "country": "Sweden",
+          "reference": 1.9526316562382995,
+          "conditional_mean": 8.09393872726625,
+          "visual_signal": 0.003276,
+          "visible_area": 0.016190423908480345
+        },
+        {
+          "country": "Ukraine",
+          "reference": 5.005644492901065,
+          "conditional_mean": 6.530622303832072,
+          "visual_signal": 0.078335,
+          "visible_area": 0.4797991647573298
+        },
+        {
+          "country": "Poland",
+          "reference": 2.980832717448748,
+          "conditional_mean": 4.868888069063901,
+          "visual_signal": 0.003816,
+          "visible_area": 0.031351919262741244
+        },
+        {
+          "country": "Romania",
+          "reference": 3.1648275108836716,
+          "conditional_mean": 6.18835853527676,
+          "visual_signal": 0.032318,
+          "visible_area": 0.2088984877415082
+        },
+        {
+          "country": "Germany",
+          "reference": 2.2560886330639818,
+          "conditional_mean": 4.718389596368081,
+          "visual_signal": 0.00266,
+          "visible_area": 0.022554182979367024
+        },
+        {
+          "country": "Greece",
+          "reference": 1.9891453474766967,
+          "conditional_mean": 4.936,
+          "visual_signal": 0.001071,
+          "visible_area": 0.008678721488841851
+        },
+        {
+          "country": "Turkey",
+          "reference": 2.386199431322334,
+          "conditional_mean": 4.651311245377771,
+          "visual_signal": 0.003854,
+          "visible_area": 0.03314117547510232
+        },
+        {
+          "country": "Spain",
+          "reference": 1.3222576842364873,
+          "conditional_mean": 5.244577952083036,
+          "visual_signal": 0.001264,
+          "visible_area": 0.009643218232651053
+        },
+        {
+          "country": "New Zealand",
+          "reference": 4.775648842557873,
+          "conditional_mean": 5.472078191395047,
+          "visual_signal": 0.022143,
+          "visible_area": 0.16185857479564628
+        },
+        {
+          "country": "Australia",
+          "reference": 3.252211470131964,
+          "conditional_mean": 5.192545454691585,
+          "visual_signal": 0.025308,
+          "visible_area": 0.19495660027143638
+        },
+        {
+          "country": "People's Republic of China",
+          "reference": 2.78371611248958,
+          "conditional_mean": 5.914717528071774,
+          "visual_signal": 0.023155,
+          "visible_area": 0.15659469924519573
+        },
+        {
+          "country": "Italy",
+          "reference": 2.421556795829106,
+          "conditional_mean": 4.715916044117725,
+          "visual_signal": 0.014935,
+          "visible_area": 0.12667597222869442
+        },
+        {
+          "country": "United Kingdom",
+          "reference": 4.298789548158091,
+          "conditional_mean": 5.14457253921166,
+          "visual_signal": 0.032399,
+          "visible_area": 0.2519059812759773
+        },
+        {
+          "country": "Iceland",
+          "reference": 2.772989089345119,
+          "conditional_mean": 4.9404335304757225,
+          "visual_signal": 0.003654,
+          "visible_area": 0.029587542037145403
+        },
+        {
+          "country": "Philippines",
+          "reference": 1.418623472684283,
+          "conditional_mean": 4.708275617420143,
+          "visual_signal": 0.008204,
+          "visible_area": 0.06969822598204702
+        },
+        {
+          "country": "Malaysia",
+          "reference": 1.0941048505739703,
+          "conditional_mean": 4.113038827901851,
+          "visual_signal": 0.000919,
+          "visible_area": 0.008934097856098212
+        },
+        {
+          "country": "Finland",
+          "reference": 1.6544244075942565,
+          "conditional_mean": 4.980463360538977,
+          "visual_signal": 0.003044,
+          "visible_area": 0.02444695730038511
+        },
+        {
+          "country": "Japan",
+          "reference": 1.6042678993538353,
+          "conditional_mean": 6.676454455264301,
+          "visual_signal": 0.008363,
+          "visible_area": 0.050107176858460126
+        },
+        {
+          "country": "Yemen",
+          "reference": 4.303710696375179,
+          "conditional_mean": 4.86729336013473,
+          "visual_signal": 0.040794,
+          "visible_area": 0.33525036723803014
+        },
+        {
+          "country": "Saudi Arabia",
+          "reference": 3.536123605396878,
+          "conditional_mean": 4.767020683789585,
+          "visual_signal": 0.03922,
+          "visible_area": 0.32909400984712406
+        },
+        {
+          "country": "Antarctica",
+          "reference": 7.813337821374311,
+          "conditional_mean": 8.686342678023747,
+          "visual_signal": 0.153774,
+          "visible_area": 0.7081173183643067
+        },
+        {
+          "country": "Morocco",
+          "reference": 2.2898815556883196,
+          "conditional_mean": 4.742878884287963,
+          "visual_signal": 0.011745,
+          "visible_area": 0.0990549097971982
+        },
+        {
+          "country": "Egypt",
+          "reference": 2.7682991133795793,
+          "conditional_mean": 4.785647075523468,
+          "visual_signal": 0.003189,
+          "visible_area": 0.026658372702739696
+        },
+        {
+          "country": "Libya",
+          "reference": 3.3286019569533734,
+          "conditional_mean": 5.148848315601674,
+          "visual_signal": 0.03995,
+          "visible_area": 0.3103569477404836
+        },
+        {
+          "country": "Ethiopia",
+          "reference": 3.285415476516127,
+          "conditional_mean": 4.863603785504621,
+          "visual_signal": 0.023523,
+          "visible_area": 0.1934627325986657
+        },
+        {
+          "country": "Somaliland",
+          "reference": 5.115786858344935,
+          "conditional_mean": 5.49019949877574,
+          "visual_signal": 0.097648,
+          "visible_area": 0.7114377378608896
+        },
+        {
+          "country": "Uganda",
+          "reference": 2.952160800942907,
+          "conditional_mean": 4.627342985783684,
+          "visual_signal": 0.004281,
+          "visible_area": 0.03700653993961977
+        },
+        {
+          "country": "South Sudan",
+          "reference": 2.227751123038996,
+          "conditional_mean": 4.7415976381313145,
+          "visual_signal": 0.010144,
+          "visible_area": 0.08557088770475198
+        }
+      ],
+      "missing": [
+        {
+          "country": "Democratic Republic of the Congo",
+          "reference": 0.8349923912658564
+        },
+        {
+          "country": "Bolivia",
+          "reference": 1.0665057370459348
+        },
+        {
+          "country": "Ghana",
+          "reference": 2.3405521687931645
+        },
+        {
+          "country": "Ivory Coast",
+          "reference": 1.7641881813875366
+        },
+        {
+          "country": "Guinea",
+          "reference": 1.4902566066227134
+        },
+        {
+          "country": "Burkina Faso",
+          "reference": 2.578750903576498
+        },
+        {
+          "country": "Republic of the Congo",
+          "reference": 0.8226881017679832
+        },
+        {
+          "country": "Gabon",
+          "reference": 0.5002574551348673
+        },
+        {
+          "country": "Zambia",
+          "reference": 1.8719023272622415
+        },
+        {
+          "country": "Angola",
+          "reference": 1.8523719303497461
+        },
+        {
+          "country": "Cambodia",
+          "reference": 1.2505695135125465
+        },
+        {
+          "country": "Thailand",
+          "reference": 1.3242384079549938
+        },
+        {
+          "country": "Laos",
+          "reference": 1.0931834010716863
+        },
+        {
+          "country": "Myanmar",
+          "reference": 1.3049791872895105
+        },
+        {
+          "country": "Belarus",
+          "reference": 1.8821133631712974
+        },
+        {
+          "country": "Paraguay",
+          "reference": 1.1663691903528361
+        }
+      ],
+      "spearman": {
+        "conditional_mean": 0.30170546685386535,
+        "visible_area": 0.8744245273778039,
+        "visual_signal": 0.876187677539426
+      },
+      "missing_reference_ge_3_m_s": []
+    },
+    {
+      "frame": 63,
+      "label": "2026-11-06T23:00",
+      "reference_utc_center": "2026-11-07T04:30:00+00:00",
+      "rows": [
+        {
+          "country": "Tanzania",
+          "reference": 2.2710662552758065,
+          "conditional_mean": 4.477625773286302,
+          "visual_signal": 0.004009,
+          "visible_area": 0.0358124982414864
+        },
+        {
+          "country": "Canada",
+          "reference": 3.3650163533684037,
+          "conditional_mean": 6.23804090011276,
+          "visual_signal": 0.029432,
+          "visible_area": 0.18872897817346648
+        },
+        {
+          "country": "United States of America",
+          "reference": 2.498636015088232,
+          "conditional_mean": 5.6060686866776095,
+          "visual_signal": 0.008926,
+          "visible_area": 0.06368855616435266
+        },
+        {
+          "country": "Kazakhstan",
+          "reference": 4.1426425654310695,
+          "conditional_mean": 5.694552086417039,
+          "visual_signal": 0.050236,
+          "visible_area": 0.3528689496944372
+        },
+        {
+          "country": "Uzbekistan",
+          "reference": 3.5515008474179153,
+          "conditional_mean": 5.262855668723089,
+          "visual_signal": 0.023924,
+          "visible_area": 0.18183467620781849
+        },
+        {
+          "country": "Papua New Guinea",
+          "reference": 1.9242794030152521,
+          "conditional_mean": 4.652544821506909,
+          "visual_signal": 0.003013,
+          "visible_area": 0.025901694203097497
+        },
+        {
+          "country": "Indonesia",
+          "reference": 1.6653242399914985,
+          "conditional_mean": 4.7865799572722585,
+          "visual_signal": 0.001093,
+          "visible_area": 0.009132702148132553
+        },
+        {
+          "country": "Argentina",
+          "reference": 4.174791914911223,
+          "conditional_mean": 6.281213240549988,
+          "visual_signal": 0.056295,
+          "visible_area": 0.35849574670253864
+        },
+        {
+          "country": "Chile",
+          "reference": 2.32754807424268,
+          "conditional_mean": 9.729262273763824,
+          "visual_signal": 0.008362,
+          "visible_area": 0.034380533182798
+        },
+        {
+          "country": "Somalia",
+          "reference": 3.79576108737163,
+          "conditional_mean": 4.647726394341672,
+          "visual_signal": 0.029287,
+          "visible_area": 0.2520516010354264
+        },
+        {
+          "country": "Kenya",
+          "reference": 2.9793763734748597,
+          "conditional_mean": 5.667491095837246,
+          "visual_signal": 0.03084,
+          "visible_area": 0.2176598445898982
+        },
+        {
+          "country": "Sudan",
+          "reference": 4.6615113969950315,
+          "conditional_mean": 5.3094348929814865,
+          "visual_signal": 0.077313,
+          "visible_area": 0.582461025200711
+        },
+        {
+          "country": "Chad",
+          "reference": 3.921081059359469,
+          "conditional_mean": 5.088543764907691,
+          "visual_signal": 0.043651,
+          "visible_area": 0.3431353162495774
+        },
+        {
+          "country": "Russia",
+          "reference": 3.0341956952845006,
+          "conditional_mean": 5.4555545314413285,
+          "visual_signal": 0.026099,
+          "visible_area": 0.19135889162416475
+        },
+        {
+          "country": "Norway",
+          "reference": 2.796622709135109,
+          "conditional_mean": 8.33484862101852,
+          "visual_signal": 0.00867,
+          "visible_area": 0.04161052569670637
+        },
+        {
+          "country": "Greenland",
+          "reference": 5.733487217905934,
+          "conditional_mean": 7.072064013223842,
+          "visual_signal": 0.102488,
+          "visible_area": 0.579675833624031
+        },
+        {
+          "country": "South Africa",
+          "reference": 2.8491459213286023,
+          "conditional_mean": 4.663977992906303,
+          "visual_signal": 0.013796,
+          "visible_area": 0.11831614486476956
+        },
+        {
+          "country": "Mexico",
+          "reference": 2.0853119935528404,
+          "conditional_mean": 4.850873912487665,
+          "visual_signal": 0.010239,
+          "visible_area": 0.08443218978894898
+        },
+        {
+          "country": "Uruguay",
+          "reference": 4.0014761108566885,
+          "conditional_mean": 5.281867959025652,
+          "visual_signal": 0.059716,
+          "visible_area": 0.4522321439026923
+        },
+        {
+          "country": "Brazil",
+          "reference": 1.6166472702393482,
+          "conditional_mean": 4.9071101573862626,
+          "visual_signal": 0.005443,
+          "visible_area": 0.04436746631033551
+        },
+        {
+          "country": "Bolivia",
+          "reference": 1.3529783419329666,
+          "conditional_mean": 4.743710117330826,
+          "visual_signal": 0.001259,
+          "visible_area": 0.010616620314153438
+        },
+        {
+          "country": "Peru",
+          "reference": 0.8646454462165352,
+          "conditional_mean": 5.033813870938084,
+          "visual_signal": 0.002468,
+          "visible_area": 0.0196093297137272
+        },
+        {
+          "country": "Venezuela",
+          "reference": 0.9900195630953957,
+          "conditional_mean": 5.039,
+          "visual_signal": 0.00021,
+          "visible_area": 0.0016702308169842975
+        },
+        {
+          "country": "Guyana",
+          "reference": 1.09197657262801,
+          "conditional_mean": 4.653022171994507,
+          "visual_signal": 0.003434,
+          "visible_area": 0.02952296144074572
+        },
+        {
+          "country": "France",
+          "reference": 1.805796760302921,
+          "conditional_mean": 5.039007599919549,
+          "visual_signal": 0.001727,
+          "visible_area": 0.013709102527801718
+        },
+        {
+          "country": "Zimbabwe",
+          "reference": 3.0681207427994943,
+          "conditional_mean": 4.636990242944414,
+          "visual_signal": 0.009857,
+          "visible_area": 0.08503164757907201
+        },
+        {
+          "country": "Botswana",
+          "reference": 3.720254479779631,
+          "conditional_mean": 4.924552381185203,
+          "visual_signal": 0.032508,
+          "visible_area": 0.2640508426039792
+        },
+        {
+          "country": "Namibia",
+          "reference": 2.862310581035404,
+          "conditional_mean": 4.872033168790397,
+          "visual_signal": 0.025341,
+          "visible_area": 0.20805623842893523
+        },
+        {
+          "country": "Senegal",
+          "reference": 2.9969415139047344,
+          "conditional_mean": 4.645458754793301,
+          "visual_signal": 0.020646,
+          "visible_area": 0.17776958753382177
+        },
+        {
+          "country": "Mali",
+          "reference": 4.3356638080532335,
+          "conditional_mean": 5.129234577484449,
+          "visual_signal": 0.069401,
+          "visible_area": 0.5412187131414207
+        },
+        {
+          "country": "Mauritania",
+          "reference": 3.627900277718521,
+          "conditional_mean": 4.871311802884022,
+          "visual_signal": 0.027808,
+          "visible_area": 0.22833871952689677
+        },
+        {
+          "country": "Niger",
+          "reference": 3.236990745703243,
+          "conditional_mean": 5.700002729012012,
+          "visual_signal": 0.015902,
+          "visible_area": 0.11159502407126579
+        },
+        {
+          "country": "Cameroon",
+          "reference": 0.7742801853036307,
+          "conditional_mean": 34.396,
+          "visual_signal": 0.002806,
+          "visible_area": 0.00326272916665486
+        },
+        {
+          "country": "Burkina Faso",
+          "reference": 2.1311439389958724,
+          "conditional_mean": 4.472999999999999,
+          "visual_signal": 0.001209,
+          "visible_area": 0.010807867601283029
+        },
+        {
+          "country": "Zambia",
+          "reference": 1.9424779573571296,
+          "conditional_mean": 4.682847824530901,
+          "visual_signal": 0.002943,
+          "visible_area": 0.02514063695630729
+        },
+        {
+          "country": "Mozambique",
+          "reference": 2.076070081340198,
+          "conditional_mean": 4.659835780359049,
+          "visual_signal": 0.003939,
+          "visible_area": 0.03381194462733964
+        },
+        {
+          "country": "Angola",
+          "reference": 1.229457051624317,
+          "conditional_mean": 4.62691871918471,
+          "visual_signal": 0.003141,
+          "visible_area": 0.027157978623373887
+        },
+        {
+          "country": "Madagascar",
+          "reference": 3.062165824073044,
+          "conditional_mean": 4.619610040369923,
+          "visual_signal": 0.013669,
+          "visible_area": 0.11835752455968918
+        },
+        {
+          "country": "Tunisia",
+          "reference": 2.1569584260399313,
+          "conditional_mean": 4.606738707922171,
+          "visual_signal": 0.004813,
+          "visible_area": 0.041787546558939626
+        },
+        {
+          "country": "Algeria",
+          "reference": 2.740247527601936,
+          "conditional_mean": 4.665074266328547,
+          "visual_signal": 0.012358,
+          "visible_area": 0.10596485331166351
+        },
+        {
+          "country": "Iraq",
+          "reference": 3.8822341904428983,
+          "conditional_mean": 5.372962178082447,
+          "visual_signal": 0.040833,
+          "visible_area": 0.30398880103940157
+        },
+        {
+          "country": "Oman",
+          "reference": 2.875126228154001,
+          "conditional_mean": 4.618266864023265,
+          "visual_signal": 0.006495,
+          "visible_area": 0.056250693294952414
+        },
+        {
+          "country": "Thailand",
+          "reference": 2.2857393542134936,
+          "conditional_mean": 4.503956638773679,
+          "visual_signal": 0.001653,
+          "visible_area": 0.014677608446421355
+        },
+        {
+          "country": "Laos",
+          "reference": 1.517237716555257,
+          "conditional_mean": 4.524000000000001,
+          "visual_signal": 0.000705,
+          "visible_area": 0.006235942492872189
+        },
+        {
+          "country": "Myanmar",
+          "reference": 1.6083462082965732,
+          "conditional_mean": 34.396,
+          "visual_signal": 0.001881,
+          "visible_area": 0.00218749328199413
+        },
+        {
+          "country": "Vietnam",
+          "reference": 2.294419538289275,
+          "conditional_mean": 5.455247549076742,
+          "visual_signal": 0.011354,
+          "visible_area": 0.08325381292099644
+        },
+        {
+          "country": "North Korea",
+          "reference": 3.202272365908393,
+          "conditional_mean": 5.078097746991941,
+          "visual_signal": 0.01158,
+          "visible_area": 0.09121824329673918
+        },
+        {
+          "country": "Mongolia",
+          "reference": 3.532990974229062,
+          "conditional_mean": 5.6540620647875866,
+          "visual_signal": 0.035628,
+          "visible_area": 0.25205015961817795
+        },
+        {
+          "country": "India",
+          "reference": 2.223881326628743,
+          "conditional_mean": 5.03302405522361,
+          "visual_signal": 0.006478,
+          "visible_area": 0.05148753178135018
+        },
+        {
+          "country": "Pakistan",
+          "reference": 2.0828731829111122,
+          "conditional_mean": 5.082148934315175,
+          "visual_signal": 0.001318,
+          "visible_area": 0.010374750917851594
+        },
+        {
+          "country": "Afghanistan",
+          "reference": 1.9797058288377423,
+          "conditional_mean": 5.139323958590629,
+          "visual_signal": 0.001508,
+          "visible_area": 0.011736930777128039
+        },
+        {
+          "country": "Turkmenistan",
+          "reference": 4.872693988975029,
+          "conditional_mean": 5.377514728720054,
+          "visual_signal": 0.066271,
+          "visible_area": 0.49295136813434975
+        },
+        {
+          "country": "Iran",
+          "reference": 2.5179091895210304,
+          "conditional_mean": 5.067608310629033,
+          "visual_signal": 0.011371,
+          "visible_area": 0.08975630679280973
+        },
+        {
+          "country": "Syria",
+          "reference": 2.8596529422323393,
+          "conditional_mean": 4.524,
+          "visual_signal": 0.000781,
+          "visible_area": 0.00690768423883572
+        },
+        {
+          "country": "Sweden",
+          "reference": 2.4212912979583767,
+          "conditional_mean": 7.037094084505466,
+          "visual_signal": 0.003986,
+          "visible_area": 0.022654450941496
+        },
+        {
+          "country": "Ukraine",
+          "reference": 4.361835709621791,
+          "conditional_mean": 5.213213855633512,
+          "visual_signal": 0.067654,
+          "visible_area": 0.5190988117176465
+        },
+        {
+          "country": "Romania",
+          "reference": 2.4749328204012127,
+          "conditional_mean": 4.646069240578759,
+          "visual_signal": 0.00816,
+          "visible_area": 0.07025081793911009
+        },
+        {
+          "country": "Germany",
+          "reference": 2.489054208809039,
+          "conditional_mean": 4.885007429890781,
+          "visual_signal": 0.001218,
+          "visible_area": 0.009976730791978368
+        },
+        {
+          "country": "Greece",
+          "reference": 1.9569188805141777,
+          "conditional_mean": 5.445064286420553,
+          "visual_signal": 0.006203,
+          "visible_area": 0.04556449419381675
+        },
+        {
+          "country": "Turkey",
+          "reference": 2.1811201918277257,
+          "conditional_mean": 4.718488050547212,
+          "visual_signal": 0.006252,
+          "visible_area": 0.05300223524204084
+        },
+        {
+          "country": "Spain",
+          "reference": 1.6561191549752003,
+          "conditional_mean": 4.833,
+          "visual_signal": 0.000264,
+          "visible_area": 0.0021853356599745005
+        },
+        {
+          "country": "New Zealand",
+          "reference": 2.6915311005329383,
+          "conditional_mean": 4.884220490461808,
+          "visual_signal": 0.01384,
+          "visible_area": 0.11334361056001838
+        },
+        {
+          "country": "Australia",
+          "reference": 4.665287863686727,
+          "conditional_mean": 5.930934394978802,
+          "visual_signal": 0.067346,
+          "visible_area": 0.4541989225434807
+        },
+        {
+          "country": "People's Republic of China",
+          "reference": 3.2632804547210665,
+          "conditional_mean": 5.528245115051591,
+          "visual_signal": 0.028,
+          "visible_area": 0.20259592115913685
+        },
+        {
+          "country": "Italy",
+          "reference": 1.6712079717650592,
+          "conditional_mean": 4.879751348164124,
+          "visual_signal": 0.003056,
+          "visible_area": 0.025050957791716535
+        },
+        {
+          "country": "Iceland",
+          "reference": 4.402316702763336,
+          "conditional_mean": 5.270618121668519,
+          "visual_signal": 0.045171,
+          "visible_area": 0.3428131048652561
+        },
+        {
+          "country": "Philippines",
+          "reference": 3.4118195583446753,
+          "conditional_mean": 5.252262744207929,
+          "visual_signal": 0.025116,
+          "visible_area": 0.1912782288630635
+        },
+        {
+          "country": "Finland",
+          "reference": 2.5287649480641594,
+          "conditional_mean": 4.925245533409187,
+          "visual_signal": 0.003512,
+          "visible_area": 0.028523896206604626
+        },
+        {
+          "country": "Japan",
+          "reference": 6.206963867797396,
+          "conditional_mean": 5.281248037854635,
+          "visual_signal": 0.032634,
+          "visible_area": 0.247167078658624
+        },
+        {
+          "country": "Yemen",
+          "reference": 2.87685182619902,
+          "conditional_mean": 4.717050778258316,
+          "visual_signal": 0.02118,
+          "visible_area": 0.1796028777283933
+        },
+        {
+          "country": "Saudi Arabia",
+          "reference": 4.004173063197868,
+          "conditional_mean": 5.223541129137434,
+          "visual_signal": 0.05328,
+          "visible_area": 0.40800163769084835
+        },
+        {
+          "country": "Antarctica",
+          "reference": 6.914765283856774,
+          "conditional_mean": 7.256916135279782,
+          "visual_signal": 0.121908,
+          "visible_area": 0.6719535898671593
+        },
+        {
+          "country": "Morocco",
+          "reference": 1.7534256586634547,
+          "conditional_mean": 4.524583299333518,
+          "visual_signal": 0.00104,
+          "visible_area": 0.009195585094823457
+        },
+        {
+          "country": "Egypt",
+          "reference": 3.0250869231632884,
+          "conditional_mean": 4.6488264142315066,
+          "visual_signal": 0.005251,
+          "visible_area": 0.045181958508216116
+        },
+        {
+          "country": "Libya",
+          "reference": 2.9718278126137503,
+          "conditional_mean": 4.557886113120157,
+          "visual_signal": 0.012277,
+          "visible_area": 0.10774324643243288
+        },
+        {
+          "country": "Ethiopia",
+          "reference": 2.1560856666256343,
+          "conditional_mean": 4.727101062634604,
+          "visual_signal": 0.012884,
+          "visible_area": 0.10902421957344981
+        },
+        {
+          "country": "Somaliland",
+          "reference": 2.6324228657295206,
+          "conditional_mean": 4.78946008078873,
+          "visual_signal": 0.007534,
+          "visible_area": 0.06292068591902694
+        }
+      ],
+      "missing": [
+        {
+          "country": "Democratic Republic of the Congo",
+          "reference": 0.6431739557651189
+        },
+        {
+          "country": "Colombia",
+          "reference": 0.899101394634761
+        },
+        {
+          "country": "Ecuador",
+          "reference": 0.6460677002282242
+        },
+        {
+          "country": "Nigeria",
+          "reference": 2.028002678048056
+        },
+        {
+          "country": "Ghana",
+          "reference": 1.9875990786950326
+        },
+        {
+          "country": "Ivory Coast",
+          "reference": 1.3618335702485853
+        },
+        {
+          "country": "Guinea",
+          "reference": 0.9958797049751688
+        },
+        {
+          "country": "Central African Republic",
+          "reference": 1.0724420514238304
+        },
+        {
+          "country": "Republic of the Congo",
+          "reference": 0.6212127740011113
+        },
+        {
+          "country": "Gabon",
+          "reference": 0.3993265336942267
+        },
+        {
+          "country": "Cambodia",
+          "reference": 2.149891618850604
+        },
+        {
+          "country": "Nepal",
+          "reference": 1.418869413635635
+        },
+        {
+          "country": "Tajikistan",
+          "reference": 1.7139799609127104
+        },
+        {
+          "country": "Kyrgyzstan",
+          "reference": 1.6550636977521975
+        },
+        {
+          "country": "Belarus",
+          "reference": 2.124645425175066
+        },
+        {
+          "country": "Poland",
+          "reference": 2.030472777996294
+        },
+        {
+          "country": "United Kingdom",
+          "reference": 1.456470321728975
+        },
+        {
+          "country": "Malaysia",
+          "reference": 1.1968879550615037
+        },
+        {
+          "country": "Paraguay",
+          "reference": 1.585086757625776
+        },
+        {
+          "country": "Uganda",
+          "reference": 1.3920504439385066
+        },
+        {
+          "country": "South Sudan",
+          "reference": 2.1689840897716874
+        }
+      ],
+      "spearman": {
+        "conditional_mean": 0.36938304711249925,
+        "visible_area": 0.902728850097271,
+        "visual_signal": 0.8987065566012934
+      },
+      "missing_reference_ge_3_m_s": []
+    },
+    {
+      "frame": 100,
+      "label": "2026-11-11T14:00",
+      "reference_utc_center": "2026-11-11T19:30:00+00:00",
+      "rows": [
+        {
+          "country": "Tanzania",
+          "reference": 2.5499006212776347,
+          "conditional_mean": 4.798438569106345,
+          "visual_signal": 0.008771,
+          "visible_area": 0.07311775232539997
+        },
+        {
+          "country": "Canada",
+          "reference": 3.5348650817776543,
+          "conditional_mean": 6.251100820500386,
+          "visual_signal": 0.030049,
+          "visible_area": 0.19228248321895208
+        },
+        {
+          "country": "United States of America",
+          "reference": 3.0808522954955313,
+          "conditional_mean": 6.248101851018352,
+          "visual_signal": 0.027283,
+          "visible_area": 0.17466209753273873
+        },
+        {
+          "country": "Kazakhstan",
+          "reference": 3.4122754592832893,
+          "conditional_mean": 5.32287265352771,
+          "visual_signal": 0.022638,
+          "visible_area": 0.17011949712878516
+        },
+        {
+          "country": "Uzbekistan",
+          "reference": 3.350248807472453,
+          "conditional_mean": 5.665483978609987,
+          "visual_signal": 0.029402,
+          "visible_area": 0.20758984588600882
+        },
+        {
+          "country": "Papua New Guinea",
+          "reference": 1.000131304221415,
+          "conditional_mean": 4.817194526119725,
+          "visual_signal": 0.002343,
+          "visible_area": 0.01945887426257831
+        },
+        {
+          "country": "Indonesia",
+          "reference": 0.9339865727144117,
+          "conditional_mean": 8.934737057493761,
+          "visual_signal": 0.001294,
+          "visible_area": 0.005791248702235593
+        },
+        {
+          "country": "Argentina",
+          "reference": 4.194573378019517,
+          "conditional_mean": 6.602623631074341,
+          "visual_signal": 0.05411,
+          "visible_area": 0.3278067000180752
+        },
+        {
+          "country": "Chile",
+          "reference": 4.967075944211201,
+          "conditional_mean": 6.447833415248075,
+          "visual_signal": 0.054441,
+          "visible_area": 0.33773075823776766
+        },
+        {
+          "country": "Somalia",
+          "reference": 3.500757203698485,
+          "conditional_mean": 4.941998598663196,
+          "visual_signal": 0.038848,
+          "visible_area": 0.3144315484590988
+        },
+        {
+          "country": "Kenya",
+          "reference": 2.536907185213451,
+          "conditional_mean": 4.640939331945573,
+          "visual_signal": 0.008815,
+          "visible_area": 0.07597361006244382
+        },
+        {
+          "country": "Sudan",
+          "reference": 4.108150296809287,
+          "conditional_mean": 4.670005648532989,
+          "visual_signal": 0.042601,
+          "visible_area": 0.3648910994344158
+        },
+        {
+          "country": "Chad",
+          "reference": 3.5576133102557583,
+          "conditional_mean": 4.680950750267639,
+          "visual_signal": 0.029228,
+          "visible_area": 0.24975984977225257
+        },
+        {
+          "country": "Russia",
+          "reference": 2.3828510775982896,
+          "conditional_mean": 5.511205238199111,
+          "visual_signal": 0.011036,
+          "visible_area": 0.08010123577871872
+        },
+        {
+          "country": "Norway",
+          "reference": 2.22880058302192,
+          "conditional_mean": 9.989790470887886,
+          "visual_signal": 0.008709,
+          "visible_area": 0.034872431961485297
+        },
+        {
+          "country": "Greenland",
+          "reference": 4.902948045870275,
+          "conditional_mean": 6.2704137866243475,
+          "visual_signal": 0.078598,
+          "visible_area": 0.5013926216231583
+        },
+        {
+          "country": "South Africa",
+          "reference": 3.1832759193735036,
+          "conditional_mean": 5.230164893972308,
+          "visual_signal": 0.028757,
+          "visible_area": 0.21993186247348362
+        },
+        {
+          "country": "Mexico",
+          "reference": 2.1080335047701757,
+          "conditional_mean": 4.835985098871647,
+          "visual_signal": 0.001104,
+          "visible_area": 0.00912844414627617
+        },
+        {
+          "country": "Uruguay",
+          "reference": 3.2292003864442127,
+          "conditional_mean": 34.396,
+          "visual_signal": 0.006413,
+          "visible_area": 0.007457727783203036
+        },
+        {
+          "country": "Brazil",
+          "reference": 2.135001868161964,
+          "conditional_mean": 5.644654940329926,
+          "visual_signal": 0.017113,
+          "visible_area": 0.1212693337112245
+        },
+        {
+          "country": "Bolivia",
+          "reference": 2.078864778852607,
+          "conditional_mean": 4.9100832850600495,
+          "visual_signal": 0.013608,
+          "visible_area": 0.11085999995935153
+        },
+        {
+          "country": "Peru",
+          "reference": 2.1876059170963793,
+          "conditional_mean": 5.018332764984849,
+          "visual_signal": 0.018474,
+          "visible_area": 0.14725429612292107
+        },
+        {
+          "country": "Colombia",
+          "reference": 1.1670477492719924,
+          "conditional_mean": 6.066239031294117,
+          "visual_signal": 0.000785,
+          "visible_area": 0.005173099862675704
+        },
+        {
+          "country": "Venezuela",
+          "reference": 1.7521842120456652,
+          "conditional_mean": 4.573057640195084,
+          "visual_signal": 0.007252,
+          "visible_area": 0.0634360454146528
+        },
+        {
+          "country": "Guyana",
+          "reference": 1.4055093974186545,
+          "conditional_mean": 4.936,
+          "visual_signal": 0.000912,
+          "visible_area": 0.0073893973580025606
+        },
+        {
+          "country": "France",
+          "reference": 2.2712198592626573,
+          "conditional_mean": 4.8979513599525015,
+          "visual_signal": 0.00337,
+          "visible_area": 0.02751825657039747
+        },
+        {
+          "country": "Ecuador",
+          "reference": 1.8791036761596935,
+          "conditional_mean": 4.524,
+          "visual_signal": 0.000672,
+          "visible_area": 0.0059385868027911045
+        },
+        {
+          "country": "Botswana",
+          "reference": 2.9212824064388694,
+          "conditional_mean": 4.512278749453688,
+          "visual_signal": 0.001892,
+          "visible_area": 0.01676979180740501
+        },
+        {
+          "country": "Namibia",
+          "reference": 3.39381848787839,
+          "conditional_mean": 5.183233511879406,
+          "visual_signal": 0.024566,
+          "visible_area": 0.1895772361957843
+        },
+        {
+          "country": "Senegal",
+          "reference": 2.59425816119261,
+          "conditional_mean": 5.121287080119549,
+          "visual_signal": 0.004943,
+          "visible_area": 0.0386047426050065
+        },
+        {
+          "country": "Mauritania",
+          "reference": 2.5337999181474737,
+          "conditional_mean": 4.744209052818387,
+          "visual_signal": 0.007951,
+          "visible_area": 0.06703677501479274
+        },
+        {
+          "country": "Niger",
+          "reference": 2.8639821625195685,
+          "conditional_mean": 4.601807414667914,
+          "visual_signal": 0.003845,
+          "visible_area": 0.03341950725460011
+        },
+        {
+          "country": "Nigeria",
+          "reference": 2.2646940911709015,
+          "conditional_mean": 4.6274999999999995,
+          "visual_signal": 0.000379,
+          "visible_area": 0.003277601385227212
+        },
+        {
+          "country": "Mozambique",
+          "reference": 2.06990599320201,
+          "conditional_mean": 4.765916453205258,
+          "visual_signal": 0.002924,
+          "visible_area": 0.024542369263047953
+        },
+        {
+          "country": "Angola",
+          "reference": 1.2854641152431427,
+          "conditional_mean": 4.65720703874167,
+          "visual_signal": 0.00138,
+          "visible_area": 0.011849941646506906
+        },
+        {
+          "country": "Madagascar",
+          "reference": 1.7487355658763246,
+          "conditional_mean": 4.7361671392160325,
+          "visual_signal": 0.004483,
+          "visible_area": 0.0378584009407009
+        },
+        {
+          "country": "Tunisia",
+          "reference": 3.2042814896586918,
+          "conditional_mean": 5.075731207417938,
+          "visual_signal": 0.026503,
+          "visible_area": 0.20886336774283243
+        },
+        {
+          "country": "Algeria",
+          "reference": 3.6525750029459574,
+          "conditional_mean": 6.278683049583062,
+          "visual_signal": 0.033088,
+          "visible_area": 0.21079873803051077
+        },
+        {
+          "country": "Iraq",
+          "reference": 2.542376984424604,
+          "conditional_mean": 4.524,
+          "visual_signal": 0.000333,
+          "visible_area": 0.0029471748499756627
+        },
+        {
+          "country": "Oman",
+          "reference": 2.994766573268271,
+          "conditional_mean": 5.187220031047213,
+          "visual_signal": 0.01491,
+          "visible_area": 0.11497785221961147
+        },
+        {
+          "country": "Cambodia",
+          "reference": 2.040980511315093,
+          "conditional_mean": 4.489863724852625,
+          "visual_signal": 0.002703,
+          "visible_area": 0.024079627950292313
+        },
+        {
+          "country": "Thailand",
+          "reference": 2.864823060329978,
+          "conditional_mean": 4.885520259076545,
+          "visual_signal": 0.015524,
+          "visible_area": 0.12709960428858305
+        },
+        {
+          "country": "Laos",
+          "reference": 1.4010503858376688,
+          "conditional_mean": 4.473,
+          "visual_signal": 0.001397,
+          "visible_area": 0.012494607983222534
+        },
+        {
+          "country": "Myanmar",
+          "reference": 1.530938357642424,
+          "conditional_mean": 4.70105980874571,
+          "visual_signal": 0.003547,
+          "visible_area": 0.030182680338049366
+        },
+        {
+          "country": "Vietnam",
+          "reference": 1.4107080068154452,
+          "conditional_mean": 5.175347516008175,
+          "visual_signal": 0.011861,
+          "visible_area": 0.09167554754678998
+        },
+        {
+          "country": "North Korea",
+          "reference": 2.0703803099606506,
+          "conditional_mean": 5.096685943485856,
+          "visual_signal": 0.002395,
+          "visible_area": 0.018797104470741993
+        },
+        {
+          "country": "Mongolia",
+          "reference": 2.646253922628429,
+          "conditional_mean": 4.855640080139922,
+          "visual_signal": 0.014615,
+          "visible_area": 0.12039356069607353
+        },
+        {
+          "country": "India",
+          "reference": 1.9421673532470087,
+          "conditional_mean": 4.640482689258982,
+          "visual_signal": 0.000878,
+          "visible_area": 0.007564925165234879
+        },
+        {
+          "country": "Pakistan",
+          "reference": 2.141111751105563,
+          "conditional_mean": 4.679007994048105,
+          "visual_signal": 0.000718,
+          "visible_area": 0.006136115038606891
+        },
+        {
+          "country": "Afghanistan",
+          "reference": 2.2921754530510174,
+          "conditional_mean": 5.492479746526833,
+          "visual_signal": 0.008388,
+          "visible_area": 0.06108854170957502
+        },
+        {
+          "country": "Turkmenistan",
+          "reference": 4.9299654597006315,
+          "conditional_mean": 5.4589360393973765,
+          "visual_signal": 0.088516,
+          "visible_area": 0.6485984335292221
+        },
+        {
+          "country": "Iran",
+          "reference": 2.0016771762799905,
+          "conditional_mean": 4.67115062120503,
+          "visual_signal": 0.002854,
+          "visible_area": 0.02443602340867824
+        },
+        {
+          "country": "Sweden",
+          "reference": 1.6684724475280506,
+          "conditional_mean": 4.750273130488015,
+          "visual_signal": 0.001554,
+          "visible_area": 0.013088508089385982
+        },
+        {
+          "country": "Ukraine",
+          "reference": 3.040339033459613,
+          "conditional_mean": 6.328073229888476,
+          "visual_signal": 0.023811,
+          "visible_area": 0.15051132048226254
+        },
+        {
+          "country": "Poland",
+          "reference": 2.775214397843784,
+          "conditional_mean": 4.464849138597133,
+          "visual_signal": 0.002217,
+          "visible_area": 0.019862813130202807
+        },
+        {
+          "country": "Greece",
+          "reference": 2.456430505716195,
+          "conditional_mean": 5.066415223550195,
+          "visual_signal": 0.015087,
+          "visible_area": 0.11911533081760918
+        },
+        {
+          "country": "Turkey",
+          "reference": 1.8552444458070438,
+          "conditional_mean": 4.768252907283621,
+          "visual_signal": 0.003238,
+          "visible_area": 0.027164476710712104
+        },
+        {
+          "country": "Spain",
+          "reference": 4.98624598954541,
+          "conditional_mean": 5.976783118662663,
+          "visual_signal": 0.051351,
+          "visible_area": 0.3436728365791436
+        },
+        {
+          "country": "New Zealand",
+          "reference": 3.862692112587422,
+          "conditional_mean": 6.490178975089182,
+          "visual_signal": 0.017241,
+          "visible_area": 0.10625776937095494
+        },
+        {
+          "country": "Australia",
+          "reference": 2.768537586917323,
+          "conditional_mean": 4.819253715698437,
+          "visual_signal": 0.014625,
+          "visible_area": 0.12138647969305406
+        },
+        {
+          "country": "People's Republic of China",
+          "reference": 1.9145631421837652,
+          "conditional_mean": 5.366403158820608,
+          "visual_signal": 0.007023,
+          "visible_area": 0.05234718944116113
+        },
+        {
+          "country": "Italy",
+          "reference": 2.0851572973618313,
+          "conditional_mean": 4.779442036150911,
+          "visual_signal": 0.011038,
+          "visible_area": 0.09237770305375939
+        },
+        {
+          "country": "United Kingdom",
+          "reference": 3.1245726736015906,
+          "conditional_mean": 4.93458129851583,
+          "visual_signal": 0.011496,
+          "visible_area": 0.09319003061143583
+        },
+        {
+          "country": "Iceland",
+          "reference": 3.5796808543188754,
+          "conditional_mean": 6.1927378142545395,
+          "visual_signal": 0.028279,
+          "visible_area": 0.1826599874980037
+        },
+        {
+          "country": "Philippines",
+          "reference": 2.4629488972719766,
+          "conditional_mean": 4.930045523767588,
+          "visual_signal": 0.018578,
+          "visible_area": 0.15073216307588105
+        },
+        {
+          "country": "Finland",
+          "reference": 1.6350735708926665,
+          "conditional_mean": 4.558668269511031,
+          "visual_signal": 0.000712,
+          "visible_area": 0.0062462963788716365
+        },
+        {
+          "country": "Japan",
+          "reference": 1.846968107783973,
+          "conditional_mean": 8.115721234189827,
+          "visual_signal": 0.01663,
+          "visible_area": 0.08196572109471649
+        },
+        {
+          "country": "Yemen",
+          "reference": 2.4971184084831695,
+          "conditional_mean": 4.916744855859746,
+          "visual_signal": 0.010302,
+          "visible_area": 0.08380940909981913
+        },
+        {
+          "country": "Saudi Arabia",
+          "reference": 4.075592027761586,
+          "conditional_mean": 5.585704834899497,
+          "visual_signal": 0.058544,
+          "visible_area": 0.41924203310370395
+        },
+        {
+          "country": "Antarctica",
+          "reference": 7.877884379299238,
+          "conditional_mean": 8.730019033347917,
+          "visual_signal": 0.174236,
+          "visible_area": 0.7983314042695834
+        },
+        {
+          "country": "Morocco",
+          "reference": 6.352833944199443,
+          "conditional_mean": 6.589073667050473,
+          "visual_signal": 0.078024,
+          "visible_area": 0.47365433888591413
+        },
+        {
+          "country": "Egypt",
+          "reference": 3.213394791282753,
+          "conditional_mean": 4.676620080811409,
+          "visual_signal": 0.019227,
+          "visible_area": 0.16444962762926532
+        },
+        {
+          "country": "Libya",
+          "reference": 3.1755917308334936,
+          "conditional_mean": 4.5606496605465905,
+          "visual_signal": 0.007618,
+          "visible_area": 0.06681670283656126
+        },
+        {
+          "country": "Ethiopia",
+          "reference": 1.747066099400291,
+          "conditional_mean": 5.008196501236898,
+          "visual_signal": 0.004285,
+          "visible_area": 0.03422730977965115
+        },
+        {
+          "country": "Somaliland",
+          "reference": 2.6922920193888937,
+          "conditional_mean": 4.855573735329403,
+          "visual_signal": 0.009849,
+          "visible_area": 0.08113874201875734
+        },
+        {
+          "country": "South Sudan",
+          "reference": 2.0974860967657207,
+          "conditional_mean": 4.626871623336121,
+          "visual_signal": 0.000841,
+          "visible_area": 0.0072696769706242425
+        }
+      ],
+      "missing": [
+        {
+          "country": "Democratic Republic of the Congo",
+          "reference": 0.909908159409651
+        },
+        {
+          "country": "Zimbabwe",
+          "reference": 2.3587750420517737
+        },
+        {
+          "country": "Mali",
+          "reference": 2.4067998125739676
+        },
+        {
+          "country": "Cameroon",
+          "reference": 1.2671152347990413
+        },
+        {
+          "country": "Ghana",
+          "reference": 1.8958614589183558
+        },
+        {
+          "country": "Ivory Coast",
+          "reference": 1.1626149938381718
+        },
+        {
+          "country": "Guinea",
+          "reference": 1.1570361461460108
+        },
+        {
+          "country": "Burkina Faso",
+          "reference": 1.986477249456347
+        },
+        {
+          "country": "Central African Republic",
+          "reference": 1.5248110160567832
+        },
+        {
+          "country": "Republic of the Congo",
+          "reference": 1.1956801553697836
+        },
+        {
+          "country": "Gabon",
+          "reference": 0.873654376237643
+        },
+        {
+          "country": "Zambia",
+          "reference": 1.8355028182073287
+        },
+        {
+          "country": "Nepal",
+          "reference": 1.2328111888800122
+        },
+        {
+          "country": "Tajikistan",
+          "reference": 1.6465565524899317
+        },
+        {
+          "country": "Kyrgyzstan",
+          "reference": 1.510065069013003
+        },
+        {
+          "country": "Syria",
+          "reference": 1.9296132020473886
+        },
+        {
+          "country": "Belarus",
+          "reference": 1.8548508415270066
+        },
+        {
+          "country": "Romania",
+          "reference": 1.8968796923750115
+        },
+        {
+          "country": "Germany",
+          "reference": 1.645180315134629
+        },
+        {
+          "country": "Malaysia",
+          "reference": 0.7976956270238365
+        },
+        {
+          "country": "Paraguay",
+          "reference": 1.554601261217844
+        },
+        {
+          "country": "Uganda",
+          "reference": 1.7758115390643152
+        }
+      ],
+      "spearman": {
+        "conditional_mean": 0.4005495594731949,
+        "visible_area": 0.7782638414217361,
+        "visual_signal": 0.788462064251538
+      },
+      "missing_reference_ge_3_m_s": []
+    }
+  ],
+  "temporal_direction": {
+    "0": {
+      "conditional_mean": {
+        "same_direction": 130,
+        "pairs": 209
+      },
+      "visual_signal": {
+        "same_direction": 170,
+        "pairs": 209
+      }
+    },
+    "0.25": {
+      "conditional_mean": {
+        "same_direction": 101,
+        "pairs": 169
+      },
+      "visual_signal": {
+        "same_direction": 150,
+        "pairs": 169
+      }
+    },
+    "0.5": {
+      "conditional_mean": {
+        "same_direction": 77,
+        "pairs": 117
+      },
+      "visual_signal": {
+        "same_direction": 105,
+        "pairs": 117
+      }
+    },
+    "1": {
+      "conditional_mean": {
+        "same_direction": 36,
+        "pairs": 56
+      },
+      "visual_signal": {
+        "same_direction": 53,
+        "pairs": 56
+      }
+    }
+  }
+}

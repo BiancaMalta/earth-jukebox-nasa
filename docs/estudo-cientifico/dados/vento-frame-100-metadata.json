@@ -1,0 +1,12 @@
+{
+  "frame_index": 99,
+  "image_label": "2026-11-11T14:00",
+  "utc_center": "2026-11-11T19:30:00+00:00",
+  "time_index": 78427,
+  "source_url": "https://opendap.nccs.nasa.gov/dods/GEOS-5/fp/0.25_deg/assim/tavg1_2d_slv_Nx.ascii?u10m[78427][0:5:720][0:4:1151],v10m[78427][0:5:720][0:4:1151]",
+  "units": {
+    "u10m": "m/s",
+    "v10m": "m/s"
+  },
+  "caveat": "Hourly mean centered 30 min after assumed Eastern image label, not exact instantaneous alignment."
+}

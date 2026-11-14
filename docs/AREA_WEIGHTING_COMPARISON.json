@@ -1,0 +1,170 @@
+{
+  "method": "cos(latitude) weights over accepted image pixels; p90 and coverage remain pixel statistics",
+  "reference_frame": "first frame, same supplied timestamp before/after",
+  "tracks": {
+    "clima-temperatura": {
+      "unit": "°C",
+      "date": "2026-10-30T06:00",
+      "global_before": 8.633,
+      "global_after": 15.934,
+      "groups": {
+        "continent:Oceania": {
+          "old_mean": 27.331,
+          "new_mean": 27.649
+        },
+        "continent:Africa": {
+          "old_mean": 29.182,
+          "new_mean": 29.27
+        },
+        "continent:North America": {
+          "old_mean": -3.206,
+          "new_mean": 1.414
+        },
+        "continent:Asia": {
+          "old_mean": 16.903,
+          "new_mean": 18.083
+        },
+        "continent:South America": {
+          "old_mean": 18.308,
+          "new_mean": 18.822
+        },
+        "continent:Europe": {
+          "old_mean": -5.108,
+          "new_mean": -3.185
+        },
+        "continent:Seven seas (open ocean)": {
+          "old_mean": 5.162,
+          "new_mean": 5.166
+        },
+        "continent:Antarctica": {
+          "old_mean": -32.251,
+          "new_mean": -31.99
+        }
+      },
+      "timestamps_preserved": true
+    },
+    "clima-vento": {
+      "unit": "m/s",
+      "date": "2026-10-30T06:00",
+      "global_before": 9.289,
+      "global_after": 9.35,
+      "groups": {
+        "continent:Oceania": {
+          "old_mean": 5.196,
+          "new_mean": 5.195
+        },
+        "continent:Africa": {
+          "old_mean": 5.132,
+          "new_mean": 5.132
+        },
+        "continent:North America": {
+          "old_mean": 7.867,
+          "new_mean": 7.34
+        },
+        "continent:Asia": {
+          "old_mean": 5.53,
+          "new_mean": 5.481
+        },
+        "continent:South America": {
+          "old_mean": 5.33,
+          "new_mean": 5.242
+        },
+        "continent:Europe": {
+          "old_mean": 5.86,
+          "new_mean": 5.881
+        },
+        "continent:Seven seas (open ocean)": {
+          "old_mean": 5.553,
+          "new_mean": 5.553
+        },
+        "continent:Antarctica": {
+          "old_mean": 8.429,
+          "new_mean": 8.686
+        }
+      },
+      "timestamps_preserved": true
+    },
+    "clima-chuva": {
+      "unit": "mm",
+      "date": "2026-10-30T06:00",
+      "global_before": 0.723,
+      "global_after": 0.72,
+      "groups": {
+        "continent:Oceania": {
+          "old_mean": 0.841,
+          "new_mean": 0.834
+        },
+        "continent:Africa": {
+          "old_mean": 0.63,
+          "new_mean": 0.629
+        },
+        "continent:North America": {
+          "old_mean": 0.745,
+          "new_mean": 0.804
+        },
+        "continent:Asia": {
+          "old_mean": 0.705,
+          "new_mean": 0.705
+        },
+        "continent:South America": {
+          "old_mean": 0.645,
+          "new_mean": 0.641
+        },
+        "continent:Europe": {
+          "old_mean": 0.609,
+          "new_mean": 0.62
+        },
+        "continent:Seven seas (open ocean)": {
+          "old_mean": null,
+          "new_mean": null
+        },
+        "continent:Antarctica": {
+          "old_mean": 0.521,
+          "new_mean": 0.529
+        }
+      },
+      "timestamps_preserved": true
+    },
+    "clima-umidade": {
+      "unit": "g/kg",
+      "date": "2026-10-30T06:00",
+      "global_before": 7.919,
+      "global_after": 10.483,
+      "groups": {
+        "continent:Oceania": {
+          "old_mean": 9.203,
+          "new_mean": 9.43
+        },
+        "continent:Africa": {
+          "old_mean": 9.273,
+          "new_mean": 9.435
+        },
+        "continent:North America": {
+          "old_mean": 3.389,
+          "new_mean": 4.589
+        },
+        "continent:Asia": {
+          "old_mean": 7.006,
+          "new_mean": 7.634
+        },
+        "continent:South America": {
+          "old_mean": 13.897,
+          "new_mean": 14.289
+        },
+        "continent:Europe": {
+          "old_mean": 2.397,
+          "new_mean": 2.675
+        },
+        "continent:Seven seas (open ocean)": {
+          "old_mean": 0.396,
+          "new_mean": 0.398
+        },
+        "continent:Antarctica": {
+          "old_mean": 0.144,
+          "new_mean": 0.155
+        }
+      },
+      "timestamps_preserved": true
+    }
+  }
+}

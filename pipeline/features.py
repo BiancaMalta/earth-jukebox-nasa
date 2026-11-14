@@ -28,6 +28,18 @@ FRAME_INTERVAL = timedelta(hours=3)
 # The 5147/5148 animations cross the 2026 Eastern daylight-saving transition.
 DST_END_UTC = datetime(2026, 11, 1, 6, tzinfo=timezone.utc)
 COLOR_MATCH_BATCH_SIZE = 4096
+WIND_SONIFICATION = {"input": "visualSignal", "quantity": "visible wind color signal", "unit": "1"}
+AREA_STATISTICS = {
+    "mean": "area_weighted", "weighting": "cos_latitude",
+    "p90": "unweighted_pixel_percentile", "coverage": "accepted_pixel_fraction",
+}
+
+
+def area_weights(width: int, height: int) -> np.ndarray:
+    """Relative spherical cell area for uniform equirectangular pixel centers."""
+    latitude = 90.0 - (np.arange(height) + 0.5) * 180.0 / height
+    return np.broadcast_to(np.cos(np.deg2rad(latitude))[:, None], (height, width))
+
 
 
 def analysis_mask(width: int, height: int) -> np.ndarray:
@@ -60,19 +72,39 @@ def decode_pixels(pixels: np.ndarray, colorbar: dict, cache: dict) -> np.ndarray
     return values[inverse]
 
 
-def summarize_values(values: np.ndarray, vmin: float, vmax: float) -> dict:
-    """Same pixel weighting, rounding and fixed scale in every spatial scope."""
-    valid = values[np.isfinite(values)]
-    coverage = round(float(valid.size / values.size), 3) if values.size else 0.0
+def summarize_values(values: np.ndarray, vmin: float, vmax: float, weights: np.ndarray | None = None) -> dict:
+    """Shared area-weighted mean, pixel P90, count coverage and fixed scale."""
+    finite = np.isfinite(values)
+    if weights is not None:
+        weights = np.asarray(weights)
+        if weights.shape != values.shape or np.any(~np.isfinite(weights)) or np.any(weights <= 0):
+            raise ValueError("Area weights must be finite, positive and match the pixel array.")
+    valid = values[finite]
+    coverage = round(float(valid.size / values.size), 6) if values.size else 0.0
     if not valid.size:
         return {"mean": None, "p90": None, "norm": None, "coverage": coverage}
-    mean = round(float(np.mean(valid)), 3)
+    mean = round(float(np.average(valid, weights=weights[finite] if weights is not None else None)), 3)
     return {
         "mean": mean,
         "p90": round(float(np.percentile(valid, 90)), 3),
         "norm": round(float(np.clip((mean - vmin) / (vmax - vmin), 0.0, 1.0)), 3),
         "coverage": coverage,
     }
+
+
+def visible_wind_signal(values: np.ndarray, weights: np.ndarray, vmin: float, vmax: float) -> float | None:
+    """Intensity × visible extent, NOT an inferred mean wind speed.
+
+    Unmatched pixels contribute no detected color signal, not measured calm.
+    An entirely unmatched region stays unavailable rather than zero wind.
+    """
+    if vmax <= vmin or values.shape != weights.shape or np.any(~np.isfinite(weights)) or np.any(weights <= 0):
+        raise ValueError("Invalid visual signal scale or weights.")
+    valid = np.isfinite(values)
+    if not np.any(valid):
+        return None
+    normalized = np.clip((values[valid] - vmin) / (vmax - vmin), 0, 1)
+    return round(float(np.sum(weights[valid] * normalized) / np.sum(weights)), 6)
 
 
 def frame_date(
@@ -186,15 +218,18 @@ def generate_features(
     for index, frame_path in enumerate(frame_files):
         with Image.open(frame_path) as image:
             pixels = analysis_pixels(image)
+            weights = area_weights(image.width, image.height)[analysis_mask(image.width, image.height)]
         values = decode_pixels(pixels, colorbar, value_cache)
-        summary = summarize_values(values, vmin, vmax)
+        summary = summarize_values(values, vmin, vmax, weights)
         if summary["mean"] is None:
-            raise ValueError(f"No confidently color-matched pixels in {frame_path.name}.")
+            raise ValueError(f"No pixels accepted by the color filters in {frame_path.name}.")
         frame_feature = {
             "file": frame_path.name,
             "date": frame_date(index, frame_start_utc, frame_interval),
             **summary,
         }
+        if track_id == "clima-vento":
+            frame_feature["visualSignal"] = visible_wind_signal(values, weights, vmin, vmax)
         if pixel_filter is None:
             del frame_feature["coverage"]
         frame_features.append(frame_feature)
@@ -208,6 +243,8 @@ def generate_features(
         "unit": colorbar["unit"],
         "vmin": vmin,
         "vmax": vmax,
+        "statistics": dict(AREA_STATISTICS),
+        **({"sonification": dict(WIND_SONIFICATION)} if track_id == "clima-vento" else {}),
         "frames": frame_features,
     }
 

@@ -1,7 +1,7 @@
 # Earth Jukebox sound mappings
 
 AI-assisted: OpenAI Codex. Front-end engineering notes; the data contract remains
-[FEATURES_CONTRACT.md](../../../docs/FEATURES_CONTRACT.md). No scientific JSON is modified.
+[FEATURES_CONTRACT.md](../../../docs/FEATURES_CONTRACT.md). The audio engine only reads inputs; Python produces their scientific and visual-signal fields.
 
 ## Scientific mappings
 
@@ -9,18 +9,14 @@ AI-assisted: OpenAI Codex. Front-end engineering notes; the data contract remain
   `round(norm * 10)` indexes C3, D3, E3, G3, A3, C4, D4, E4, G4, A4, C5.
   Missing/nonfinite/out-of-range `norm` means silence. No climate anomaly or
   danger interpretation is attached to pitch.
-- Wind (SVS 5148, m/s): consume the supplied `mean` speed `v >= 0` directly.
-  Amplitude-modulation rate is `0.3 + 3.7 * (1 - exp(-v / 12))` Hz. This fixed,
-  monotonic, saturating mapping does not stretch the observed range per track.
-  Zero speed is a valid calm reference; a missing/negative/nonfinite speed or
-  zero valid-pixel coverage means silence, never zero speed.
-  `norm` remains visible as supplied but is not recomputed or used to add notes.
-  Modulation pulses are a sonification code, not measured gusts. Pink-noise
-  waveform randomness does not create additional meteorological events.
-- Wind speed is an image-derived mean over confidently color-matched pixels,
-  with transparency and basemap ambiguities. Coverage is an image-pixel share,
-  not Earth surface area. Neither the mean nor coverage is a whole-Earth field.
-
+- Wind (SVS 5148) now consumes the explicitly supplied dimensionless visualSignal
+  field. Python combines decoded color intensity and detected extent with area
+  weights, without interpreting transparent pixels as measured calm. The rate is
+  `0.3 + 3.7 * (1 - exp(-visualSignal / 0.04))` Hz, fixed across every region/time.
+  No accepted pixels means unavailable and silent. This is a qualitative visual
+  signal code, not a physical-speed estimate. Mean/p90/norm retain their existing
+  diagnostic meanings. The old mean-speed mapping remains for legacy data that
+  do not declare this new mode; it is never a missing-index fallback.
 - Precipitation (SVS 5149, mm): use supplied mean amount `a`, never infer mm/h.
   At `a = 0` the instrument is silent. Positive amounts map to
   `0.5 + 4.5 * (1 - exp(-a / 5))` coded drum strokes/s, bounded by 5.
@@ -37,7 +33,7 @@ AI-assisted: OpenAI Codex. Front-end engineering notes; the data contract remain
   specific humidity is a valid thin-pad reference, not a missing value.
 - All four current datasets are image-derived (`mock: false`), not raw
   numerical GEOS-FP grids. `mean` and `norm` are consumed exactly as supplied.
-  Temperature's current normalized range fits a single pentatonic step (D4);
+  Small normalized changes may stay on one pentatonic step;
   that is preserved rather than artificially stretching the melody.
 
 ## Expressive layer
@@ -46,7 +42,7 @@ Temperature retains one additive, rounded organ voice; a 100 ms attack, smooth
 release, short pitch transition and optional 16% reverb change presentation only.
 Wind uses one fixed C5 flute-like oscillator with quiet, filtered pink-noise
 breath. A 0..1 sine LFO raised to the third power shapes rounded musical pulses
-with quiet gaps; only its frequency follows the unchanged speed mapping. C5 is
+with quiet gaps; only its frequency follows the explicitly declared wind input mapping. C5 is
 an expressive reference, not a second wind-speed mapping or a competing melody.
 A 2600 Hz lowpass and 12% reverb soften the presentation. No geographic stereo
 direction is implied. The LFO never advances dataset frames.
@@ -78,7 +74,7 @@ initialization, behind a silent gate until explicitly played.
 
 The visual player owns time. No instrument has a JavaScript frame timer.
 Legend timers compare explicitly labeled reference values only: temperature
-norm 0/1, wind 5/25 m/s, precipitation 0.5/10 mm, or humidity 0/22 g/kg (visualization scale endpoints). Manual previews and the last frame have bounded
+norm 0/1, wind visual indices 0.01/0.10 (legacy speed data: 5/25 m/s), precipitation 0.5/10 mm, or humidity 0/22 g/kg (visualization scale endpoints). Manual previews and the last frame have bounded
 envelopes; pause, missing data, mute and switching experiences stop the old sound.
 
 ## Mixer and future combination
@@ -146,3 +142,24 @@ of .38, to keep it audible alongside the other layers. Its spectral mapping,
 fixed pitch and gain compensation remain unchanged. Percussion now emphasizes
 a G3 skin and filtered white-noise crack with short, dry windows, rather than
 the earlier low tom. These are synthesized approximations, not drum samples.
+
+
+## Area-weighted data update
+
+Mean values now use cosine-latitude weights over accepted image pixels; norm is
+recomputed by Python from that mean with unchanged legend limits. The same
+instrument mapping therefore follows the revised statistic without an extra
+front-end normalization. P90 remains a pixel percentile, and pixel inclusion
+remains a count ratio. General/regional method metadata must agree; Combined
+Earth refuses to mix legacy equal-pixel and new area-weighted datasets. Whole-
+country groups, including the entire Russia in Europe, are labeled explicitly.
+This does not fix wind transparency bias or precipitation interval ambiguity.
+
+
+The exploratory rank/direction study and graphs are archived in
+[ESTUDO_CIENTIFICO.md](../../../docs/ESTUDO_CIENTIFICO.md). Three sampled instants
+improved country-order Spearman correlation from 0.30–0.40 to 0.79–0.90; direction
+agreed in 105/117 pairs with reference changes above 0.5 m/s, versus 77/117 for
+the old conditional mean. Those samples informed adoption and are not an
+independent test set or a universal quality guarantee. The app labels the index
+accordingly. No numeric GEOS fields are injected into the playback datasets.

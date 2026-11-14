@@ -10,7 +10,7 @@ import numpy as np
 from PIL import Image
 from skimage.draw import polygon as raster_polygon
 
-from features import analysis_mask, decode_pixels, summarize_values
+from features import WIND_SONIFICATION, visible_wind_signal, AREA_STATISTICS, area_weights, analysis_mask, decode_pixels, summarize_values
 
 COLUMNS = ["mean", "p90", "norm", "coverage"]
 
@@ -62,7 +62,7 @@ def regional_groups(geojson: dict) -> dict:
     return groups
 
 
-def generate_regions(track_id: str, data_dir: Path, geojson_path: Path) -> dict:
+def generate_regions(track_id: str, data_dir: Path, geojson_path: Path, update_features: bool = False) -> dict:
     directory = data_dir / track_id
     source = json.loads((directory / "features.json").read_text(encoding="utf-8"))
     colorbar = json.loads((directory / "colorbar.json").read_text(encoding="utf-8"))
@@ -73,6 +73,12 @@ def generate_regions(track_id: str, data_dir: Path, geojson_path: Path) -> dict:
     vmin, vmax = source["vmin"], source["vmax"]
     if not vmin < vmax or (vmin, vmax) != (colorbar["vmin"], colorbar["vmax"]):
         raise ValueError("The global and regional normalization scales must match.")
+    if not update_features and source.get("statistics") != AREA_STATISTICS:
+        raise ValueError("Source mean method is not area-weighted; run with --update-features.")
+    wind_signal = track_id == "clima-vento"
+    if wind_signal and not update_features and source.get("sonification") != WIND_SONIFICATION:
+        raise ValueError("Wind visual-signal metadata is stale; run with --update-features.")
+    columns = COLUMNS + (["visualSignal"] if wind_signal else [])
     frames = source["frames"]
     if not frames:
         raise ValueError("No source frames.")
@@ -80,6 +86,8 @@ def generate_regions(track_id: str, data_dir: Path, geojson_path: Path) -> dict:
     with Image.open(directory / "frames" / frames[0]["file"]) as image:
         width, height = image.size
     included = analysis_mask(width, height)
+    weights = area_weights(width, height)[included]
+    updated_frames = []
     # Indices refer to the same excluded-overlay pixel vector used by features.py.
     indices = {key: np.flatnonzero(region_mask(group["features"], width, height)[included])
                for key, group in groups.items()}
@@ -92,21 +100,35 @@ def generate_regions(track_id: str, data_dir: Path, geojson_path: Path) -> dict:
                 raise ValueError("Frame dimensions changed within a track.")
             pixels = np.asarray(image.convert("RGB"))[included]
         values = decode_pixels(pixels, colorbar, cache)
-        # Detect stale source features, including mismatched filtering/calibration.
-        summary = summarize_values(values, vmin, vmax)
-        for field in COLUMNS:
-            if field in frame and frame[field] != summary[field]:
-                raise ValueError(f"Source {frame['file']} has stale {field}; regenerate features first.")
+        summary = summarize_values(values, vmin, vmax, weights)
+        if wind_signal:
+            summary["visualSignal"] = visible_wind_signal(values, weights, vmin, vmax)
+        if update_features:
+            updated_frames.append({**frame, **summary})
+        else:
+            for field in columns:
+                if field in frame and frame[field] != summary[field]:
+                    raise ValueError(f"Source {frame['file']} has stale {field}; regenerate features first.")
         for key, offsets in indices.items():
-            stats = summarize_values(values[offsets], vmin, vmax)
-            regions[key]["values"].append([stats[column] for column in COLUMNS])
+            stats = summarize_values(values[offsets], vmin, vmax, weights[offsets])
+            if wind_signal:
+                stats["visualSignal"] = visible_wind_signal(values[offsets], weights[offsets], vmin, vmax)
+            regions[key]["values"].append([stats[column] for column in columns])
         if index % 10 == 9 or index == len(frames) - 1:
             print(f"{track_id}: {index + 1}/{len(frames)} frames, {len(regions)} regions", flush=True)
+    if update_features:
+        source = {**source, "statistics": dict(AREA_STATISTICS), "frames": updated_frames, **({"sonification": dict(WIND_SONIFICATION)} if wind_signal else {})}
+        temporary = directory / "features.json.tmp"
+        temporary.write_text(json.dumps(source, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+        temporary.replace(directory / "features.json")
+        frames = updated_frames
     return {
-        "schemaVersion": 1, "track": track_id, "svsId": source["svsId"],
+        "schemaVersion": 3 if wind_signal else 2, "track": track_id, "svsId": source["svsId"],
         "mock": False, "unit": source["unit"], "vmin": vmin, "vmax": vmax,
-        "method": "image-derived; equal pixel weights; pixel-center boundaries; shared pipeline filters",
-        "frames": frames, "columns": COLUMNS, "regions": regions,
+        "method": "image-derived; cosine-latitude area-weighted mean; pixel-center boundaries; shared pipeline filters",
+        "statistics": dict(AREA_STATISTICS),
+        **({"sonification": dict(WIND_SONIFICATION)} if wind_signal else {}),
+        "frames": frames, "columns": columns, "regions": regions,
     }
 
 
@@ -115,10 +137,11 @@ def main() -> None:
     parser.add_argument("--track", action="append", help="Repeat to select tracks; default: all published tracks.")
     parser.add_argument("--data-dir", type=Path, default=Path("public/data"))
     parser.add_argument("--geojson", type=Path, default=Path("public/data/world-countries.geojson"))
+    parser.add_argument("--update-features", action="store_true", help="Recompute full-frame and regional statistics together, preserving frame dates.")
     args = parser.parse_args()
     tracks = args.track or json.loads(Path("public/tracks/index.json").read_text())["tracks"]
     for track in tracks:
-        result = generate_regions(track, args.data_dir, args.geojson)
+        result = generate_regions(track, args.data_dir, args.geojson, args.update_features)
         target = args.data_dir / track / "regions.json"
         temporary = target.with_suffix(".json.tmp")
         temporary.write_text(json.dumps(result, ensure_ascii=False, separators=(",", ":"), allow_nan=False) + "\n", encoding="utf-8")

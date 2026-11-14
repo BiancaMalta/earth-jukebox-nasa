@@ -61,3 +61,13 @@ test('published regional tables match all four source datasets and provide every
     }
   }
 });
+
+
+test('regional tables cannot silently mix area-weighted and legacy pixel means',()=>{
+ const statistics={mean:'area_weighted',weighting:'cos_latitude',p90:'unweighted_pixel_percentile',coverage:'accepted_pixel_fraction'};
+ const weighted={...source,statistics};
+ const data=fixture();data.statistics=statistics;
+ assert.throws(()=>validateRegionalFeatures(data,track,weighted));
+ data.schemaVersion=2;assert.doesNotThrow(()=>validateRegionalFeatures(data,track,weighted));
+ assert.throws(()=>validateRegionalFeatures(data,track,source));
+});

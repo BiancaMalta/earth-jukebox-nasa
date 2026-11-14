@@ -329,7 +329,7 @@ test("frame presentation preserves zero values and explains missing values witho
   const reading = describeReading(frame);
   assert.equal(reading.mean, "0.0 °C");
   assert.equal(reading.note, "C3");
-  assert.equal(reading.normalized, "0.00 / 1.00");
+  assert.equal(reading.normalized, "0.000 / 1.000");
   assert.match(reading.timeLabel, /time zone not specified/);
   assert.equal(describeReading({ ...frame, norm: 1 }).note, "C5");
   for (const value of [null, undefined, "0", NaN, Infinity]) {
@@ -362,9 +362,9 @@ test("wind readings use their own measure, unit and visible-pixel coverage", () 
     },
   );
   assert.equal(reading.mean, "9.29 m/s");
-  assert.equal(reading.measure, "Mean of confidently color-matched wind pixels");
+  assert.equal(reading.measure, "Mean of color-filtered wind pixels");
   assert.match(reading.summary, /9\.29 meters per second/);
-  assert.match(reading.summary, /48\.3% of analyzed pixels/);
+  assert.match(reading.summary, /48\.3% of analyzed image pixels/);
 });
 
 test("normalization limits are displayed only when both supplied limits form a valid range", () => {
@@ -492,7 +492,7 @@ test("rainfall and humidity datasets use their own mappings, units and partial c
     const experience = describeExperience(track), reading = describeReading(data.frames[0], track);
     assert.equal(soundKind(track), kind); assert.equal(experience.kind, kind);
     assert.equal(reading.sound.kind, kind); assert.equal(reading.soundLabel, label);
-    assert.ok(reading.mean.endsWith(track.unit)); assert.match(reading.coverageDetail, /analyzed pixels/);
+    assert.ok(reading.mean.endsWith(track.unit)); assert.match(reading.coverageDetail, /analyzed image pixels/);
     assert.equal(reading.note, null, "Neither quantity reuses temperature pitch mapping");
     assert.equal(mapFrameSound({ ...data.frames[0], mean: null }, track), null);
     assert.equal(mapFrameSound({ ...data.frames[0], coverage: 0 }, track), null);
