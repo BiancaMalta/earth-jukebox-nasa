@@ -1,7 +1,7 @@
 // AI-assisted: OpenAI Codex
 import { fetchJSON, describeDate } from "./data/features.js";
 import { initPlayer } from "./ui/player.js";
-import { describeReading, renderReading } from "./ui/readings.js";
+import { describeReading, renderReading, describePixelFilters } from "./ui/readings.js";
 import { createAudioEngine } from "./engine/audio.js";
 import { mapFrameSound, soundKind } from "./engine/mapping.js";
 import { describeExperience, renderExperience } from "./ui/experience.js";
@@ -101,7 +101,7 @@ function releaseSound() {
 
 const legend = createLegend({
   audio, speech, enableAudio,
-  getKind: () => soundKind(player?.currentTrack),
+  getKind: () => player?.currentTrack?.sonification?.input === "visualSignal" ? "windVisual" : soundKind(player?.currentTrack),
   onBeforeStart: () => { player?.pause("Playback paused for the sound legend."); releaseSound(); },
   onState: (active) => {
     combined.setLegendMode(active);
@@ -193,6 +193,10 @@ function onFrame(frame, index, total, reason, track) {
 try {
   player = initPlayer(await fetchJSON("tracks/index.json"), {
     onTrackData: (context) => {
+      document.getElementById("pixel-filter-method").textContent = describePixelFilters(context.colorbar);
+      document.getElementById("mean-weighting-method").textContent = context.data.statistics?.mean === "area_weighted"
+        ? "Mean = sum(decoded value × cosine latitude) ÷ sum(cosine latitude), using accepted pixels only. P90 remains an unweighted pixel percentile. Pixel inclusion remains a pixel-count ratio, not an area percentage."
+        : "This dataset uses equal weights per decoded pixel. Its mean has not been area-weighted.";
       regions ??= initRegionalExplorer({ onSelection: () => { audio.stop(); updateRegionalReading(); }, onValueChange: () => {
         updateRegionalReading();
         if (player?.isPlaying && !legend.active) {

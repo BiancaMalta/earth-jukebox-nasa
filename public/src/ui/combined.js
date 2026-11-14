@@ -4,6 +4,7 @@ import { validateRegionalFeatures } from "../data/regions.js";
 import { indexTimeline, combinedFrames } from "../data/combined.js";
 import { soundKind, mapFrameSound } from "../engine/mapping.js";
 import { describeReading } from "./readings.js";
+import { regionDisplayName } from "./regions.js";
 
 const LAYERS = [
   ["clima-temperatura", "temperature", "Temperature · organ"],
@@ -35,11 +36,11 @@ export function initCombined({ audio, getFrame, getRegion, onChange }) {
       const track = await fetchJSON(`tracks/${id}.json`, controller.signal);
       const directory = new URL(track.frames.endsWith("/") ? track.frames : `${track.frames}/`, document.baseURI);
       const data = validateFeatures(await fetchJSON(new URL("../features.json", directory), controller.signal), id, track.unit ?? track.colorbar?.unit);
-      const activeTrack = { ...track, unit: data.unit };
+      const activeTrack = { ...track, unit: data.unit, statistics: data.statistics, sonification: data.sonification };
       if (soundKind(activeTrack) !== kind) throw new Error(`Unexpected instrument for ${id}.`);
       const regional = validateRegionalFeatures(await fetchJSON(new URL("../regions.json", directory), controller.signal), activeTrack, data);
-      return { track: activeTrack, timeline: indexTimeline(data.frames), regional, mock: data.mock };
-    })).then((result) => { if (!destroyed) datasets = result; return result; }).finally(() => { pending = null; });
+      return { track: activeTrack, timeline: indexTimeline(data.frames), regional, mock: data.mock, statistics: data.statistics, sonification: data.sonification };
+    })).then((result) => { if (result.some(entry => JSON.stringify(entry.statistics) !== JSON.stringify(result[0].statistics))) throw new Error("Datasets have different mean methods. Finish regenerating all four tracks before combining."); if (!destroyed) datasets = result; return result; }).finally(() => { pending = null; });
     return pending;
   }
   function entries(frame = getFrame()) {
@@ -48,10 +49,10 @@ export function initCombined({ audio, getFrame, getRegion, onChange }) {
   function render(frame = getFrame()) {
     if (!toggle.checked) return;
     const region = getRegion();
-    scope.textContent = `${region ? region.slice(region.indexOf(":") + 1) : "Full-frame values"} · ${frame?.date ?? "No frame selected"}. The image and main reading show the selected visual experience.`;
+    scope.textContent = `${region ? regionDisplayName(region) : "Full-frame values"} · ${frame?.date ?? "No frame selected"}. The image and main reading show the selected visual experience.`;
     for (const { track, frame: value } of entries(frame)) {
       const reading = describeReading(value, track), kind = soundKind(track);
-      document.getElementById(`reading-${kind}`).textContent = `${reading.mean} · ${reading.soundValue}${!mapFrameSound(value, track) ? " · silent" : ""}`;
+      document.getElementById(`reading-${kind}`).textContent = `${reading.mean} · ${reading.soundValue} · ${reading.coverageDetail}${!mapFrameSound(value, track) ? " · silent" : ""}`;
     }
   }
   toggle.addEventListener("change", async () => {

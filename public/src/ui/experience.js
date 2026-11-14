@@ -12,7 +12,7 @@ export function describeExperience(track) {
       mapping: "This dataset is available for visual playback. A dedicated sound identity has not been assigned yet; it does not use the temperature instrument.",
       low: "Lower value", lowDetail: "See the dataset readings", high: "Higher value", highDetail: "See the dataset readings",
       scale: "The normalized value is shown as supplied. No note or pulse rate is inferred for this experience.",
-      readings: "Read the selected dataset's measure, unit and timestamp below the image. Values are derived from visualization pixels and are not automatically whole-Earth averages. Coverage describes confidently matched image pixels.",
+      readings: "Read the selected dataset's measure, unit and timestamp below the image. Values are derived from visualization pixels and are not automatically whole-Earth averages. Coverage describes color-filtered image pixels.",
       normalization: "The normalized value and its limits come from the dataset. No sonification has been implemented for this quantity yet.",
       caveat: "Image-derived values. Use the stated dataset measure and pixel coverage; no whole-Earth average or new sound mapping is assumed.",
       legend: "A sound legend is not available for this experience yet.",
@@ -26,9 +26,9 @@ export function describeExperience(track) {
     mapping: "More supplied precipitation in millimeters produces more crisp drum strokes per second. The carrier stays at G3; pulse density, not pitch or loudness, carries the amount.",
     low: "Slower strokes", lowDetail: "0.5 mm example", high: "Faster strokes", highDetail: "10 mm example",
     scale: "Zero amount is silent. Positive amounts map to 0.5–5 coded drum strokes per second. These are musical symbols, not recorded raindrops or measured rainfall intensity.",
-    readings: "The supplied amount is in millimeters, not millimeters per hour. Its accumulation interval is not stated in this JSON. The visualization includes total precipitation, including rain and snow. The mean uses confidently color-matched pixels only, not the whole Earth.",
+    readings: "The supplied amount is in millimeters, not millimeters per hour. Its accumulation interval is not stated in this JSON. The visualization includes total precipitation, including rain and snow. The mean uses color-filtered pixels only, not the whole Earth.",
     normalization: "Sound uses mean amount a in mm directly: zero is silent; positive amounts use 0.5 + 4.5 × (1 − exp(−a / 5)) strokes/s. The normalized value remains as supplied. Missing amount or zero pixel coverage produces silence.",
-    caveat: "Image-derived precipitation estimate. Colored precipitation overlays clouds and the basemap; only confidently matched pixels contribute. Coverage is the analyzed image-pixel share, not the land area receiving rain. No whole-Earth average or mm/hour conversion is assumed.",
+    caveat: "Image-derived precipitation estimate. Colored precipitation overlays clouds and the basemap; only color-filtered pixels contribute. Coverage is the analyzed image-pixel share, not the land area receiving rain. No whole-Earth average or mm/hour conversion is assumed.",
     legend: "A five-second comparison of 0.5 mm and 10 mm reference amounts, not the current frame. Higher amount means faster drum strokes. The legend pauses playback.",
     exampleSpeech: "Lower precipitation amount means slower drum strokes. Higher amount means faster drum strokes. These are millimeters, not millimeters per hour.",
   };
@@ -39,11 +39,24 @@ export function describeExperience(track) {
     mapping: "Higher supplied specific humidity opens the harmonics of a sustained string-like pad, from dark and thin to bright and rich. Its C3 pitch and gentle detuning stay fixed.",
     low: "Dark, thin strings", lowDetail: "0 g/kg reference", high: "Bright, rich strings", highDetail: "22 g/kg reference",
     scale: "Specific humidity controls nominal filter bandwidth from 160 to 1600 Hz. This is a sound parameter, not a second humidity unit or a pitch mapping.",
-    readings: "Specific humidity is supplied in grams of water vapor per kilogram of air, not relative humidity in percent. Values are estimated from confidently color-matched pixels. Image-pixel coverage is not the proportion of Earth's area with high humidity.",
+    readings: "Specific humidity is supplied in grams of water vapor per kilogram of air, not relative humidity in percent. Values are estimated from color-filtered pixels. Image-pixel coverage is not the proportion of Earth's area with high humidity.",
     normalization: "For supplied mean specific humidity q in g/kg, nominal bandwidth = 160 + 1440 × (1 − exp(−q / 12)) Hz. The pad also opens a low-pass filter with cutoff 180 × 20^((bandwidth − 160) / 1440) Hz to reveal string harmonics, with gain compensation. This fixed expressive transfer is shared by frames and the legend. The provided norm is not recalculated. Missing values or zero pixel coverage produce silence.",
     caveat: "Image-derived specific-humidity estimate in g/kg. This is not a direct GEOS-FP numerical field or a relative-humidity percentage. High specific humidity does not by itself imply precipitation.",
     legend: "A five-second comparison of 0 g/kg and 22 g/kg reference values at the visualization scale endpoints, not the current frame. Higher specific humidity means richer string harmonics. The legend pauses playback.",
     exampleSpeech: "Lower specific humidity means dark, thin strings. Higher specific humidity means brighter, richer strings, not rainfall.",
+  };
+  if (kind === "wind" && track?.sonification?.input === "visualSignal") return {
+    kind, name: "Wind", instrument: "Airy pulsed flute",
+    character: "Fixed C5 · intensity and extent of visible wind colors",
+    heading: "Visible wind patterns become rhythm",
+    mapping: "Stronger and more extensive detected wind colors produce faster pulses. The visual signal index is a qualitative image measure, not average wind speed in m/s.",
+    low: "Less visible signal", lowDetail: "Index 0.01 reference", high: "More visible signal", highDetail: "Index 0.10 reference",
+    scale: "The same fixed visual index and 0.3–4 Hz transfer apply to every country, group and frame. Values are not stretched separately per region.",
+    readings: "The visual index combines the intensity of accepted colors with their latitude-weighted extent. The conditional mean in m/s is shown only as a diagnostic. Transparent areas are unknown wind, not measured calm. No accepted pixels means unavailable, not zero wind.",
+    normalization: "Python computes visualSignal = sum(area weight × accepted pixel's position on the wind legend) / sum(analyzed area weights). Mean and norm retain their original meanings separately. Pulse rate = 0.3 + 3.7 × (1 − exp(−visualSignal / 0.04)) Hz.",
+    caveat: "Qualitative image-derived wind signal. Transparency and the basemap still hide some winds. A three-instant comparison improved country ordering versus the old conditional mean; it does not validate every country or time. Silence for missing values does not mean no wind.",
+    legend: "A five-second comparison of visual indices 0.01 and 0.10, not current measurements or m/s. The legend pauses playback.",
+    exampleSpeech: "More intense and extensive visible wind colors mean faster pulses. This index is not physical wind speed. Missing colors do not prove calm wind.",
   };
   const wind = kind === "wind";
   return wind ? {
@@ -53,7 +66,7 @@ export function describeExperience(track) {
     mapping: "Higher supplied mean wind speed makes an airy flute-like tone pulse faster. Pitch stays at C5; pulse rate, not melody or loudness, carries wind speed.",
     low: "Slower pulse", lowDetail: "5 m/s example", high: "Faster pulse", highDetail: "25 m/s example",
     scale: "Speed maps monotonically to 0.3–4 musical pulses per second (Hz). A fixed C5 carrier adds tone; it does not encode wind speed. These pulses are a sound code, not measured gusts.",
-    readings: "This is an image-derived estimate of near-surface wind speed at about 10 meters. The mean uses only confidently color-matched pixels, not the whole Earth. Coverage is a fraction of analyzed image pixels, not a fraction of Earth's surface area. No wind direction is encoded.",
+    readings: "This is an image-derived estimate of near-surface wind speed at about 10 meters. The mean uses only color-filtered pixels, not the whole Earth. Coverage is a fraction of analyzed image pixels, not a fraction of Earth's surface area. No wind direction is encoded.",
     normalization: "The supplied normalized value is shown for reference. The sound uses mean speed in m/s directly: rate = 0.3 + 3.7 × (1 − exp(−speed / 12)) Hz. Missing speed or zero valid-pixel coverage produces silence. Small speed changes can sound very similar.",
     caveat: "Image-derived wind estimate. Transparent low speeds and overlap with the basemap exclude many pixels. This is not a full global mean or a direct numerical GEOS-FP field. Comparison with GEOS-FP remains pending.",
     legend: "A five-second comparison of 5 m/s and 25 m/s examples, not the current frame. Higher speed means faster musical pulses. The legend pauses the player.",
@@ -65,9 +78,9 @@ export function describeExperience(track) {
     mapping: "Lower normalized temperatures become lower notes. Higher values become higher notes. The melody follows the supplied values without adding dramatic events.",
     low: "Lower value", lowDetail: "Lower pitch · C3", high: "Higher value", highDetail: "Higher pitch · C5",
     scale: "The 11 notes follow a C major pentatonic scale across two octaves. Different values can share a note; no artificial melody is added. One temperature voice plays at a time.",
-    readings: "The supplied mean temperature sets one note for the dataset time, not a temperature at one location. These weather values are not historical climate anomalies; a higher note is not a danger rating.",
+    readings: "The image-pixel mean temperature sets one note for the selected frame and region. The current mean method is explained below; area weighting still applies only to decoded pixels used. These weather values are not historical climate anomalies; a higher note is not a danger rating.",
     normalization: "The supplied normalized value ranges from 0 to 1. Zero maps to C3; one maps to C5. Intermediate values select the nearest step in the 11-note scale. The front end does not recalculate this value. It is not a percentage of the Earth.",
-    caveat: "Image-derived temperature estimate decoded from visualization pixels. This is not a direct numerical GEOS-FP field or an area-weighted global average. Small variations can remain on the same pentatonic note.", legend: "A five-second low-to-high pitch comparison using reference values 0 and 1, not the current frame. The legend pauses the player.",
+    caveat: "Image-derived temperature estimate decoded from visualization pixels. This is not a direct numerical GEOS-FP field or a complete global field. Small variations can remain on the same pentatonic note.", legend: "A five-second low-to-high pitch comparison using reference values 0 and 1, not the current frame. The legend pauses the player.",
     exampleSpeech: "Lower temperature values mean lower pitch. Higher temperature values mean higher pitch.",
   };
 }

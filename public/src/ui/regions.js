@@ -1,10 +1,20 @@
 // AI-assisted: OpenAI Codex
+import { describePixelCoverage } from "./readings.js";
 import { fetchJSON } from "../data/features.js";
 import { validateRegionalFeatures, regionalFrame } from "../data/regions.js";
 
 const GEOJSON_URL = "data/world-countries.geojson";
 const SVG_NS = "http://www.w3.org/2000/svg";
 const WIDTH = 1024, HEIGHT = 512;
+
+export function regionDisplayName(key) {
+  if (key === "continent:Seven seas (open ocean)") return "Oceanic island territories (land only)";
+  const name = key.slice(key.indexOf(":") + 1);
+  if (key === "continent:Europe") return "Europe country group (includes all Russia)";
+  if (key === "continent:Asia") return "Asia country group (excludes Russia)";
+  return key.startsWith("continent:") ? `${name} country group` : name;
+}
+
 
 function polygons(geometry) {
   if (geometry?.type === "Polygon") return [geometry.coordinates];
@@ -54,13 +64,17 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
     return level.value === "continent" ? continentSelect.value : countrySelect.selectedOptions[0]?.textContent;
   }
 
+  function selectedDisplayName() {
+    return regionDisplayName(`${level.value}:${selectedName()}`);
+  }
+
   function updateFrame(index) {
     currentIndex = index;
     if (!selectedFeatures.length) return;
     const point = series[index];
     currentText.textContent = !point || point[0] === null
-      ? `${selectedName()}: no regional value is available for this frame. Regional audio is silent.`
-      : `${selectedName()}, ${activeData.frames[index]?.date ?? `frame ${index + 1}`}: ${formatNumber(point[0], activeData.unit)}. ${(point[3] * 100).toFixed(1)}% of the region has valid decoded pixels; playback sounds this regional value.`;
+      ? `${selectedDisplayName()}: no regional value is available for this frame. Regional audio is silent.`
+      : `${selectedDisplayName()}, ${activeData.frames[index]?.date ?? `frame ${index + 1}`}: ${formatNumber(point[0], activeData.unit)}. ${describePixelCoverage(point[3])} within this region; playback sounds this regional value.`;
   }
 
   function setGeometry(features) {
@@ -80,7 +94,7 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
     if (!selectedFeatures.length) return { frame, track: activeTrack, selected: false };
     return {
       frame: regionalFrame(frame, series[index]),
-      track: { ...activeTrack, measure: `${selectedName()} mean` },
+      track: { ...activeTrack, measure: `${selectedDisplayName()} · ${activeTrack.statistics?.mean === "area_weighted" ? "area-weighted image mean" : "image-pixel mean"}` },
       selected: true,
     };
   }
@@ -92,7 +106,8 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
     const signal = controller.signal;
     const name = selectedName();
     const key = `${level.value}:${name}`;
-    status.textContent = `Loading Python-calculated values for ${name}…`;
+    const displayName = selectedDisplayName();
+    status.textContent = `Loading Python-calculated values for ${displayName}…`;
     series = [];
     updateFrame(currentIndex);
     onValueChange();
@@ -104,7 +119,7 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
       regionalData = data;
       if (!Object.hasOwn(data.regions, key)) throw new Error("This region has no precomputed data.");
       series = data.regions[key].values;
-      status.textContent = `${name}: Python-calculated regional values are ready. Playback now uses this region.`;
+      status.textContent = `${displayName}: Python-calculated regional values are ready. Playback now uses this region.`;
       updateFrame(currentIndex);
       onValueChange();
     } catch (error) {
@@ -125,12 +140,12 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
     }
     if (id !== requestId) return;
     root.hidden = !geojson || data.mock || data.vmin === null || data.vmax === null;
-    status.textContent = root.hidden ? "Regional exploration is unavailable for this visualization." : "Choose a continent to focus and hear its regional values.";
+    status.textContent = root.hidden ? "Regional exploration is unavailable for this visualization." : "Choose a country group to focus and hear its regional values.";
     setGeometry([]);
     if (!root.hidden) {
-      continentSelect.replaceChildren(new Option("Choose a continent", ""));
+      continentSelect.replaceChildren(new Option("Choose a country group", ""));
       const names = [...new Set(geojson.features.map((feature) => feature.properties.CONTINENT).filter(Boolean))].sort();
-      for (const name of names) continentSelect.add(new Option(name, name));
+      for (const name of names) continentSelect.add(new Option(regionDisplayName(`continent:${name}`), name));
       countrySelect.replaceChildren(new Option("Choose a country", ""));
       countrySelect.disabled = true;
       currentText.textContent = "No region selected. Playback uses the full-frame value.";

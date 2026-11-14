@@ -3,20 +3,38 @@ import { describeDate, isFiniteNumber } from "../data/features.js";
 import { mapFrameSound, soundKind } from "../engine/mapping.js";
 
 // Presentation only: preserve the provided speed, normalization and timestamps.
+export function describePixelCoverage(value) {
+  if (!isFiniteNumber(value) || value < 0 || value > 1) return "Pixel inclusion unavailable";
+  const percent = value * 100;
+  const text = value > 0 && percent < 0.1 ? "<0.1%" : value < 1 && percent > 99.9 ? ">99.9%" : `${percent.toFixed(1)}%`;
+  return `${text} of analyzed image pixels used`;
+}
+
+export function describePixelFilters(colorbar) {
+  if (!colorbar) return "Color-filter settings unavailable; pixel inclusion does not establish measurement accuracy.";
+  const filter = colorbar.pixelFilter;
+  if (!filter) return "No color acceptance filter is configured: each analyzed pixel is assigned its nearest legend color. 100% inclusion does not mean 100% accuracy.";
+  if (!isFiniteNumber(filter.maxColorDistance) || filter.maxColorDistance < 0 || !isFiniteNumber(filter.minSaturation) || filter.minSaturation < 0 || filter.minSaturation > 255) return "Color-filter settings unavailable; pixel inclusion does not establish measurement accuracy.";
+  return `Pixels are assigned the nearest legend color and kept when RGB distance is at most ${filter.maxColorDistance} and saturation is at least ${filter.minSaturation} on a 0–255 scale.${isFiniteNumber(filter.maxValue) ? ` Decoded values must also be at most ${filter.maxValue} ${colorbar.unit}.` : ""} These are processing thresholds, not confidence probabilities.`;
+}
+
 export function describeReading(frame, track) {
   const date = describeDate(frame?.date);
   const [dateLabel, timeLabel] = date ? date.split(" at ") : ["Unavailable", "No valid timestamp supplied"];
+  const visualWind = track?.sonification?.input === "visualSignal";
   const kind = soundKind(track), sound = mapFrameSound(frame, track), wind = kind === "wind";
   const visualOnly = kind === null, nonTemperature = kind !== "temperature";
   const unit = track?.unit ?? track?.colorbar?.unit ?? "°C";
   const quantity = typeof track?.quantity === "string" ? track.quantity : track?.quantity?.en ?? (wind ? "wind speed" : "temperature");
-  const measure = typeof track?.measure === "string" ? track.measure : track?.measure?.en ?? (wind ? "Mean of confidently color-matched wind pixels" : "Mean temperature");
+  const sourceMeasure = typeof track?.measure === "string" ? track.measure : track?.measure?.en ?? (wind ? "Mean of color-filtered wind pixels" : "Mean temperature");
+  const neutralMeasure = sourceMeasure.replace(/confidently color-matched|confidently matched/g, "color-filtered");
+  const measure = track?.statistics?.mean === "area_weighted" && !neutralMeasure.includes("area-weighted") ? `Area-weighted ${neutralMeasure.charAt(0).toLowerCase()}${neutralMeasure.slice(1)}` : neutralMeasure;
+  const weightingDetail = track?.statistics?.mean === "area_weighted" ? "Mean weighted by pixel area (cosine latitude), over decoded pixels used" : "Mean uses equal weights per decoded pixel";
   const unitDescription = unit === "°C" ? "degrees Celsius" : unit === "m/s" ? "meters per second" : unit === "g/kg" ? "grams per kilogram" : unit === "mm" ? "millimeters" : unit;
-  const validMean = isFiniteNumber(frame?.mean) && (!nonTemperature || (frame.mean >= 0 && frame.coverage !== 0));
+  const validMean = isFiniteNumber(frame?.mean) && frame.coverage !== 0 && (!nonTemperature || frame.mean >= 0);
   const meanNumber = validMean ? frame.mean.toFixed(nonTemperature ? 2 : 1) : null;
-  const mean = meanNumber === null ? "Unavailable" : `${meanNumber} ${unit}`;
-  const validCoverage = isFiniteNumber(frame?.coverage) && frame.coverage >= 0 && frame.coverage <= 1;
-  const coverageDetail = nonTemperature ? validCoverage ? `${(frame.coverage * 100).toFixed(1)}% of analyzed pixels confidently matched` : "Pixel coverage unavailable" : "";
+  const mean = visualWind ? isFiniteNumber(frame?.visualSignal) ? `${frame.visualSignal.toFixed(4)} / 1` : "Unavailable" : meanNumber === null ? "Unavailable" : `${meanNumber} ${unit}`;
+  const coverageDetail = describePixelCoverage(frame?.coverage);
   const validNorm = isFiniteNumber(frame?.norm) && frame.norm >= 0 && frame.norm <= 1;
   const soundLabel = visualOnly ? "Sound mapping" : wind ? "Wind pulse rate" : kind === "precipitation" ? "Drum stroke rate" : kind === "humidity" ? "Pad spectral width" : "Mapped musical note";
   const soundValue = visualOnly ? "Not implemented" : !sound ? "Unavailable" : kind === "humidity" ? `${Math.round(sound.bandwidth)} Hz` : kind === "temperature" ? sound.note : `${sound.rate.toFixed(2)} Hz`;
@@ -26,17 +44,18 @@ export function describeReading(frame, track) {
         : kind === "precipitation" ? `Musical density ${sound.rate.toFixed(2)} drum strokes per second; fixed G3 carrier, not measured rainfall intensity.`
           : `Nominal pad bandwidth ${Math.round(sound.bandwidth)} hertz; fixed C3 string ensemble, not rainfall.`;
   return {
-    date, dateLabel, timeLabel, mean, measure, sound, soundLabel, soundValue,
+    date, dateLabel, timeLabel, mean, measure: visualWind ? "Visible wind signal (index)" : kind === "precipitation" ? "Estimated precipitation · image-derived" : measure, sound, soundLabel, soundValue,
     note: sound?.kind === "temperature" ? sound.note : null,
-    measureDetail: `${quantity} (${unit})`, coverageDetail,
-    normalized: validNorm ? `${frame.norm.toFixed(2)} / 1.00` : "Unavailable",
-    summary: `${date ?? "Date unavailable"}. ${measure}: ${meanNumber === null ? "unavailable" : `${meanNumber} ${unitDescription}`}. ${coverageDetail ? `${coverageDetail}. ` : ""}${soundSummary}`,
+    measureDetail: visualWind ? `Accepted-pixel mean: ${meanNumber ?? "unavailable"} ${unit}; supplied normalized mean: ${isFiniteNumber(frame?.norm) ? frame.norm.toFixed(3) : "unavailable"}. These are diagnostics, not a complete regional wind mean.` : `${quantity} (${unit}). ${weightingDetail}`, coverageDetail,
+    normalized: visualWind ? isFiniteNumber(frame?.visualSignal) ? `${frame.visualSignal.toFixed(4)} / 1` : "Unavailable" : validNorm ? `${frame.norm.toFixed(3)} / 1.000` : "Unavailable",
+    summary: visualWind ? `${date ?? "Date unavailable"}. Visible wind signal index ${isFiniteNumber(frame?.visualSignal) ? frame.visualSignal.toFixed(4) : "unavailable"}. ${coverageDetail}. ${soundSummary}` : `${date ?? "Date unavailable"}. ${measure}: ${meanNumber === null ? "unavailable" : `${meanNumber} ${unitDescription}`}. ${coverageDetail ? `${coverageDetail}. ` : ""}${soundSummary}`,
 
   };
 }
 
 export function renderReading(root, frame, track) {
   const reading = describeReading(frame, track), kind = soundKind(track), wind = kind === "wind";
+  const visualWind = track?.sonification?.input === "visualSignal";
   const find = (id) => root.querySelector(`#${id}`);
   find("frame-date").textContent = reading.dateLabel;
   if (reading.date) find("frame-date").setAttribute("datetime", frame.date);
@@ -49,14 +68,14 @@ export function renderReading(root, frame, track) {
   find("coverage-detail").hidden = !reading.coverageDetail;
   find("sound-label").textContent = reading.soundLabel;
   find("current-note").textContent = reading.soundValue;
-  find("normalized-label").textContent = wind ? "Supplied normalized speed" : kind === "temperature" ? "Normalized temperature" : "Supplied normalized value";
+  find("normalized-label").textContent = visualWind ? "Visible wind signal index" : wind ? "Supplied normalized speed" : kind === "temperature" ? "Normalized temperature" : "Supplied normalized value";
   find("normalized-value").textContent = reading.normalized;
-  find("scale-low").textContent = wind ? "Lower speed" : kind === "temperature" ? "Lower · C3" : "Lower value";
-  find("scale-high").textContent = wind ? "Higher speed" : kind === "temperature" ? "Higher · C5" : "Higher value";
+  find("scale-low").textContent = visualWind ? "Less detected color signal" : wind ? "Lower speed" : kind === "temperature" ? "Lower · C3" : "Lower value";
+  find("scale-high").textContent = visualWind ? "More detected color signal" : wind ? "Higher speed" : kind === "temperature" ? "Higher · C5" : "Higher value";
   const meter = find("temperature-position");
   meter.hidden = reading.normalized === "Unavailable";
   if (!meter.hidden) {
-    meter.value = frame.norm;
+    meter.value = visualWind ? frame.visualSignal : frame.norm;
     meter.setAttribute("aria-valuetext", `${reading.normalized}; ${reading.soundLabel}: ${reading.soundValue}`);
   } else { meter.removeAttribute("value"); meter.removeAttribute("aria-valuetext"); }
   return reading;

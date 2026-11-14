@@ -1,5 +1,5 @@
 // AI-assisted: OpenAI Codex
-import { PENTATONIC_NOTES, mapFrameSound, mapWindSpeed, mapPrecipitation, mapHumidity } from "./mapping.js";
+import { PENTATONIC_NOTES, mapFrameSound, mapWindSpeed, mapWindActivity, mapPrecipitation, mapHumidity } from "./mapping.js";
 import { createTemperatureSound } from "./temperatureSound.js";
 import { createWindSound } from "./windSound.js";
 import { createPrecipitationSound } from "./precipitationSound.js";
@@ -91,6 +91,10 @@ export function createAudioEngine(loadTone = () => import("tone")) {
     },
     playFrame(frame, track, duration) { return playMapped(mapFrameSound(frame, track), duration); },
     playNote(note, duration) { return playMapped({ kind: "temperature", note }, duration); },
+    playWindActivity(value, duration) {
+      const rate = mapWindActivity(value);
+      return playMapped(rate === null ? null : { kind: "wind", rate }, duration);
+    },
     playWind(speed, duration) {
       const rate = mapWindSpeed(speed);
       return playMapped(rate === null ? null : { kind: "wind", rate }, duration);

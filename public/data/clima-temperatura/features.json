@@ -9,870 +9,1000 @@
     {
       "file": "frame_000001.webp",
       "date": "2026-10-30T06:00",
-      "mean": 8.633,
+      "mean": 15.934,
       "p90": 28.689,
-      "norm": 0.608
+      "norm": 0.699,
+      "coverage": 1.0
     },
     {
       "file": "frame_000002.webp",
       "date": "2026-10-30T09:00",
-      "mean": 8.668,
+      "mean": 16.014,
       "p90": 29.1,
-      "norm": 0.608
+      "norm": 0.7,
+      "coverage": 1.0
     },
     {
       "file": "frame_000003.webp",
       "date": "2026-10-30T12:00",
-      "mean": 8.546,
+      "mean": 15.902,
       "p90": 28.689,
-      "norm": 0.607
+      "norm": 0.699,
+      "coverage": 1.0
     },
     {
       "file": "frame_000004.webp",
       "date": "2026-10-30T15:00",
-      "mean": 8.347,
+      "mean": 15.637,
       "p90": 28.689,
-      "norm": 0.604
+      "norm": 0.695,
+      "coverage": 1.0
     },
     {
       "file": "frame_000005.webp",
       "date": "2026-10-30T18:00",
-      "mean": 8.132,
+      "mean": 15.355,
       "p90": 28.278,
-      "norm": 0.602
+      "norm": 0.692,
+      "coverage": 1.0
     },
     {
       "file": "frame_000006.webp",
       "date": "2026-10-30T21:00",
-      "mean": 7.978,
+      "mean": 15.177,
       "p90": 28.278,
-      "norm": 0.6
+      "norm": 0.69,
+      "coverage": 1.0
     },
     {
       "file": "frame_000007.webp",
       "date": "2026-10-31T00:00",
-      "mean": 8.055,
+      "mean": 15.255,
       "p90": 28.278,
-      "norm": 0.601
+      "norm": 0.691,
+      "coverage": 1.0
     },
     {
       "file": "frame_000008.webp",
       "date": "2026-10-31T03:00",
-      "mean": 8.371,
+      "mean": 15.615,
       "p90": 28.689,
-      "norm": 0.605
+      "norm": 0.695,
+      "coverage": 1.0
     },
     {
       "file": "frame_000009.webp",
       "date": "2026-10-31T06:00",
-      "mean": 8.65,
+      "mean": 15.944,
       "p90": 29.1,
-      "norm": 0.608
+      "norm": 0.699,
+      "coverage": 1.0
     },
     {
       "file": "frame_000010.webp",
       "date": "2026-10-31T09:00",
-      "mean": 8.719,
+      "mean": 16.039,
       "p90": 29.1,
-      "norm": 0.609
+      "norm": 0.7,
+      "coverage": 1.0
     },
     {
       "file": "frame_000011.webp",
       "date": "2026-10-31T12:00",
-      "mean": 8.597,
+      "mean": 15.901,
       "p90": 28.689,
-      "norm": 0.607
+      "norm": 0.699,
+      "coverage": 1.0
     },
     {
       "file": "frame_000012.webp",
       "date": "2026-10-31T15:00",
-      "mean": 8.371,
+      "mean": 15.616,
       "p90": 28.689,
-      "norm": 0.605
+      "norm": 0.695,
+      "coverage": 1.0
     },
     {
       "file": "frame_000013.webp",
       "date": "2026-10-31T18:00",
-      "mean": 8.115,
+      "mean": 15.314,
       "p90": 28.278,
-      "norm": 0.601
+      "norm": 0.691,
+      "coverage": 1.0
     },
     {
       "file": "frame_000014.webp",
       "date": "2026-10-31T21:00",
-      "mean": 7.947,
+      "mean": 15.13,
       "p90": 28.278,
-      "norm": 0.599
+      "norm": 0.689,
+      "coverage": 1.0
     },
     {
       "file": "frame_000015.webp",
       "date": "2026-11-01T00:00",
-      "mean": 8.0,
+      "mean": 15.196,
       "p90": 28.278,
-      "norm": 0.6
+      "norm": 0.69,
+      "coverage": 1.0
     },
     {
       "file": "frame_000016.webp",
       "date": "2026-11-01T02:00",
-      "mean": 8.287,
+      "mean": 15.566,
       "p90": 28.483,
-      "norm": 0.604
+      "norm": 0.695,
+      "coverage": 1.0
     },
     {
       "file": "frame_000017.webp",
       "date": "2026-11-01T05:00",
-      "mean": 8.523,
+      "mean": 15.901,
       "p90": 29.1,
-      "norm": 0.607
+      "norm": 0.699,
+      "coverage": 1.0
     },
     {
       "file": "frame_000018.webp",
       "date": "2026-11-01T08:00",
-      "mean": 8.538,
+      "mean": 15.984,
       "p90": 29.1,
-      "norm": 0.607
+      "norm": 0.7,
+      "coverage": 1.0
     },
     {
       "file": "frame_000019.webp",
       "date": "2026-11-01T11:00",
-      "mean": 8.393,
+      "mean": 15.846,
       "p90": 28.689,
-      "norm": 0.605
+      "norm": 0.698,
+      "coverage": 1.0
     },
     {
       "file": "frame_000020.webp",
       "date": "2026-11-01T14:00",
-      "mean": 8.162,
+      "mean": 15.565,
       "p90": 28.689,
-      "norm": 0.602
+      "norm": 0.695,
+      "coverage": 1.0
     },
     {
       "file": "frame_000021.webp",
       "date": "2026-11-01T17:00",
-      "mean": 7.917,
+      "mean": 15.269,
       "p90": 28.278,
-      "norm": 0.599
+      "norm": 0.691,
+      "coverage": 1.0
     },
     {
       "file": "frame_000022.webp",
       "date": "2026-11-01T20:00",
-      "mean": 7.77,
+      "mean": 15.105,
       "p90": 28.278,
-      "norm": 0.597
+      "norm": 0.689,
+      "coverage": 1.0
     },
     {
       "file": "frame_000023.webp",
       "date": "2026-11-01T23:00",
-      "mean": 7.856,
+      "mean": 15.208,
       "p90": 28.278,
-      "norm": 0.598
+      "norm": 0.69,
+      "coverage": 1.0
     },
     {
       "file": "frame_000024.webp",
       "date": "2026-11-02T02:00",
-      "mean": 8.141,
+      "mean": 15.583,
       "p90": 28.689,
-      "norm": 0.602
+      "norm": 0.695,
+      "coverage": 1.0
     },
     {
       "file": "frame_000025.webp",
       "date": "2026-11-02T05:00",
-      "mean": 8.361,
+      "mean": 15.918,
       "p90": 29.1,
-      "norm": 0.605
+      "norm": 0.699,
+      "coverage": 1.0
     },
     {
       "file": "frame_000026.webp",
       "date": "2026-11-02T08:00",
-      "mean": 8.383,
+      "mean": 16.0,
       "p90": 29.1,
-      "norm": 0.605
+      "norm": 0.7,
+      "coverage": 1.0
     },
     {
       "file": "frame_000027.webp",
       "date": "2026-11-02T11:00",
-      "mean": 8.236,
+      "mean": 15.86,
       "p90": 29.1,
-      "norm": 0.603
+      "norm": 0.698,
+      "coverage": 1.0
     },
     {
       "file": "frame_000028.webp",
       "date": "2026-11-02T14:00",
-      "mean": 7.999,
+      "mean": 15.575,
       "p90": 28.689,
-      "norm": 0.6
+      "norm": 0.695,
+      "coverage": 1.0
     },
     {
       "file": "frame_000029.webp",
       "date": "2026-11-02T17:00",
-      "mean": 7.762,
+      "mean": 15.278,
       "p90": 28.278,
-      "norm": 0.597
+      "norm": 0.691,
+      "coverage": 1.0
     },
     {
       "file": "frame_000030.webp",
       "date": "2026-11-02T20:00",
-      "mean": 7.621,
+      "mean": 15.11,
       "p90": 28.278,
-      "norm": 0.595
+      "norm": 0.689,
+      "coverage": 1.0
     },
     {
       "file": "frame_000031.webp",
       "date": "2026-11-02T23:00",
-      "mean": 7.705,
+      "mean": 15.202,
       "p90": 28.278,
-      "norm": 0.596
+      "norm": 0.69,
+      "coverage": 1.0
     },
     {
       "file": "frame_000032.webp",
       "date": "2026-11-03T02:00",
-      "mean": 8.013,
+      "mean": 15.584,
       "p90": 28.689,
-      "norm": 0.6
+      "norm": 0.695,
+      "coverage": 1.0
     },
     {
       "file": "frame_000033.webp",
       "date": "2026-11-03T05:00",
-      "mean": 8.259,
+      "mean": 15.924,
       "p90": 29.1,
-      "norm": 0.603
+      "norm": 0.699,
+      "coverage": 1.0
     },
     {
       "file": "frame_000034.webp",
       "date": "2026-11-03T08:00",
-      "mean": 8.279,
+      "mean": 15.991,
       "p90": 29.1,
-      "norm": 0.603
+      "norm": 0.7,
+      "coverage": 1.0
     },
     {
       "file": "frame_000035.webp",
       "date": "2026-11-03T11:00",
-      "mean": 8.147,
+      "mean": 15.857,
       "p90": 29.1,
-      "norm": 0.602
+      "norm": 0.698,
+      "coverage": 1.0
     },
     {
       "file": "frame_000036.webp",
       "date": "2026-11-03T14:00",
-      "mean": 7.934,
+      "mean": 15.577,
       "p90": 28.689,
-      "norm": 0.599
+      "norm": 0.695,
+      "coverage": 1.0
     },
     {
       "file": "frame_000037.webp",
       "date": "2026-11-03T17:00",
-      "mean": 7.706,
+      "mean": 15.283,
       "p90": 28.278,
-      "norm": 0.596
+      "norm": 0.691,
+      "coverage": 1.0
     },
     {
       "file": "frame_000038.webp",
       "date": "2026-11-03T20:00",
-      "mean": 7.554,
+      "mean": 15.101,
       "p90": 28.278,
-      "norm": 0.594
+      "norm": 0.689,
+      "coverage": 1.0
     },
     {
       "file": "frame_000039.webp",
       "date": "2026-11-03T23:00",
-      "mean": 7.634,
+      "mean": 15.182,
       "p90": 28.278,
-      "norm": 0.595
+      "norm": 0.69,
+      "coverage": 1.0
     },
     {
       "file": "frame_000040.webp",
       "date": "2026-11-04T02:00",
-      "mean": 7.946,
+      "mean": 15.564,
       "p90": 28.483,
-      "norm": 0.599
+      "norm": 0.695,
+      "coverage": 1.0
     },
     {
       "file": "frame_000041.webp",
       "date": "2026-11-04T05:00",
-      "mean": 8.202,
+      "mean": 15.908,
       "p90": 29.1,
-      "norm": 0.603
+      "norm": 0.699,
+      "coverage": 1.0
     },
     {
       "file": "frame_000042.webp",
       "date": "2026-11-04T08:00",
-      "mean": 8.23,
+      "mean": 15.985,
       "p90": 29.1,
-      "norm": 0.603
+      "norm": 0.7,
+      "coverage": 1.0
     },
     {
       "file": "frame_000043.webp",
       "date": "2026-11-04T11:00",
-      "mean": 8.091,
+      "mean": 15.843,
       "p90": 28.689,
-      "norm": 0.601
+      "norm": 0.698,
+      "coverage": 1.0
     },
     {
       "file": "frame_000044.webp",
       "date": "2026-11-04T14:00",
-      "mean": 7.88,
+      "mean": 15.571,
       "p90": 28.689,
-      "norm": 0.599
+      "norm": 0.695,
+      "coverage": 1.0
     },
     {
       "file": "frame_000045.webp",
       "date": "2026-11-04T17:00",
-      "mean": 7.657,
+      "mean": 15.275,
       "p90": 28.278,
-      "norm": 0.596
+      "norm": 0.691,
+      "coverage": 1.0
     },
     {
       "file": "frame_000046.webp",
       "date": "2026-11-04T20:00",
-      "mean": 7.497,
+      "mean": 15.074,
       "p90": 28.278,
-      "norm": 0.594
+      "norm": 0.688,
+      "coverage": 1.0
     },
     {
       "file": "frame_000047.webp",
       "date": "2026-11-04T23:00",
-      "mean": 7.595,
+      "mean": 15.168,
       "p90": 28.278,
-      "norm": 0.595
+      "norm": 0.69,
+      "coverage": 1.0
     },
     {
       "file": "frame_000048.webp",
       "date": "2026-11-05T02:00",
-      "mean": 7.902,
+      "mean": 15.533,
       "p90": 28.689,
-      "norm": 0.599
+      "norm": 0.694,
+      "coverage": 1.0
     },
     {
       "file": "frame_000049.webp",
       "date": "2026-11-05T05:00",
-      "mean": 8.16,
+      "mean": 15.877,
       "p90": 29.1,
-      "norm": 0.602
+      "norm": 0.698,
+      "coverage": 1.0
     },
     {
       "file": "frame_000050.webp",
       "date": "2026-11-05T08:00",
-      "mean": 8.185,
+      "mean": 15.957,
       "p90": 29.1,
-      "norm": 0.602
+      "norm": 0.699,
+      "coverage": 1.0
     },
     {
       "file": "frame_000051.webp",
       "date": "2026-11-05T11:00",
-      "mean": 8.039,
+      "mean": 15.816,
       "p90": 28.689,
-      "norm": 0.6
+      "norm": 0.698,
+      "coverage": 1.0
     },
     {
       "file": "frame_000052.webp",
       "date": "2026-11-05T14:00",
-      "mean": 7.799,
+      "mean": 15.513,
       "p90": 28.689,
-      "norm": 0.597
+      "norm": 0.694,
+      "coverage": 1.0
     },
     {
       "file": "frame_000053.webp",
       "date": "2026-11-05T17:00",
-      "mean": 7.569,
+      "mean": 15.217,
       "p90": 28.278,
-      "norm": 0.595
+      "norm": 0.69,
+      "coverage": 1.0
     },
     {
       "file": "frame_000054.webp",
       "date": "2026-11-05T20:00",
-      "mean": 7.393,
+      "mean": 15.004,
       "p90": 28.278,
-      "norm": 0.592
+      "norm": 0.688,
+      "coverage": 1.0
     },
     {
       "file": "frame_000055.webp",
       "date": "2026-11-05T23:00",
-      "mean": 7.476,
+      "mean": 15.09,
       "p90": 28.278,
-      "norm": 0.593
+      "norm": 0.689,
+      "coverage": 1.0
     },
     {
       "file": "frame_000056.webp",
       "date": "2026-11-06T02:00",
-      "mean": 7.754,
+      "mean": 15.432,
       "p90": 28.689,
-      "norm": 0.597
+      "norm": 0.693,
+      "coverage": 1.0
     },
     {
       "file": "frame_000057.webp",
       "date": "2026-11-06T05:00",
-      "mean": 7.975,
+      "mean": 15.739,
       "p90": 29.1,
-      "norm": 0.6
+      "norm": 0.697,
+      "coverage": 1.0
     },
     {
       "file": "frame_000058.webp",
       "date": "2026-11-06T08:00",
-      "mean": 7.995,
+      "mean": 15.813,
       "p90": 29.1,
-      "norm": 0.6
+      "norm": 0.698,
+      "coverage": 1.0
     },
     {
       "file": "frame_000059.webp",
       "date": "2026-11-06T11:00",
-      "mean": 7.871,
+      "mean": 15.683,
       "p90": 29.1,
-      "norm": 0.598
+      "norm": 0.696,
+      "coverage": 1.0
     },
     {
       "file": "frame_000060.webp",
       "date": "2026-11-06T14:00",
-      "mean": 7.664,
+      "mean": 15.405,
       "p90": 28.689,
-      "norm": 0.596
+      "norm": 0.693,
+      "coverage": 1.0
     },
     {
       "file": "frame_000061.webp",
       "date": "2026-11-06T17:00",
-      "mean": 7.437,
+      "mean": 15.107,
       "p90": 28.483,
-      "norm": 0.593
+      "norm": 0.689,
+      "coverage": 1.0
     },
     {
       "file": "frame_000062.webp",
       "date": "2026-11-06T20:00",
-      "mean": 7.262,
+      "mean": 14.899,
       "p90": 28.483,
-      "norm": 0.591
+      "norm": 0.686,
+      "coverage": 1.0
     },
     {
       "file": "frame_000063.webp",
       "date": "2026-11-06T23:00",
-      "mean": 7.338,
+      "mean": 14.968,
       "p90": 28.483,
-      "norm": 0.592
+      "norm": 0.687,
+      "coverage": 1.0
     },
     {
       "file": "frame_000064.webp",
       "date": "2026-11-07T02:00",
-      "mean": 7.612,
+      "mean": 15.299,
       "p90": 28.689,
-      "norm": 0.595
+      "norm": 0.691,
+      "coverage": 1.0
     },
     {
       "file": "frame_000065.webp",
       "date": "2026-11-07T05:00",
-      "mean": 7.838,
+      "mean": 15.606,
       "p90": 29.1,
-      "norm": 0.598
+      "norm": 0.695,
+      "coverage": 1.0
     },
     {
       "file": "frame_000066.webp",
       "date": "2026-11-07T08:00",
-      "mean": 7.871,
+      "mean": 15.698,
       "p90": 29.1,
-      "norm": 0.598
+      "norm": 0.696,
+      "coverage": 1.0
     },
     {
       "file": "frame_000067.webp",
       "date": "2026-11-07T11:00",
-      "mean": 7.757,
+      "mean": 15.589,
       "p90": 29.1,
-      "norm": 0.597
+      "norm": 0.695,
+      "coverage": 1.0
     },
     {
       "file": "frame_000068.webp",
       "date": "2026-11-07T14:00",
-      "mean": 7.558,
+      "mean": 15.337,
       "p90": 28.689,
-      "norm": 0.594
+      "norm": 0.692,
+      "coverage": 1.0
     },
     {
       "file": "frame_000069.webp",
       "date": "2026-11-07T17:00",
-      "mean": 7.32,
+      "mean": 15.04,
       "p90": 28.483,
-      "norm": 0.592
+      "norm": 0.688,
+      "coverage": 1.0
     },
     {
       "file": "frame_000070.webp",
       "date": "2026-11-07T20:00",
-      "mean": 7.133,
+      "mean": 14.825,
       "p90": 28.278,
-      "norm": 0.589
+      "norm": 0.685,
+      "coverage": 1.0
     },
     {
       "file": "frame_000071.webp",
       "date": "2026-11-07T23:00",
-      "mean": 7.206,
+      "mean": 14.895,
       "p90": 28.483,
-      "norm": 0.59
+      "norm": 0.686,
+      "coverage": 1.0
     },
     {
       "file": "frame_000072.webp",
       "date": "2026-11-08T02:00",
-      "mean": 7.477,
+      "mean": 15.228,
       "p90": 28.689,
-      "norm": 0.593
+      "norm": 0.69,
+      "coverage": 1.0
     },
     {
       "file": "frame_000073.webp",
       "date": "2026-11-08T05:00",
-      "mean": 7.698,
+      "mean": 15.532,
       "p90": 29.1,
-      "norm": 0.596
+      "norm": 0.694,
+      "coverage": 1.0
     },
     {
       "file": "frame_000074.webp",
       "date": "2026-11-08T08:00",
-      "mean": 7.726,
+      "mean": 15.627,
       "p90": 29.1,
-      "norm": 0.597
+      "norm": 0.695,
+      "coverage": 1.0
     },
     {
       "file": "frame_000075.webp",
       "date": "2026-11-08T11:00",
-      "mean": 7.61,
+      "mean": 15.524,
       "p90": 29.1,
-      "norm": 0.595
+      "norm": 0.694,
+      "coverage": 1.0
     },
     {
       "file": "frame_000076.webp",
       "date": "2026-11-08T14:00",
-      "mean": 7.41,
+      "mean": 15.277,
       "p90": 28.689,
-      "norm": 0.593
+      "norm": 0.691,
+      "coverage": 1.0
     },
     {
       "file": "frame_000077.webp",
       "date": "2026-11-08T17:00",
-      "mean": 7.192,
+      "mean": 15.005,
       "p90": 28.278,
-      "norm": 0.59
+      "norm": 0.688,
+      "coverage": 1.0
     },
     {
       "file": "frame_000078.webp",
       "date": "2026-11-08T20:00",
-      "mean": 7.023,
+      "mean": 14.805,
       "p90": 28.278,
-      "norm": 0.588
+      "norm": 0.685,
+      "coverage": 1.0
     },
     {
       "file": "frame_000079.webp",
       "date": "2026-11-08T23:00",
-      "mean": 7.1,
+      "mean": 14.887,
       "p90": 28.483,
-      "norm": 0.589
+      "norm": 0.686,
+      "coverage": 1.0
     },
     {
       "file": "frame_000080.webp",
       "date": "2026-11-09T02:00",
-      "mean": 7.357,
+      "mean": 15.207,
       "p90": 28.689,
-      "norm": 0.592
+      "norm": 0.69,
+      "coverage": 1.0
     },
     {
       "file": "frame_000081.webp",
       "date": "2026-11-09T05:00",
-      "mean": 7.564,
+      "mean": 15.494,
       "p90": 29.1,
-      "norm": 0.595
+      "norm": 0.694,
+      "coverage": 1.0
     },
     {
       "file": "frame_000082.webp",
       "date": "2026-11-09T08:00",
-      "mean": 7.607,
+      "mean": 15.595,
       "p90": 29.1,
-      "norm": 0.595
+      "norm": 0.695,
+      "coverage": 1.0
     },
     {
       "file": "frame_000083.webp",
       "date": "2026-11-09T11:00",
-      "mean": 7.519,
+      "mean": 15.504,
       "p90": 29.1,
-      "norm": 0.594
+      "norm": 0.694,
+      "coverage": 1.0
     },
     {
       "file": "frame_000084.webp",
       "date": "2026-11-09T14:00",
-      "mean": 7.347,
+      "mean": 15.272,
       "p90": 28.689,
-      "norm": 0.592
+      "norm": 0.691,
+      "coverage": 1.0
     },
     {
       "file": "frame_000085.webp",
       "date": "2026-11-09T17:00",
-      "mean": 7.151,
+      "mean": 15.012,
       "p90": 28.278,
-      "norm": 0.589
+      "norm": 0.688,
+      "coverage": 1.0
     },
     {
       "file": "frame_000086.webp",
       "date": "2026-11-09T20:00",
-      "mean": 6.986,
+      "mean": 14.807,
       "p90": 28.278,
-      "norm": 0.587
+      "norm": 0.685,
+      "coverage": 1.0
     },
     {
       "file": "frame_000087.webp",
       "date": "2026-11-09T23:00",
-      "mean": 7.066,
+      "mean": 14.885,
       "p90": 28.278,
-      "norm": 0.588
+      "norm": 0.686,
+      "coverage": 1.0
     },
     {
       "file": "frame_000088.webp",
       "date": "2026-11-10T02:00",
-      "mean": 7.328,
+      "mean": 15.192,
       "p90": 28.483,
-      "norm": 0.592
+      "norm": 0.69,
+      "coverage": 1.0
     },
     {
       "file": "frame_000089.webp",
       "date": "2026-11-10T05:00",
-      "mean": 7.523,
+      "mean": 15.454,
       "p90": 28.689,
-      "norm": 0.594
+      "norm": 0.693,
+      "coverage": 1.0
     },
     {
       "file": "frame_000090.webp",
       "date": "2026-11-10T08:00",
-      "mean": 7.578,
+      "mean": 15.562,
       "p90": 29.1,
-      "norm": 0.595
+      "norm": 0.695,
+      "coverage": 1.0
     },
     {
       "file": "frame_000091.webp",
       "date": "2026-11-10T11:00",
-      "mean": 7.5,
+      "mean": 15.486,
       "p90": 29.1,
-      "norm": 0.594
+      "norm": 0.694,
+      "coverage": 1.0
     },
     {
       "file": "frame_000092.webp",
       "date": "2026-11-10T14:00",
-      "mean": 7.345,
+      "mean": 15.276,
       "p90": 28.689,
-      "norm": 0.592
+      "norm": 0.691,
+      "coverage": 1.0
     },
     {
       "file": "frame_000093.webp",
       "date": "2026-11-10T17:00",
-      "mean": 7.158,
+      "mean": 15.025,
       "p90": 28.278,
-      "norm": 0.589
+      "norm": 0.688,
+      "coverage": 1.0
     },
     {
       "file": "frame_000094.webp",
       "date": "2026-11-10T20:00",
-      "mean": 6.99,
+      "mean": 14.823,
       "p90": 28.278,
-      "norm": 0.587
+      "norm": 0.685,
+      "coverage": 1.0
     },
     {
       "file": "frame_000095.webp",
       "date": "2026-11-10T23:00",
-      "mean": 7.07,
+      "mean": 14.897,
       "p90": 28.278,
-      "norm": 0.588
+      "norm": 0.686,
+      "coverage": 1.0
     },
     {
       "file": "frame_000096.webp",
       "date": "2026-11-11T02:00",
-      "mean": 7.347,
+      "mean": 15.219,
       "p90": 28.483,
-      "norm": 0.592
+      "norm": 0.69,
+      "coverage": 1.0
     },
     {
       "file": "frame_000097.webp",
       "date": "2026-11-11T05:00",
-      "mean": 7.545,
+      "mean": 15.486,
       "p90": 28.689,
-      "norm": 0.594
+      "norm": 0.694,
+      "coverage": 1.0
     },
     {
       "file": "frame_000098.webp",
       "date": "2026-11-11T08:00",
-      "mean": 7.594,
+      "mean": 15.597,
       "p90": 29.1,
-      "norm": 0.595
+      "norm": 0.695,
+      "coverage": 1.0
     },
     {
       "file": "frame_000099.webp",
       "date": "2026-11-11T11:00",
-      "mean": 7.502,
+      "mean": 15.515,
       "p90": 29.1,
-      "norm": 0.594
+      "norm": 0.694,
+      "coverage": 1.0
     },
     {
       "file": "frame_000100.webp",
       "date": "2026-11-11T14:00",
-      "mean": 7.334,
+      "mean": 15.297,
       "p90": 28.689,
-      "norm": 0.592
+      "norm": 0.691,
+      "coverage": 1.0
     },
     {
       "file": "frame_000101.webp",
       "date": "2026-11-11T17:00",
-      "mean": 7.133,
+      "mean": 15.036,
       "p90": 28.278,
-      "norm": 0.589
+      "norm": 0.688,
+      "coverage": 1.0
     },
     {
       "file": "frame_000102.webp",
       "date": "2026-11-11T20:00",
-      "mean": 6.986,
+      "mean": 14.846,
       "p90": 28.278,
-      "norm": 0.587
+      "norm": 0.686,
+      "coverage": 1.0
     },
     {
       "file": "frame_000103.webp",
       "date": "2026-11-11T23:00",
-      "mean": 7.079,
+      "mean": 14.922,
       "p90": 28.278,
-      "norm": 0.588
+      "norm": 0.687,
+      "coverage": 1.0
     },
     {
       "file": "frame_000104.webp",
       "date": "2026-11-12T02:00",
-      "mean": 7.362,
+      "mean": 15.241,
       "p90": 28.689,
-      "norm": 0.592
+      "norm": 0.691,
+      "coverage": 1.0
     },
     {
       "file": "frame_000105.webp",
       "date": "2026-11-12T05:00",
-      "mean": 7.598,
+      "mean": 15.537,
       "p90": 28.689,
-      "norm": 0.595
+      "norm": 0.694,
+      "coverage": 1.0
     },
     {
       "file": "frame_000106.webp",
       "date": "2026-11-12T08:00",
-      "mean": 7.662,
+      "mean": 15.655,
       "p90": 29.1,
-      "norm": 0.596
+      "norm": 0.696,
+      "coverage": 1.0
     },
     {
       "file": "frame_000107.webp",
       "date": "2026-11-12T11:00",
-      "mean": 7.548,
+      "mean": 15.55,
       "p90": 29.1,
-      "norm": 0.594
+      "norm": 0.694,
+      "coverage": 1.0
     },
     {
       "file": "frame_000108.webp",
       "date": "2026-11-12T14:00",
-      "mean": 7.35,
+      "mean": 15.299,
       "p90": 28.689,
-      "norm": 0.592
+      "norm": 0.691,
+      "coverage": 1.0
     },
     {
       "file": "frame_000109.webp",
       "date": "2026-11-12T17:00",
-      "mean": 7.134,
+      "mean": 15.03,
       "p90": 28.483,
-      "norm": 0.589
+      "norm": 0.688,
+      "coverage": 1.0
     },
     {
       "file": "frame_000110.webp",
       "date": "2026-11-12T20:00",
-      "mean": 6.968,
+      "mean": 14.828,
       "p90": 28.278,
-      "norm": 0.587
+      "norm": 0.685,
+      "coverage": 1.0
     },
     {
       "file": "frame_000111.webp",
       "date": "2026-11-12T23:00",
-      "mean": 7.054,
+      "mean": 14.898,
       "p90": 28.278,
-      "norm": 0.588
+      "norm": 0.686,
+      "coverage": 1.0
     },
     {
       "file": "frame_000112.webp",
       "date": "2026-11-13T02:00",
-      "mean": 7.329,
+      "mean": 15.211,
       "p90": 28.483,
-      "norm": 0.592
+      "norm": 0.69,
+      "coverage": 1.0
     },
     {
       "file": "frame_000113.webp",
       "date": "2026-11-13T05:00",
-      "mean": 7.581,
+      "mean": 15.539,
       "p90": 28.689,
-      "norm": 0.595
+      "norm": 0.694,
+      "coverage": 1.0
     },
     {
       "file": "frame_000114.webp",
       "date": "2026-11-13T08:00",
-      "mean": 7.621,
+      "mean": 15.64,
       "p90": 29.1,
-      "norm": 0.595
+      "norm": 0.696,
+      "coverage": 1.0
     },
     {
       "file": "frame_000115.webp",
       "date": "2026-11-13T11:00",
-      "mean": 7.476,
+      "mean": 15.51,
       "p90": 29.1,
-      "norm": 0.593
+      "norm": 0.694,
+      "coverage": 1.0
     },
     {
       "file": "frame_000116.webp",
       "date": "2026-11-13T14:00",
-      "mean": 7.253,
+      "mean": 15.241,
       "p90": 28.689,
-      "norm": 0.591
+      "norm": 0.691,
+      "coverage": 1.0
     },
     {
       "file": "frame_000117.webp",
       "date": "2026-11-13T17:00",
-      "mean": 7.026,
+      "mean": 14.959,
       "p90": 28.483,
-      "norm": 0.588
+      "norm": 0.687,
+      "coverage": 1.0
     },
     {
       "file": "frame_000118.webp",
       "date": "2026-11-13T20:00",
-      "mean": 6.856,
+      "mean": 14.752,
       "p90": 28.278,
-      "norm": 0.586
+      "norm": 0.684,
+      "coverage": 1.0
     },
     {
       "file": "frame_000119.webp",
       "date": "2026-11-13T23:00",
-      "mean": 6.943,
+      "mean": 14.827,
       "p90": 28.278,
-      "norm": 0.587
+      "norm": 0.685,
+      "coverage": 1.0
     },
     {
       "file": "frame_000120.webp",
       "date": "2026-11-14T02:00",
-      "mean": 7.226,
+      "mean": 15.146,
       "p90": 28.689,
-      "norm": 0.59
+      "norm": 0.689,
+      "coverage": 1.0
     },
     {
       "file": "frame_000121.webp",
       "date": "2026-11-14T05:00",
-      "mean": 7.49,
+      "mean": 15.476,
       "p90": 29.1,
-      "norm": 0.594
+      "norm": 0.693,
+      "coverage": 1.0
     },
     {
       "file": "frame_000122.webp",
       "date": "2026-11-14T08:00",
-      "mean": 7.549,
+      "mean": 15.576,
       "p90": 29.1,
-      "norm": 0.594
+      "norm": 0.695,
+      "coverage": 1.0
     },
     {
       "file": "frame_000123.webp",
       "date": "2026-11-14T11:00",
-      "mean": 7.419,
+      "mean": 15.437,
       "p90": 29.1,
-      "norm": 0.593
+      "norm": 0.693,
+      "coverage": 1.0
     },
     {
       "file": "frame_000124.webp",
       "date": "2026-11-14T14:00",
-      "mean": 7.188,
+      "mean": 15.145,
       "p90": 28.689,
-      "norm": 0.59
+      "norm": 0.689,
+      "coverage": 1.0
     }
-  ]
+  ],
+  "statistics": {
+    "mean": "area_weighted",
+    "weighting": "cos_latitude",
+    "p90": "unweighted_pixel_percentile",
+    "coverage": "accepted_pixel_fraction"
+  }
 }

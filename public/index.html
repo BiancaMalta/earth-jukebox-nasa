@@ -50,9 +50,18 @@
       </aside>
     </div>
     <section class="panel explanation-panel" aria-labelledby="reading-heading">
-      <div><p class="eyebrow">Read the frame</p><h2 id="reading-heading">What the numbers mean</h2><p id="readings-help">Without a regional selection, readings summarize valid colored pixels across the whole image. Select a continent or country to focus the map and switch both readings and sound to that region. Coverage shows how much of the selected area was analyzed.</p></div>
+      <div><p class="eyebrow">Read the frame</p><h2 id="reading-heading">What the numbers mean</h2><p id="readings-help">Without a regional selection, readings summarize decoded pixels across the image. Select a country group or country to focus the map and switch both readings and sound to that region. Pixel inclusion shows the share of analyzed image pixels used, not accuracy or geographic surface area.</p></div>
       <div><h3>One phenomenon, one sound identity</h3><p id="normalization-help"><span id="sound-mapping-detail">The supplied temperature value maps to one note.</span> <span id="normalization-range">Normalization limits are unavailable.</span></p><p class="control-help">Dates keep their supplied time zone. If none is given, the player says so.</p></div>
     </section>
+    <details class="panel calculation-panel">
+      <summary>How these image estimates are calculated</summary>
+      <p class="control-help">Python converts image colors to the nearest value in the visualization legend. Logos and timestamps are excluded. Regional estimates use pixel centers inside the selected boundaries; country groups follow whole-country assignments and contain land territories, not surrounding oceans. Europe includes all Russia; Asia excludes Russia.</p>
+      <p id="mean-weighting-method" class="control-help">Loading the dataset mean method…</p>
+      <p id="pixel-filter-method" class="control-help">Loading the selected visualization's color-filter settings…</p>
+      <p class="control-help">P90 is the unweighted 90th percentile of decoded pixel values, not a confidence level. These remain image-derived estimates; weighting cannot reconstruct missing or rejected pixels and does not make them direct numerical GEOS-FP fields.</p>
+      <p class="control-help">Pixel inclusion = pixels used ÷ analyzed pixels after excluding overlays. It does not measure scientific accuracy, instrument reliability or geographic surface area. Missing inclusion is unavailable, not zero; 100% inclusion does not establish accuracy.</p>
+      <p class="control-help">Python computes norm = (mean − legend minimum) ÷ (legend maximum − legend minimum), limited to 0–1 and rounded to three decimals. It is a position on the fixed legend scale, not a percentile or a percentage of Earth. The front displays the supplied values. Only temperature uses norm directly for sound; the other instruments use mean in its physical unit.</p>
+    </details>
     <details class="panel keyboard-panel" open>
       <summary>Keyboard guide</summary>
       <p id="keyboard-help">Use <kbd>Tab</kbd> and <kbd>Shift</kbd> + <kbd>Tab</kbd> to move between controls. Use <kbd>Enter</kbd> or <kbd>Space</kbd> to activate buttons.</p>
