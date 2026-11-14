@@ -72,25 +72,38 @@ def decode_pixels(pixels: np.ndarray, colorbar: dict, cache: dict) -> np.ndarray
     return values[inverse]
 
 
-def summarize_values(values: np.ndarray, vmin: float, vmax: float, weights: np.ndarray | None = None) -> dict:
-    """Shared area-weighted mean, pixel P90, count coverage and fixed scale."""
+def summarize_values(
+    values: np.ndarray,
+    vmin: float,
+    vmax: float,
+    weights: np.ndarray | None = None,
+    scale: str = "linear",
+) -> dict:
+    """Area-weighted mean, pixel P90, accepted-pixel coverage and fixed scale."""
     finite = np.isfinite(values)
     if weights is not None:
         weights = np.asarray(weights)
         if weights.shape != values.shape or np.any(~np.isfinite(weights)) or np.any(weights <= 0):
             raise ValueError("Area weights must be finite, positive and match the pixel array.")
+    if scale not in {"linear", "log"}:
+        raise ValueError(f"Unsupported colorbar scale: {scale}.")
     valid = values[finite]
     coverage = round(float(valid.size / values.size), 6) if values.size else 0.0
     if not valid.size:
         return {"mean": None, "p90": None, "norm": None, "coverage": coverage}
     mean = round(float(np.average(valid, weights=weights[finite] if weights is not None else None)), 3)
+    if scale == "log":
+        if min(vmin, vmax, mean) <= 0:
+            raise ValueError("A log colorbar requires positive bounds and mean values.")
+        norm_value = (np.log(mean) - np.log(vmin)) / (np.log(vmax) - np.log(vmin))
+    else:
+        norm_value = (mean - vmin) / (vmax - vmin)
     return {
         "mean": mean,
         "p90": round(float(np.percentile(valid, 90)), 3),
-        "norm": round(float(np.clip((mean - vmin) / (vmax - vmin), 0.0, 1.0)), 3),
+        "norm": round(float(np.clip(norm_value, 0.0, 1.0)), 3),
         "coverage": coverage,
     }
-
 
 def visible_wind_signal(values: np.ndarray, weights: np.ndarray, vmin: float, vmax: float) -> float | None:
     """Intensity × visible extent, NOT an inferred mean wind speed.
@@ -186,6 +199,7 @@ def generate_features(
     svs_id: int = SVS_ID,
     frame_start_utc: datetime = FRAME_START_UTC,
     frame_interval: timedelta = FRAME_INTERVAL,
+    frame_end_utc: datetime | None = None,
 ) -> dict:
     frame_files = sorted(frames_dir.glob("frame_*.webp"))
     if not frame_files:
@@ -212,6 +226,11 @@ def generate_features(
     if len(palette_colors) != len(palette_values):
         raise ValueError(f"Colorbar samples in {colorbar_path} are inconsistent.")
 
+    scale = colorbar.get("scale", "linear")
+    if scale == "log" and vmin <= 0:
+        raise ValueError("A log colorbar requires a positive minimum.")
+    if frame_end_utc is not None and len(frame_files) > 1:
+        frame_interval = (frame_end_utc - frame_start_utc) / (len(frame_files) - 1)
     value_cache: dict[tuple[int, int, int], tuple[float, float]] = {}
     pixel_filter = colorbar.get("pixelFilter")
     frame_features = []
@@ -220,7 +239,7 @@ def generate_features(
             pixels = analysis_pixels(image)
             weights = area_weights(image.width, image.height)[analysis_mask(image.width, image.height)]
         values = decode_pixels(pixels, colorbar, value_cache)
-        summary = summarize_values(values, vmin, vmax, weights)
+        summary = summarize_values(values, vmin, vmax, weights, scale)
         if summary["mean"] is None:
             raise ValueError(f"No pixels accepted by the color filters in {frame_path.name}.")
         frame_feature = {
@@ -265,6 +284,11 @@ def main(argv: list[str] | None = None) -> int:
         help="início em UTC no formato YYYY-MM-DDTHH:MM:SSZ.",
     )
     parser.add_argument("--interval-hours", type=float, default=3.0)
+    parser.add_argument(
+        "--end-utc",
+        type=_parse_utc,
+        help="UTC do último frame; interpola os horários entre início e fim.",
+    )
     args = parser.parse_args(argv)
 
     try:
@@ -275,6 +299,7 @@ def main(argv: list[str] | None = None) -> int:
             args.svs_id,
             args.start_utc,
             timedelta(hours=args.interval_hours),
+            args.end_utc,
         )
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(

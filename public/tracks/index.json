@@ -3,6 +3,8 @@
     "clima-temperatura",
     "clima-vento",
     "clima-chuva",
-    "clima-umidade"
+    "clima-umidade",
+    "ar-pm25",
+    "clima-ozonio"
   ]
 }

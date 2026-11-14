@@ -73,6 +73,9 @@ def generate_regions(track_id: str, data_dir: Path, geojson_path: Path, update_f
     vmin, vmax = source["vmin"], source["vmax"]
     if not vmin < vmax or (vmin, vmax) != (colorbar["vmin"], colorbar["vmax"]):
         raise ValueError("The global and regional normalization scales must match.")
+    if colorbar.get("scale", "linear") == "log" and vmin <= 0:
+        raise ValueError("A log colorbar requires a positive minimum.")
+    scale = colorbar.get("scale", "linear")
     if not update_features and source.get("statistics") != AREA_STATISTICS:
         raise ValueError("Source mean method is not area-weighted; run with --update-features.")
     wind_signal = track_id == "clima-vento"
@@ -100,7 +103,8 @@ def generate_regions(track_id: str, data_dir: Path, geojson_path: Path, update_f
                 raise ValueError("Frame dimensions changed within a track.")
             pixels = np.asarray(image.convert("RGB"))[included]
         values = decode_pixels(pixels, colorbar, cache)
-        summary = summarize_values(values, vmin, vmax, weights)
+        # Detect stale source features, including weighting, scale and filtering.
+        summary = summarize_values(values, vmin, vmax, weights, scale)
         if wind_signal:
             summary["visualSignal"] = visible_wind_signal(values, weights, vmin, vmax)
         if update_features:
@@ -110,7 +114,7 @@ def generate_regions(track_id: str, data_dir: Path, geojson_path: Path, update_f
                 if field in frame and frame[field] != summary[field]:
                     raise ValueError(f"Source {frame['file']} has stale {field}; regenerate features first.")
         for key, offsets in indices.items():
-            stats = summarize_values(values[offsets], vmin, vmax, weights[offsets])
+            stats = summarize_values(values[offsets], vmin, vmax, weights[offsets], scale)
             if wind_signal:
                 stats["visualSignal"] = visible_wind_signal(values[offsets], weights[offsets], vmin, vmax)
             regions[key]["values"].append([stats[column] for column in columns])

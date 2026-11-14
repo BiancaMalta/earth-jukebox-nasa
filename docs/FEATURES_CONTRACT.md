@@ -45,6 +45,12 @@ pixels que passam nos filtros de correspondência com a legenda; não representa
 global da precipitação. `coverage` informa a proporção efetivamente usada em
 cada quadro.
 
+For PM2.5 (SVS 5151), the NASA legend spans 0.4–409.6 µg/m³ on a
+logarithmic scale. The norm is logarithmic across these limits; mean and p90
+remain in µg/m³ and are estimates decoded from the rendered GEOS-CF image,
+not the raw numerical model grid. Coverage is the share of analyzed image
+pixels confidently matched to the legend.
+
 ## Regras
 
 - **Dados** é dono do arquivo: gera com `pipeline/features.py` e substitui o mock (mantendo os mesmos campos).

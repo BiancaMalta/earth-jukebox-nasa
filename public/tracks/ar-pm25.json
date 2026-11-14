@@ -1,0 +1,31 @@
+{
+  "id": "ar-pm25",
+  "title": {
+    "pt": "Material particulado (PM2.5)",
+    "en": "Particulate Matter (PM) 2.5"
+  },
+  "quantity": {
+    "pt": "concentração estimada de PM2.5 próximo à superfície",
+    "en": "estimated near-surface PM2.5 concentration"
+  },
+  "measure": {
+    "pt": "Média dos pixels coloridos de PM2.5 correspondentes à legenda",
+    "en": "Mean of color-matched PM2.5 pixels"
+  },
+  "svsId": 5151,
+  "model": "NASA GEOS-CF",
+  "unit": "µg/m³",
+  "frames": "data/ar-pm25/frames/",
+  "projection": "equirectangular",
+  "colorbar": {
+    "file": "data/ar-pm25/colorbar.json",
+    "vmin": 0.4,
+    "vmax": 409.6,
+    "unit": "µg/m³",
+    "scale": "log"
+  },
+  "preset": "campo-continuo",
+  "sound": {},
+  "speech": {},
+  "credit": "NASA Scientific Visualization Studio / GMAO GEOS-CF"
+}

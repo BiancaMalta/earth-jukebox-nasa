@@ -102,12 +102,13 @@ export function initPlayer(index, hooks = {}) {
       renderReading(root, frame, activeTrack);
       image.src = objectURL;
       image.hidden = false;
-      image.alt = `${localizedText(activeTrack?.quantity, "temperature")} visualization from NASA GEOS-FP. Frame values and dataset time are listed below.`;
+      const model = activeTrack?.model ?? "NASA GEOS-FP";
+      image.alt = `${localizedText(activeTrack?.quantity, "temperature")} visualization from ${model}. Frame values and dataset time are listed below.`;
       if (currentObjectURL) URL.revokeObjectURL(currentObjectURL);
       currentObjectURL = objectURL;
       objectURL = undefined;
       frameIndex = nextIndex;
-      description.textContent = "NASA GEOS-FP visualization. Pause to inspect the readings and their data limitations below.";
+      description.textContent = `${model} visualization. Pause to inspect the readings and their data limitations below.`;
       updateControls();
       // Image decoding completes before the frame event; audio has no frame clock.
       hooks.onFrame?.(frame, frameIndex, frames.length, reason === "playback" && !playing ? "paused" : reason, activeTrack);
@@ -238,7 +239,7 @@ export function initPlayer(index, hooks = {}) {
   for (const id of trackIds) {
     const option = document.createElement("option");
     option.value = id;
-    option.textContent = ({ "clima-temperatura": "Temperature", "clima-vento": "Wind", "clima-chuva": "Precipitation", "clima-umidade": "Humidity" })[id] ?? id;
+    option.textContent = ({ "clima-temperatura": "Temperature", "clima-vento": "Wind", "clima-chuva": "Precipitation", "clima-umidade": "Humidity", "ar-pm25": "Particulate matter (PM2.5)", "clima-ozonio": "Ozone" })[id] ?? id;
     select.append(option);
   }
   if (trackIds.length) void loadTrack(trackIds[0]);

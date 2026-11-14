@@ -48,6 +48,10 @@ class RegionTests(unittest.TestCase):
         self.assertEqual(stats["mean"], 4.73)
         self.assertIsNotNone(stats["norm"])
 
+    def test_logarithmic_normalization_uses_the_supplied_physical_scale(self):
+        result = summarize_values(np.array([6.4]), 0.4, 409.6, scale="log")
+        self.assertEqual(result["norm"], 0.4)
+
     def test_world_mask_matches_full_frame_and_retains_antimeridian_edges(self):
         np.testing.assert_array_equal(region_mask([feature("World", [WORLD])], 360, 180), analysis_mask(360, 180))
         mask = region_mask([feature("World", [WORLD])], 360, 180)
