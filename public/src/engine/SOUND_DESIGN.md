@@ -23,15 +23,15 @@ AI-assisted: OpenAI Codex. Front-end engineering notes; the data contract remain
 
 - Precipitation (SVS 5149, mm): use supplied mean amount `a`, never infer mm/h.
   At `a = 0` the instrument is silent. Positive amounts map to
-  `0.5 + 4.5 * (1 - exp(-a / 5))` coded glass plucks/s, bounded by 5.
-  Fixed G4 is a timbral carrier, not an amount-to-pitch mapping. Missing,
+  `0.5 + 4.5 * (1 - exp(-a / 5))` coded drum strokes/s, bounded by 5.
+  Fixed G3 is a timbral carrier, not an amount-to-pitch mapping. Missing,
   negative, nonfinite amounts or zero pixel coverage mean silence. The JSON
   does not specify the accumulation interval, so no rainfall-rate conversion
   or claim of observed drops/events is made.
 - Specific humidity (SVS 5150, g/kg): supplied mean `q >= 0` maps to nominal
   spectral bandwidth `160 + 1440 * (1 - exp(-q / 12))` Hz, bounded at 1600 Hz.
   A bandpass centered at 650 Hz uses `Q = 650 / bandwidth`; widening its band
-  adds body to a steady airy pad with a quiet fixed C4 carrier. There are no
+  adds body to a sustained string-like pad with a fixed C3 ensemble. There are no
   rain events, relative-humidity percentages or data-driven pitch changes.
   Missing, negative, nonfinite values or zero coverage mean silence. Zero
   specific humidity is a valid thin-pad reference, not a missing value.
@@ -44,22 +44,41 @@ AI-assisted: OpenAI Codex. Front-end engineering notes; the data contract remain
 
 Temperature retains one additive, rounded organ voice; a 100 ms attack, smooth
 release, short pitch transition and optional 16% reverb change presentation only.
-Wind uses one fixed C3 flute-like oscillator with quiet, filtered pink-noise
+Wind uses one fixed C5 flute-like oscillator with quiet, filtered pink-noise
 breath. A 0..1 sine LFO raised to the third power shapes rounded musical pulses
-with quiet gaps; only its frequency follows the unchanged speed mapping. C3 is
+with quiet gaps; only its frequency follows the unchanged speed mapping. C5 is
 an expressive reference, not a second wind-speed mapping or a competing melody.
-A 1400 Hz lowpass and 12% reverb soften the presentation. No geographic stereo
+A 2600 Hz lowpass and 12% reverb soften the presentation. No geographic stereo
 direction is implied. The LFO never advances dataset frames.
-Precipitation uses a sine FM carrier with soft harmonics, an eighth-power
-nonnegative sine LFO for narrow rounded plucks, a 1800 Hz lowpass and 12% reverb.
-Humidity combines filtered pink noise and a low-level C4 carrier; its continuous
-300 ms onset and 18% reverb contrast with the two pulsed instruments.
+Precipitation uses a fixed G3 custom body with partials [.45, 1, .75, .35, .15]
+and a white-noise stick-like stroke filtered around 2300 Hz. The harmonic body
+has fixed gain .4 and the stroke .6; neither gain varies with precipitation.
+A nonnegative sine LFO raised to the thirty-second power gives short, rounded drum
+windows; no new note or noise source is created for each stroke. An 8 ms gate
+attack, 3200 Hz lowpass, 350 ms reverb and 2.5% wet level give a present, fairly dry
+tamborim/snare-like sound. The channel calibration is 1.5 (about +3.5 dB), retaining the
+shared master/limiter and the combined mix headroom. Presence comes from both
+midrange harmonics and the filtered strike rather than only sub-bass volume.
+These are synthesized percussion strokes, not recorded rainfall, literal
+raindrops or inferred weather events. The amount-to-rate curve is unchanged
+from the earlier glass-like and soft-drum versions.
+Humidity uses a three-oscillator C3 sawtooth ensemble with fixed 8-cent spread,
+quiet filtered pink noise, a 220 ms onset and 14% reverb. The existing mapped
+bandwidth b also opens the string lowpass with cutoff
+`180 * 20 ** ((b - 160) / 1440)` Hz (180..3600 Hz). This is a fixed expressive
+transfer shared by frame playback and reference examples, independent of observed
+track or region ranges. More harmonics become audible as humidity rises; the
+pitch and detuning do not change. Gain compensation
+`0.55 / (1 + 0.8 * ((b - 160) / 1440))` moderates the added spectral energy.
+This replaces the earlier near-sine pad whose constant fundamental masked the
+noise bandwidth difference. The sound is synthesized and string-like, not a
+recording of a real bowed instrument.
 All four instruments use smooth ramps/envelopes and are allocated once per audio
 initialization, behind a silent gate until explicitly played.
 
 The visual player owns time. No instrument has a JavaScript frame timer.
 Legend timers compare explicitly labeled reference values only: temperature
-norm 0/1, wind 5/25 m/s, precipitation 0.5/10 mm, or humidity 2/18 g/kg. Manual previews and the last frame have bounded
+norm 0/1, wind 5/25 m/s, precipitation 0.5/10 mm, or humidity 0/22 g/kg (visualization scale endpoints). Manual previews and the last frame have bounded
 envelopes; pause, missing data, mute and switching experiences stop the old sound.
 
 ## Mixer and future combination
@@ -83,3 +102,47 @@ rules for every series. Join compatible times, never equal image indices. Curren
 dataset dates have no offsets. The newly integrated temperature, wind, rainfall
 and humidity values are image-derived and no longer mock; matching timestamp
 strings are not by themselves proof of scientific temporal equivalence. Model-field comparison and area weighting remain data-team work.
+
+## Four-layer listening experiment
+
+The optional Combined Earth panel enables all four instruments after explicit
+user selection. `combinedFrames` joins by the exact supplied timestamp label,
+not array index. All four current datasets share 124 labels, from
+2026-10-30T06:00 through 2026-11-14T14:00. These labels omit timezone offsets;
+this is an experimental label-aligned mix, not a confirmation of physical UTC
+alignment, accumulation intervals or common scientific provenance.
+
+The visual player remains the only frame clock. The selected visual experience
+provides the reference timestamp and image; each layer resolves its own frame
+for that timestamp and its own Python region row if a region is selected.
+There is no interpolation, timestamp invention, resampling or index pairing.
+Missing timestamps/region rows silence only the affected layer. Duplicate or
+invalid timestamps reject that dataset. The individual legend still pauses the
+player and demonstrates only the selected visual instrument.
+
+The panel provides per-instrument mute and gain (initially 65%). Combined mode
+adds a 0.5 shared mix gain before speech ducking, master gain and the existing
+single limiter; individual mode restores mix and instrument gains to 1 and
+clears instrument mutes. Controls update existing instruments; there are no new
+voices per frame or independent advancing transports. Disabling sound, pausing
+and page suspension release every layer. This explicit four-layer experiment
+extends the earlier planned three-layer first combination.
+
+
+## Why scalar mappings retain physical means
+
+For a fixed shared scale, norm = (mean - vmin) / (vmax - vmin) simply changes
+coordinates. Substituting normalized input and transforming the mapping's
+constants accordingly produces the same sound, apart from supplied rounding.
+It does not amplify country/continent differences by itself. Wind, precipitation
+and humidity therefore continue to use supplied mean values. Their norm fields
+remain visible and unmodified. Greater perceptual contrast requires an explicit
+change to the transfer curve, not silent per-region rescaling. No such curve
+change accompanies this percussion timbre update.
+
+
+Humidity channel calibration is now 2 (+6 dB), with string base gain .55 instead
+of .38, to keep it audible alongside the other layers. Its spectral mapping,
+fixed pitch and gain compensation remain unchanged. Percussion now emphasizes
+a G3 skin and filtered white-noise crack with short, dry windows, rather than
+the earlier low tom. These are synthesized approximations, not drum samples.

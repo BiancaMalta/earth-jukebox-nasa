@@ -9,6 +9,7 @@ import { createSpeechEngine } from "./engine/speech.js";
 import { announce, initKeyboard } from "./ui/a11y.js";
 import { createLegend } from "./ui/legend.js";
 import { initRegionalExplorer } from "./ui/regions.js";
+import { initCombined } from "./ui/combined.js";
 
 const audio = createAudioEngine();
 const speech = createSpeechEngine(window, (message) => { document.getElementById("speech-status").textContent = message; }, (speaking) => audio.setDucking(speaking));
@@ -18,6 +19,24 @@ const legendButton = document.getElementById("sound-legend");
 const narrate = document.getElementById("narrate-dates");
 const interval = document.getElementById("narration-interval");
 let player, removeKeyboard, regions, lastNarratedIndex = null;
+const combined = initCombined({
+  audio,
+  getFrame: () => player?.currentFrame,
+  getRegion: () => regions?.selectionKey() ?? null,
+  onChange: () => {
+    legend.cancel();
+    updateNoteStatus();
+    const current = player?.currentFrame;
+    if (!current) return;
+    const selected = regions?.getFrame(current, player.currentIndex) ?? { frame: current, track: player.currentTrack };
+    try { playFrameSound(selected.frame, selected.track, player.isPlaying ? undefined : 0.9); }
+    catch { soundStatus.textContent = "Could not update the mix. Disable sound and retry."; audio.stop(); }
+  },
+});
+function playFrameSound(frame, track, duration) {
+  return combined.enabled ? combined.play(frame, duration) : audio.playFrame(frame, track, duration);
+}
+
 
 function updateNoteStatus(frame = player?.currentFrame, track = player?.currentTrack) {
   if (frame && regions) {
@@ -27,6 +46,15 @@ function updateNoteStatus(frame = player?.currentFrame, track = player?.currentT
   }
   const element = document.getElementById("note-status");
   if (!element) return;
+  combined.render(frame);
+  if (combined.enabled) {
+    element.textContent = !combined.ready ? "Combined datasets are loading."
+      : !audio.enabled || audio.muted ? "Sound is off."
+        : audio.volume === 0 ? "Music volume is zero."
+          : legend.active ? "Selected instrument legend is playing alone."
+            : player?.isPlaying ? "Combined experiment follows supplied timestamps." : "Combined experiment ready; playback is paused.";
+    return;
+  }
   const parameters = mapFrameSound(frame, track);
   element.textContent = !parameters ? "No sound for this frame."
     : parameters.kind === "precipitation" && parameters.rate === 0 ? "Zero precipitation amount; silent."
@@ -76,6 +104,7 @@ const legend = createLegend({
   getKind: () => soundKind(player?.currentTrack),
   onBeforeStart: () => { player?.pause("Playback paused for the sound legend."); releaseSound(); },
   onState: (active) => {
+    combined.setLegendMode(active);
     legendButton.textContent = active ? "Stop sound legend" : "Play sound legend";
     legendButton.setAttribute("aria-pressed", String(active));
     document.getElementById("legend-status").textContent = active ? "Preparing the sound legend…" : "Legend stopped. Play to hear it again.";
@@ -101,7 +130,7 @@ enable.addEventListener("click", async () => {
     const current = player?.currentFrame;
     if (current) {
       const regional = regions?.getFrame(current, player.currentIndex) ?? { frame: current, track: player.currentTrack };
-      audio.playFrame(regional.frame, regional.track, player.isPlaying ? undefined : 0.9);
+      playFrameSound(regional.frame, regional.track, player.isPlaying ? undefined : 0.9);
     }
   } catch { /* enableAudio provides the visible error and leaves the player usable. */ }
 });
@@ -148,11 +177,11 @@ interval.addEventListener("input", () => {
 
 function onFrame(frame, index, total, reason, track) {
   const parameters = mapFrameSound(frame, track);
-  if (!parameters || reason === "paused") audio.stop();
+  if ((!parameters && !combined.enabled) || reason === "paused") audio.stop();
   updateNoteStatus(frame, track);
   if (reason === "manual") announce(`Frame ${index + 1} of ${total}. ${document.getElementById("demo-data").hidden ? "" : "Demo data. "}${describeReading(frame, track).summary}`);
   if (reason === "initial" || reason === "paused" || legend.active) return;
-  try { if (parameters) audio.playFrame(frame, track, reason === "playback" && index < total - 1 ? undefined : 0.9); }
+  try { if (parameters || combined.enabled) playFrameSound(frame, track, reason === "playback" && index < total - 1 ? undefined : 0.9); }
   catch { soundStatus.textContent = "Audio playback failed. Try enabling sound again; the visual player still works."; }
   const every = Number(interval.value);
   if (reason === "playback" && narrate.checked && !audio.muted && Number.isInteger(every) && every >= 1 && every <= 1000 && (lastNarratedIndex === null || index - lastNarratedIndex >= every)) {
@@ -164,7 +193,13 @@ function onFrame(frame, index, total, reason, track) {
 try {
   player = initPlayer(await fetchJSON("tracks/index.json"), {
     onTrackData: (context) => {
-      regions ??= initRegionalExplorer({ onSelection: () => { audio.stop(); updateRegionalReading(); }, onValueChange: updateRegionalReading });
+      regions ??= initRegionalExplorer({ onSelection: () => { audio.stop(); updateRegionalReading(); }, onValueChange: () => {
+        updateRegionalReading();
+        if (player?.isPlaying && !legend.active) {
+          const regional = regions.getFrame(player.currentFrame, player.currentIndex);
+          playFrameSound(regional.frame, regional.track);
+        }
+      } });
       void regions.configure(context);
     },
     onPause: () => { releaseSound(); updateNoteStatus(); },
@@ -196,5 +231,6 @@ window.addEventListener("beforeunload", () => {
   removeKeyboard?.();
   player?.destroy();
   regions?.destroy();
+  combined.destroy();
   audio.dispose();
 });

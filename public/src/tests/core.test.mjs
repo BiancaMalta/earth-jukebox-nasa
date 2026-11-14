@@ -130,7 +130,7 @@ function fakeTone() {
   class Reverb extends Node {
     constructor(options) { super(); assert.ok(options.decay > 0 && options.decay <= 2); this.wet = signal(options.wet); this.ready = Promise.resolve(); }
   }
-  class Filter extends Node { constructor(options) { super(); assert.ok(["lowpass", "bandpass"].includes(options.type)); this.Q = signal(options.Q); } }
+  class Filter extends Node { constructor(options) { super(); assert.ok(["lowpass", "bandpass"].includes(options.type)); this.Q = signal(options.Q); this.frequency = signal(options.frequency); } }
   class Synth extends Node {
     constructor(options) { super(); calls.synths++; assert.equal(options.oscillator.type, "custom"); assert.equal(options.envelope.sustain, 1); this.envelope = { cancel: () => { calls.cancels++; } }; }
     triggerAttack(note) { calls.notes.push(note); }
@@ -139,12 +139,15 @@ function fakeTone() {
     triggerAttackRelease(note) { calls.notes.push(note); }
   }
   class Noise extends Node {
-    constructor(options) { super(); assert.equal(options.type, "pink"); }
+    constructor(options) { super(); assert.ok(["pink", "white"].includes(options.type)); }
     start() { calls.noiseStarts++; return this; }
   }
   class Oscillator extends Node {
-    constructor(options) { super(); assert.ok(["C3", "C4"].includes(options.frequency), "Fixed wind/pad carriers"); }
+    constructor(options) { super(); assert.ok(["G3", "C3", "C4", "C5"].includes(options.frequency), "Fixed instrument carriers"); this.options = options; }
     start() { return this; }
+  }
+  class FatOscillator extends Oscillator {
+    constructor(options) { super(options); assert.equal(options.count, 3); assert.equal(options.type, "sawtooth"); }
   }
   class FMOscillator extends Node {
     constructor(options) { super(); assert.equal(options.frequency, "G4"); }
@@ -154,7 +157,7 @@ function fakeTone() {
     constructor(options) { super(); assert.equal(options.min, 0); assert.equal(options.max, 1); this.frequency = signal(options.frequency, calls.rates); }
     start() { return this; }
   }
-  class Pow extends Node { constructor(exponent) { super(); assert.ok([3, 8].includes(exponent)); } }
+  class Pow extends Node { constructor(exponent) { super(); assert.ok([3, 32].includes(exponent)); } }
   class AmplitudeEnvelope extends Node {
     cancel() {}
     triggerAttack() { calls.windAttacks++; this.active = true; }
@@ -163,7 +166,7 @@ function fakeTone() {
   }
   return {
     calls, context, get output() { return output; },
-    module: { Volume, Gain, Limiter, Filter, Reverb, Synth, Noise, Oscillator, FMOscillator, LFO, Pow, AmplitudeEnvelope, start: async () => { calls.starts++; }, now: () => 1, getContext: () => context },
+    module: { Volume, Gain, Limiter, Filter, Reverb, Synth, Noise, Oscillator, FatOscillator, FMOscillator, LFO, Pow, AmplitudeEnvelope, start: async () => { calls.starts++; }, now: () => 1, getContext: () => context },
   };
 }
 
@@ -483,7 +486,7 @@ test("wind legend compares labeled speed examples, not musical pitches or datase
 
 
 test("rainfall and humidity datasets use their own mappings, units and partial coverage", async () => {
-  for (const [id, kind, label] of [["clima-chuva", "precipitation", "Pluck density"], ["clima-umidade", "humidity", "Pad spectral width"]]) {
+  for (const [id, kind, label] of [["clima-chuva", "precipitation", "Drum stroke rate"], ["clima-umidade", "humidity", "Pad spectral width"]]) {
     const track = JSON.parse(await readFile(new URL(`../../tracks/${id}.json`, import.meta.url)));
     const data = JSON.parse(await readFile(new URL(`../../data/${id}/features.json`, import.meta.url)));
     const experience = describeExperience(track), reading = describeReading(data.frames[0], track);
@@ -541,7 +544,7 @@ test("the four instruments share resources, silence zero precipitation and dispo
 test("new legends compare stated amount and specific-humidity references", async () => {
   const originalWindow = globalThis.window;
   try {
-    for (const [kind, method, expected] of [["precipitation", "playPrecipitation", [0.5, 10]], ["humidity", "playHumidity", [2, 18]]]) {
+    for (const [kind, method, expected] of [["precipitation", "playPrecipitation", [0.5, 10]], ["humidity", "playHumidity", [0, 22]]]) {
       const tasks = [], values = [], steps = [];
       globalThis.window = { setTimeout(fn, delay) { tasks.push({ fn, delay }); return tasks.length; }, clearTimeout() {} };
       const legend = createLegend({ audio: { stop() {}, [method](value) { values.push(value); return true; } }, speech: { cancel() {}, speak() {} }, enableAudio: async () => {}, getKind: () => kind, onBeforeStart() {}, onState() {}, onStep(text) { steps.push(text); }, onError() { assert.fail("Unexpected error"); } });
@@ -549,4 +552,65 @@ test("new legends compare stated amount and specific-humidity references", async
       assert.deepEqual(values, expected); assert.match(steps.at(-1), /not current measurements/); assert.equal(legend.active, false);
     }
   } finally { globalThis.window = originalWindow; }
+});
+
+
+test("humidity reference extremes reveal harmonics with fixed pitch and no new voices", async () => {
+  const fake = fakeTone(), engine = createAudioEngine(async () => fake.module);
+  await engine.enable();
+  const count = fake.calls.created.length;
+  const strings = fake.calls.created.find(node => node instanceof fake.module.FatOscillator);
+  const color = strings.connections[0], level = strings.connections[1];
+  engine.playHumidity(0);
+  const low = color.frequency.value, lowGain = level.gain.value;
+  engine.playHumidity(22);
+  assert.ok(color.frequency.value / low > 10, "Legend should span a substantial spectral opening");
+  assert.ok(level.gain.value < lowGain, "Compensate added harmonic energy instead of using loudness as the cue");
+  assert.equal(fake.calls.created.length, count, "Reference changes reuse the ensemble");
+  engine.dispose();
+  assert.equal(fake.calls.disposals, count);
+});
+
+
+test("combined audio updates four persistent instruments and stops missing layers", async () => {
+  const fake=fakeTone(),engine=createAudioEngine(async()=>fake.module);
+  engine.setCombinedMode(true);
+  await engine.enable();
+  const count=fake.calls.created.length;
+  const layers=[
+    {frame:{norm:.6},track:temperatureTrack},
+    {frame:{mean:10},track:windTrack},
+    {frame:{mean:1},track:{id:'clima-chuva',svsId:5149,unit:'mm'}},
+    {frame:{mean:8},track:{id:'clima-umidade',svsId:5150,unit:'g/kg'}},
+  ];
+  assert.equal(engine.playLayers(layers),true);
+  const envelopes=fake.calls.created.filter(n=>n instanceof fake.module.AmplitudeEnvelope);
+  assert.ok(envelopes.every(n=>n.active));
+  engine.playLayers(layers.filter(e=>e.track.id!=='clima-vento'));
+  assert.equal(envelopes[0].active,false,'Missing wind timestamp must release the old wind');
+  assert.equal(envelopes[1].active,true);assert.equal(envelopes[2].active,true);
+  assert.equal(fake.calls.created.length,count);
+  assert.equal(fake.calls.created.filter(n=>n instanceof fake.module.Limiter).length,1);
+  engine.setInstrumentMuted('humidity',true);
+  engine.playLayers(layers);assert.equal(envelopes[2].active,false);
+  engine.setMuted(true);assert.equal(engine.playLayers(layers),false);
+  engine.dispose();assert.equal(fake.calls.disposals,count);
+});
+
+
+test("precipitation uses a persistent dry drum and keeps its scientific repetition rate", async () => {
+  const fake=fakeTone(),engine=createAudioEngine(async()=>fake.module);
+  await engine.enable();
+  const count=fake.calls.created.length;
+  const body=fake.calls.created.find(n=>n instanceof fake.module.Oscillator && n.options?.frequency==='G3');
+  assert.ok(body);assert.equal(body.options.type,'custom');
+  assert.ok(body.options.partials.slice(1).some(level=>level>.4), 'Drum retains midrange harmonics to stand out in the mix');
+  assert.equal(fake.calls.created.filter(n=>n instanceof fake.module.FMOscillator).length,0);
+  engine.playPrecipitation(.5);assert.equal(fake.calls.rates.at(-1),mapPrecipitation(.5));
+  engine.playPrecipitation(10);assert.equal(fake.calls.rates.at(-1),mapPrecipitation(10));
+  assert.equal(fake.calls.created.length,count);
+  engine.playPrecipitation(0);
+  const gates=fake.calls.created.filter(n=>n instanceof fake.module.AmplitudeEnvelope);
+  assert.equal(gates[1].active,false,'Zero amount releases the drum');
+  engine.dispose();assert.equal(fake.calls.disposals,count);
 });

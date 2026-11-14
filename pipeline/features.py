@@ -30,20 +30,49 @@ DST_END_UTC = datetime(2026, 11, 1, 6, tzinfo=timezone.utc)
 COLOR_MATCH_BATCH_SIZE = 4096
 
 
-def analysis_pixels(image: Image.Image) -> np.ndarray:
-    """Return RGB pixels outside the logo and timestamp rectangles."""
-    pixels = np.asarray(image.convert("RGB"))
-    height, width = pixels.shape[:2]
+def analysis_mask(width: int, height: int) -> np.ndarray:
+    """Shared exclusion mask for full-frame and regional statistics."""
     included = np.ones((height, width), dtype=bool)
-
     for left, top, right, bottom in EXCLUDED_RECTANGLES:
         x0 = round(left * width / REFERENCE_WIDTH)
         y0 = round(top * height / REFERENCE_HEIGHT)
         x1 = round(right * width / REFERENCE_WIDTH)
         y1 = round(bottom * height / REFERENCE_HEIGHT)
         included[y0:y1, x0:x1] = False
+    return included
 
-    return pixels[included]
+
+def analysis_pixels(image: Image.Image) -> np.ndarray:
+    """Return RGB pixels outside the logo and timestamp rectangles."""
+    pixels = np.asarray(image.convert("RGB"))
+    return pixels[analysis_mask(image.width, image.height)]
+
+
+def decode_pixels(pixels: np.ndarray, colorbar: dict, cache: dict) -> np.ndarray:
+    """Decode pixels once; NaN denotes rejected colors, never a measured zero."""
+    unique, inverse = np.unique(pixels, axis=0, return_inverse=True)
+    palette = np.asarray([sample["rgb"] for sample in colorbar["samples"]], dtype=np.int32)
+    palette_values = np.asarray([sample["value"] for sample in colorbar["samples"]], dtype=np.float64)
+    values, distances = _values_for_unique_colors(unique, palette, palette_values, cache)
+    if colorbar.get("pixelFilter") is not None:
+        valid = _valid_palette_colors(unique, values, distances, colorbar["pixelFilter"])
+        values = np.where(valid, values, np.nan)
+    return values[inverse]
+
+
+def summarize_values(values: np.ndarray, vmin: float, vmax: float) -> dict:
+    """Same pixel weighting, rounding and fixed scale in every spatial scope."""
+    valid = values[np.isfinite(values)]
+    coverage = round(float(valid.size / values.size), 3) if values.size else 0.0
+    if not valid.size:
+        return {"mean": None, "p90": None, "norm": None, "coverage": coverage}
+    mean = round(float(np.mean(valid)), 3)
+    return {
+        "mean": mean,
+        "p90": round(float(np.percentile(valid, 90)), 3),
+        "norm": round(float(np.clip((mean - vmin) / (vmax - vmin), 0.0, 1.0)), 3),
+        "coverage": coverage,
+    }
 
 
 def frame_date(
@@ -157,37 +186,17 @@ def generate_features(
     for index, frame_path in enumerate(frame_files):
         with Image.open(frame_path) as image:
             pixels = analysis_pixels(image)
-        unique_colors, inverse = np.unique(pixels, axis=0, return_inverse=True)
-        unique_values, unique_distances = _values_for_unique_colors(
-            unique_colors, palette_colors, palette_values, value_cache
-        )
-        values = unique_values[inverse]
-        coverage = None
-        if pixel_filter is not None:
-            valid_colors = _valid_palette_colors(
-                unique_colors, unique_values, unique_distances, pixel_filter
-            )
-            valid_pixels = valid_colors[inverse]
-            coverage = float(np.mean(valid_pixels))
-            if not np.any(valid_pixels):
-                raise ValueError(
-                    f"No confidently color-matched pixels in {frame_path.name}."
-                )
-            values = values[valid_pixels]
-
-        mean = round(float(np.mean(values)), 3)
-        p90 = round(float(np.percentile(values, 90)), 3)
-        norm = round(float(np.clip((mean - vmin) / (vmax - vmin), 0.0, 1.0)), 3)
-
+        values = decode_pixels(pixels, colorbar, value_cache)
+        summary = summarize_values(values, vmin, vmax)
+        if summary["mean"] is None:
+            raise ValueError(f"No confidently color-matched pixels in {frame_path.name}.")
         frame_feature = {
             "file": frame_path.name,
             "date": frame_date(index, frame_start_utc, frame_interval),
-            "mean": mean,
-            "p90": p90,
-            "norm": norm,
+            **summary,
         }
-        if coverage is not None:
-            frame_feature["coverage"] = round(coverage, 3)
+        if pixel_filter is None:
+            del frame_feature["coverage"]
         frame_features.append(frame_feature)
         if (index + 1) % 25 == 0 or index + 1 == len(frame_files):
             print(f"  {index + 1}/{len(frame_files)} frames")

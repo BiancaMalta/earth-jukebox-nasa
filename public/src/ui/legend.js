@@ -18,8 +18,8 @@ export function createLegend({ audio, speech, enableAudio, onBeforeStart, onStat
       const examples = {
         temperature: { play: (high) => audio.playNote(high ? "C5" : "C3", 1.8), low: "Low values — lower pitch (C3).", high: "High values — higher pitch (C5).", meaning: "Higher normalized temperature means higher pitch" },
         wind: { play: (high) => audio.playWind(high ? 25 : 5, 1.8), low: "Example 5 m/s — slower musical pulse.", high: "Example 25 m/s — faster musical pulse.", meaning: "Higher wind speed means faster musical pulses" },
-        precipitation: { play: (high) => audio.playPrecipitation(high ? 10 : 0.5, 1.8), low: "Example 0.5 mm — sparse glass plucks.", high: "Example 10 mm — denser glass plucks.", meaning: "Higher precipitation amount means denser plucks, not millimeters per hour" },
-        humidity: { play: (high) => audio.playHumidity(high ? 18 : 2, 1.8), low: "Example 2 g/kg — thinner atmospheric pad.", high: "Example 18 g/kg — fuller atmospheric pad.", meaning: "Higher specific humidity means fuller spectral body, not rainfall" },
+        precipitation: { play: (high) => audio.playPrecipitation(high ? 10 : 0.5, 1.8), low: "Example 0.5 mm — slower dry drum strokes.", high: "Example 10 mm — faster dry drum strokes.", meaning: "Higher precipitation amount means faster drum strokes, not millimeters per hour" },
+        humidity: { play: (high) => audio.playHumidity(high ? 22 : 0, 1.8), low: "Example 0 g/kg — dark, thin string pad.", high: "Example 22 g/kg — bright, rich string pad.", meaning: "Higher specific humidity means richer string harmonics, not rainfall" },
       };
       const example = examples[getKind()];
       if (!example) throw new Error("No sound mapping is available for this experience.");

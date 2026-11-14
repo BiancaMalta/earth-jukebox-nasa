@@ -18,13 +18,13 @@ export function describeReading(frame, track) {
   const validCoverage = isFiniteNumber(frame?.coverage) && frame.coverage >= 0 && frame.coverage <= 1;
   const coverageDetail = nonTemperature ? validCoverage ? `${(frame.coverage * 100).toFixed(1)}% of analyzed pixels confidently matched` : "Pixel coverage unavailable" : "";
   const validNorm = isFiniteNumber(frame?.norm) && frame.norm >= 0 && frame.norm <= 1;
-  const soundLabel = visualOnly ? "Sound mapping" : wind ? "Wind pulse rate" : kind === "precipitation" ? "Pluck density" : kind === "humidity" ? "Pad spectral width" : "Mapped musical note";
+  const soundLabel = visualOnly ? "Sound mapping" : wind ? "Wind pulse rate" : kind === "precipitation" ? "Drum stroke rate" : kind === "humidity" ? "Pad spectral width" : "Mapped musical note";
   const soundValue = visualOnly ? "Not implemented" : !sound ? "Unavailable" : kind === "humidity" ? `${Math.round(sound.bandwidth)} Hz` : kind === "temperature" ? sound.note : `${sound.rate.toFixed(2)} Hz`;
   const soundSummary = !sound ? visualOnly ? "Visual-only experience; no sound mapping assigned." : "Sound data unavailable or no valid pixels; no note or texture."
     : kind === "temperature" ? `Mapped note ${sound.note}.`
-      : wind ? `Wind rhythm ${sound.rate.toFixed(2)} pulses per second; fixed C3 pitch, not measured gusts.`
-        : kind === "precipitation" ? `Musical density ${sound.rate.toFixed(2)} plucks per second; fixed G4 carrier, not measured rainfall intensity.`
-          : `Nominal pad bandwidth ${Math.round(sound.bandwidth)} hertz; fixed C4 background, not rainfall.`;
+      : wind ? `Wind rhythm ${sound.rate.toFixed(2)} pulses per second; fixed C5 pitch, not measured gusts.`
+        : kind === "precipitation" ? `Musical density ${sound.rate.toFixed(2)} drum strokes per second; fixed G3 carrier, not measured rainfall intensity.`
+          : `Nominal pad bandwidth ${Math.round(sound.bandwidth)} hertz; fixed C3 string ensemble, not rainfall.`;
   return {
     date, dateLabel, timeLabel, mean, measure, sound, soundLabel, soundValue,
     note: sound?.kind === "temperature" ? sound.note : null,
