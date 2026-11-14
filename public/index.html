@@ -1,0 +1,67 @@
+<!doctype html>
+<!-- AI-assisted: OpenAI Codex; original scaffold: Claude. Owner: Front -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Watch NASA Earth visualizations and explore changing Earth data through accessible sound.">
+  <title>Earth Jukebox — Hear our changing planet</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="importmap">
+    { "imports": { "tone": "https://cdn.jsdelivr.net/npm/tone@15.0.4/+esm" } }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to player</a>
+  <header class="site-header">
+    <div><p class="eyebrow">NASA Space Apps Challenge · 2026</p><h1>Earth Jukebox</h1><p class="intro">A changing planet. A different way to listen.</p></div>
+    <p class="header-note">See the pattern.<br>Hear the change.</p>
+  </header>
+  <main id="main" tabindex="-1">
+    <div class="experience-layout">
+      <section id="player" class="panel player-panel" aria-label="Earth data player"></section>
+      <aside class="listening-sidebar" aria-label="Listening guide and sound controls">
+        <section class="panel sound-panel" aria-labelledby="sound-heading">
+          <p class="eyebrow">Listen your way</p><h2 id="sound-heading">Sound controls</h2>
+          <p class="section-intro">Start silent. Choose an experience and enable sound when you are ready.</p>
+          <button id="enable-sound" class="sound-toggle" type="button" aria-pressed="false" aria-describedby="sound-status">Enable sound</button>
+          <div class="volume-control"><label for="volume">Music volume</label><span id="volume-value">25%</span><input id="volume" type="range" min="0" max="100" value="25" aria-valuetext="25 percent" aria-describedby="volume-help"></div>
+          <p id="volume-help" class="control-help">Begin with a low device volume. The music slider does not control browser speech volume.</p>
+          <p id="sound-status" class="status-text" role="status" aria-atomic="true">Sound is off. The visual player works without audio.</p>
+          <p class="instrument-label"><span id="instrument-name">Soft dark organ</span><span id="instrument-character">Rounded harmonics · one voice · optional light ambience</span></p><label class="checkbox-label control-help"><input id="temperature-ambience" type="checkbox" checked>Temperature ambience</label>
+        </section>
+        <section class="panel guide-panel" aria-labelledby="guide-heading">
+          <p class="eyebrow">Understand the sound</p><h2 id="guide-heading">From data to music</h2>
+          <p id="mapping-help">Lower normalized values become lower notes. Higher values become higher notes.</p>
+          <div class="pitch-legend"><p><span class="pitch-dot" aria-hidden="true"></span><strong id="guide-low">Lower value</strong><span id="guide-low-detail">Lower pitch · C3</span></p><p><span class="pitch-dot pitch-dot--high" aria-hidden="true"></span><strong id="guide-high">Higher value</strong><span id="guide-high-detail">Higher pitch · C5</span></p></div>
+          <p id="scale-description" class="control-help">The 11 notes follow a C major pentatonic scale across two octaves.</p>
+          <button id="sound-legend" type="button" aria-pressed="false" aria-describedby="legend-help">Play sound legend</button>
+          <p id="legend-help" class="control-help">A five-second low-to-high comparison. The legend pauses the player. Disable sound or navigate to stop it.</p>
+          <p id="legend-status" class="status-text" role="status" aria-atomic="true">Ready when you are.</p>
+        </section>
+      </aside>
+    </div>
+    <section class="panel explanation-panel" aria-labelledby="reading-heading">
+      <div><p class="eyebrow">Read the frame</p><h2 id="reading-heading">What the numbers mean</h2><p id="readings-help">Without a regional selection, readings summarize valid colored pixels across the whole image. Select a continent or country to focus the map and switch both readings and sound to that region. Coverage shows how much of the selected area was analyzed.</p></div>
+      <div><h3>One phenomenon, one sound identity</h3><p id="normalization-help"><span id="sound-mapping-detail">The supplied temperature value maps to one note.</span> <span id="normalization-range">Normalization limits are unavailable.</span></p><p class="control-help">Dates keep their supplied time zone. If none is given, the player says so.</p></div>
+    </section>
+    <details class="panel keyboard-panel" open>
+      <summary>Keyboard guide</summary>
+      <p id="keyboard-help">Use <kbd>Tab</kbd> and <kbd>Shift</kbd> + <kbd>Tab</kbd> to move between controls. Use <kbd>Enter</kbd> or <kbd>Space</kbd> to activate buttons.</p>
+      <ul class="keyboard-list"><li><kbd>Space</kbd><span>Play or pause when focus is outside controls.</span></li><li><kbd>←</kbd> <kbd>→</kbd><span>Previous or next frame when focus is outside controls.</span></li><li><kbd>←</kbd> <kbd>→</kbd><span>Adjust a slider when it has focus.</span></li></ul>
+      <p class="control-help">Pause to explore the readings with a screen reader. Automatic playback does not announce every frame; manual frame selection announces its values.</p>
+    </details>
+    <details class="panel speech-options">
+      <summary>Optional spoken dates</summary>
+      <p class="control-help">Browser speech is optional and depends on available voices. It is separate from screen-reader support.</p>
+      <div class="player-controls"><button id="test-voice" type="button" aria-describedby="speech-status">Test voice</button><label class="checkbox-label"><input id="narrate-dates" type="checkbox" aria-describedby="speech-support">Speak dates</label><label for="narration-interval">Every N frames</label><input id="narration-interval" type="number" min="1" max="1000" step="1" value="16" aria-describedby="speech-support"></div>
+      <p id="speech-support" class="control-help">Speak dates reads the current date immediately, then every N frames during playback, even without music. Disable sound silences speech too.</p>
+      <p id="speech-status" class="status-text" role="status" aria-atomic="true">Checking English speech voices…</p>
+    </details>
+    <div id="live" class="sr-only" role="status" aria-atomic="true"></div>
+    <noscript><p class="demo-notice">This player needs JavaScript to display frames and produce sound.</p></noscript>
+  </main>
+  <footer><span>Earth Jukebox · NASA Space Apps 2026</span><span>Visualizations courtesy of NASA's Scientific Visualization Studio.</span></footer>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

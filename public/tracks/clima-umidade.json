@@ -1,0 +1,24 @@
+{
+  "id": "clima-umidade",
+  "title": { "pt": "Umidade específica perto da superfície", "en": "Near-surface specific humidity" },
+  "quantity": { "pt": "umidade específica", "en": "specific humidity" },
+  "measure": {
+    "pt": "Média dos pixels de umidade coloridos e confiáveis",
+    "en": "Mean of confidently color-matched humidity pixels"
+  },
+  "svsId": 5150,
+  "unit": "g/kg",
+  "frames": "data/clima-umidade/frames/",
+  "projection": "equirectangular",
+  "colorbar": {
+    "file": "data/clima-umidade/colorbar.json",
+    "vmin": 0,
+    "vmax": 22,
+    "unit": "g/kg",
+    "scale": "linear"
+  },
+  "preset": "campo-continuo",
+  "sound": {},
+  "speech": {},
+  "credit": "NASA Scientific Visualization Studio / GMAO GEOS-FP"
+}

@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+# Raw downloads (keep on the shared Drive, not in Git)
+raw/
+pipeline/raw/
+*.mp4
+*.mov
+# Large originals
+public/data/**/original/
+# Node (optional)
+node_modules/
+dist/
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local tool state
+.peers/
+.claude/

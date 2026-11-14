@@ -1,0 +1,552 @@
+// AI-assisted: OpenAI Codex. Run: node --test public/src/tests/core.test.mjs
+import test from "node:test";
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import { validateFeatures, describeDate } from "../data/features.js";
+import { mapValue, PENTATONIC_NOTES, mapWindSpeed, mapFrameSound, soundKind, mapPrecipitation, mapHumidity } from "../engine/mapping.js";
+import { createAudioEngine } from "../engine/audio.js";
+import { createSpeechEngine } from "../engine/speech.js";
+import { initKeyboard } from "../ui/a11y.js";
+import { createLegend } from "../ui/legend.js";
+import { describeReading } from "../ui/readings.js";
+import { describeExperience } from "../ui/experience.js";
+
+const sample = () => ({
+  track: "test", mock: true, unit: "°C", vmin: -40, vmax: 40,
+  frames: [{ file: "frame_000001.webp", date: "2026-10-30T06:00", mean: 0, norm: 0.5 }],
+});
+
+test("pentatonic endpoints, monotonic quantization and determinism", () => {
+  assert.equal(mapValue(0), "C3");
+  assert.equal(mapValue(1), "C5");
+  let last = -1;
+  for (let i = 0; i <= 10000; i++) {
+    const note = mapValue(i / 10000);
+    const position = PENTATONIC_NOTES.indexOf(note);
+    assert.ok(position >= last);
+    assert.equal(mapValue(i / 10000), note);
+    last = position;
+  }
+});
+
+test("missing, nonnumeric and out-of-range normalized values never create a note", () => {
+  for (const value of [null, undefined, "0", false, NaN, Infinity, -Infinity, -0.01, 1.01, {}, []]) {
+    assert.equal(mapValue(value), null);
+    const data = sample();
+    data.frames[0].norm = value;
+    assert.equal(validateFeatures(data, "test").frames[0].norm, null);
+  }
+});
+
+test("features follow producer count and preserve mock/real values without recomputing norm", async () => {
+  const json = JSON.parse(await readFile(new URL("../../data/clima-temperatura/features.json", import.meta.url)));
+  assert.equal(validateFeatures(json, json.track).frames.length, json.frames.length);
+  const data = sample();
+  data.mock = false;
+  data.frames[0].mean = 38;
+  data.frames[0].norm = 0;
+  let result = validateFeatures(data, "test");
+  assert.equal(result.mock, false);
+  assert.equal(result.frames[0].norm, 0);
+  data.frames[0].mean = null;
+  result = validateFeatures(data, "test");
+  assert.equal(result.frames[0].mean, null);
+  assert.equal(result.frames[0].norm, 0);
+});
+
+test("features accept track-specific units and expose partial pixel coverage", () => {
+  const data = sample();
+  data.track = "clima-vento";
+  data.unit = "m/s";
+  data.frames[0].coverage = 0.483;
+
+  const result = validateFeatures(data, "clima-vento", "m/s");
+  assert.equal(result.unit, "m/s");
+  assert.equal(result.frames[0].coverage, 0.483);
+  assert.throws(() => validateFeatures(data, "clima-vento", "°C"));
+});
+
+test("the wind track's generated features satisfy the front-end contract", async () => {
+  const [track, features] = await Promise.all([
+    readFile(new URL("../../tracks/clima-vento.json", import.meta.url)).then(JSON.parse),
+    readFile(new URL("../../data/clima-vento/features.json", import.meta.url)).then(JSON.parse),
+  ]);
+  const result = validateFeatures(features, track.id, track.unit);
+
+  assert.equal(result.unit, "m/s");
+  assert.equal(result.frames.length, features.frames.length);
+  assert.ok(result.frames.every((frame) => frame.norm !== null && frame.coverage !== null));
+});
+
+test("the precipitation track's generated features satisfy the front-end contract", async () => {
+  const [track, features] = await Promise.all([
+    readFile(new URL("../../tracks/clima-chuva.json", import.meta.url)).then(JSON.parse),
+    readFile(new URL("../../data/clima-chuva/features.json", import.meta.url)).then(JSON.parse),
+  ]);
+  const result = validateFeatures(features, track.id, track.unit);
+
+  assert.equal(result.unit, "mm");
+  assert.equal(result.frames.length, 124);
+  assert.ok(result.frames.every((frame) => frame.norm !== null && frame.coverage !== null));
+});
+
+test("invalid structure and unsafe or duplicate frame filenames fail explicitly", () => {
+  for (const data of [null, {}, { ...sample(), mock: undefined }, { ...sample(), unit: "" }, { ...sample(), frames: [] }]) {
+    assert.throws(() => validateFeatures(data, "test"));
+  }
+  assert.throws(() => validateFeatures(sample(), "other-track"));
+  for (const file of ["../frame.webp", "https://example.com/frame.webp", "frame.webp?x=1", "frame.svg"]) {
+    const data = sample();
+    data.frames[0].file = file;
+    assert.throws(() => validateFeatures(data, "test"));
+  }
+  const data = sample();
+  data.frames.push({ ...data.frames[0] });
+  assert.throws(() => validateFeatures(data, "test"));
+});
+
+test("dates retain wall time and timezone; invalid or missing dates are not invented", () => {
+  assert.equal(describeDate("2026-10-30T06:00"), "October 30, 2026 at 06:00 (time zone not specified)");
+  assert.equal(describeDate("2026-11-01T02:00-05:00"), "November 1, 2026 at 02:00 (UTC-05:00)");
+  assert.equal(describeDate("2026-11-01T07:00:00Z"), "November 1, 2026 at 07:00:00 (UTC)");
+  assert.ok(describeDate("2028-02-29T01:00"));
+  for (const value of [null, undefined, "", "not a date", "2026-02-29T01:00", "2026-11-31T01:00", "2026-11-01T24:00", "2026-11-01T00:00+25:00"]) assert.equal(describeDate(value), null);
+});
+
+function fakeTone() {
+  const calls = { starts: 0, synths: 0, cancels: 0, notes: [], disposals: 0, created: [], rates: [], windAttacks: 0, windReleases: 0, noiseStarts: 0 };
+  const context = { state: "running" };
+  let output;
+  const signal = (value, updates) => ({ value, rampTo(v) { this.value = v; updates?.push(v); } });
+  class Node {
+    constructor() { calls.created.push(this); }
+    chain(...nodes) { this.connections = nodes; return this; }
+    connect(node) { this.connections = [node]; return this; }
+    dispose() { assert.ok(!this.disposed, "Resource disposed only once"); this.disposed = true; calls.disposals++; }
+  }
+  class Volume extends Node { constructor(value) { super(); output = this; this.value = value; this.volume = signal(value); } }
+  class Gain extends Node { constructor(value) { super(); this.gain = signal(value); } }
+  class Limiter extends Node { constructor(value) { super(); assert.equal(value, -6); } toDestination() { return this; } }
+  class Reverb extends Node {
+    constructor(options) { super(); assert.ok(options.decay > 0 && options.decay <= 2); this.wet = signal(options.wet); this.ready = Promise.resolve(); }
+  }
+  class Filter extends Node { constructor(options) { super(); assert.ok(["lowpass", "bandpass"].includes(options.type)); this.Q = signal(options.Q); } }
+  class Synth extends Node {
+    constructor(options) { super(); calls.synths++; assert.equal(options.oscillator.type, "custom"); assert.equal(options.envelope.sustain, 1); this.envelope = { cancel: () => { calls.cancels++; } }; }
+    triggerAttack(note) { calls.notes.push(note); }
+    setNote(note) { calls.notes.push(note); }
+    triggerRelease() {}
+    triggerAttackRelease(note) { calls.notes.push(note); }
+  }
+  class Noise extends Node {
+    constructor(options) { super(); assert.equal(options.type, "pink"); }
+    start() { calls.noiseStarts++; return this; }
+  }
+  class Oscillator extends Node {
+    constructor(options) { super(); assert.ok(["C3", "C4"].includes(options.frequency), "Fixed wind/pad carriers"); }
+    start() { return this; }
+  }
+  class FMOscillator extends Node {
+    constructor(options) { super(); assert.equal(options.frequency, "G4"); }
+    start() { return this; }
+  }
+  class LFO extends Node {
+    constructor(options) { super(); assert.equal(options.min, 0); assert.equal(options.max, 1); this.frequency = signal(options.frequency, calls.rates); }
+    start() { return this; }
+  }
+  class Pow extends Node { constructor(exponent) { super(); assert.ok([3, 8].includes(exponent)); } }
+  class AmplitudeEnvelope extends Node {
+    cancel() {}
+    triggerAttack() { calls.windAttacks++; this.active = true; }
+    triggerRelease() { calls.windReleases++; this.active = false; }
+    triggerAttackRelease() { calls.windAttacks++; }
+  }
+  return {
+    calls, context, get output() { return output; },
+    module: { Volume, Gain, Limiter, Filter, Reverb, Synth, Noise, Oscillator, FMOscillator, LFO, Pow, AmplitudeEnvelope, start: async () => { calls.starts++; }, now: () => 1, getContext: () => context },
+  };
+}
+
+test("audio starts only explicitly, reuses one voice, cancels previous envelopes and disposes nodes", async () => {
+  const fake = fakeTone();
+  const engine = createAudioEngine(async () => fake.module);
+  assert.equal(engine.enabled, false);
+  assert.equal(engine.playNote("C3"), false);
+  assert.equal(fake.calls.starts, 0);
+  await Promise.all([engine.enable(), engine.enable()]);
+  assert.equal(fake.calls.starts, 1);
+  assert.equal(fake.calls.synths, 1);
+  assert.equal(fake.output.value, -30);
+  engine.playNote("C3");
+  engine.playNote("C5");
+  assert.deepEqual(fake.calls.notes, ["C3", "C5"]);
+  assert.equal(fake.calls.cancels, 1);
+  engine.playNote("C5");
+  assert.deepEqual(fake.calls.notes, ["C3", "C5"], "Repeated notes stay sustained without a new attack");
+  engine.setMuted(true);
+  assert.equal(engine.playNote("C4"), false);
+  engine.setMuted(false);
+  engine.setVolume(0);
+  assert.equal(engine.playNote("C4"), false);
+  engine.setVolume(25);
+  fake.context.state = "suspended";
+  assert.equal(engine.playNote("C4"), false);
+  engine.dispose();
+  assert.equal(fake.calls.disposals, fake.calls.created.length);
+  await assert.rejects(engine.enable());
+});
+
+test("CDN/init failures remain retryable at the engine boundary", async () => {
+  const fake = fakeTone();
+  let fail = true;
+  const engine = createAudioEngine(async () => { if (fail) throw new Error("offline"); return fake.module; });
+  await assert.rejects(engine.enable());
+  assert.equal(engine.enabled, false);
+  fail = false;
+  await engine.enable();
+  assert.equal(engine.enabled, true);
+  engine.dispose();
+});
+
+test("speech skips a busy voice, replaces legend speech and cancels owned utterances", () => {
+  const spoken = [];
+  let cancellations = 0;
+  const scope = {
+    SpeechSynthesisUtterance: class { constructor(text) { this.text = text; } },
+    speechSynthesis: { getVoices: () => [{ name: "Test English", lang: "en-US" }], resume() {}, speaking: false, pending: false, speak: (u) => spoken.push(u), cancel: () => { cancellations++; } },
+  };
+  const speech = createSpeechEngine(scope);
+  assert.equal(speech.speak("First date"), true);
+  assert.equal(speech.speak("Another date"), false);
+  spoken[0].onend();
+  assert.equal(speech.speak("Next date"), true);
+  speech.speak("Cold", true);
+  assert.equal(cancellations, 1);
+  speech.cancel();
+  assert.equal(cancellations, 2);
+  assert.equal(createSpeechEngine({}).speak("Unsupported"), false);
+});
+
+test("shortcuts preserve interactive controls, modifiers and typing; listener is removable", () => {
+  let handler, toggles = 0;
+  const steps = [];
+  const target = { addEventListener: (_, fn) => { handler = fn; }, removeEventListener: (_, fn) => assert.equal(fn, handler) };
+  const cleanup = initKeyboard({ toggle: () => { toggles++; }, step: (d) => steps.push(d) }, target);
+  const key = (value, interactive = false, extra = {}) => {
+    let prevented = false;
+    handler({ key: value, target: { closest: () => interactive }, preventDefault: () => { prevented = true; }, ...extra });
+    return prevented;
+  };
+  assert.equal(key(" "), true);
+  key("ArrowRight"); key("ArrowLeft");
+  assert.equal(toggles, 1);
+  assert.deepEqual(steps, [1, -1]);
+  for (const value of [" ", "ArrowRight", "ArrowLeft"]) assert.equal(key(value, true), false);
+  for (const extra of [{ ctrlKey: true }, { metaKey: true }, { altKey: true }, { shiftKey: true }, { isComposing: true }, { defaultPrevented: true }]) assert.equal(key("ArrowRight", false, extra), false);
+  assert.equal(key(" ", false, { repeat: true }), false);
+  cleanup();
+});
+
+test("legend cancellation during async initialization cannot start stale notes", async () => {
+  const originalWindow = globalThis.window;
+  globalThis.window = { setTimeout, clearTimeout };
+  try {
+    let resolve, notes = 0;
+    const legend = createLegend({
+      audio: { stop() {}, playNote() { notes++; } }, speech: { cancel() {} },
+      enableAudio: () => new Promise((done) => { resolve = done; }),
+      onBeforeStart() {}, onState() {}, onError() { assert.fail("Unexpected legend error"); },
+    });
+    const starting = legend.toggle();
+    assert.equal(legend.active, true);
+    legend.cancel();
+    resolve();
+    await starting;
+    assert.equal(legend.active, false);
+    assert.equal(notes, 0);
+  } finally { globalThis.window = originalWindow; }
+});
+
+test("speech reports zero voices and recovers when an English voice appears", () => {
+  let voices = [], spoken = 0, status;
+  const speech = createSpeechEngine({
+    SpeechSynthesisUtterance: class {},
+    speechSynthesis: { getVoices: () => voices, resume() {}, speak(u) { spoken++; u.onstart(); }, cancel() {} },
+  }, (message) => { status = message; });
+  assert.equal(speech.speak("Test", true), false);
+  assert.equal(spoken, 0);
+  assert.match(status, /No English speech voice/);
+  voices = [{ name: "English voice", lang: "en-GB" }];
+  assert.equal(speech.speak("Test", true), true);
+  assert.equal(spoken, 1);
+  assert.match(status, /English voice ready/);
+  speech.dispose();
+});
+
+test("speech exposes synthesis errors instead of failing silently", () => {
+  let status;
+  const speech = createSpeechEngine({
+    SpeechSynthesisUtterance: class {},
+    speechSynthesis: {
+      getVoices: () => [{ name: "English", lang: "en-US" }], resume() {}, cancel() {},
+      speak(u) { u.onerror({ error: "synthesis-unavailable" }); },
+    },
+  }, (message) => { status = message; });
+  speech.speak("Test", true);
+  assert.match(status, /synthesis-unavailable/);
+  speech.dispose();
+});
+
+test("sound legend uses held comparison notes and visible steps without speech voices", async () => {
+  const originalWindow = globalThis.window;
+  const tasks = [], notes = [], steps = [];
+  globalThis.window = { setTimeout(fn, delay) { tasks.push({ fn, delay }); return tasks.length; }, clearTimeout() {} };
+  try {
+    const legend = createLegend({
+      audio: { stop() {}, playNote(note, duration) { notes.push([note, duration]); return true; } },
+      speech: { cancel() {}, speak() { return false; } },
+      enableAudio: async () => {}, onBeforeStart() {}, onState() {},
+      onStep(text) { steps.push(text); }, onError() { assert.fail("Unexpected legend error"); },
+    });
+    await legend.toggle();
+    assert.deepEqual(notes, [["C3", 1.8]]);
+    tasks.find((task) => task.delay === 2500).fn();
+    assert.deepEqual(notes, [["C3", 1.8], ["C5", 1.8]]);
+    tasks.find((task) => task.delay === 5000).fn();
+    assert.equal(legend.active, false);
+    assert.match(steps[0], /Low values/);
+    assert.match(steps[1], /High values/);
+    assert.match(steps[2], /complete/);
+  } finally { globalThis.window = originalWindow; }
+});
+
+
+test("frame presentation preserves zero values and explains missing values without inventing data", () => {
+  const frame = { date: "2026-10-30T06:00", mean: 0, norm: 0 };
+  const reading = describeReading(frame);
+  assert.equal(reading.mean, "0.0 °C");
+  assert.equal(reading.note, "C3");
+  assert.equal(reading.normalized, "0.00 / 1.00");
+  assert.match(reading.timeLabel, /time zone not specified/);
+  assert.equal(describeReading({ ...frame, norm: 1 }).note, "C5");
+  for (const value of [null, undefined, "0", NaN, Infinity]) {
+    const missing = describeReading({ date: "invalid", mean: value, norm: value });
+    assert.equal(missing.mean, "Unavailable");
+    assert.equal(missing.note, null);
+    assert.equal(missing.normalized, "Unavailable");
+    assert.equal(missing.dateLabel, "Unavailable");
+    assert.match(missing.summary, /no note/);
+  }
+  assert.equal(describeReading(null).date, null);
+});
+
+test("presentation keeps explicit offsets and does not derive musical values from the mean", () => {
+  const reading = describeReading({ date: "2026-11-01T02:00-05:00", mean: 39, norm: 0 });
+  assert.equal(reading.dateLabel, "November 1, 2026");
+  assert.equal(reading.timeLabel, "02:00 (UTC-05:00)");
+  assert.equal(reading.mean, "39.0 °C");
+  assert.equal(reading.note, "C3");
+});
+
+test("wind readings use their own measure, unit and visible-pixel coverage", () => {
+  const reading = describeReading(
+    { date: "2026-10-30T06:00", mean: 9.289, norm: 0.232, coverage: 0.483 },
+    {
+      id: "clima-vento", svsId: 5148,
+      quantity: { en: "wind speed" },
+      measure: { en: "Mean of confidently color-matched wind pixels" },
+      unit: "m/s",
+    },
+  );
+  assert.equal(reading.mean, "9.29 m/s");
+  assert.equal(reading.measure, "Mean of confidently color-matched wind pixels");
+  assert.match(reading.summary, /9\.29 meters per second/);
+  assert.match(reading.summary, /48\.3% of analyzed pixels/);
+});
+
+test("normalization limits are displayed only when both supplied limits form a valid range", () => {
+  assert.equal(validateFeatures(sample(), "test").vmin, -40);
+  assert.equal(validateFeatures(sample(), "test").vmax, 40);
+  for (const [vmin, vmax] of [[null, 40], [-40, undefined], ["-40", 40], [40, -40], [10, 10], [0, Infinity]]) {
+    const result = validateFeatures({ ...sample(), vmin, vmax }, "test");
+    assert.equal(result.vmin, null);
+    assert.equal(result.vmax, null);
+    assert.equal(result.frames[0].norm, 0.5);
+  }
+});
+
+const windTrack = { id: "clima-vento", svsId: 5148, unit: "m/s" };
+const temperatureTrack = { id: "clima-temperatura", svsId: 5147, unit: "°C" };
+
+test("wind modulation is deterministic, monotonic, bounded and rejects missing speed", () => {
+  assert.equal(mapWindSpeed(0), 0.3);
+  let previous = -1;
+  for (let i = 0; i <= 10000; i++) {
+    const rate = mapWindSpeed(i / 100);
+    assert.ok(rate >= previous && rate >= 0.3 && rate <= 4);
+    assert.equal(rate, mapWindSpeed(i / 100));
+    previous = rate;
+  }
+  assert.ok(mapWindSpeed(25) > mapWindSpeed(5));
+  for (const speed of [null, undefined, "5", false, NaN, Infinity, -Infinity, -1]) assert.equal(mapWindSpeed(speed), null);
+});
+
+test("wind maps the supplied speed, never norm, and distinguishes absent coverage from zero coverage", () => {
+  const frame = { mean: 10, norm: 0.99, coverage: 0.5 };
+  assert.deepEqual(mapFrameSound(frame, windTrack), { kind: "wind", rate: mapWindSpeed(10) });
+  assert.equal(mapFrameSound({ ...frame, mean: null }, windTrack), null);
+  assert.equal(mapFrameSound({ ...frame, coverage: 0 }, windTrack), null);
+  assert.equal(mapFrameSound({ ...frame, mean: -1 }, windTrack), null);
+  assert.ok(mapFrameSound({ mean: 0 }, windTrack));
+  assert.ok(mapFrameSound({ mean: 10 }, windTrack));
+  assert.equal(mapFrameSound({ mean: null, norm: 0 }, temperatureTrack).note, "C3");
+  assert.equal(soundKind({ ...windTrack, unit: "°C" }), null);
+  assert.equal(soundKind({ ...windTrack, svsId: 5147 }), null);
+  assert.equal(mapFrameSound(frame, { id: "unknown-experience", svsId: 9999, unit: "g/kg" }), null);
+});
+
+test("wind updates one existing flute-and-breath instrument; switching experiences stops the previous layer", async () => {
+  const fake = fakeTone(), engine = createAudioEngine(async () => fake.module);
+  assert.equal(fake.calls.noiseStarts, 0);
+  assert.equal(engine.playFrame({ mean: 10 }, windTrack), false);
+  await engine.enable();
+  engine.playFrame({ norm: 0 }, temperatureTrack);
+  assert.deepEqual(fake.calls.notes, ["C3"]);
+  const before = fake.calls.cancels, sources = fake.calls.noiseStarts;
+  engine.playFrame({ mean: 5 }, windTrack);
+  engine.playFrame({ mean: 25 }, windTrack);
+  assert.ok(fake.calls.cancels > before);
+  assert.equal(fake.calls.noiseStarts, sources, "Frame updates do not allocate new noise sources");
+  assert.equal(fake.calls.windAttacks, 1, "Continuous frames update rate without retriggering the breath");
+  assert.deepEqual(fake.calls.rates, [mapWindSpeed(5), mapWindSpeed(25)]);
+  const releases = fake.calls.windReleases;
+  assert.equal(engine.playFrame({ mean: null, norm: 0 }, windTrack), false);
+  assert.ok(fake.calls.windReleases > releases);
+  assert.equal(fake.calls.rates.length, 2, "Missing speed does not map to zero wind");
+  engine.dispose();
+  assert.equal(fake.calls.disposals, fake.calls.created.length);
+});
+
+test("shared limiter, independent layer controls, optional ambience and speech ducking preserve mapping", async () => {
+  const fake = fakeTone(), engine = createAudioEngine(async () => fake.module);
+  await engine.enable();
+  assert.equal(fake.calls.created.filter((node) => node instanceof fake.module.Limiter).length, 1);
+  engine.playFrame({ norm: 0.8 }, temperatureTrack);
+  const notes = [...fake.calls.notes];
+  engine.setAmbience(false);
+  assert.equal(fake.calls.created.find((node) => node instanceof fake.module.Reverb).wet.value, 0);
+  assert.deepEqual(fake.calls.notes, notes);
+  engine.setInstrumentMuted("wind", true);
+  assert.equal(engine.updateInstrument({ kind: "wind", rate: 2 }), false);
+  assert.equal(engine.updateInstrument({ kind: "temperature", note: "C4" }), true);
+  engine.setInstrumentMuted("wind", false);
+  engine.setInstrumentGain("wind", 0);
+  assert.equal(engine.updateInstrument({ kind: "wind", rate: 2 }), false);
+  engine.setInstrumentGain("wind", 0.5);
+  assert.equal(engine.updateInstrument({ kind: "wind", rate: 2 }), true);
+  const duck = fake.calls.created.find((node) => node instanceof fake.module.Gain && node.connections?.[0] === fake.output);
+  engine.setDucking(true); assert.equal(duck.gain.value, 0.35);
+  engine.setDucking(false); assert.equal(duck.gain.value, 1);
+  assert.equal(fake.output.volume.value, -30);
+  engine.dispose();
+});
+
+test("speech activity restores instrument gain on completion, cancellation and error", () => {
+  const activity = [], spoken = [];
+  const speech = createSpeechEngine({
+    SpeechSynthesisUtterance: class { constructor(text) { this.text = text; } },
+    speechSynthesis: { getVoices: () => [{ name: "English", lang: "en-US" }], resume() {}, speak(u) { spoken.push(u); }, cancel() {} },
+  }, () => {}, (active) => activity.push(active));
+  speech.speak("First"); spoken[0].onstart(); spoken[0].onend();
+  speech.speak("Next"); spoken[1].onstart(); speech.cancel();
+  speech.speak("Error"); spoken[2].onstart(); spoken[2].onerror({ error: "failed" });
+  assert.deepEqual(activity, [true, false, true, false, true, false]);
+  speech.dispose();
+});
+
+test("wind legend compares labeled speed examples, not musical pitches or dataset events", async () => {
+  const originalWindow = globalThis.window, tasks = [], speeds = [], steps = [];
+  globalThis.window = { setTimeout(fn, delay) { tasks.push({ fn, delay }); return tasks.length; }, clearTimeout() {} };
+  try {
+    const legend = createLegend({
+      audio: { stop() {}, playNote() { assert.fail("Wind must not use a temperature note"); }, playWind(speed) { speeds.push(speed); return true; } },
+      speech: { cancel() {}, speak() {} }, enableAudio: async () => {}, getKind: () => "wind",
+      onBeforeStart() {}, onState() {}, onStep(text) { steps.push(text); }, onError() { assert.fail("Unexpected error"); },
+    });
+    await legend.toggle(); tasks.find((task) => task.delay === 2500).fn(); tasks.find((task) => task.delay === 5000).fn();
+    assert.deepEqual(speeds, [5, 25]);
+    assert.match(steps[0], /Example 5 m\/s/); assert.match(steps[1], /Example 25 m\/s/);
+    assert.match(steps[2], /not current measurements/);
+    assert.equal(legend.active, false);
+  } finally { globalThis.window = originalWindow; }
+});
+
+
+test("rainfall and humidity datasets use their own mappings, units and partial coverage", async () => {
+  for (const [id, kind, label] of [["clima-chuva", "precipitation", "Pluck density"], ["clima-umidade", "humidity", "Pad spectral width"]]) {
+    const track = JSON.parse(await readFile(new URL(`../../tracks/${id}.json`, import.meta.url)));
+    const data = JSON.parse(await readFile(new URL(`../../data/${id}/features.json`, import.meta.url)));
+    const experience = describeExperience(track), reading = describeReading(data.frames[0], track);
+    assert.equal(soundKind(track), kind); assert.equal(experience.kind, kind);
+    assert.equal(reading.sound.kind, kind); assert.equal(reading.soundLabel, label);
+    assert.ok(reading.mean.endsWith(track.unit)); assert.match(reading.coverageDetail, /analyzed pixels/);
+    assert.equal(reading.note, null, "Neither quantity reuses temperature pitch mapping");
+    assert.equal(mapFrameSound({ ...data.frames[0], mean: null }, track), null);
+    assert.equal(mapFrameSound({ ...data.frames[0], coverage: 0 }, track), null);
+    assert.equal(soundKind({ ...track, unit: "%" }), null);
+  }
+});
+
+test("precipitation amount maps to bounded pluck density; zero is silent, absence is not zero", () => {
+  assert.equal(mapPrecipitation(0), 0);
+  let previous = -1;
+  for (let i = 0; i <= 10000; i++) {
+    const value = i / 100;
+    const rate = mapPrecipitation(value);
+    assert.ok(rate >= previous && rate >= 0 && rate <= 5);
+    assert.equal(rate, mapPrecipitation(value)); previous = rate;
+  }
+  for (const value of [null, undefined, "0", false, NaN, Infinity, -Infinity, -1]) assert.equal(mapPrecipitation(value), null);
+  assert.ok(mapPrecipitation(10) > mapPrecipitation(0.5));
+});
+
+test("specific humidity maps to monotonic nominal bandwidth without generating rain", () => {
+  assert.equal(mapHumidity(0), 160);
+  let previous = -1;
+  for (let i = 0; i <= 10000; i++) {
+    const value = i / 100, bandwidth = mapHumidity(value);
+    assert.ok(bandwidth >= previous && bandwidth >= 160 && bandwidth <= 1600);
+    assert.equal(bandwidth, mapHumidity(value)); previous = bandwidth;
+  }
+  for (const value of [null, undefined, "0", false, NaN, Infinity, -Infinity, -1]) assert.equal(mapHumidity(value), null);
+  assert.ok(mapHumidity(18) > mapHumidity(2));
+  assert.equal(mapFrameSound({ mean: 7.9, norm: 0.01 }, { id: "clima-umidade", unit: "g/kg" }).bandwidth, mapHumidity(7.9));
+});
+
+test("the four instruments share resources, silence zero precipitation and dispose completely", async () => {
+  const fake = fakeTone(), engine = createAudioEngine(async () => fake.module);
+  assert.equal(engine.playPrecipitation(1), false); assert.equal(engine.playHumidity(8), false);
+  await engine.enable(); const allocated = fake.calls.created.length;
+  assert.equal(engine.playPrecipitation(0.5), true); assert.equal(engine.playPrecipitation(10), true);
+  const rainReleases = fake.calls.windReleases;
+  assert.equal(engine.playPrecipitation(0), true);
+  assert.ok(fake.calls.windReleases > rainReleases);
+  assert.equal(engine.playHumidity(2), true); assert.equal(engine.playHumidity(18), true);
+  assert.equal(fake.calls.created.length, allocated);
+  assert.equal(fake.calls.created.filter((node) => node instanceof fake.module.Limiter).length, 1);
+  engine.setMuted(true); assert.equal(engine.playHumidity(8), false); assert.equal(engine.playPrecipitation(1), false);
+  engine.dispose(); assert.equal(fake.calls.disposals, allocated);
+});
+
+test("new legends compare stated amount and specific-humidity references", async () => {
+  const originalWindow = globalThis.window;
+  try {
+    for (const [kind, method, expected] of [["precipitation", "playPrecipitation", [0.5, 10]], ["humidity", "playHumidity", [2, 18]]]) {
+      const tasks = [], values = [], steps = [];
+      globalThis.window = { setTimeout(fn, delay) { tasks.push({ fn, delay }); return tasks.length; }, clearTimeout() {} };
+      const legend = createLegend({ audio: { stop() {}, [method](value) { values.push(value); return true; } }, speech: { cancel() {}, speak() {} }, enableAudio: async () => {}, getKind: () => kind, onBeforeStart() {}, onState() {}, onStep(text) { steps.push(text); }, onError() { assert.fail("Unexpected error"); } });
+      await legend.toggle(); tasks.find((t) => t.delay === 2500).fn(); tasks.find((t) => t.delay === 5000).fn();
+      assert.deepEqual(values, expected); assert.match(steps.at(-1), /not current measurements/); assert.equal(legend.active, false);
+    }
+  } finally { globalThis.window = originalWindow; }
+});

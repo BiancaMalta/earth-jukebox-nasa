@@ -1,0 +1,24 @@
+name: Tarefa
+description: Nova tarefa do plano
+labels: []
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área
+      options: [dados, front, som, narr, todos]
+    validations: { required: true }
+  - type: textarea
+    id: what
+    attributes:
+      label: O que fazer
+    validations: { required: true }
+  - type: textarea
+    id: done
+    attributes:
+      label: Pronto quando…
+    validations: { required: true }
+  - type: input
+    id: files
+    attributes:
+      label: Arquivos que serão editados

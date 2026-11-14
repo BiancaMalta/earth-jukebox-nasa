@@ -1,0 +1,8 @@
+{
+  "tracks": [
+    "clima-temperatura",
+    "clima-vento",
+    "clima-chuva",
+    "clima-umidade"
+  ]
+}

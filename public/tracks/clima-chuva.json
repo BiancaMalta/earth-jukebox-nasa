@@ -1,0 +1,24 @@
+{
+  "id": "clima-chuva",
+  "title": { "pt": "Precipitação total", "en": "Total precipitation" },
+  "quantity": { "pt": "precipitação total", "en": "total precipitation" },
+  "measure": {
+    "pt": "Média dos pixels de precipitação coloridos e confiáveis",
+    "en": "Mean of confidently color-matched precipitation pixels"
+  },
+  "svsId": 5149,
+  "unit": "mm",
+  "frames": "data/clima-chuva/frames/",
+  "projection": "equirectangular",
+  "colorbar": {
+    "file": "data/clima-chuva/colorbar.json",
+    "vmin": 0,
+    "vmax": 20,
+    "unit": "mm",
+    "scale": "linear"
+  },
+  "preset": "campo-continuo",
+  "sound": {},
+  "speech": {},
+  "credit": "NASA Scientific Visualization Studio / GMAO GEOS-FP"
+}

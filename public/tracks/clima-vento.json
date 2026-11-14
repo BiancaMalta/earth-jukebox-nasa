@@ -1,0 +1,26 @@
+{
+  "id": "clima-vento",
+  "title": { "pt": "Vento próximo à superfície", "en": "Near-surface wind speed" },
+  "quantity": { "pt": "velocidade do vento", "en": "wind speed" },
+  "measure": {
+    "pt": "Média dos pixels de vento coloridos e confiáveis",
+    "en": "Mean of confidently color-matched wind pixels"
+  },
+  "svsId": 5148,
+  "unit": "m/s",
+  "frames": "data/clima-vento/frames/",
+  "projection": "equirectangular",
+  "colorbar": {
+    "file": "data/clima-vento/colorbar.json",
+    "vmin": 0,
+    "vmax": 40,
+    "unit": "m/s",
+    "scale": "linear",
+    "visibleMin": 3.5,
+    "visibleMax": 34.5
+  },
+  "preset": "campo-continuo",
+  "sound": {},
+  "speech": {},
+  "credit": "NASA Scientific Visualization Studio / GMAO GEOS-FP"
+}

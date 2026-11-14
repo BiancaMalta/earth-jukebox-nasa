@@ -1,0 +1,13 @@
+{
+  "id": "clima-temperatura",
+  "title": { "pt": "Temperatura agora", "en": "Temperature now" },
+  "svsId": 5147,
+  "frames": "data/clima-temperatura/frames/",
+  "projection": "equirectangular",
+  "colorbar": { "file": "data/clima-temperatura/colorbar.json", "vmin": -40, "vmax": 40, "unit": "°C", "scale": "linear" },
+  "mask": "data/clima-temperatura/mask.png",
+  "preset": "campo-continuo",
+  "sound": {},
+  "speech": {},
+  "credit": "NASA Scientific Visualization Studio / GMAO GEOS-FP"
+}
