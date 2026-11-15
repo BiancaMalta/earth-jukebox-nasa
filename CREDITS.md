@@ -32,19 +32,17 @@ The frame-only folders above hold project copies of NASA visualization frames, b
 
 ## Libraries
 
-Versions for the Python packages are not pinned in `pipeline/requirements.txt`; the table names the dependencies actually imported by the app's processing and analysis scripts. Tone.js is loaded in the browser through the import map at version 15.0.4.
+Python package versions are not pinned in `pipeline/requirements.txt`. The Python dependencies below are imported by the processing and analysis scripts. Tone.js is loaded in the browser through the import map at version 15.0.4.
 
-| Name | Version in this project | License | Use | Link |
-|---|---|---|---|
-| Tone.js | 15.0.4 | MIT | Browser audio synthesis, scheduling, filters and effects for all seven sound mappings; no recorded samples are loaded | https://github.com/Tonejs/Tone.js |
-| NumPy | Unpinned | BSD-3-Clause | Array and numerical operations in the Python image-processing and evaluation pipeline | https://numpy.org/ |
-| Pillow | Unpinned | HPND (PIL license) | Reading, resizing and analyzing source frames and masks | https://python-pillow.github.io/ |
-| Requests | Unpinned | Apache-2.0 | Downloading NASA visualization frames and archived reference data | https://requests.readthedocs.io/ |
-| scikit-image | Unpinned | BSD-3-Clause | Polygon rasterization and spatial mask operations | https://scikit-image.org/ |
-| SciPy | Unpinned | BSD-3-Clause | Spearman rank-correlation calculation in the pollutant audit | https://scipy.org/ |
-| imageio-ffmpeg | Unpinned | BSD-2-Clause | Bundled FFmpeg executable and video-frame reading when processing MP4s | https://github.com/imageio/imageio-ffmpeg |
-| Matplotlib | Unpinned | PSF-based license | Plot generation for the scientific study (`docs/estudo-cientifico/gerar_graficos.py`) | https://matplotlib.org/ |
-| urllib3 | Unpinned; used through Requests | MIT | Retry policy for downloading archived NASA reference data | https://urllib3.readthedocs.io/ |
+- **Tone.js 15.0.4** — MIT. Browser audio synthesis, scheduling, filters, and effects for all seven sound mappings; no recorded samples are loaded. [Project](https://github.com/Tonejs/Tone.js)
+- **NumPy (unversioned)** — BSD-3-Clause. Array and numerical operations in the Python image-processing and evaluation pipeline. [Project](https://numpy.org/)
+- **Pillow (unversioned)** — HPND (PIL license). Reading, resizing, and analyzing source frames and masks. [Project](https://python-pillow.github.io/)
+- **Requests (unversioned)** — Apache-2.0. Downloading NASA visualization frames and archived reference data. [Project](https://requests.readthedocs.io/)
+- **scikit-image (unversioned)** — BSD-3-Clause. Polygon rasterization and spatial mask operations. [Project](https://scikit-image.org/)
+- **SciPy (unversioned)** — BSD-3-Clause. Spearman rank-correlation calculation in the pollutant audit. [Project](https://scipy.org/)
+- **imageio-ffmpeg (unversioned)** — BSD-2-Clause. Bundled FFmpeg executable and video-frame reading when processing MP4s. [Project](https://github.com/imageio/imageio-ffmpeg)
+- **Matplotlib (unversioned)** — PSF-based license. Plot generation for the scientific study (`docs/estudo-cientifico/gerar_graficos.py`). [Project](https://matplotlib.org/)
+- **urllib3 (unversioned; used through Requests)** — MIT. Retry policy for downloading archived NASA reference data. [Project](https://urllib3.readthedocs.io/)
 
 ## Sounds
 

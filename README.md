@@ -19,18 +19,18 @@
 
 ## Project article and technical documentation
 
-The team-produced project article and scientific reports document the project's methods, evidence, limitations, and reproduction steps. Evidence is variable-specific and does not establish exact values across every frame:
+Project article and scientific reports:
 
-- [Seven-variable evidence summary and project article](docs/PROJECT_ARTICLE.md#evidence-for-each-of-the-seven-variables)
-- [GEOS-FP and wind study](docs/ESTUDO_CIENTIFICO.md)
-- [Pollutant audit](docs/estudo-cientifico/validacao-poluentes.md)
-- [PM2.5 qualitative follow-up](docs/estudo-cientifico/pm25-qualitativo.md)
+- [Earth Jukebox: Hearing a Changing Planet](docs/PROJECT_ARTICLE.md) — project story, visitor experience, methods, accessibility, and evidence for all seven variables.
+- [GEOS-FP and wind study](docs/ESTUDO_CIENTIFICO.md) — image-derived climate estimates, area weighting, and qualitative wind-signal evaluation.
+- [Pollutant audit](docs/estudo-cientifico/validacao-poluentes.md) — five-timestamp comparison of image-derived PM2.5, carbon monoxide, and ozone with GEOS-CF.
+- [PM2.5 qualitative follow-up](docs/estudo-cientifico/pm25-qualitativo.md) — 29-timestamp evaluation of the qualitative PM2.5 sound index and its temporal trends.
 
-The team also documented the rationale and implementation of the seven sound mappings. Published sonification research informs the general design principles, but the particular mappings have not been validated in a user study:
+Sound design and implementation:
 
-- [Sound design rationale](docs/SOUND_DESIGN_RATIONALE.md)
-- [Mapping reference](docs/MAPPINGS.md)
-- [Sound implementation notes](public/src/engine/SOUND_DESIGN.md)
+- [Sound design rationale](docs/SOUND_DESIGN_RATIONALE.md) — reasons behind the seven sound choices and the research informing their design.
+- [Mapping reference](docs/MAPPINGS.md) — data inputs, sound relationships, scales, and limits for each variable.
+- [Sound implementation notes](public/src/engine/SOUND_DESIGN.md) — synthesis details for the instruments and audio engine.
 
 ## Repository layout
 
