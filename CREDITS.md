@@ -16,6 +16,7 @@ Visualizations courtesy of **NASA's Scientific Visualization Studio**.
 | 5150 | GEOS-FP Near-Surface Humidity (Q2M) | https://svs.gsfc.nasa.gov/5150/ | | clima-umidade |
 | 5151 | Particulate Matter (PM) 2.5 | https://svs.gsfc.nasa.gov/5151/ | | ar-pm25 |
 | 5152 | Near surface Ozone (O3) | https://svs.gsfc.nasa.gov/5152/ | | clima-ozonio |
+| 5153 | Carbon Monoxide (CO) | https://svs.gsfc.nasa.gov/5153/ | | ar-co |
 
 ## Other data / APIs
 
@@ -48,3 +49,4 @@ Visualizations courtesy of **NASA's Scientific Visualization Studio**.
 | Planning document | Claude | Research of references and organization of the plan (the solution idea and mappings were decided by the team) |
 | Repository scaffold | Claude | Initial folder structure, empty stubs, contribution guide and issue list |
 | Wind pixel pipeline and player integration | Copilot SDK in VS Code | Adapted pixel-feature extraction for SVS 5148 and generalized the player to support wind units and coverage. |
+| Carbon monoxide track and calibration | Copilot SDK in VS Code | Added the SVS 5153 colorbar calibration, image-derived features, and visual-only track integration. |

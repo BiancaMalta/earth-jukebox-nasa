@@ -1,0 +1,31 @@
+{
+  "id": "ar-co",
+  "title": {
+    "pt": "Monóxido de carbono (CO)",
+    "en": "Carbon Monoxide (CO)"
+  },
+  "quantity": {
+    "pt": "concentração de monóxido de carbono próxima à superfície",
+    "en": "near-surface carbon monoxide concentration"
+  },
+  "measure": {
+    "pt": "Média dos pixels de CO coloridos e confiáveis",
+    "en": "Mean of confidently color-matched CO pixels"
+  },
+  "svsId": 5153,
+  "model": "NASA GEOS-CF",
+  "unit": "ppbv",
+  "frames": "data/ar-co/frames/",
+  "projection": "equirectangular",
+  "colorbar": {
+    "file": "data/ar-co/colorbar.json",
+    "vmin": 40,
+    "vmax": 500,
+    "unit": "ppbv",
+    "scale": "linear"
+  },
+  "preset": "campo-continuo",
+  "sound": {},
+  "speech": {},
+  "credit": "NASA Scientific Visualization Studio / GMAO GEOS-CF"
+}

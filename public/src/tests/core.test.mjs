@@ -103,9 +103,9 @@ test("the ozone track loads ppbv data without assigning a sound mapping", async 
   assert.equal(result.unit, "ppbv");
   assert.equal(result.vmin, 5);
   assert.equal(result.vmax, 60);
-  assert.equal(result.frames.length, 372);
-  assert.equal(result.frames[0].date, "2026-10-30T05:00");
-  assert.equal(result.frames.at(-1).date, "2026-11-14T15:00");
+  assert.equal(result.frames.length, 124);
+  assert.equal(result.frames[0].date, "2026-10-30T06:00");
+  assert.equal(result.frames.at(-1).date, "2026-11-14T14:00");
   assert.ok(result.frames.every((frame) => frame.coverage > 0 && frame.coverage < 1));
   assert.equal(soundKind(track), null);
   assert.equal(mapFrameSound(result.frames[0], track), null);
@@ -126,14 +126,48 @@ test("the PM2.5 track uses its logarithmic concentration range without assigning
   assert.equal(result.unit, "µg/m³");
   assert.equal(result.vmin, 0.4);
   assert.equal(result.vmax, 409.6);
-  assert.equal(result.frames.length, 372);
-  assert.equal(result.frames[0].date, "2026-10-30T05:00");
-  assert.equal(result.frames.at(-1).date, "2026-11-14T15:00");
+  assert.equal(result.frames.length, 124);
+  assert.equal(result.frames[0].date, "2026-10-30T06:00");
+  assert.equal(result.frames.at(-1).date, "2026-11-14T14:00");
   assert.ok(result.frames.every((frame) => frame.coverage > 0 && frame.coverage < 1));
   const firstFrame = result.frames[0];
   assert.equal(firstFrame.norm, Number(((Math.log(firstFrame.mean) - Math.log(0.4)) / (Math.log(409.6) - Math.log(0.4))).toFixed(3)));
   assert.equal(soundKind(track), null);
   assert.equal(mapFrameSound(firstFrame, track), null);
+});
+
+test("the carbon monoxide track loads calibrated ppbv data without assigning sound", async () => {
+  const [index, track, data] = await Promise.all([
+    readFile(new URL("../../tracks/index.json", import.meta.url)).then(JSON.parse),
+    readFile(new URL("../../tracks/ar-co.json", import.meta.url)).then(JSON.parse),
+    readFile(new URL("../../data/ar-co/features.json", import.meta.url)).then(JSON.parse),
+  ]);
+  const result = validateFeatures(data, track.id, track.unit);
+
+  assert.ok(index.tracks.includes("ar-co"));
+  assert.equal(track.svsId, 5153);
+  assert.equal(result.unit, "ppbv");
+  assert.equal(result.vmin, 40);
+  assert.equal(result.vmax, 500);
+  assert.equal(result.frames.length, 124);
+  assert.equal(result.frames[0].date, "2026-10-30T06:00");
+  assert.equal(result.frames.at(-1).date, "2026-11-14T14:00");
+  assert.ok(result.frames.every((frame) => frame.coverage > 0 && frame.coverage < 1));
+  assert.equal(soundKind(track), null);
+  assert.equal(mapFrameSound(result.frames[0], track), null);
+});
+
+test("CO, PM2.5 and ozone use the climate tracks' shared timestamps", async () => {
+  const reference = JSON.parse(await readFile(
+    new URL("../../data/clima-temperatura/features.json", import.meta.url),
+  ));
+  const expectedDates = reference.frames.map(({ date }) => date);
+  for (const id of ["ar-co", "ar-pm25", "clima-ozonio"]) {
+    const data = JSON.parse(await readFile(
+      new URL(`../../data/${id}/features.json`, import.meta.url),
+    ));
+    assert.deepEqual(data.frames.map(({ date }) => date), expectedDates, id);
+  }
 });
 
 test("invalid structure and unsafe or duplicate frame filenames fail explicitly", () => {

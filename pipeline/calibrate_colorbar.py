@@ -146,6 +146,44 @@ PROFILES = {
         },
         "output_path": Path("public/data/clima-ozonio/colorbar.json"),
     },
+    5153: {
+        "plain_url": (
+            "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005153/"
+            "CO_colorbar_plain.png"
+        ),
+        "labeled_url": (
+            "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005153/"
+            "CO_colorbar.png"
+        ),
+        "source": "NASA SVS 5153 CO_colorbar_plain.png",
+        "image_size": (528, 125),
+        "bar_x_min": 70,
+        "bar_x_max": 463,
+        "sample_x_min": 70,
+        "bar_y": 58,
+        "value_min": 40.0,
+        "value_max": 500.0,
+        "unit": "ppbv",
+        "value_anchors": (
+            (70, 40.0),
+            (189, 100.0),
+            (280, 130.0),
+            (371, 200.0),
+            (463, 500.0),
+        ),
+        "reference_pixels": (
+            (70, 40.0),
+            (189, 100.0),
+            (280, 130.0),
+            (371, 200.0),
+            (463, 500.0),
+        ),
+        "pixel_filter": {
+            "minSaturation": 18,
+            "maxColorDistance": 34,
+        },
+        "output_path": Path("public/data/ar-co/colorbar.json"),
+    },
 }
 
 
@@ -163,6 +201,13 @@ def _download_image(url: str, expected_size: tuple[int, int] = IMAGE_SIZE) -> Im
 
 
 def _value_at_x(x: int, profile: dict) -> float:
+    anchors = profile.get("value_anchors")
+    if anchors:
+        for (x0, value0), (x1, value1) in zip(anchors, anchors[1:]):
+            if x <= x1:
+                return value0 + (x - x0) * (value1 - value0) / (x1 - x0)
+        return anchors[-1][1]
+
     position = (x - profile["bar_x_min"]) / (
         profile["bar_x_max"] - profile["bar_x_min"]
     )

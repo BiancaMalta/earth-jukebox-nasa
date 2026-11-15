@@ -47,17 +47,23 @@ test('regional validation rejects invalid rows and ambiguous region identities',
   assert.throws(()=>validateRegionalFeatures(data,track,source));
 });
 
-test('published regional tables match all four source datasets and provide every frame', async () => {
-  for(const id of ['clima-temperatura','clima-vento','clima-chuva','clima-umidade']){
+test('published regional tables match their source datasets and provide every frame', async () => {
+  for(const id of ['clima-temperatura','clima-vento','clima-chuva','clima-umidade','ar-co','ar-pm25','clima-ozonio']){
     const raw=JSON.parse(await readFile(new URL(`../../data/${id}/features.json`,import.meta.url),'utf8'));
     const data=JSON.parse(await readFile(new URL(`../../data/${id}/regions.json`,import.meta.url),'utf8'));
+    const colorbar=JSON.parse(await readFile(new URL(`../../data/${id}/colorbar.json`,import.meta.url),'utf8'));
     const source=validateFeatures(raw,id,raw.unit);
     validateRegionalFeatures(data,{id,svsId:raw.svsId},source);
     assert.equal(Object.keys(data.regions).length,185);
     assert.equal(data.regions['country:Brazil'].values.length,source.frames.length);
     for(const region of Object.values(data.regions)) for(const [mean,,norm] of region.values){
       if(mean===null) assert.equal(norm,null);
-      else assert.ok(Math.abs(norm-Math.max(0,Math.min(1,(mean-raw.vmin)/(raw.vmax-raw.vmin))))<=.0005000001);
+      else {
+        const normalized=colorbar.scale==='log'
+          ? (Math.log(mean)-Math.log(raw.vmin))/(Math.log(raw.vmax)-Math.log(raw.vmin))
+          : (mean-raw.vmin)/(raw.vmax-raw.vmin);
+        assert.ok(Math.abs(norm-Math.max(0,Math.min(1,normalized)))<=.0005000001);
+      }
     }
   }
 });

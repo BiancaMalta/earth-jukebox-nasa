@@ -8,14 +8,6 @@
   "frames": [
     {
       "file": "frame_000001.webp",
-      "date": "2026-10-30T05:00",
-      "mean": 1.672,
-      "p90": 2.052,
-      "norm": 0.206,
-      "coverage": 0.956
-    },
-    {
-      "file": "frame_000002.webp",
       "date": "2026-10-30T06:00",
       "mean": 1.674,
       "p90": 2.016,
@@ -23,23 +15,7 @@
       "coverage": 0.956
     },
     {
-      "file": "frame_000003.webp",
-      "date": "2026-10-30T07:00",
-      "mean": 1.686,
-      "p90": 2.016,
-      "norm": 0.208,
-      "coverage": 0.956
-    },
-    {
-      "file": "frame_000004.webp",
-      "date": "2026-10-30T08:00",
-      "mean": 1.687,
-      "p90": 1.98,
-      "norm": 0.208,
-      "coverage": 0.956
-    },
-    {
-      "file": "frame_000005.webp",
+      "file": "frame_000002.webp",
       "date": "2026-10-30T09:00",
       "mean": 1.695,
       "p90": 1.945,
@@ -47,23 +23,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000006.webp",
-      "date": "2026-10-30T10:00",
-      "mean": 1.71,
-      "p90": 1.945,
-      "norm": 0.21,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000007.webp",
-      "date": "2026-10-30T11:00",
-      "mean": 1.721,
-      "p90": 1.945,
-      "norm": 0.211,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000008.webp",
+      "file": "frame_000003.webp",
       "date": "2026-10-30T12:00",
       "mean": 1.753,
       "p90": 1.945,
@@ -71,23 +31,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000009.webp",
-      "date": "2026-10-30T13:00",
-      "mean": 1.765,
-      "p90": 1.98,
-      "norm": 0.214,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000010.webp",
-      "date": "2026-10-30T14:00",
-      "mean": 1.791,
-      "p90": 2.016,
-      "norm": 0.216,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000011.webp",
+      "file": "frame_000004.webp",
       "date": "2026-10-30T15:00",
       "mean": 1.811,
       "p90": 2.052,
@@ -95,23 +39,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000012.webp",
-      "date": "2026-10-30T16:00",
-      "mean": 1.835,
-      "p90": 2.052,
-      "norm": 0.22,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000013.webp",
-      "date": "2026-10-30T17:00",
-      "mean": 1.85,
-      "p90": 2.052,
-      "norm": 0.221,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000014.webp",
+      "file": "frame_000005.webp",
       "date": "2026-10-30T18:00",
       "mean": 1.883,
       "p90": 2.089,
@@ -119,23 +47,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000015.webp",
-      "date": "2026-10-30T19:00",
-      "mean": 1.899,
-      "p90": 2.089,
-      "norm": 0.225,
-      "coverage": 0.956
-    },
-    {
-      "file": "frame_000016.webp",
-      "date": "2026-10-30T20:00",
-      "mean": 1.914,
-      "p90": 2.089,
-      "norm": 0.226,
-      "coverage": 0.956
-    },
-    {
-      "file": "frame_000017.webp",
+      "file": "frame_000006.webp",
       "date": "2026-10-30T21:00",
       "mean": 1.908,
       "p90": 2.126,
@@ -143,23 +55,7 @@
       "coverage": 0.956
     },
     {
-      "file": "frame_000018.webp",
-      "date": "2026-10-30T22:00",
-      "mean": 1.865,
-      "p90": 2.126,
-      "norm": 0.222,
-      "coverage": 0.956
-    },
-    {
-      "file": "frame_000019.webp",
-      "date": "2026-10-30T23:00",
-      "mean": 1.822,
-      "p90": 2.164,
-      "norm": 0.219,
-      "coverage": 0.956
-    },
-    {
-      "file": "frame_000020.webp",
+      "file": "frame_000007.webp",
       "date": "2026-10-31T00:00",
       "mean": 1.785,
       "p90": 2.126,
@@ -167,23 +63,7 @@
       "coverage": 0.956
     },
     {
-      "file": "frame_000021.webp",
-      "date": "2026-10-31T01:00",
-      "mean": 1.748,
-      "p90": 2.126,
-      "norm": 0.213,
-      "coverage": 0.956
-    },
-    {
-      "file": "frame_000022.webp",
-      "date": "2026-10-31T02:00",
-      "mean": 1.742,
-      "p90": 2.089,
-      "norm": 0.212,
-      "coverage": 0.956
-    },
-    {
-      "file": "frame_000023.webp",
+      "file": "frame_000008.webp",
       "date": "2026-10-31T03:00",
       "mean": 1.727,
       "p90": 2.089,
@@ -191,23 +71,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000024.webp",
-      "date": "2026-10-31T04:00",
-      "mean": 1.718,
-      "p90": 2.052,
-      "norm": 0.21,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000025.webp",
-      "date": "2026-10-31T05:00",
-      "mean": 1.712,
-      "p90": 2.052,
-      "norm": 0.21,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000026.webp",
+      "file": "frame_000009.webp",
       "date": "2026-10-31T06:00",
       "mean": 1.737,
       "p90": 2.052,
@@ -215,23 +79,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000027.webp",
-      "date": "2026-10-31T07:00",
-      "mean": 1.759,
-      "p90": 2.052,
-      "norm": 0.214,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000028.webp",
-      "date": "2026-10-31T08:00",
-      "mean": 1.775,
-      "p90": 2.052,
-      "norm": 0.215,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000029.webp",
+      "file": "frame_000010.webp",
       "date": "2026-10-31T09:00",
       "mean": 1.783,
       "p90": 2.052,
@@ -239,23 +87,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000030.webp",
-      "date": "2026-10-31T10:00",
-      "mean": 1.801,
-      "p90": 2.052,
-      "norm": 0.217,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000031.webp",
-      "date": "2026-10-31T11:00",
-      "mean": 1.793,
-      "p90": 2.052,
-      "norm": 0.216,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000032.webp",
+      "file": "frame_000011.webp",
       "date": "2026-10-31T12:00",
       "mean": 1.805,
       "p90": 2.052,
@@ -263,23 +95,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000033.webp",
-      "date": "2026-10-31T13:00",
-      "mean": 1.808,
-      "p90": 2.052,
-      "norm": 0.218,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000034.webp",
-      "date": "2026-10-31T14:00",
-      "mean": 1.821,
-      "p90": 2.052,
-      "norm": 0.219,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000035.webp",
+      "file": "frame_000012.webp",
       "date": "2026-10-31T15:00",
       "mean": 1.823,
       "p90": 2.052,
@@ -287,23 +103,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000036.webp",
-      "date": "2026-10-31T16:00",
-      "mean": 1.832,
-      "p90": 2.052,
-      "norm": 0.22,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000037.webp",
-      "date": "2026-10-31T17:00",
-      "mean": 1.84,
-      "p90": 2.089,
-      "norm": 0.22,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000038.webp",
+      "file": "frame_000013.webp",
       "date": "2026-10-31T18:00",
       "mean": 1.872,
       "p90": 2.089,
@@ -311,23 +111,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000039.webp",
-      "date": "2026-10-31T19:00",
-      "mean": 1.865,
-      "p90": 2.089,
-      "norm": 0.222,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000040.webp",
-      "date": "2026-10-31T20:00",
-      "mean": 1.88,
-      "p90": 2.126,
-      "norm": 0.223,
-      "coverage": 0.956
-    },
-    {
-      "file": "frame_000041.webp",
+      "file": "frame_000014.webp",
       "date": "2026-10-31T21:00",
       "mean": 1.875,
       "p90": 2.164,
@@ -335,23 +119,7 @@
       "coverage": 0.956
     },
     {
-      "file": "frame_000042.webp",
-      "date": "2026-10-31T22:00",
-      "mean": 1.835,
-      "p90": 2.164,
-      "norm": 0.22,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000043.webp",
-      "date": "2026-10-31T23:00",
-      "mean": 1.782,
-      "p90": 2.164,
-      "norm": 0.216,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000044.webp",
+      "file": "frame_000015.webp",
       "date": "2026-11-01T00:00",
       "mean": 1.751,
       "p90": 2.164,
@@ -359,23 +127,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000045.webp",
-      "date": "2026-11-01T01:00",
-      "mean": 1.727,
-      "p90": 2.164,
-      "norm": 0.211,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000046.webp",
-      "date": "2026-11-01T01:00",
-      "mean": 1.709,
-      "p90": 2.089,
-      "norm": 0.21,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000047.webp",
+      "file": "frame_000016.webp",
       "date": "2026-11-01T02:00",
       "mean": 1.678,
       "p90": 2.089,
@@ -383,23 +135,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000048.webp",
-      "date": "2026-11-01T03:00",
-      "mean": 1.679,
-      "p90": 2.052,
-      "norm": 0.207,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000049.webp",
-      "date": "2026-11-01T04:00",
-      "mean": 1.67,
-      "p90": 2.052,
-      "norm": 0.206,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000050.webp",
+      "file": "frame_000017.webp",
       "date": "2026-11-01T05:00",
       "mean": 1.663,
       "p90": 2.052,
@@ -407,23 +143,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000051.webp",
-      "date": "2026-11-01T06:00",
-      "mean": 1.662,
-      "p90": 2.052,
-      "norm": 0.205,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000052.webp",
-      "date": "2026-11-01T07:00",
-      "mean": 1.668,
-      "p90": 2.052,
-      "norm": 0.206,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000053.webp",
+      "file": "frame_000018.webp",
       "date": "2026-11-01T08:00",
       "mean": 1.674,
       "p90": 2.052,
@@ -431,23 +151,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000054.webp",
-      "date": "2026-11-01T09:00",
-      "mean": 1.694,
-      "p90": 2.052,
-      "norm": 0.208,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000055.webp",
-      "date": "2026-11-01T10:00",
-      "mean": 1.695,
-      "p90": 2.052,
-      "norm": 0.208,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000056.webp",
+      "file": "frame_000019.webp",
       "date": "2026-11-01T11:00",
       "mean": 1.707,
       "p90": 2.052,
@@ -455,23 +159,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000057.webp",
-      "date": "2026-11-01T12:00",
-      "mean": 1.725,
-      "p90": 2.052,
-      "norm": 0.211,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000058.webp",
-      "date": "2026-11-01T13:00",
-      "mean": 1.751,
-      "p90": 2.052,
-      "norm": 0.213,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000059.webp",
+      "file": "frame_000020.webp",
       "date": "2026-11-01T14:00",
       "mean": 1.765,
       "p90": 2.052,
@@ -479,23 +167,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000060.webp",
-      "date": "2026-11-01T15:00",
-      "mean": 1.77,
-      "p90": 2.052,
-      "norm": 0.215,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000061.webp",
-      "date": "2026-11-01T16:00",
-      "mean": 1.804,
-      "p90": 2.052,
-      "norm": 0.217,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000062.webp",
+      "file": "frame_000021.webp",
       "date": "2026-11-01T17:00",
       "mean": 1.83,
       "p90": 2.089,
@@ -503,23 +175,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000063.webp",
-      "date": "2026-11-01T18:00",
-      "mean": 1.839,
-      "p90": 2.089,
-      "norm": 0.22,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000064.webp",
-      "date": "2026-11-01T19:00",
-      "mean": 1.864,
-      "p90": 2.089,
-      "norm": 0.222,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000065.webp",
+      "file": "frame_000022.webp",
       "date": "2026-11-01T20:00",
       "mean": 1.849,
       "p90": 2.089,
@@ -527,23 +183,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000066.webp",
-      "date": "2026-11-01T21:00",
-      "mean": 1.83,
-      "p90": 2.089,
-      "norm": 0.219,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000067.webp",
-      "date": "2026-11-01T22:00",
-      "mean": 1.772,
-      "p90": 2.089,
-      "norm": 0.215,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000068.webp",
+      "file": "frame_000023.webp",
       "date": "2026-11-01T23:00",
       "mean": 1.738,
       "p90": 2.089,
@@ -551,23 +191,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000069.webp",
-      "date": "2026-11-02T00:00",
-      "mean": 1.689,
-      "p90": 2.089,
-      "norm": 0.208,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000070.webp",
-      "date": "2026-11-02T01:00",
-      "mean": 1.663,
-      "p90": 2.089,
-      "norm": 0.206,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000071.webp",
+      "file": "frame_000024.webp",
       "date": "2026-11-02T02:00",
       "mean": 1.654,
       "p90": 2.052,
@@ -575,23 +199,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000072.webp",
-      "date": "2026-11-02T03:00",
-      "mean": 1.655,
-      "p90": 2.052,
-      "norm": 0.205,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000073.webp",
-      "date": "2026-11-02T04:00",
-      "mean": 1.635,
-      "p90": 2.052,
-      "norm": 0.203,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000074.webp",
+      "file": "frame_000025.webp",
       "date": "2026-11-02T05:00",
       "mean": 1.64,
       "p90": 2.052,
@@ -599,23 +207,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000075.webp",
-      "date": "2026-11-02T06:00",
-      "mean": 1.642,
-      "p90": 2.052,
-      "norm": 0.204,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000076.webp",
-      "date": "2026-11-02T07:00",
-      "mean": 1.651,
-      "p90": 2.052,
-      "norm": 0.205,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000077.webp",
+      "file": "frame_000026.webp",
       "date": "2026-11-02T08:00",
       "mean": 1.674,
       "p90": 2.052,
@@ -623,23 +215,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000078.webp",
-      "date": "2026-11-02T09:00",
-      "mean": 1.695,
-      "p90": 2.052,
-      "norm": 0.208,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000079.webp",
-      "date": "2026-11-02T10:00",
-      "mean": 1.719,
-      "p90": 2.052,
-      "norm": 0.21,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000080.webp",
+      "file": "frame_000027.webp",
       "date": "2026-11-02T11:00",
       "mean": 1.75,
       "p90": 2.052,
@@ -647,23 +223,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000081.webp",
-      "date": "2026-11-02T12:00",
-      "mean": 1.769,
-      "p90": 2.052,
-      "norm": 0.214,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000082.webp",
-      "date": "2026-11-02T13:00",
-      "mean": 1.776,
-      "p90": 2.052,
-      "norm": 0.215,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000083.webp",
+      "file": "frame_000028.webp",
       "date": "2026-11-02T14:00",
       "mean": 1.799,
       "p90": 2.052,
@@ -671,23 +231,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000084.webp",
-      "date": "2026-11-02T15:00",
-      "mean": 1.824,
-      "p90": 2.052,
-      "norm": 0.219,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000085.webp",
-      "date": "2026-11-02T16:00",
-      "mean": 1.853,
-      "p90": 2.089,
-      "norm": 0.221,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000086.webp",
+      "file": "frame_000029.webp",
       "date": "2026-11-02T17:00",
       "mean": 1.872,
       "p90": 2.089,
@@ -695,23 +239,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000087.webp",
-      "date": "2026-11-02T18:00",
-      "mean": 1.88,
-      "p90": 2.089,
-      "norm": 0.223,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000088.webp",
-      "date": "2026-11-02T19:00",
-      "mean": 1.902,
-      "p90": 2.089,
-      "norm": 0.225,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000089.webp",
+      "file": "frame_000030.webp",
       "date": "2026-11-02T20:00",
       "mean": 1.892,
       "p90": 2.089,
@@ -719,23 +247,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000090.webp",
-      "date": "2026-11-02T21:00",
-      "mean": 1.861,
-      "p90": 2.089,
-      "norm": 0.222,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000091.webp",
-      "date": "2026-11-02T22:00",
-      "mean": 1.794,
-      "p90": 2.089,
-      "norm": 0.217,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000092.webp",
+      "file": "frame_000031.webp",
       "date": "2026-11-02T23:00",
       "mean": 1.755,
       "p90": 2.089,
@@ -743,23 +255,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000093.webp",
-      "date": "2026-11-03T00:00",
-      "mean": 1.7,
-      "p90": 2.089,
-      "norm": 0.209,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000094.webp",
-      "date": "2026-11-03T01:00",
-      "mean": 1.665,
-      "p90": 2.052,
-      "norm": 0.206,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000095.webp",
+      "file": "frame_000032.webp",
       "date": "2026-11-03T02:00",
       "mean": 1.64,
       "p90": 2.052,
@@ -767,23 +263,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000096.webp",
-      "date": "2026-11-03T03:00",
-      "mean": 1.634,
-      "p90": 2.052,
-      "norm": 0.203,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000097.webp",
-      "date": "2026-11-03T04:00",
-      "mean": 1.627,
-      "p90": 2.052,
-      "norm": 0.202,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000098.webp",
+      "file": "frame_000033.webp",
       "date": "2026-11-03T05:00",
       "mean": 1.639,
       "p90": 2.052,
@@ -791,23 +271,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000099.webp",
-      "date": "2026-11-03T06:00",
-      "mean": 1.638,
-      "p90": 2.016,
-      "norm": 0.203,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000100.webp",
-      "date": "2026-11-03T07:00",
-      "mean": 1.668,
-      "p90": 1.98,
-      "norm": 0.206,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000101.webp",
+      "file": "frame_000034.webp",
       "date": "2026-11-03T08:00",
       "mean": 1.687,
       "p90": 1.98,
@@ -815,23 +279,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000102.webp",
-      "date": "2026-11-03T09:00",
-      "mean": 1.702,
-      "p90": 2.016,
-      "norm": 0.209,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000103.webp",
-      "date": "2026-11-03T10:00",
-      "mean": 1.72,
-      "p90": 2.016,
-      "norm": 0.21,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000104.webp",
+      "file": "frame_000035.webp",
       "date": "2026-11-03T11:00",
       "mean": 1.754,
       "p90": 2.052,
@@ -839,23 +287,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000105.webp",
-      "date": "2026-11-03T12:00",
-      "mean": 1.776,
-      "p90": 2.052,
-      "norm": 0.215,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000106.webp",
-      "date": "2026-11-03T13:00",
-      "mean": 1.792,
-      "p90": 2.052,
-      "norm": 0.216,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000107.webp",
+      "file": "frame_000036.webp",
       "date": "2026-11-03T14:00",
       "mean": 1.823,
       "p90": 2.052,
@@ -863,23 +295,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000108.webp",
-      "date": "2026-11-03T15:00",
-      "mean": 1.819,
-      "p90": 2.052,
-      "norm": 0.219,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000109.webp",
-      "date": "2026-11-03T16:00",
-      "mean": 1.864,
-      "p90": 2.089,
-      "norm": 0.222,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000110.webp",
+      "file": "frame_000037.webp",
       "date": "2026-11-03T17:00",
       "mean": 1.872,
       "p90": 2.089,
@@ -887,23 +303,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000111.webp",
-      "date": "2026-11-03T18:00",
-      "mean": 1.893,
-      "p90": 2.089,
-      "norm": 0.224,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000112.webp",
-      "date": "2026-11-03T19:00",
-      "mean": 1.91,
-      "p90": 2.089,
-      "norm": 0.226,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000113.webp",
+      "file": "frame_000038.webp",
       "date": "2026-11-03T20:00",
       "mean": 1.914,
       "p90": 2.089,
@@ -911,23 +311,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000114.webp",
-      "date": "2026-11-03T21:00",
-      "mean": 1.888,
-      "p90": 2.089,
-      "norm": 0.224,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000115.webp",
-      "date": "2026-11-03T22:00",
-      "mean": 1.844,
-      "p90": 2.089,
-      "norm": 0.22,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000116.webp",
+      "file": "frame_000039.webp",
       "date": "2026-11-03T23:00",
       "mean": 1.795,
       "p90": 2.089,
@@ -935,23 +319,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000117.webp",
-      "date": "2026-11-04T00:00",
-      "mean": 1.741,
-      "p90": 2.089,
-      "norm": 0.212,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000118.webp",
-      "date": "2026-11-04T01:00",
-      "mean": 1.709,
-      "p90": 2.052,
-      "norm": 0.21,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000119.webp",
+      "file": "frame_000040.webp",
       "date": "2026-11-04T02:00",
       "mean": 1.7,
       "p90": 2.052,
@@ -959,23 +327,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000120.webp",
-      "date": "2026-11-04T03:00",
-      "mean": 1.691,
-      "p90": 2.052,
-      "norm": 0.208,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000121.webp",
-      "date": "2026-11-04T04:00",
-      "mean": 1.687,
-      "p90": 2.052,
-      "norm": 0.208,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000122.webp",
+      "file": "frame_000041.webp",
       "date": "2026-11-04T05:00",
       "mean": 1.697,
       "p90": 2.016,
@@ -983,23 +335,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000123.webp",
-      "date": "2026-11-04T06:00",
-      "mean": 1.715,
-      "p90": 1.98,
-      "norm": 0.21,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000124.webp",
-      "date": "2026-11-04T07:00",
-      "mean": 1.72,
-      "p90": 1.945,
-      "norm": 0.21,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000125.webp",
+      "file": "frame_000042.webp",
       "date": "2026-11-04T08:00",
       "mean": 1.735,
       "p90": 1.945,
@@ -1007,23 +343,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000126.webp",
-      "date": "2026-11-04T09:00",
-      "mean": 1.748,
-      "p90": 1.945,
-      "norm": 0.213,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000127.webp",
-      "date": "2026-11-04T10:00",
-      "mean": 1.766,
-      "p90": 1.945,
-      "norm": 0.214,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000128.webp",
+      "file": "frame_000043.webp",
       "date": "2026-11-04T11:00",
       "mean": 1.777,
       "p90": 1.945,
@@ -1031,23 +351,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000129.webp",
-      "date": "2026-11-04T12:00",
-      "mean": 1.798,
-      "p90": 1.945,
-      "norm": 0.217,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000130.webp",
-      "date": "2026-11-04T13:00",
-      "mean": 1.805,
-      "p90": 1.945,
-      "norm": 0.217,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000131.webp",
+      "file": "frame_000044.webp",
       "date": "2026-11-04T14:00",
       "mean": 1.818,
       "p90": 1.98,
@@ -1055,23 +359,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000132.webp",
-      "date": "2026-11-04T15:00",
-      "mean": 1.831,
-      "p90": 1.98,
-      "norm": 0.219,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000133.webp",
-      "date": "2026-11-04T16:00",
-      "mean": 1.853,
-      "p90": 2.016,
-      "norm": 0.221,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000134.webp",
+      "file": "frame_000045.webp",
       "date": "2026-11-04T17:00",
       "mean": 1.872,
       "p90": 2.016,
@@ -1079,23 +367,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000135.webp",
-      "date": "2026-11-04T18:00",
-      "mean": 1.887,
-      "p90": 2.052,
-      "norm": 0.224,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000136.webp",
-      "date": "2026-11-04T19:00",
-      "mean": 1.887,
-      "p90": 2.052,
-      "norm": 0.224,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000137.webp",
+      "file": "frame_000046.webp",
       "date": "2026-11-04T20:00",
       "mean": 1.87,
       "p90": 2.052,
@@ -1103,23 +375,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000138.webp",
-      "date": "2026-11-04T21:00",
-      "mean": 1.859,
-      "p90": 2.052,
-      "norm": 0.222,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000139.webp",
-      "date": "2026-11-04T22:00",
-      "mean": 1.8,
-      "p90": 2.023,
-      "norm": 0.217,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000140.webp",
+      "file": "frame_000047.webp",
       "date": "2026-11-04T23:00",
       "mean": 1.758,
       "p90": 2.016,
@@ -1127,23 +383,7 @@
       "coverage": 0.955
     },
     {
-      "file": "frame_000141.webp",
-      "date": "2026-11-05T00:00",
-      "mean": 1.702,
-      "p90": 1.98,
-      "norm": 0.209,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000142.webp",
-      "date": "2026-11-05T01:00",
-      "mean": 1.671,
-      "p90": 1.945,
-      "norm": 0.206,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000143.webp",
+      "file": "frame_000048.webp",
       "date": "2026-11-05T02:00",
       "mean": 1.63,
       "p90": 1.945,
@@ -1151,23 +391,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000144.webp",
-      "date": "2026-11-05T03:00",
-      "mean": 1.626,
-      "p90": 1.945,
-      "norm": 0.202,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000145.webp",
-      "date": "2026-11-05T04:00",
-      "mean": 1.629,
-      "p90": 1.911,
-      "norm": 0.203,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000146.webp",
+      "file": "frame_000049.webp",
       "date": "2026-11-05T05:00",
       "mean": 1.618,
       "p90": 1.911,
@@ -1175,23 +399,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000147.webp",
-      "date": "2026-11-05T06:00",
-      "mean": 1.619,
-      "p90": 1.911,
-      "norm": 0.202,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000148.webp",
-      "date": "2026-11-05T07:00",
-      "mean": 1.63,
-      "p90": 1.911,
-      "norm": 0.203,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000149.webp",
+      "file": "frame_000050.webp",
       "date": "2026-11-05T08:00",
       "mean": 1.641,
       "p90": 1.911,
@@ -1199,23 +407,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000150.webp",
-      "date": "2026-11-05T09:00",
-      "mean": 1.642,
-      "p90": 1.911,
-      "norm": 0.204,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000151.webp",
-      "date": "2026-11-05T10:00",
-      "mean": 1.649,
-      "p90": 1.911,
-      "norm": 0.204,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000152.webp",
+      "file": "frame_000051.webp",
       "date": "2026-11-05T11:00",
       "mean": 1.662,
       "p90": 1.911,
@@ -1223,23 +415,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000153.webp",
-      "date": "2026-11-05T12:00",
-      "mean": 1.675,
-      "p90": 1.911,
-      "norm": 0.207,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000154.webp",
-      "date": "2026-11-05T13:00",
-      "mean": 1.699,
-      "p90": 1.911,
-      "norm": 0.209,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000155.webp",
+      "file": "frame_000052.webp",
       "date": "2026-11-05T14:00",
       "mean": 1.694,
       "p90": 1.911,
@@ -1247,23 +423,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000156.webp",
-      "date": "2026-11-05T15:00",
-      "mean": 1.719,
-      "p90": 1.911,
-      "norm": 0.21,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000157.webp",
-      "date": "2026-11-05T16:00",
-      "mean": 1.74,
-      "p90": 1.911,
-      "norm": 0.212,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000158.webp",
+      "file": "frame_000053.webp",
       "date": "2026-11-05T17:00",
       "mean": 1.77,
       "p90": 1.911,
@@ -1271,23 +431,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000159.webp",
-      "date": "2026-11-05T18:00",
-      "mean": 1.785,
-      "p90": 1.945,
-      "norm": 0.216,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000160.webp",
-      "date": "2026-11-05T19:00",
-      "mean": 1.8,
-      "p90": 1.945,
-      "norm": 0.217,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000161.webp",
+      "file": "frame_000054.webp",
       "date": "2026-11-05T20:00",
       "mean": 1.801,
       "p90": 1.945,
@@ -1295,23 +439,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000162.webp",
-      "date": "2026-11-05T21:00",
-      "mean": 1.783,
-      "p90": 1.911,
-      "norm": 0.216,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000163.webp",
-      "date": "2026-11-05T22:00",
-      "mean": 1.739,
-      "p90": 1.911,
-      "norm": 0.212,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000164.webp",
+      "file": "frame_000055.webp",
       "date": "2026-11-05T23:00",
       "mean": 1.696,
       "p90": 1.911,
@@ -1319,23 +447,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000165.webp",
-      "date": "2026-11-06T00:00",
-      "mean": 1.646,
-      "p90": 1.911,
-      "norm": 0.204,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000166.webp",
-      "date": "2026-11-06T01:00",
-      "mean": 1.608,
-      "p90": 1.878,
-      "norm": 0.201,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000167.webp",
+      "file": "frame_000056.webp",
       "date": "2026-11-06T02:00",
       "mean": 1.604,
       "p90": 1.878,
@@ -1343,23 +455,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000168.webp",
-      "date": "2026-11-06T03:00",
-      "mean": 1.581,
-      "p90": 1.844,
-      "norm": 0.198,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000169.webp",
-      "date": "2026-11-06T04:00",
-      "mean": 1.572,
-      "p90": 1.812,
-      "norm": 0.197,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000170.webp",
+      "file": "frame_000057.webp",
       "date": "2026-11-06T05:00",
       "mean": 1.585,
       "p90": 1.812,
@@ -1367,23 +463,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000171.webp",
-      "date": "2026-11-06T06:00",
-      "mean": 1.583,
-      "p90": 1.812,
-      "norm": 0.198,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000172.webp",
-      "date": "2026-11-06T07:00",
-      "mean": 1.591,
-      "p90": 1.812,
-      "norm": 0.199,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000173.webp",
+      "file": "frame_000058.webp",
       "date": "2026-11-06T08:00",
       "mean": 1.612,
       "p90": 1.78,
@@ -1391,23 +471,7 @@
       "coverage": 0.952
     },
     {
-      "file": "frame_000174.webp",
-      "date": "2026-11-06T09:00",
-      "mean": 1.629,
-      "p90": 1.78,
-      "norm": 0.203,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000175.webp",
-      "date": "2026-11-06T10:00",
-      "mean": 1.632,
-      "p90": 1.78,
-      "norm": 0.203,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000176.webp",
+      "file": "frame_000059.webp",
       "date": "2026-11-06T11:00",
       "mean": 1.664,
       "p90": 1.78,
@@ -1415,23 +479,7 @@
       "coverage": 0.952
     },
     {
-      "file": "frame_000177.webp",
-      "date": "2026-11-06T12:00",
-      "mean": 1.687,
-      "p90": 1.812,
-      "norm": 0.208,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000178.webp",
-      "date": "2026-11-06T13:00",
-      "mean": 1.703,
-      "p90": 1.812,
-      "norm": 0.209,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000179.webp",
+      "file": "frame_000060.webp",
       "date": "2026-11-06T14:00",
       "mean": 1.74,
       "p90": 1.844,
@@ -1439,23 +487,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000180.webp",
-      "date": "2026-11-06T15:00",
-      "mean": 1.768,
-      "p90": 1.844,
-      "norm": 0.214,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000181.webp",
-      "date": "2026-11-06T16:00",
-      "mean": 1.788,
-      "p90": 1.878,
-      "norm": 0.216,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000182.webp",
+      "file": "frame_000061.webp",
       "date": "2026-11-06T17:00",
       "mean": 1.815,
       "p90": 1.878,
@@ -1463,23 +495,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000183.webp",
-      "date": "2026-11-06T18:00",
-      "mean": 1.829,
-      "p90": 1.878,
-      "norm": 0.219,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000184.webp",
-      "date": "2026-11-06T19:00",
-      "mean": 1.851,
-      "p90": 1.878,
-      "norm": 0.221,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000185.webp",
+      "file": "frame_000062.webp",
       "date": "2026-11-06T20:00",
       "mean": 1.84,
       "p90": 1.878,
@@ -1487,23 +503,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000186.webp",
-      "date": "2026-11-06T21:00",
-      "mean": 1.831,
-      "p90": 1.844,
-      "norm": 0.219,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000187.webp",
-      "date": "2026-11-06T22:00",
-      "mean": 1.798,
-      "p90": 1.844,
-      "norm": 0.217,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000188.webp",
+      "file": "frame_000063.webp",
       "date": "2026-11-06T23:00",
       "mean": 1.752,
       "p90": 1.844,
@@ -1511,23 +511,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000189.webp",
-      "date": "2026-11-07T00:00",
-      "mean": 1.717,
-      "p90": 1.812,
-      "norm": 0.21,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000190.webp",
-      "date": "2026-11-07T01:00",
-      "mean": 1.681,
-      "p90": 1.78,
-      "norm": 0.207,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000191.webp",
+      "file": "frame_000064.webp",
       "date": "2026-11-07T02:00",
       "mean": 1.662,
       "p90": 1.78,
@@ -1535,23 +519,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000192.webp",
-      "date": "2026-11-07T03:00",
-      "mean": 1.649,
-      "p90": 1.78,
-      "norm": 0.204,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000193.webp",
-      "date": "2026-11-07T04:00",
-      "mean": 1.629,
-      "p90": 1.749,
-      "norm": 0.203,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000194.webp",
+      "file": "frame_000065.webp",
       "date": "2026-11-07T05:00",
       "mean": 1.61,
       "p90": 1.749,
@@ -1559,23 +527,7 @@
       "coverage": 0.952
     },
     {
-      "file": "frame_000195.webp",
-      "date": "2026-11-07T06:00",
-      "mean": 1.594,
-      "p90": 1.749,
-      "norm": 0.199,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000196.webp",
-      "date": "2026-11-07T07:00",
-      "mean": 1.601,
-      "p90": 1.718,
-      "norm": 0.2,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000197.webp",
+      "file": "frame_000066.webp",
       "date": "2026-11-07T08:00",
       "mean": 1.613,
       "p90": 1.718,
@@ -1583,23 +535,7 @@
       "coverage": 0.951
     },
     {
-      "file": "frame_000198.webp",
-      "date": "2026-11-07T09:00",
-      "mean": 1.614,
-      "p90": 1.718,
-      "norm": 0.201,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000199.webp",
-      "date": "2026-11-07T10:00",
-      "mean": 1.626,
-      "p90": 1.688,
-      "norm": 0.202,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000200.webp",
+      "file": "frame_000067.webp",
       "date": "2026-11-07T11:00",
       "mean": 1.642,
       "p90": 1.688,
@@ -1607,23 +543,7 @@
       "coverage": 0.952
     },
     {
-      "file": "frame_000201.webp",
-      "date": "2026-11-07T12:00",
-      "mean": 1.652,
-      "p90": 1.688,
-      "norm": 0.205,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000202.webp",
-      "date": "2026-11-07T13:00",
-      "mean": 1.652,
-      "p90": 1.688,
-      "norm": 0.205,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000203.webp",
+      "file": "frame_000068.webp",
       "date": "2026-11-07T14:00",
       "mean": 1.66,
       "p90": 1.688,
@@ -1631,23 +551,7 @@
       "coverage": 0.952
     },
     {
-      "file": "frame_000204.webp",
-      "date": "2026-11-07T15:00",
-      "mean": 1.682,
-      "p90": 1.688,
-      "norm": 0.207,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000205.webp",
-      "date": "2026-11-07T16:00",
-      "mean": 1.689,
-      "p90": 1.718,
-      "norm": 0.208,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000206.webp",
+      "file": "frame_000069.webp",
       "date": "2026-11-07T17:00",
       "mean": 1.715,
       "p90": 1.718,
@@ -1655,23 +559,7 @@
       "coverage": 0.952
     },
     {
-      "file": "frame_000207.webp",
-      "date": "2026-11-07T18:00",
-      "mean": 1.706,
-      "p90": 1.718,
-      "norm": 0.209,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000208.webp",
-      "date": "2026-11-07T19:00",
-      "mean": 1.715,
-      "p90": 1.718,
-      "norm": 0.21,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000209.webp",
+      "file": "frame_000070.webp",
       "date": "2026-11-07T20:00",
       "mean": 1.699,
       "p90": 1.718,
@@ -1679,23 +567,7 @@
       "coverage": 0.952
     },
     {
-      "file": "frame_000210.webp",
-      "date": "2026-11-07T21:00",
-      "mean": 1.694,
-      "p90": 1.718,
-      "norm": 0.208,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000211.webp",
-      "date": "2026-11-07T22:00",
-      "mean": 1.678,
-      "p90": 1.718,
-      "norm": 0.207,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000212.webp",
+      "file": "frame_000071.webp",
       "date": "2026-11-07T23:00",
       "mean": 1.645,
       "p90": 1.718,
@@ -1703,23 +575,7 @@
       "coverage": 0.952
     },
     {
-      "file": "frame_000213.webp",
-      "date": "2026-11-08T00:00",
-      "mean": 1.591,
-      "p90": 1.718,
-      "norm": 0.199,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000214.webp",
-      "date": "2026-11-08T01:00",
-      "mean": 1.559,
-      "p90": 1.718,
-      "norm": 0.196,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000215.webp",
+      "file": "frame_000072.webp",
       "date": "2026-11-08T02:00",
       "mean": 1.54,
       "p90": 1.688,
@@ -1727,23 +583,7 @@
       "coverage": 0.951
     },
     {
-      "file": "frame_000216.webp",
-      "date": "2026-11-08T03:00",
-      "mean": 1.517,
-      "p90": 1.658,
-      "norm": 0.192,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000217.webp",
-      "date": "2026-11-08T04:00",
-      "mean": 1.499,
-      "p90": 1.658,
-      "norm": 0.191,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000218.webp",
+      "file": "frame_000073.webp",
       "date": "2026-11-08T05:00",
       "mean": 1.494,
       "p90": 1.658,
@@ -1751,23 +591,7 @@
       "coverage": 0.951
     },
     {
-      "file": "frame_000219.webp",
-      "date": "2026-11-08T06:00",
-      "mean": 1.512,
-      "p90": 1.658,
-      "norm": 0.192,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000220.webp",
-      "date": "2026-11-08T07:00",
-      "mean": 1.507,
-      "p90": 1.658,
-      "norm": 0.191,
-      "coverage": 0.95
-    },
-    {
-      "file": "frame_000221.webp",
+      "file": "frame_000074.webp",
       "date": "2026-11-08T08:00",
       "mean": 1.524,
       "p90": 1.658,
@@ -1775,23 +599,7 @@
       "coverage": 0.951
     },
     {
-      "file": "frame_000222.webp",
-      "date": "2026-11-08T09:00",
-      "mean": 1.529,
-      "p90": 1.658,
-      "norm": 0.193,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000223.webp",
-      "date": "2026-11-08T10:00",
-      "mean": 1.55,
-      "p90": 1.658,
-      "norm": 0.195,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000224.webp",
+      "file": "frame_000075.webp",
       "date": "2026-11-08T11:00",
       "mean": 1.564,
       "p90": 1.658,
@@ -1799,23 +607,7 @@
       "coverage": 0.951
     },
     {
-      "file": "frame_000225.webp",
-      "date": "2026-11-08T12:00",
-      "mean": 1.572,
-      "p90": 1.658,
-      "norm": 0.197,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000226.webp",
-      "date": "2026-11-08T13:00",
-      "mean": 1.597,
-      "p90": 1.688,
-      "norm": 0.2,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000227.webp",
+      "file": "frame_000076.webp",
       "date": "2026-11-08T14:00",
       "mean": 1.615,
       "p90": 1.688,
@@ -1823,23 +615,7 @@
       "coverage": 0.951
     },
     {
-      "file": "frame_000228.webp",
-      "date": "2026-11-08T15:00",
-      "mean": 1.628,
-      "p90": 1.688,
-      "norm": 0.203,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000229.webp",
-      "date": "2026-11-08T16:00",
-      "mean": 1.652,
-      "p90": 1.718,
-      "norm": 0.205,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000230.webp",
+      "file": "frame_000077.webp",
       "date": "2026-11-08T17:00",
       "mean": 1.664,
       "p90": 1.718,
@@ -1847,23 +623,7 @@
       "coverage": 0.952
     },
     {
-      "file": "frame_000231.webp",
-      "date": "2026-11-08T18:00",
-      "mean": 1.659,
-      "p90": 1.718,
-      "norm": 0.205,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000232.webp",
-      "date": "2026-11-08T19:00",
-      "mean": 1.673,
-      "p90": 1.718,
-      "norm": 0.206,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000233.webp",
+      "file": "frame_000078.webp",
       "date": "2026-11-08T20:00",
       "mean": 1.68,
       "p90": 1.718,
@@ -1871,23 +631,7 @@
       "coverage": 0.952
     },
     {
-      "file": "frame_000234.webp",
-      "date": "2026-11-08T21:00",
-      "mean": 1.673,
-      "p90": 1.718,
-      "norm": 0.206,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000235.webp",
-      "date": "2026-11-08T22:00",
-      "mean": 1.662,
-      "p90": 1.718,
-      "norm": 0.205,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000236.webp",
+      "file": "frame_000079.webp",
       "date": "2026-11-08T23:00",
       "mean": 1.627,
       "p90": 1.718,
@@ -1895,23 +639,7 @@
       "coverage": 0.952
     },
     {
-      "file": "frame_000237.webp",
-      "date": "2026-11-09T00:00",
-      "mean": 1.58,
-      "p90": 1.718,
-      "norm": 0.198,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000238.webp",
-      "date": "2026-11-09T01:00",
-      "mean": 1.556,
-      "p90": 1.718,
-      "norm": 0.196,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000239.webp",
+      "file": "frame_000080.webp",
       "date": "2026-11-09T02:00",
       "mean": 1.529,
       "p90": 1.688,
@@ -1919,23 +647,7 @@
       "coverage": 0.952
     },
     {
-      "file": "frame_000240.webp",
-      "date": "2026-11-09T03:00",
-      "mean": 1.52,
-      "p90": 1.688,
-      "norm": 0.193,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000241.webp",
-      "date": "2026-11-09T04:00",
-      "mean": 1.509,
-      "p90": 1.688,
-      "norm": 0.192,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000242.webp",
+      "file": "frame_000081.webp",
       "date": "2026-11-09T05:00",
       "mean": 1.498,
       "p90": 1.688,
@@ -1943,23 +655,7 @@
       "coverage": 0.951
     },
     {
-      "file": "frame_000243.webp",
-      "date": "2026-11-09T06:00",
-      "mean": 1.5,
-      "p90": 1.688,
-      "norm": 0.191,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000244.webp",
-      "date": "2026-11-09T07:00",
-      "mean": 1.51,
-      "p90": 1.688,
-      "norm": 0.192,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000245.webp",
+      "file": "frame_000082.webp",
       "date": "2026-11-09T08:00",
       "mean": 1.511,
       "p90": 1.688,
@@ -1967,23 +663,7 @@
       "coverage": 0.951
     },
     {
-      "file": "frame_000246.webp",
-      "date": "2026-11-09T09:00",
-      "mean": 1.521,
-      "p90": 1.688,
-      "norm": 0.193,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000247.webp",
-      "date": "2026-11-09T10:00",
-      "mean": 1.531,
-      "p90": 1.688,
-      "norm": 0.194,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000248.webp",
+      "file": "frame_000083.webp",
       "date": "2026-11-09T11:00",
       "mean": 1.566,
       "p90": 1.688,
@@ -1991,23 +671,7 @@
       "coverage": 0.951
     },
     {
-      "file": "frame_000249.webp",
-      "date": "2026-11-09T12:00",
-      "mean": 1.572,
-      "p90": 1.718,
-      "norm": 0.197,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000250.webp",
-      "date": "2026-11-09T13:00",
-      "mean": 1.606,
-      "p90": 1.718,
-      "norm": 0.201,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000251.webp",
+      "file": "frame_000084.webp",
       "date": "2026-11-09T14:00",
       "mean": 1.627,
       "p90": 1.78,
@@ -2015,23 +679,7 @@
       "coverage": 0.952
     },
     {
-      "file": "frame_000252.webp",
-      "date": "2026-11-09T15:00",
-      "mean": 1.641,
-      "p90": 1.78,
-      "norm": 0.204,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000253.webp",
-      "date": "2026-11-09T16:00",
-      "mean": 1.659,
-      "p90": 1.78,
-      "norm": 0.205,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000254.webp",
+      "file": "frame_000085.webp",
       "date": "2026-11-09T17:00",
       "mean": 1.685,
       "p90": 1.78,
@@ -2039,23 +687,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000255.webp",
-      "date": "2026-11-09T18:00",
-      "mean": 1.719,
-      "p90": 1.78,
-      "norm": 0.21,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000256.webp",
-      "date": "2026-11-09T19:00",
-      "mean": 1.736,
-      "p90": 1.812,
-      "norm": 0.212,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000257.webp",
+      "file": "frame_000086.webp",
       "date": "2026-11-09T20:00",
       "mean": 1.747,
       "p90": 1.844,
@@ -2063,23 +695,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000258.webp",
-      "date": "2026-11-09T21:00",
-      "mean": 1.75,
-      "p90": 1.844,
-      "norm": 0.213,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000259.webp",
-      "date": "2026-11-09T22:00",
-      "mean": 1.729,
-      "p90": 1.878,
-      "norm": 0.211,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000260.webp",
+      "file": "frame_000087.webp",
       "date": "2026-11-09T23:00",
       "mean": 1.698,
       "p90": 1.878,
@@ -2087,23 +703,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000261.webp",
-      "date": "2026-11-10T00:00",
-      "mean": 1.634,
-      "p90": 1.878,
-      "norm": 0.203,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000262.webp",
-      "date": "2026-11-10T01:00",
-      "mean": 1.603,
-      "p90": 1.844,
-      "norm": 0.2,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000263.webp",
+      "file": "frame_000088.webp",
       "date": "2026-11-10T02:00",
       "mean": 1.579,
       "p90": 1.812,
@@ -2111,23 +711,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000264.webp",
-      "date": "2026-11-10T03:00",
-      "mean": 1.568,
-      "p90": 1.78,
-      "norm": 0.197,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000265.webp",
-      "date": "2026-11-10T04:00",
-      "mean": 1.562,
-      "p90": 1.78,
-      "norm": 0.197,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000266.webp",
+      "file": "frame_000089.webp",
       "date": "2026-11-10T05:00",
       "mean": 1.561,
       "p90": 1.812,
@@ -2135,23 +719,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000267.webp",
-      "date": "2026-11-10T06:00",
-      "mean": 1.565,
-      "p90": 1.812,
-      "norm": 0.197,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000268.webp",
-      "date": "2026-11-10T07:00",
-      "mean": 1.591,
-      "p90": 1.812,
-      "norm": 0.199,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000269.webp",
+      "file": "frame_000090.webp",
       "date": "2026-11-10T08:00",
       "mean": 1.6,
       "p90": 1.78,
@@ -2159,23 +727,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000270.webp",
-      "date": "2026-11-10T09:00",
-      "mean": 1.626,
-      "p90": 1.78,
-      "norm": 0.202,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000271.webp",
-      "date": "2026-11-10T10:00",
-      "mean": 1.652,
-      "p90": 1.78,
-      "norm": 0.205,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000272.webp",
+      "file": "frame_000091.webp",
       "date": "2026-11-10T11:00",
       "mean": 1.676,
       "p90": 1.78,
@@ -2183,23 +735,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000273.webp",
-      "date": "2026-11-10T12:00",
-      "mean": 1.696,
-      "p90": 1.78,
-      "norm": 0.208,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000274.webp",
-      "date": "2026-11-10T13:00",
-      "mean": 1.725,
-      "p90": 1.78,
-      "norm": 0.211,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000275.webp",
+      "file": "frame_000092.webp",
       "date": "2026-11-10T14:00",
       "mean": 1.748,
       "p90": 1.812,
@@ -2207,23 +743,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000276.webp",
-      "date": "2026-11-10T15:00",
-      "mean": 1.779,
-      "p90": 1.812,
-      "norm": 0.215,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000277.webp",
-      "date": "2026-11-10T16:00",
-      "mean": 1.805,
-      "p90": 1.844,
-      "norm": 0.217,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000278.webp",
+      "file": "frame_000093.webp",
       "date": "2026-11-10T17:00",
       "mean": 1.84,
       "p90": 1.878,
@@ -2231,23 +751,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000279.webp",
-      "date": "2026-11-10T18:00",
-      "mean": 1.865,
-      "p90": 1.878,
-      "norm": 0.222,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000280.webp",
-      "date": "2026-11-10T19:00",
-      "mean": 1.881,
-      "p90": 1.911,
-      "norm": 0.223,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000281.webp",
+      "file": "frame_000094.webp",
       "date": "2026-11-10T20:00",
       "mean": 1.887,
       "p90": 1.911,
@@ -2255,23 +759,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000282.webp",
-      "date": "2026-11-10T21:00",
-      "mean": 1.874,
-      "p90": 1.911,
-      "norm": 0.223,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000283.webp",
-      "date": "2026-11-10T22:00",
-      "mean": 1.837,
-      "p90": 1.911,
-      "norm": 0.22,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000284.webp",
+      "file": "frame_000095.webp",
       "date": "2026-11-10T23:00",
       "mean": 1.796,
       "p90": 1.911,
@@ -2279,23 +767,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000285.webp",
-      "date": "2026-11-11T00:00",
-      "mean": 1.715,
-      "p90": 1.911,
-      "norm": 0.21,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000286.webp",
-      "date": "2026-11-11T01:00",
-      "mean": 1.674,
-      "p90": 1.911,
-      "norm": 0.207,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000287.webp",
+      "file": "frame_000096.webp",
       "date": "2026-11-11T02:00",
       "mean": 1.653,
       "p90": 1.911,
@@ -2303,23 +775,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000288.webp",
-      "date": "2026-11-11T03:00",
-      "mean": 1.634,
-      "p90": 1.878,
-      "norm": 0.203,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000289.webp",
-      "date": "2026-11-11T04:00",
-      "mean": 1.627,
-      "p90": 1.844,
-      "norm": 0.202,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000290.webp",
+      "file": "frame_000097.webp",
       "date": "2026-11-11T05:00",
       "mean": 1.633,
       "p90": 1.844,
@@ -2327,23 +783,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000291.webp",
-      "date": "2026-11-11T06:00",
-      "mean": 1.641,
-      "p90": 1.844,
-      "norm": 0.204,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000292.webp",
-      "date": "2026-11-11T07:00",
-      "mean": 1.641,
-      "p90": 1.844,
-      "norm": 0.204,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000293.webp",
+      "file": "frame_000098.webp",
       "date": "2026-11-11T08:00",
       "mean": 1.658,
       "p90": 1.844,
@@ -2351,23 +791,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000294.webp",
-      "date": "2026-11-11T09:00",
-      "mean": 1.671,
-      "p90": 1.812,
-      "norm": 0.206,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000295.webp",
-      "date": "2026-11-11T10:00",
-      "mean": 1.685,
-      "p90": 1.812,
-      "norm": 0.207,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000296.webp",
+      "file": "frame_000099.webp",
       "date": "2026-11-11T11:00",
       "mean": 1.705,
       "p90": 1.78,
@@ -2375,23 +799,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000297.webp",
-      "date": "2026-11-11T12:00",
-      "mean": 1.727,
-      "p90": 1.78,
-      "norm": 0.211,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000298.webp",
-      "date": "2026-11-11T13:00",
-      "mean": 1.759,
-      "p90": 1.812,
-      "norm": 0.214,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000299.webp",
+      "file": "frame_000100.webp",
       "date": "2026-11-11T14:00",
       "mean": 1.782,
       "p90": 1.844,
@@ -2399,23 +807,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000300.webp",
-      "date": "2026-11-11T15:00",
-      "mean": 1.808,
-      "p90": 1.844,
-      "norm": 0.218,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000301.webp",
-      "date": "2026-11-11T16:00",
-      "mean": 1.832,
-      "p90": 1.878,
-      "norm": 0.22,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000302.webp",
+      "file": "frame_000101.webp",
       "date": "2026-11-11T17:00",
       "mean": 1.858,
       "p90": 1.878,
@@ -2423,23 +815,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000303.webp",
-      "date": "2026-11-11T18:00",
-      "mean": 1.877,
-      "p90": 1.911,
-      "norm": 0.223,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000304.webp",
-      "date": "2026-11-11T19:00",
-      "mean": 1.9,
-      "p90": 1.911,
-      "norm": 0.225,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000305.webp",
+      "file": "frame_000102.webp",
       "date": "2026-11-11T20:00",
       "mean": 1.909,
       "p90": 1.911,
@@ -2447,23 +823,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000306.webp",
-      "date": "2026-11-11T21:00",
-      "mean": 1.888,
-      "p90": 1.911,
-      "norm": 0.224,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000307.webp",
-      "date": "2026-11-11T22:00",
-      "mean": 1.838,
-      "p90": 1.911,
-      "norm": 0.22,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000308.webp",
+      "file": "frame_000103.webp",
       "date": "2026-11-11T23:00",
       "mean": 1.781,
       "p90": 1.911,
@@ -2471,23 +831,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000309.webp",
-      "date": "2026-11-12T00:00",
-      "mean": 1.738,
-      "p90": 1.911,
-      "norm": 0.212,
-      "coverage": 0.955
-    },
-    {
-      "file": "frame_000310.webp",
-      "date": "2026-11-12T01:00",
-      "mean": 1.702,
-      "p90": 1.911,
-      "norm": 0.209,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000311.webp",
+      "file": "frame_000104.webp",
       "date": "2026-11-12T02:00",
       "mean": 1.674,
       "p90": 1.878,
@@ -2495,23 +839,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000312.webp",
-      "date": "2026-11-12T03:00",
-      "mean": 1.664,
-      "p90": 1.878,
-      "norm": 0.206,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000313.webp",
-      "date": "2026-11-12T04:00",
-      "mean": 1.665,
-      "p90": 1.878,
-      "norm": 0.206,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000314.webp",
+      "file": "frame_000105.webp",
       "date": "2026-11-12T05:00",
       "mean": 1.669,
       "p90": 1.878,
@@ -2519,23 +847,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000315.webp",
-      "date": "2026-11-12T06:00",
-      "mean": 1.672,
-      "p90": 1.878,
-      "norm": 0.206,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000316.webp",
-      "date": "2026-11-12T07:00",
-      "mean": 1.682,
-      "p90": 1.844,
-      "norm": 0.207,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000317.webp",
+      "file": "frame_000106.webp",
       "date": "2026-11-12T08:00",
       "mean": 1.714,
       "p90": 1.844,
@@ -2543,23 +855,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000318.webp",
-      "date": "2026-11-12T09:00",
-      "mean": 1.725,
-      "p90": 1.844,
-      "norm": 0.211,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000319.webp",
-      "date": "2026-11-12T10:00",
-      "mean": 1.751,
-      "p90": 1.812,
-      "norm": 0.213,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000320.webp",
+      "file": "frame_000107.webp",
       "date": "2026-11-12T11:00",
       "mean": 1.778,
       "p90": 1.844,
@@ -2567,23 +863,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000321.webp",
-      "date": "2026-11-12T12:00",
-      "mean": 1.8,
-      "p90": 1.844,
-      "norm": 0.217,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000322.webp",
-      "date": "2026-11-12T13:00",
-      "mean": 1.83,
-      "p90": 1.844,
-      "norm": 0.219,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000323.webp",
+      "file": "frame_000108.webp",
       "date": "2026-11-12T14:00",
       "mean": 1.853,
       "p90": 1.878,
@@ -2591,23 +871,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000324.webp",
-      "date": "2026-11-12T15:00",
-      "mean": 1.871,
-      "p90": 1.878,
-      "norm": 0.223,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000325.webp",
-      "date": "2026-11-12T16:00",
-      "mean": 1.899,
-      "p90": 1.911,
-      "norm": 0.225,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000326.webp",
+      "file": "frame_000109.webp",
       "date": "2026-11-12T17:00",
       "mean": 1.917,
       "p90": 1.911,
@@ -2615,23 +879,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000327.webp",
-      "date": "2026-11-12T18:00",
-      "mean": 1.935,
-      "p90": 1.911,
-      "norm": 0.227,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000328.webp",
-      "date": "2026-11-12T19:00",
-      "mean": 1.962,
-      "p90": 1.911,
-      "norm": 0.229,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000329.webp",
+      "file": "frame_000110.webp",
       "date": "2026-11-12T20:00",
       "mean": 1.969,
       "p90": 1.911,
@@ -2639,23 +887,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000330.webp",
-      "date": "2026-11-12T21:00",
-      "mean": 1.95,
-      "p90": 1.911,
-      "norm": 0.229,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000331.webp",
-      "date": "2026-11-12T22:00",
-      "mean": 1.903,
-      "p90": 1.911,
-      "norm": 0.225,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000332.webp",
+      "file": "frame_000111.webp",
       "date": "2026-11-12T23:00",
       "mean": 1.824,
       "p90": 1.911,
@@ -2663,23 +895,7 @@
       "coverage": 0.954
     },
     {
-      "file": "frame_000333.webp",
-      "date": "2026-11-13T00:00",
-      "mean": 1.755,
-      "p90": 1.911,
-      "norm": 0.213,
-      "coverage": 0.954
-    },
-    {
-      "file": "frame_000334.webp",
-      "date": "2026-11-13T01:00",
-      "mean": 1.698,
-      "p90": 1.844,
-      "norm": 0.209,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000335.webp",
+      "file": "frame_000112.webp",
       "date": "2026-11-13T02:00",
       "mean": 1.673,
       "p90": 1.812,
@@ -2687,23 +903,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000336.webp",
-      "date": "2026-11-13T03:00",
-      "mean": 1.663,
-      "p90": 1.78,
-      "norm": 0.206,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000337.webp",
-      "date": "2026-11-13T04:00",
-      "mean": 1.661,
-      "p90": 1.78,
-      "norm": 0.205,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000338.webp",
+      "file": "frame_000113.webp",
       "date": "2026-11-13T05:00",
       "mean": 1.672,
       "p90": 1.78,
@@ -2711,23 +911,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000339.webp",
-      "date": "2026-11-13T06:00",
-      "mean": 1.69,
-      "p90": 1.78,
-      "norm": 0.208,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000340.webp",
-      "date": "2026-11-13T07:00",
-      "mean": 1.705,
-      "p90": 1.78,
-      "norm": 0.209,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000341.webp",
+      "file": "frame_000114.webp",
       "date": "2026-11-13T08:00",
       "mean": 1.744,
       "p90": 1.78,
@@ -2735,23 +919,7 @@
       "coverage": 0.952
     },
     {
-      "file": "frame_000342.webp",
-      "date": "2026-11-13T09:00",
-      "mean": 1.773,
-      "p90": 1.78,
-      "norm": 0.215,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000343.webp",
-      "date": "2026-11-13T10:00",
-      "mean": 1.803,
-      "p90": 1.78,
-      "norm": 0.217,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000344.webp",
+      "file": "frame_000115.webp",
       "date": "2026-11-13T11:00",
       "mean": 1.848,
       "p90": 1.78,
@@ -2759,23 +927,7 @@
       "coverage": 0.952
     },
     {
-      "file": "frame_000345.webp",
-      "date": "2026-11-13T12:00",
-      "mean": 1.876,
-      "p90": 1.78,
-      "norm": 0.223,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000346.webp",
-      "date": "2026-11-13T13:00",
-      "mean": 1.911,
-      "p90": 1.78,
-      "norm": 0.226,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000347.webp",
+      "file": "frame_000116.webp",
       "date": "2026-11-13T14:00",
       "mean": 1.928,
       "p90": 1.78,
@@ -2783,23 +935,7 @@
       "coverage": 0.952
     },
     {
-      "file": "frame_000348.webp",
-      "date": "2026-11-13T15:00",
-      "mean": 1.96,
-      "p90": 1.78,
-      "norm": 0.229,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000349.webp",
-      "date": "2026-11-13T16:00",
-      "mean": 1.983,
-      "p90": 1.78,
-      "norm": 0.231,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000350.webp",
+      "file": "frame_000117.webp",
       "date": "2026-11-13T17:00",
       "mean": 2.001,
       "p90": 1.78,
@@ -2807,23 +943,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000351.webp",
-      "date": "2026-11-13T18:00",
-      "mean": 2.013,
-      "p90": 1.78,
-      "norm": 0.233,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000352.webp",
-      "date": "2026-11-13T19:00",
-      "mean": 2.033,
-      "p90": 1.78,
-      "norm": 0.235,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000353.webp",
+      "file": "frame_000118.webp",
       "date": "2026-11-13T20:00",
       "mean": 2.017,
       "p90": 1.812,
@@ -2831,23 +951,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000354.webp",
-      "date": "2026-11-13T21:00",
-      "mean": 1.969,
-      "p90": 1.78,
-      "norm": 0.23,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000355.webp",
-      "date": "2026-11-13T22:00",
-      "mean": 1.889,
-      "p90": 1.78,
-      "norm": 0.224,
-      "coverage": 0.953
-    },
-    {
-      "file": "frame_000356.webp",
+      "file": "frame_000119.webp",
       "date": "2026-11-13T23:00",
       "mean": 1.8,
       "p90": 1.78,
@@ -2855,23 +959,7 @@
       "coverage": 0.953
     },
     {
-      "file": "frame_000357.webp",
-      "date": "2026-11-14T00:00",
-      "mean": 1.728,
-      "p90": 1.78,
-      "norm": 0.211,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000358.webp",
-      "date": "2026-11-14T01:00",
-      "mean": 1.693,
-      "p90": 1.78,
-      "norm": 0.208,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000359.webp",
+      "file": "frame_000120.webp",
       "date": "2026-11-14T02:00",
       "mean": 1.668,
       "p90": 1.749,
@@ -2879,23 +967,7 @@
       "coverage": 0.952
     },
     {
-      "file": "frame_000360.webp",
-      "date": "2026-11-14T03:00",
-      "mean": 1.641,
-      "p90": 1.718,
-      "norm": 0.204,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000361.webp",
-      "date": "2026-11-14T04:00",
-      "mean": 1.636,
-      "p90": 1.718,
-      "norm": 0.203,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000362.webp",
+      "file": "frame_000121.webp",
       "date": "2026-11-14T05:00",
       "mean": 1.656,
       "p90": 1.718,
@@ -2903,23 +975,7 @@
       "coverage": 0.952
     },
     {
-      "file": "frame_000363.webp",
-      "date": "2026-11-14T06:00",
-      "mean": 1.665,
-      "p90": 1.718,
-      "norm": 0.206,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000364.webp",
-      "date": "2026-11-14T07:00",
-      "mean": 1.701,
-      "p90": 1.688,
-      "norm": 0.209,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000365.webp",
+      "file": "frame_000122.webp",
       "date": "2026-11-14T08:00",
       "mean": 1.707,
       "p90": 1.688,
@@ -2927,23 +983,7 @@
       "coverage": 0.951
     },
     {
-      "file": "frame_000366.webp",
-      "date": "2026-11-14T09:00",
-      "mean": 1.74,
-      "p90": 1.688,
-      "norm": 0.212,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000367.webp",
-      "date": "2026-11-14T10:00",
-      "mean": 1.751,
-      "p90": 1.688,
-      "norm": 0.213,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000368.webp",
+      "file": "frame_000123.webp",
       "date": "2026-11-14T11:00",
       "mean": 1.767,
       "p90": 1.688,
@@ -2951,35 +991,11 @@
       "coverage": 0.951
     },
     {
-      "file": "frame_000369.webp",
-      "date": "2026-11-14T12:00",
-      "mean": 1.792,
-      "p90": 1.688,
-      "norm": 0.216,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000370.webp",
-      "date": "2026-11-14T13:00",
-      "mean": 1.812,
-      "p90": 1.688,
-      "norm": 0.218,
-      "coverage": 0.951
-    },
-    {
-      "file": "frame_000371.webp",
+      "file": "frame_000124.webp",
       "date": "2026-11-14T14:00",
       "mean": 1.84,
       "p90": 1.718,
       "norm": 0.22,
-      "coverage": 0.952
-    },
-    {
-      "file": "frame_000372.webp",
-      "date": "2026-11-14T15:00",
-      "mean": 1.851,
-      "p90": 1.718,
-      "norm": 0.221,
       "coverage": 0.952
     }
   ]

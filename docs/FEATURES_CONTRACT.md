@@ -51,6 +51,12 @@ remain in µg/m³ and are estimates decoded from the rendered GEOS-CF image,
 not the raw numerical model grid. Coverage is the share of analyzed image
 pixels confidently matched to the legend.
 
+For carbon monoxide (SVS 5153), mean and p90 are image-derived estimates in
+ppbv, not values from the raw GEOS-CF model grid. The NASA legend is calibrated
+at its labeled 40, 100, 130, 200, and 500 ppbv ticks; confidently matched pixels
+use saturation ≥ 18 and color distance ≤ 34. Coverage is the matched share of
+analyzed image pixels, not geographic area.
+
 ## Regras
 
 - **Dados** é dono do arquivo: gera com `pipeline/features.py` e substitui o mock (mantendo os mesmos campos).

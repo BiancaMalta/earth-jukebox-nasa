@@ -6,3 +6,4 @@ Decided by the team at the opening (task 1.4). Every mapping must be determinist
 |---|---|---|---|
 | Near-surface PM2.5 (µg/m³) | Not assigned | Visual-only | A dedicated sound mapping has not been approved; do not infer one from another variable. |
 | Near-surface ozone (ppbv) | Not assigned | Visual-only | A dedicated sound mapping has not been approved; do not infer one from another variable. |
+| Near-surface carbon monoxide (ppbv) | Not assigned | Visual-only | A dedicated sound mapping has not been approved; do not infer one from another variable. |

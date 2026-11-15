@@ -45,14 +45,20 @@ python pipeline/features.py --frames-dir public/data/clima-umidade/frames --colo
 The mean and p90 use confidently color-matched humidity pixels; `coverage`
 records their share of the analyzed frame.
 
-For PM2.5 (SVS 5151), retain the source movie's 12 fps samples, calibrate
-the logarithmic NASA colorbar, and align the first and last displayed times:
+The published PM2.5, ozone, and CO tracks use the same 124 timestamps as the
+four climate tracks. Their NASA animations have hourly frames beginning one
+hour earlier, so select source frames 2, 5, ..., 371 (1-based), renumber the
+selected images consecutively, then calculate features and regions from those
+124 images. This aligns every pollutant frame with its climate counterpart.
+
+For PM2.5 (SVS 5151), extract the source frames, retain the aligned 3-hour
+samples above, calibrate the logarithmic NASA colorbar, and calculate features:
 
 ```bash
 python pipeline/download.py --kind mp4 5151
 python pipeline/extract_frames.py raw/5151/MC01_stage4_GMAO_pm25_2048x1024_en.mp4 ar-pm25 --fps 12 --max-frames 0
 python pipeline/calibrate_colorbar.py --svs-id 5151
-python pipeline/features.py --frames-dir public/data/ar-pm25/frames --colorbar public/data/ar-pm25/colorbar.json --output public/data/ar-pm25/features.json --track ar-pm25 --svs-id 5151 --start-utc 2026-10-30T09:00:00Z --end-utc 2026-11-14T20:00:00Z
+python pipeline/features.py --frames-dir public/data/ar-pm25/frames --colorbar public/data/ar-pm25/colorbar.json --output public/data/ar-pm25/features.json --track ar-pm25 --svs-id 5151 --start-utc 2026-10-30T10:00:00Z --end-utc 2026-11-14T19:00:00Z
 ```
 
 SVS 5151 estimates near-surface PM2.5 with NASA GMAO GEOS-CF. Its legend is
@@ -61,19 +67,35 @@ pixels, not raw model-grid values; coverage is the matched share of image
 pixels, not geographic area. This visual-only track has no sound mapping and
 does not provide a health assessment.
 
-For near-surface ozone (SVS 5152), download and extract the hourly movie frames,
-then calibrate NASA's 5–60 ppbv colorbar and calculate their features:
+For near-surface ozone (SVS 5152), extract the source frames, retain the aligned
+3-hour samples above, then calibrate NASA's 5–60 ppbv colorbar and calculate
+their features:
 
 ```bash
 python pipeline/download.py --kind mp4 5152
 python pipeline/extract_frames.py raw/5152/MC02_stage4_GMAO_O3_2048x1024_en.mp4 clima-ozonio --fps 12 --max-frames 0
 python pipeline/calibrate_colorbar.py --svs-id 5152
-python pipeline/features.py --frames-dir public/data/clima-ozonio/frames --colorbar public/data/clima-ozonio/colorbar.json --output public/data/clima-ozonio/features.json --track clima-ozonio --svs-id 5152 --start-utc 2026-10-30T09:00:00Z --interval-hours 1
+python pipeline/features.py --frames-dir public/data/clima-ozonio/frames --colorbar public/data/clima-ozonio/colorbar.json --output public/data/clima-ozonio/features.json --track clima-ozonio --svs-id 5152 --start-utc 2026-10-30T10:00:00Z --interval-hours 3
 ```
 
 Ozone is currently visual-only; no sound mapping is assigned. Its mean and p90
 use confidently color-matched pixels (saturation ≥ 40 and color distance ≤ 30),
 and `coverage` records their share of the analyzed frame.
+
+For near-surface carbon monoxide (SVS 5153), calibrate NASA's 40–500 ppbv
+colorbar using its labeled 40, 100, 130, 200, and 500 ppbv ticks. Extract the
+source frames, retain the aligned 3-hour samples above, and calculate features:
+
+```bash
+python pipeline/download.py --kind mp4 5153
+python pipeline/extract_frames.py raw/5153/MC03_stage4_GMAO_CO_2048x1024_en.mp4 ar-co --fps 12 --max-frames 0
+python pipeline/calibrate_colorbar.py --svs-id 5153
+python pipeline/features.py --frames-dir public/data/ar-co/frames --colorbar public/data/ar-co/colorbar.json --output public/data/ar-co/features.json --track ar-co --svs-id 5153 --start-utc 2026-10-30T10:00:00Z --end-utc 2026-11-14T19:00:00Z
+```
+
+SVS 5153 estimates near-surface CO with NASA GMAO GEOS-CF. These values are
+decoded estimates from rendered pixels, not the raw model-grid values. The
+track is visual-only; its coverage reports confidently matched pixels.
 
 `extract_frames.py` accepts an MP4 file or a directory of still frames. It writes
 WebP files to `public/data/<track>/frames/`, keeps the aspect ratio, limits the

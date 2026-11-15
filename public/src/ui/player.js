@@ -1,5 +1,5 @@
 // AI-assisted: OpenAI Codex
-import { fetchJSON, validateFeatures } from "../data/features.js";
+import { describeDate, fetchJSON, validateFeatures } from "../data/features.js";
 import { renderReading } from "./readings.js";
 import { describeExperience } from "./experience.js";
 import { soundKind } from "../engine/mapping.js";
@@ -315,7 +315,7 @@ export function initPlayer(index, hooks = {}) {
   for (const id of trackIds) {
     const option = document.createElement("option");
     option.value = id;
-    option.textContent = ({ "clima-temperatura": "Temperature", "clima-vento": "Wind", "clima-chuva": "Precipitation", "clima-umidade": "Humidity", "ar-pm25": "Particulate matter (PM2.5)", "clima-ozonio": "Ozone" })[id] ?? id;
+    option.textContent = ({ "clima-temperatura": "Temperature", "clima-vento": "Wind", "clima-chuva": "Precipitation", "clima-umidade": "Humidity", "ar-pm25": "Particulate matter (PM2.5)", "ar-co": "Carbon monoxide (CO)", "clima-ozonio": "Ozone" })[id] ?? id;
     select.append(option);
   }
   if (trackIds.length) void loadTrack(trackIds[0]);

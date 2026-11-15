@@ -61,6 +61,21 @@ class CalibrateColorbarTests(unittest.TestCase):
         self.assertAlmostEqual(_value_at_x(73, profile), 0.4)
         self.assertAlmostEqual(_value_at_x(463, profile), 409.6)
 
+    def test_carbon_monoxide_profile_uses_published_colorbar_ticks(self):
+        profile = PROFILES[5153]
+        plain = Image.new("RGB", (528, 125))
+        for x in range(profile["bar_x_min"], profile["bar_x_max"] + 1):
+            plain.putpixel((x, profile["bar_y"]), (x % 256, (x * 3) % 256, (x * 7) % 256))
+
+        colorbar = _calibrate(plain, plain.copy(), profile)
+
+        self.assertEqual((colorbar["vmin"], colorbar["vmax"]), (40.0, 500.0))
+        self.assertEqual(colorbar["unit"], "ppbv")
+        self.assertEqual(colorbar["scale"], "linear")
+        self.assertEqual(colorbar["pixelFilter"], profile["pixel_filter"])
+        for x, value in profile["value_anchors"]:
+            self.assertAlmostEqual(_value_at_x(x, profile), value)
+
 
 if __name__ == "__main__":
     unittest.main()
