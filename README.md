@@ -17,16 +17,16 @@
 - Site: https://nasaearthjukebox.netlify.app/
 - Video (≤ 30 s): _coming soon_
 
-## Project article and technical documentation
+## Project documentation
 
-Project article and scientific reports:
+The following project article and technical documents were produced by the Earth Jukebox team. They describe our methods, scientific evaluations, and sound mappings:
 
 - [Earth Jukebox: Hearing a Changing Planet](docs/PROJECT_ARTICLE.md) — project story, visitor experience, methods, accessibility, and evidence for all seven variables.
 - [GEOS-FP and wind study](docs/ESTUDO_CIENTIFICO.md) — image-derived climate estimates, area weighting, and qualitative wind-signal evaluation.
 - [Pollutant audit](docs/estudo-cientifico/validacao-poluentes.md) — five-timestamp comparison of image-derived PM2.5, carbon monoxide, and ozone with GEOS-CF.
 - [PM2.5 qualitative follow-up](docs/estudo-cientifico/pm25-qualitativo.md) — 29-timestamp evaluation of the qualitative PM2.5 sound index and its temporal trends.
 
-Sound design and implementation:
+The sound documentation explains the rationale, data mappings, and implementation:
 
 - [Sound design rationale](docs/SOUND_DESIGN_RATIONALE.md) — reasons behind the seven sound choices and the research informing their design.
 - [Mapping reference](docs/MAPPINGS.md) — data inputs, sound relationships, scales, and limits for each variable.
