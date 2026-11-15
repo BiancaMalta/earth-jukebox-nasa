@@ -34,8 +34,8 @@
           </details>
         </section>
 
-        <details id="exploration-options" class="panel exploration-options">
-          <summary>More ways to explore</summary>
+        <section id="exploration-options" class="panel exploration-options" aria-labelledby="exploration-options-heading">
+          <h2 id="exploration-options-heading">More ways to explore</h2>
           <div class="options-grid">
             <section class="combined-panel" aria-labelledby="combined-heading">
               <p class="eyebrow">Listening experiment</p><h2 id="combined-heading">Combined Earth</h2>
@@ -54,41 +54,41 @@
               <p id="legend-status" class="status-text" role="status" aria-atomic="true">Ready when you are.</p>
             </section>
           </div>
-        </details>
-<details class="panel explanation-details">
-      <summary>About the values and methods</summary>
-    <div class="explanation-panel" aria-labelledby="reading-heading">
-      <div><p class="eyebrow">Read the frame</p><h2 id="reading-heading">What the numbers mean</h2><p >Without a regional selection, readings summarize decoded pixels across the image. Select a country group or country to focus the map and switch both readings and sound to that region. Pixel inclusion shows the share of analyzed image pixels used, not accuracy or geographic surface area.</p></div>
-      <div><h3>One phenomenon, one sound identity</h3><p ><span id="sound-mapping-detail">The supplied temperature value maps to one note.</span> <span id="normalization-range">Normalization limits are unavailable.</span></p><p class="control-help">Dates keep their supplied time zone. If none is given, the player says so.</p></div>
+        </section>
+      </aside>
     </div>
-          <details class="calculation-panel">
-      <summary>How these image estimates are calculated</summary>
-      <p class="control-help">Python converts image colors to the nearest value in the visualization legend. Logos and timestamps are excluded. Regional estimates use pixel centers inside the selected boundaries; country groups follow whole-country assignments and contain land territories, not surrounding oceans. Europe includes all Russia; Asia excludes Russia.</p>
-      <p id="mean-weighting-method" class="control-help">Loading the dataset mean method…</p>
-      <p id="pixel-filter-method" class="control-help">Loading the selected visualization's color-filter settings…</p>
-      <p class="control-help">P90 is the unweighted 90th percentile of decoded pixel values, not a confidence level. These remain image-derived estimates; weighting cannot reconstruct missing or rejected pixels and does not make them direct numerical GEOS-FP fields.</p>
-      <p class="control-help">Pixel inclusion = pixels used ÷ analyzed pixels after excluding overlays. It does not measure scientific accuracy, instrument reliability or geographic surface area. Missing inclusion is unavailable, not zero; 100% inclusion does not establish accuracy.</p>
-      <p class="control-help">Python computes norm = (mean − legend minimum) ÷ (legend maximum − legend minimum), limited to 0–1 and rounded to three decimals. It is a position on the fixed legend scale, not a percentile or a percentage of Earth. The front displays the supplied values. Only temperature uses norm directly for sound; the other instruments use mean in its physical unit.</p>
+
+    <details class="panel explanation-details">
+      <summary>About the values and methods</summary>
+      <div class="explanation-panel" aria-labelledby="reading-heading">
+        <div><p class="eyebrow">Read the frame</p><h2 id="reading-heading">What the numbers mean</h2><p>Without a regional selection, readings summarize decoded pixels across the image. Select a country group or country to focus the map and switch both readings and sound to that region. Pixel inclusion shows the share of analyzed image pixels used, not accuracy or geographic surface area.</p></div>
+        <div><h3>One phenomenon, one sound identity</h3><p><span id="sound-mapping-detail">The supplied temperature value maps to one note.</span> <span id="normalization-range">Normalization limits are unavailable.</span></p><p class="control-help">Dates keep their supplied time zone. If none is given, the player says so.</p></div>
+      </div>
+      <details class="calculation-panel">
+        <summary>How these image estimates are calculated</summary>
+        <p class="control-help">Python converts image colors to the nearest value in the visualization legend. Logos and timestamps are excluded. Regional estimates use pixel centers inside the selected boundaries; country groups follow whole-country assignments and contain land territories, not surrounding oceans. Europe includes all Russia; Asia excludes Russia.</p>
+        <p id="mean-weighting-method" class="control-help">Loading the dataset mean method…</p>
+        <p id="pixel-filter-method" class="control-help">Loading the selected visualization's color-filter settings…</p>
+        <p class="control-help">P90 is the unweighted 90th percentile of decoded pixel values, not a confidence level. These remain image-derived estimates; weighting cannot reconstruct missing or rejected pixels and does not make them direct numerical GEOS-FP fields.</p>
+        <p class="control-help">Pixel inclusion = pixels used ÷ analyzed pixels after excluding overlays. It does not measure scientific accuracy, instrument reliability or geographic surface area. Missing inclusion is unavailable, not zero; 100% inclusion does not establish accuracy.</p>
+        <p class="control-help">Python computes norm = (mean − legend minimum) ÷ (legend maximum − legend minimum), limited to 0–1 and rounded to three decimals. It is a position on the fixed legend scale, not a percentile or a percentage of Earth. The front displays the supplied values. Only temperature uses norm directly for sound; the other instruments use mean in its physical unit.</p>
+      </details>
     </details>
-    </details>
-<details class="panel keyboard-panel">
+
+    <details class="panel keyboard-panel">
       <summary>Keyboard guide</summary>
       <p id="keyboard-help">Use <kbd>Tab</kbd> and <kbd>Shift</kbd> + <kbd>Tab</kbd> to move between controls. Use <kbd>Enter</kbd> or <kbd>Space</kbd> to activate buttons.</p>
       <ul class="keyboard-list"><li><kbd>Space</kbd><span>Play or pause when focus is outside controls.</span></li><li><kbd>←</kbd> <kbd>→</kbd><span>Previous or next frame when focus is outside controls.</span></li><li><kbd>←</kbd> <kbd>→</kbd><span>Adjust a slider when it has focus.</span></li></ul>
       <p class="control-help">Pause to explore the readings with a screen reader. Automatic playback does not announce every frame; manual frame selection announces its values.</p>
     </details>
-<details class="panel speech-options">
+
+    <details class="panel speech-options">
       <summary>Optional spoken dates</summary>
       <p class="control-help">Browser speech is optional and depends on available voices. It is separate from screen-reader support.</p>
       <div class="player-controls"><button id="test-voice" type="button" aria-describedby="speech-status">Test voice</button><label class="checkbox-label"><input id="narrate-dates" type="checkbox" aria-describedby="speech-support">Speak dates</label><label for="narration-interval">Every N frames</label><input id="narration-interval" type="number" min="1" max="1000" step="1" value="16" aria-describedby="speech-support"></div>
       <p id="speech-support" class="control-help">Speak dates reads the current date immediately, then every N frames during playback, even without music. Disable sound silences speech too.</p>
       <p id="speech-status" class="status-text" role="status" aria-atomic="true">Checking English speech voices…</p>
     </details>
-      </aside>
-    </div>
-
-
-
 
     <div id="live" class="sr-only" role="status" aria-atomic="true"></div>
     <noscript><p class="demo-notice">This player needs JavaScript to display frames and produce sound.</p></noscript>

@@ -59,8 +59,7 @@ export function describeReading(frame, track) {
 }
 
 export function renderReading(root, frame, track) {
-  const reading = describeReading(frame, track), kind = soundKind(track), wind = kind === "wind";
-  const visualWind = track?.sonification?.input === "visualSignal";
+  const reading = describeReading(frame, track);
   const find = (id) => root.querySelector(`#${id}`);
   find("frame-date").textContent = reading.dateLabel;
   if (reading.date) find("frame-date").setAttribute("datetime", frame.date);
@@ -73,15 +72,5 @@ export function renderReading(root, frame, track) {
   find("coverage-detail").hidden = !reading.coverageDetail;
   find("sound-label").textContent = reading.soundLabel;
   find("current-note").textContent = reading.soundValue;
-  find("normalized-label").textContent = visualWind ? "Visible wind signal index" : wind ? "Supplied normalized speed" : kind === "temperature" ? "Normalized temperature" : kind === "carbonMonoxide" ? "Normalized CO concentration" : kind === "ozone" ? "Normalized ozone concentration" : kind === "pm25" ? "Log-scaled PM2.5 position" : "Supplied normalized value";
-  find("normalized-value").textContent = reading.normalized;
-  find("scale-low").textContent = visualWind ? "Less detected color signal" : wind ? "Lower speed" : kind === "temperature" || kind === "carbonMonoxide" ? "Lower · C3" : kind === "ozone" ? "Lower · C4" : kind === "pm25" ? "Lower, darker · C4" : "Lower value";
-  find("scale-high").textContent = visualWind ? "More detected color signal" : wind ? "Higher speed" : kind === "temperature" ? "Higher · C5" : kind === "carbonMonoxide" ? "Higher · C5" : kind === "ozone" ? "Higher · C6" : kind === "pm25" ? "Higher, brighter · C6" : "Higher value";
-  const meter = find("temperature-position");
-  meter.hidden = reading.normalized === "Unavailable";
-  if (!meter.hidden) {
-    meter.value = visualWind ? frame.visualSignal : frame.norm;
-    meter.setAttribute("aria-valuetext", `${reading.normalized}; ${reading.soundLabel}: ${reading.soundValue}`);
-  } else { meter.removeAttribute("value"); meter.removeAttribute("aria-valuetext"); }
   return reading;
 }

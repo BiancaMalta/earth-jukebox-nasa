@@ -36,7 +36,6 @@ export function initPlayer(index, hooks = {}) {
       </section>
     </details>
     <p id="readings-help" class="sr-only">Frame readings summarize image-derived pixels. Coverage is the share of analyzed image pixels used, not geographic area or accuracy. Choosing a region changes the reading and sound.</p>
-    <p id="normalization-help" class="sr-only">The normalized value is a position on the dataset legend. Its sound meaning depends on the selected variable.</p>
     <dl id="frame-readings" class="frame-readings" aria-describedby="readings-help">
       <div class="reading reading--date"><dt>Dataset time</dt><dd><time id="frame-date">Unavailable</time><span id="frame-time" class="reading-detail">No frame selected</span></dd></div>
       <div class="reading"><dt id="measure-label">Dataset measure</dt><dd><span id="frame-mean">Unavailable</span><span id="measure-detail" class="reading-detail">Value and unit for this dataset</span><span id="coverage-detail" class="reading-detail" hidden></span></dd></div>
@@ -53,11 +52,6 @@ export function initPlayer(index, hooks = {}) {
         </table>
       </div>
     </details>
-    <div class="normalized-reading">
-      <div class="scale-heading"><label id="normalized-label" for="temperature-position">Normalized value</label><span id="normalized-value">Unavailable</span></div>
-      <meter id="temperature-position" min="0" max="1" aria-describedby="normalization-help" hidden></meter>
-      <div class="scale-endpoints" aria-hidden="true"><span id="scale-low">Lower · C3</span><span id="scale-high">Higher · C5</span></div>
-    </div>
     <div class="player-controls transport" role="group" aria-label="Playback controls">
       <button id="previous-frame" type="button" aria-label="Previous frame" disabled><span aria-hidden="true">←</span> Previous</button>
       <button id="play-pause" class="primary-button" type="button" aria-pressed="false" disabled>Play</button>
