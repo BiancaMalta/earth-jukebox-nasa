@@ -77,16 +77,20 @@ recording of a real bowed instrument.
 PM2.5 uses two persistent filtered pink-noise streams: a low-pass rolling swell
 and a band-pass airy current. Cubed, slow sine gates keep both layers rounded;
 the supplied log-scale position changes their rates (0.07–0.18 and 0.22–0.42 Hz)
-and filter openness, not amplitude. A gentle 8% reverb joins the layers. This
-is a soft, wave-like synthetic texture, distinct from the wind flute, and does
-not claim to encode actual wind or ocean conditions.
+and filter openness, not amplitude. Fixed layer gains (0.50/0.30) and channel
+calibration 2.0 make the noise texture audible beside tonal instruments without
+letting concentration change loudness. A gentle 8% reverb joins the layers.
+This is a soft, wave-like synthetic texture, distinct from the wind flute, and
+does not claim to encode actual wind or ocean conditions.
 All five instruments use smooth ramps/envelopes and are allocated once per audio
 initialization, behind a silent gate until explicitly played.
 
 The visual player owns time. No instrument has a JavaScript frame timer.
 Legend timers compare explicitly labeled reference values only: temperature
-norm 0/1, wind visual indices 0.01/0.10 (legacy speed data: 5/25 m/s), precipitation 0.5/10 mm, or humidity 0/22 g/kg (visualization scale endpoints). Manual previews and the last frame have bounded
-envelopes; pause, missing data, mute and switching experiences stop the old sound.
+norm 0/1, wind visual indices 0.01/0.10 (legacy speed data: 5/25 m/s),
+precipitation 0.5/10 mm, humidity 0/22 g/kg, or PM2.5 log positions 0/1
+(0.4/409.6 µg/m³). Manual previews and the last frame have bounded envelopes;
+pause, missing data, mute and switching experiences stop the old sound.
 
 ## Mixer and future combination
 
@@ -98,10 +102,10 @@ real instruments independently. Current `playFrame` deliberately selects only on
 Own browser speech ducks instrument gain to 35%; it does not route through Tone
 or guarantee a bound on device/speech loudness.
 
-Each instrument implements `update / stop / dispose` and can later be selected
-for a time-aligned mix. The current UI plays one experience at a time; there is
-no automatic four-layer combination. A first combined mode should select at
-most three meteorological layers and keep their distinct information channels.
+Each instrument implements `update / stop / dispose` and can be selected for
+individual playback or the optional time-aligned Combined Earth experiment.
+That experiment keeps each layer's channel controls and distinct information
+mapping rather than merging their data into one value.
 
 Before combination, the data producer must provide explicit UTC/offset-bearing
 scientific timestamps, provenance, sampling/averaging semantics and missing-value
@@ -142,8 +146,9 @@ For a fixed shared scale, norm = (mean - vmin) / (vmax - vmin) simply changes
 coordinates. Substituting normalized input and transforming the mapping's
 constants accordingly produces the same sound, apart from supplied rounding.
 It does not amplify country/continent differences by itself. Wind, precipitation
-and humidity therefore continue to use supplied mean values. Their norm fields
-remain visible and unmodified. Greater perceptual contrast requires an explicit
+and humidity therefore continue to use supplied mean values; temperature and
+PM2.5 use their supplied normalized positions. Their fields remain visible and
+unmodified. Greater perceptual contrast requires an explicit
 change to the transfer curve, not silent per-region rescaling. No such curve
 change accompanies this percussion timbre update.
 

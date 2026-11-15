@@ -35,6 +35,8 @@ export function mapHumidity(specificHumidity) {
   if (typeof specificHumidity !== "number" || !Number.isFinite(specificHumidity) || specificHumidity < 0) return null;
   return 160 + 1440 * (1 - Math.exp(-specificHumidity / 12));
 }
+// The supplied PM2.5 norm is already the position on its logarithmic legend.
+// It controls synthetic texture only, not measured wind speed or loudness.
 export function mapPm25(position) {
   if (typeof position !== "number" || !Number.isFinite(position) || position < 0 || position > 1) return null;
   return {

@@ -134,6 +134,9 @@ test("the PM2.5 track uses its logarithmic concentration range for the wave-and-
   assert.equal(firstFrame.norm, Number(((Math.log(firstFrame.mean) - Math.log(0.4)) / (Math.log(409.6) - Math.log(0.4))).toFixed(3)));
   assert.equal(soundKind(track), "pm25");
   assert.deepEqual(mapFrameSound(firstFrame, track), { kind: "pm25", ...mapPm25(firstFrame.norm) });
+  assert.equal(mapFrameSound({ ...firstFrame, norm: null }, track), null);
+  assert.equal(mapFrameSound({ ...firstFrame, coverage: 0 }, track), null);
+  assert.equal(soundKind({ ...track, unit: "ppbv" }), null);
   assert.equal(describeExperience(track).kind, "pm25");
   assert.equal(describeReading(firstFrame, track).soundLabel, "Wave-texture position");
 });
@@ -630,10 +633,13 @@ test("PM2.5 uses persistent wave-and-air noise that follows its supplied log pos
   const track = { id: "ar-pm25", svsId: 5151, unit: "µg/m³" };
   await engine.enable();
   const count = fake.calls.created.length, sources = fake.calls.noiseStarts;
+  const pmNoises = fake.calls.created.filter(node => node instanceof fake.module.Noise).slice(-2);
+  const fixedLevels = pmNoises.map(noise => noise.connections[1].gain.value);
   assert.equal(engine.playFrame({ norm: 0 }, track), true);
   assert.deepEqual(fake.calls.rates.slice(-2), [0.07, 0.22]);
   assert.equal(engine.playFrame({ norm: 1 }, track), true);
   assert.deepEqual(fake.calls.rates.slice(-2), [0.18, 0.42]);
+  assert.deepEqual(pmNoises.map(noise => noise.connections[1].gain.value), fixedLevels, "Concentration changes texture, not loudness");
   assert.equal(fake.calls.created.length, count, "Frame updates reuse the same filtered noise sources");
   assert.equal(fake.calls.noiseStarts, sources);
   const releases = fake.calls.windReleases;
@@ -667,6 +673,11 @@ test("new legends compare stated amount and specific-humidity references", async
       const legend = createLegend({ audio: { stop() {}, [method](value) { values.push(value); return true; } }, speech: { cancel() {}, speak() {} }, enableAudio: async () => {}, getKind: () => kind, onBeforeStart() {}, onState() {}, onStep(text) { steps.push(text); }, onError() { assert.fail("Unexpected error"); } });
       await legend.toggle(); tasks.find((t) => t.delay === 2500).fn(); tasks.find((t) => t.delay === 5000).fn();
       assert.deepEqual(values, expected); assert.match(steps.at(-1), /not current measurements/); assert.equal(legend.active, false);
+      if (kind === "pm25") {
+        assert.match(steps[0], /0\.4 µg\/m³/);
+        assert.match(steps[1], /409\.6 µg\/m³/);
+        assert.match(steps.at(-1), /not measured wind or ocean activity/);
+      }
     }
   } finally { globalThis.window = originalWindow; }
 });

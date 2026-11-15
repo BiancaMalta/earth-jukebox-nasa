@@ -4,11 +4,11 @@
 export function createPm25Sound(tone, destination) {
   const wave = new tone.Noise({ type: "pink", fadeIn: 0.24, fadeOut: 0.38 });
   const waveFilter = new tone.Filter({ frequency: 220, type: "lowpass", rolloff: -24, Q: 0.5 });
-  const waveLevel = new tone.Gain(0.24);
+  const waveLevel = new tone.Gain(0.5);
   const waveGate = new tone.Gain(0);
   const air = new tone.Noise({ type: "pink", fadeIn: 0.12, fadeOut: 0.24 });
   const airFilter = new tone.Filter({ frequency: 550, type: "bandpass", Q: 0.65 });
-  const airLevel = new tone.Gain(0.12);
+  const airLevel = new tone.Gain(0.3);
   const airGate = new tone.Gain(0);
   const mix = new tone.Gain(1);
   const soften = new tone.Filter({ frequency: 3000, type: "lowpass", rolloff: -24, Q: 0.4 });
