@@ -7,40 +7,44 @@ import { describeReading } from "./readings.js";
 import { regionDisplayName } from "./regions.js";
 
 const LAYERS = [
-  ["clima-temperatura", "temperature", "Temperature · organ"],
-  ["clima-vento", "wind", "Wind · flute"],
-  ["clima-chuva", "precipitation", "Precipitation · percussion"],
-  ["clima-umidade", "humidity", "Humidity · strings"],
+  ["clima-temperatura", "temperature", "Temperature · organ", "temperature"],
+  ["clima-vento", "wind", "Wind · flute", "wind"],
+  ["clima-chuva", "precipitation", "Precipitation · percussion", "precipitation"],
+  ["clima-umidade", "humidity", "Humidity · strings", "humidity"],
+  ["ar-pm25", "pm25", "PM2.5 · map only", null],
+  ["ar-co", "carbon-monoxide", "Carbon monoxide (CO) · map only", null],
+  ["clima-ozonio", "ozone", "Ozone (O₃) · map only", null],
 ];
 
 export function initCombined({ audio, getFrame, getRegion, onChange, onVisuals = () => {} }) {
   const toggle = document.getElementById("combine-sounds"), status = document.getElementById("combined-status");
   const controls = document.getElementById("combined-layers"), scope = document.getElementById("combined-scope");
   let datasets = null, pending, generation = 0, destroyed = false, controller, legendActive = false;
-  controls.innerHTML = LAYERS.map(([, kind, name]) => `<div class="combined-layer">
-    <label class="checkbox-label"><input id="layer-${kind}" type="checkbox" checked> ${name}</label>
-    <label class="sr-only" for="gain-${kind}">${name} volume</label>
-    <input id="gain-${kind}" type="range" min="0" max="100" value="65" aria-label="${name} volume" aria-valuetext="65 percent">
-    <span id="reading-${kind}" class="control-help">Unavailable</span></div>`).join("");
+  controls.innerHTML = LAYERS.map(([, key, name, instrument]) => `<div class="combined-layer">
+    <label class="checkbox-label"><input id="layer-${key}" type="checkbox" checked> ${name}</label>
+    ${instrument ? `<label class="sr-only" for="gain-${key}">${name} volume</label><input id="gain-${key}" type="range" min="0" max="100" value="65" aria-label="${name} volume" aria-valuetext="65 percent">` : `<span class="control-help">Visual layer only; a dedicated sound mapping is not available yet.</span>`}
+    <span id="reading-${key}" class="control-help">Unavailable</span></div>`).join("");
+  function layerKey(track) { return LAYERS.find(([id]) => id === track?.id)?.[1] ?? null; }
   function applyControls() {
-    for (const [, kind] of LAYERS) {
-      audio.setInstrumentMuted(kind, toggle.checked && !legendActive && !document.getElementById(`layer-${kind}`).checked);
-      audio.setInstrumentGain(kind, toggle.checked && !legendActive ? Number(document.getElementById(`gain-${kind}`).value) / 100 : 1);
+    for (const [, key, , instrument] of LAYERS) {
+      if (!instrument) continue;
+      audio.setInstrumentMuted(instrument, toggle.checked && !legendActive && !document.getElementById(`layer-${key}`).checked);
+      audio.setInstrumentGain(instrument, toggle.checked && !legendActive ? Number(document.getElementById(`gain-${key}`).value) / 100 : 1);
     }
   }
   async function load() {
     if (datasets) return datasets;
     if (pending) return pending;
     controller = new AbortController();
-    pending = Promise.all(LAYERS.map(async ([id, kind]) => {
+    pending = Promise.all(LAYERS.map(async ([id, key, , instrument]) => {
       const track = await fetchJSON(`tracks/${id}.json`, controller.signal);
       const directory = new URL(track.frames.endsWith("/") ? track.frames : `${track.frames}/`, document.baseURI);
       const data = validateFeatures(await fetchJSON(new URL("../features.json", directory), controller.signal), id, track.unit ?? track.colorbar?.unit);
       const activeTrack = { ...track, unit: data.unit, statistics: data.statistics, sonification: data.sonification };
-      if (soundKind(activeTrack) !== kind) throw new Error(`Unexpected instrument for ${id}.`);
+      if ((instrument && soundKind(activeTrack) !== instrument) || (!instrument && soundKind(activeTrack) !== null)) throw new Error(`Unexpected instrument for ${id}.`);
       const regional = validateRegionalFeatures(await fetchJSON(new URL("../regions.json", directory), controller.signal), activeTrack, data);
-      return { track: activeTrack, timeline: indexTimeline(data.frames), regional, mock: data.mock, statistics: data.statistics, sonification: data.sonification };
-    })).then((result) => { if (result.some(entry => JSON.stringify(entry.statistics) !== JSON.stringify(result[0].statistics))) throw new Error("Datasets have different mean methods. Finish regenerating all four tracks before combining."); if (!destroyed) datasets = result; return result; }).finally(() => { pending = null; });
+      return { track: activeTrack, layerKey: key, instrument, timeline: indexTimeline(data.frames), regional, mock: data.mock, statistics: data.statistics, sonification: data.sonification };
+    })).then((result) => { const soundLayers = result.filter((entry) => entry.instrument); if (soundLayers.some((entry) => JSON.stringify(entry.statistics) !== JSON.stringify(soundLayers[0].statistics))) throw new Error("Sound datasets have different mean methods. Finish regenerating the four sound tracks before combining."); if (!destroyed) datasets = result; return result; }).finally(() => { pending = null; });
     return pending;
   }
   function entries(frame = getFrame()) {
@@ -51,10 +55,11 @@ export function initCombined({ audio, getFrame, getRegion, onChange, onVisuals =
     const region = getRegion();
     scope.textContent = `${region ? regionDisplayName(region) : "Full-frame values"} · ${frame?.date ?? "No frame selected"}. The image and main reading show the selected visual experience.`;
     const aligned = entries(frame);
-    onVisuals(aligned.filter(({ track }) => document.getElementById(`layer-${soundKind(track)}`)?.checked));
+    onVisuals(aligned.filter(({ track }) => document.getElementById(`layer-${layerKey(track)}`)?.checked));
     for (const { track, frame: value } of aligned) {
-      const reading = describeReading(value, track), kind = soundKind(track);
-      document.getElementById(`reading-${kind}`).textContent = `${reading.mean} · ${reading.soundValue} · ${reading.coverageDetail}${!mapFrameSound(value, track) ? " · silent" : ""}`;
+      const reading = describeReading(value, track), key = layerKey(track), visualOnly = soundKind(track) === null;
+      const qualifier = visualOnly ? " · map only" : !mapFrameSound(value, track) ? " · silent" : "";
+      document.getElementById(`reading-${key}`).textContent = `${reading.mean} · ${reading.soundValue} · ${reading.coverageDetail}${qualifier}`;
     }
   }
   toggle.addEventListener("change", async () => {
@@ -62,7 +67,7 @@ export function initCombined({ audio, getFrame, getRegion, onChange, onVisuals =
     audio.stop(); audio.setCombinedMode(toggle.checked); applyControls();
     controls.hidden = !toggle.checked; scope.hidden = !toggle.checked;
     if (!toggle.checked) { status.textContent = "Individual experience mode."; onChange(); return; }
-    status.textContent = "Loading four aligned datasets…"; render(); onChange();
+    status.textContent = "Loading seven aligned datasets…"; render(); onChange();
     try {
       await load();
       if (destroyed || id !== generation || !toggle.checked) return;
@@ -77,9 +82,10 @@ export function initCombined({ audio, getFrame, getRegion, onChange, onVisuals =
       onChange();
     }
   });
-  for (const [, kind] of LAYERS) {
-    document.getElementById(`layer-${kind}`).addEventListener("change", () => { applyControls(); onChange(); });
-    document.getElementById(`gain-${kind}`).addEventListener("input", (event) => {
+  for (const [, key, , instrument] of LAYERS) {
+    document.getElementById(`layer-${key}`).addEventListener("change", () => { applyControls(); onChange(); });
+    if (!instrument) continue;
+    document.getElementById(`gain-${key}`).addEventListener("input", (event) => {
       event.target.setAttribute("aria-valuetext", `${event.target.value} percent`); applyControls(); onChange();
     });
   }

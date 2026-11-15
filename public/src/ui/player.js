@@ -139,7 +139,6 @@ export function initPlayer(index, hooks = {}) {
     combinedGrid.replaceChildren();
     combinedGrid.className = "combined-frame-grid" + (multiple ? " combined-frame-grid--multiple" : " combined-frame-grid--single");
     root.querySelector(".frame-map").classList.toggle("frame-map--combined-multiple", multiple);
-    combinedGrid.style.setProperty("--combined-count", String(selected.length));
     for (const { track, frame } of selected) {
       const title = track.title?.en ?? track.title?.pt ?? localizedText(track.quantity, track.id ?? "Dataset");
       const tile = document.createElement("figure");
