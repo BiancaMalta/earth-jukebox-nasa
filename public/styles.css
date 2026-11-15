@@ -186,3 +186,26 @@ button, dt, h1 { overflow-wrap: anywhere; }
 .combined-frame-missing { display: grid; place-items: center; width: 100%; height: 100%; margin: 0; padding: 12px; color: var(--muted); text-align: center; font-size: .8rem; }
 .frame-map--combined-multiple #region-overlay { display: none; }
 @media (max-width: 600px) { .combined-frame-grid--multiple { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.sound-panel .sound-toggle { margin: 14px 0 8px; }
+.sound-settings { margin-top: 14px; border-top: 1px solid var(--line); padding-top: 10px; }
+.sound-settings .volume-control { margin-top: 12px; }
+.exploration-options, .explanation-details { margin-top: 20px; }
+.options-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+.options-grid > section { min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 10px; background: #101d28; }
+.options-grid h2 { margin-bottom: 10px; }
+.exploration-options details { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; }
+.explanation-details > .explanation-panel { margin-top: 16px; }
+.explanation-details .calculation-panel { margin-top: 16px; }
+.explanation-details .calculation-panel > summary { color: var(--muted); font-size: .9rem; }
+.region-options { margin: 18px 0; border-top: 1px solid var(--line); padding-top: 12px; }
+.region-options > summary { color: var(--accent); }
+@media (max-width: 960px) { .listening-sidebar { grid-template-columns: minmax(0, 1fr); } .options-grid { grid-template-columns: minmax(0, 1fr); } }
+
+.listening-sidebar .exploration-options { margin-top: 0; }
+.listening-sidebar .options-grid { grid-template-columns: minmax(0, 1fr); }
+
+.listening-sidebar .explanation-details { margin-top: 0; }
+
+.combined-layer-options { margin: 0 0 20px; }
+#combined-scope { margin: 0 0 8px; }

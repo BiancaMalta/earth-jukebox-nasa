@@ -4,7 +4,6 @@ import { validateRegionalFeatures } from "../data/regions.js";
 import { indexTimeline, combinedFrames } from "../data/combined.js";
 import { soundKind, mapFrameSound } from "../engine/mapping.js";
 import { describeReading } from "./readings.js";
-import { regionDisplayName } from "./regions.js";
 
 const LAYERS = [
   ["clima-temperatura", "temperature", "Temperature · organ", "temperature"],
@@ -18,10 +17,10 @@ const LAYERS = [
 
 export function initCombined({ audio, getFrame, getRegion, onChange, onVisuals = () => {} }) {
   const toggle = document.getElementById("combine-sounds"), status = document.getElementById("combined-status");
-  const controls = document.getElementById("combined-layers"), scope = document.getElementById("combined-scope");
+  const controls = document.getElementById("combined-layers");
   let datasets = null, pending, generation = 0, destroyed = false, controller, legendActive = false;
   controls.innerHTML = LAYERS.map(([, key, name, instrument]) => `<div class="combined-layer">
-    <label class="checkbox-label"><input id="layer-${key}" type="checkbox" checked> ${name}</label>
+    <label class="checkbox-label"><input id="layer-${key}" type="checkbox" ${instrument || key !== "carbon-monoxide" && key !== "ozone" ? "checked" : ""}> ${name}</label>
     ${instrument ? `<label class="sr-only" for="gain-${key}">${name} volume</label><input id="gain-${key}" type="range" min="0" max="100" value="65" aria-label="${name} volume" aria-valuetext="65 percent">` : `<span class="control-help">Visual layer only; a dedicated sound mapping is not available yet.</span>`}
     <span id="reading-${key}" class="control-help">Unavailable</span></div>`).join("");
   function layerKey(track) { return LAYERS.find(([id]) => id === track?.id)?.[1] ?? null; }
@@ -52,8 +51,6 @@ export function initCombined({ audio, getFrame, getRegion, onChange, onVisuals =
   }
   function render(frame = getFrame()) {
     if (!toggle.checked) return onVisuals(null);
-    const region = getRegion();
-    scope.textContent = `${region ? regionDisplayName(region) : "Full-frame values"} · ${frame?.date ?? "No frame selected"}. The image and main reading show the selected visual experience.`;
     const aligned = entries(frame);
     const visualUpdate = onVisuals(aligned.filter(({ track }) => document.getElementById(`layer-${layerKey(track)}`)?.checked));
     for (const { track, frame: value } of aligned) {
@@ -66,7 +63,9 @@ export function initCombined({ audio, getFrame, getRegion, onChange, onVisuals =
   toggle.addEventListener("change", async () => {
     const id = ++generation;
     audio.stop(); audio.setCombinedMode(toggle.checked); applyControls();
-    controls.hidden = !toggle.checked; scope.hidden = !toggle.checked;
+    controls.hidden = !toggle.checked;
+    const frameReadings = document.getElementById("frame-readings");
+    if (frameReadings) frameReadings.hidden = toggle.checked;
     if (!toggle.checked) { status.textContent = "Individual experience mode."; onChange(); return; }
     status.textContent = "Loading seven aligned datasets…"; render(); onChange();
     try {
@@ -77,7 +76,8 @@ export function initCombined({ audio, getFrame, getRegion, onChange, onVisuals =
     } catch (error) {
       if (destroyed || id !== generation) return;
       controller?.abort();
-      toggle.checked = false; controls.hidden = scope.hidden = true;
+      toggle.checked = false; controls.hidden = true;
+      if (frameReadings) frameReadings.hidden = false;
       audio.stop(); audio.setCombinedMode(false); applyControls();
       status.textContent = `Combined sound unavailable: ${error.message} Individual playback remains available. Toggle to retry.`;
       onChange();
