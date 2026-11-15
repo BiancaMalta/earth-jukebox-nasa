@@ -2,4 +2,6 @@ pillow
 numpy
 requests
 scikit-image
+scipy
 imageio-ffmpeg
+matplotlib
