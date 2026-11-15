@@ -30,9 +30,9 @@
   </header>
   <main id="main" tabindex="-1">
     <section id="guided-intro" class="panel guided-intro" aria-labelledby="guided-intro-heading">
-      <p class="eyebrow">One-minute guided introduction</p>
+      <p class="eyebrow">Guided introduction</p>
       <h2 id="guided-intro-heading" tabindex="-1">Get to know Earth Jukebox</h2>
-      <p id="guided-intro-progress" class="control-help">Six short steps. Use the buttons to move at your own pace.</p>
+      <p id="guided-intro-progress" class="control-help">Seven short steps. Use the buttons to move at your own pace.</p>
       <button id="intro-start" class="primary-button" type="button">Start introduction</button>
       <div id="intro-content" hidden>
         <h3 id="intro-step-heading" tabindex="-1" aria-describedby="intro-step-text"></h3>
@@ -62,22 +62,24 @@
               <ul id="combined-sound-guide-list" class="combined-sound-guide-list"></ul>
               <p id="combined-sound-guide-help" class="control-help">The legend plays the selected variable alone.</p>
               <button id="combined-sound-legend" type="button" aria-pressed="false" aria-describedby="combined-sound-guide-help combined-legend-status">Hear sound examples</button>
-              <p id="combined-legend-status" class="status-text" role="status" aria-atomic="true" hidden></p>
+              <p id="combined-legend-status" class="status-text" role="status" aria-live="off" aria-atomic="true" hidden></p>
             </section>
             <section class="guide-panel" aria-labelledby="guide-heading">
-              <p class="eyebrow">Understand the sound</p><h2 id="guide-heading" tabindex="-1">From data to music</h2>
+              <p class="eyebrow">Understand the sound</p><h2 id="guide-heading" tabindex="-1" aria-describedby="mapping-help">From data to music</h2>
+              <button type="button" data-spoken-only data-spoken-read="mapping-help scale-description" hidden>Read sound explanation</button>
               <p id="mapping-help">Lower normalized values become lower notes. Higher values become higher notes.</p>
               <div class="pitch-legend"><p><span class="pitch-dot" aria-hidden="true"></span><strong id="guide-low">Lower value</strong><span id="guide-low-detail">Lower pitch · C3</span></p><p><span class="pitch-dot pitch-dot--high" aria-hidden="true"></span><strong id="guide-high">Higher value</strong><span id="guide-high-detail">Higher pitch · C5</span></p></div>
               <p id="scale-description" class="control-help">The 11 notes follow a C major pentatonic scale across two octaves.</p>
               <button id="sound-legend" type="button" aria-pressed="false" aria-describedby="legend-help">Hear sound examples</button>
-              <p id="legend-help" class="control-help">A narrated low-to-high comparison. The legend pauses the player. Press the button again or navigate to stop it.</p>
-              <p id="legend-status" class="status-text" role="status" aria-atomic="true">Ready when you are.</p>
+              <p id="legend-help" class="control-help">A low-to-high comparison. Labels are spoken only with spoken navigation on. The legend pauses the player. Press the button again or navigate to stop it.</p>
+              <p id="legend-status" class="status-text" role="status" aria-live="off" aria-atomic="true">Ready when you are.</p>
             </section>
           </div>
         </section>
         <details id="explanation-details" class="panel explanation-details" open>
       <summary>About the values and methods</summary>
-      <div class="explanation-panel" aria-labelledby="reading-heading">
+      <button type="button" data-spoken-only data-spoken-read="values-methods-content" hidden>Read values and methods</button>
+      <div id="values-methods-content" class="explanation-panel" aria-labelledby="reading-heading">
         <div><p class="eyebrow">Read the frame</p><h2 id="reading-heading">What the numbers mean</h2><p>Without a regional selection, readings summarize decoded pixels across the image. Select a region or country to focus the map and switch both readings and sound to that region. Pixel inclusion shows the share of analyzed image pixels used, not accuracy or geographic surface area.</p></div>
         <div><h3>One phenomenon, one sound identity</h3><p><span id="sound-mapping-detail">The supplied temperature value maps to one note.</span> <span id="normalization-range">Normalization limits are unavailable.</span></p><p class="control-help">Dates keep their supplied time zone. If none is given, the player says so.</p></div>
       </div>
@@ -88,23 +90,17 @@
         <p id="pixel-filter-method" class="control-help">Loading the selected visualization's color-filter settings…</p>
         <p class="control-help">P90 is the unweighted 90th percentile of decoded pixel values, not a confidence level. These remain image-derived estimates; weighting cannot reconstruct missing or rejected pixels and does not make them direct numerical GEOS-FP fields.</p>
         <p class="control-help">Pixel inclusion = pixels used ÷ analyzed pixels after excluding overlays. It does not measure scientific accuracy, instrument reliability or geographic surface area. Missing inclusion is unavailable, not zero; 100% inclusion does not establish accuracy.</p>
-        <p class="control-help">Python computes norm = (mean − legend minimum) ÷ (legend maximum − legend minimum), limited to 0–1 and rounded to three decimals. It is a position on the fixed legend scale, not a percentile or a percentage of Earth. The front displays the supplied values. Only temperature uses norm directly for sound; the other instruments use mean in its physical unit.</p>
+        <p class="control-help">Python computes norm = (mean − legend minimum) ÷ (legend maximum − legend minimum), limited to 0–1 and rounded to three decimals. It is a position on the fixed legend scale, not a percentile or a percentage of Earth. The front displays the supplied values. Temperature, carbon monoxide and ozone use their supplied normalized positions for pitch. Wind and PM2.5 use the supplied visual signal index when declared. Precipitation and specific humidity use the supplied mean in their physical units.</p>
       </details>
     </details>
       </aside>
     </div>
 
-    <details class="panel keyboard-panel">
-      <summary>Keyboard guide</summary>
-      <p id="keyboard-help">Use <kbd>Tab</kbd> and <kbd>Shift</kbd> + <kbd>Tab</kbd> to move between controls. Use <kbd>Enter</kbd> or <kbd>Space</kbd> to activate buttons.</p>
-      <ul class="keyboard-list"><li><kbd>Space</kbd><span>Play or pause when focus is outside controls.</span></li><li><kbd>←</kbd> <kbd>→</kbd><span>Previous or next frame when focus is outside controls.</span></li><li><kbd>←</kbd> <kbd>→</kbd><span>Adjust a slider when it has focus.</span></li></ul>
-      <p class="control-help">Pause to explore the readings with a screen reader. Automatic playback does not announce every frame; manual frame selection announces its values.</p>
-    </details>
 
     <section id="metronome-controls" class="tuning-card metronome-control" aria-labelledby="metronome-heading">
       <div class="tuning-heading"><span class="tuning-number" aria-hidden="true">02</span><h3 id="metronome-heading">Metronome</h3></div>
-      <label class="metronome-switch"><input id="time-pulse-enabled" type="checkbox" aria-describedby="time-pulse-help"><span class="switch-lamp" aria-hidden="true"></span><span>Mark the passing time</span></label>
-      <div class="metronome-settings"><label class="sr-only" for="time-pulse-period">Metronome interval</label><select id="time-pulse-period"><option value="day">One click per day</option><option value="week">One click per week</option></select><button id="preview-time-pulse" type="button" aria-label="Preview metronome click">Try click</button></div>
+      <label class="metronome-switch"><input id="time-pulse-enabled" type="checkbox" data-spoken-description="Optional time marker. A high click marks each new day or week in the data, following playback speed." aria-describedby="time-pulse-help"><span class="switch-lamp" aria-hidden="true"></span><span>Mark the passing time</span></label>
+      <div class="metronome-settings"><label class="sr-only" for="time-pulse-period">Metronome interval</label><select id="time-pulse-period" data-spoken-description="Weeks start Monday. Clicks follow dataset dates, not real-world seconds."><option value="day">One click per day</option><option value="week">One click per week</option></select><button id="preview-time-pulse" type="button" aria-label="Preview metronome click">Try click</button></div>
       <p id="time-pulse-help" class="control-help">A high click marks each new day or week in the data. Weeks start Monday. Follows playback speed; starts at the next boundary.</p>
     </section>
 

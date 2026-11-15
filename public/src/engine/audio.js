@@ -1,5 +1,5 @@
 // AI-assisted: OpenAI Codex
-import { PENTATONIC_NOTES, CO_NOTES, OZONE_NOTES, mapFrameSound, mapWindSpeed, mapWindActivity, mapPrecipitation, mapHumidity, mapPm25, mapCarbonMonoxide, mapOzone } from "./mapping.js";
+import { PENTATONIC_NOTES, CO_NOTES, OZONE_NOTES, mapFrameSound, mapWindSpeed, mapWindActivity, mapPrecipitation, precipitationNote, mapHumidity, mapPm25, mapCarbonMonoxide, mapOzone } from "./mapping.js";
 import { createTemperatureSound } from "./temperatureSound.js";
 import { createWindSound } from "./windSound.js";
 import { createPrecipitationSound } from "./precipitationSound.js";
@@ -15,7 +15,7 @@ export function createAudioEngine(loadTone = () => import("tone")) {
   let enabled = false, muted = false, level = 25, disposed = false, ambience = true, ducking = false;
   let combined = false;
   const instruments = {}, channels = {};
-  const calibration = { temperature: 0.65, wind: 1.2, precipitation: 6, humidity: 2, pm25: 2.5, carbonMonoxide: 0.8, ozone: 2.8 };
+  const calibration = { temperature: 0.65, wind: 1.2, precipitation: 4.75, humidity: 2, pm25: 3.5, carbonMonoxide: 0.8, ozone: 2.3 };
   const layerGain = Object.fromEntries(Object.keys(calibration).map((kind) => [kind, 1]));
   const layerMuted = Object.fromEntries(Object.keys(calibration).map((kind) => [kind, false]));
   const decibels = () => level === 0 ? -Infinity : -30 + 20 * Math.log10(level / 25);
@@ -120,7 +120,7 @@ export function createAudioEngine(loadTone = () => import("tone")) {
     },
     playPrecipitation(amount, duration) {
       const rate = mapPrecipitation(amount);
-      return playMapped(rate === null ? null : { kind: "precipitation", rate }, duration);
+      return playMapped(rate === null ? null : { kind: "precipitation", rate, drumNote: precipitationNote(rate) }, duration);
     },
     playHumidity(value, duration) {
       const bandwidth = mapHumidity(value);

@@ -40,13 +40,13 @@ export function describeReading(frame, track) {
   const validNorm = isFiniteNumber(frame?.norm) && frame.norm >= 0 && frame.norm <= 1;
   const melodic = kind === "temperature" || kind === "carbonMonoxide" || kind === "ozone";
   const soundLabel = visualOnly ? "Sound mapping" : wind ? "Wind pulse rate" : kind === "precipitation" ? "Drum stroke rate" : kind === "humidity" ? "Pad spectral width" : kind === "pm25" ? "Tone / filter brightness" : "Mapped musical note";
-  const soundValue = visualOnly ? "Not implemented" : !sound ? "Unavailable" : kind === "humidity" ? `${Math.round(sound.bandwidth)} Hz` : melodic ? sound.note : kind === "pm25" ? `${sound.frequency.toFixed(0)} Hz · ${sound.brightness.toFixed(2)} / 1` : `${sound.rate.toFixed(2)} Hz`;
+  const soundValue = visualOnly ? "Not implemented" : !sound ? "Unavailable" : kind === "humidity" ? `${Math.round(sound.bandwidth)} Hz` : melodic ? sound.note : kind === "pm25" ? `${sound.frequency.toFixed(0)} Hz · ${sound.brightness.toFixed(2)} / 1` : `${sound.rate.toFixed(2)} Hz${kind === "precipitation" && sound.drumNote ? " · " + sound.drumNote : ""}`;
   const soundSummary = !sound ? visualOnly ? "Visual-only experience; no sound mapping assigned." : "Sound data unavailable or no valid pixels; no note or texture."
     : kind === "temperature" ? `Mapped note ${sound.note}.`
       : kind === "carbonMonoxide" ? `Brass-like mapped note ${sound.note}; higher image-derived concentration means higher pitch, not higher health risk.`
         : kind === "ozone" ? `Plucked mapped note ${sound.note}; higher image-derived concentration means higher pitch, not higher health risk.`
       : wind ? `Wind rhythm ${sound.rate.toFixed(2)} pulses per second; fixed C5 pitch, not measured gusts.`
-        : kind === "precipitation" ? `Musical density ${sound.rate.toFixed(2)} drum strokes per second; fixed G3 carrier, not measured rainfall intensity.`
+        : kind === "precipitation" ? `Musical density ${sound.rate.toFixed(2)} drum strokes per second; drum body ${sound.drumNote ?? "silent"}; higher amount means faster, higher strokes. Not measured rainfall intensity.`
           : kind === "humidity" ? `Nominal pad bandwidth ${Math.round(sound.bandwidth)} hertz; fixed C3 string ensemble, not rainfall.`
             : kind === "pm25" ? `Sustained metallic tone at ${sound.frequency.toFixed(0)} Hz; brightness ${sound.brightness.toFixed(2)} / 1. It glides with the frame, adds no beat and is not a health-risk reading.`
               : `Mapped musical value ${sound.rate.toFixed(2)}.`;

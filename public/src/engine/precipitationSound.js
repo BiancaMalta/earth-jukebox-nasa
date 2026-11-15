@@ -1,5 +1,6 @@
 // AI-assisted: OpenAI Codex
-// Discrete membrane strikes; only repetition rate encodes precipitation amount.
+// Discrete membrane strikes: amount controls repetition and pitched drum body.
+import { precipitationNote } from "./mapping.js";
 export function createPrecipitationSound(tone, destination) {
   const body = new tone.MembraneSynth({
     pitchDecay: 0.018, octaves: 0.7, oscillator: { type: 'triangle' },
@@ -11,10 +12,10 @@ export function createPrecipitationSound(tone, destination) {
   });
   const filter = new tone.Filter({ frequency: 2800, type: 'bandpass', Q: 1.2 }).connect(destination);
   stick.connect(filter);
-  let active = false, until = Infinity;
+  let active = false, until = Infinity, note = "C3";
   const clock = new tone.Clock(time => {
     if (time >= until) return;
-    body.triggerAttackRelease('G3', 0.06, time, 0.55);
+    body.triggerAttackRelease(note, 0.06, time, 0.55);
     stick.triggerAttackRelease(0.012, time, 0.09);
   }, 0.5);
   function stop() {
@@ -25,6 +26,7 @@ export function createPrecipitationSound(tone, destination) {
     ready: Promise.resolve(),
     update({ rate }, duration) {
       if (rate === 0) return stop();
+      note = precipitationNote(rate);
       const now = tone.now();
       if (duration !== undefined || Number.isFinite(until)) stop();
       until = duration === undefined ? Infinity : now + duration;

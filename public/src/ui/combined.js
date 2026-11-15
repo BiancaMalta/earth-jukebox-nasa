@@ -171,6 +171,8 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
     for (const { track, frame: value } of aligned) {
       const reading = describeReading(value, track), key = layerKey(track), visualOnly = soundKind(track) === null;
       const qualifier = visualOnly ? " · map only" : !mapFrameSound(value, track) ? " · silent" : "";
+      const layerSwitch = document.getElementById(`layer-${key}`);
+      layerSwitch.dataset.spokenDescription = `${reading.mean}. ${reading.soundValue}${qualifier}. Toggle to include or mute this record.`;
       document.getElementById(`reading-${key}`).textContent = `${reading.mean} · ${reading.soundValue} · ${reading.coverageDetail}${qualifier}`;
     }
     return visualUpdate;

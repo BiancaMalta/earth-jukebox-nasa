@@ -14,7 +14,7 @@ export function describeExperience(track) {
     readings: "Carbon monoxide is an image-derived near-surface concentration estimate in ppbv, decoded from NASA SVS 5153 colors. It is not the raw numerical GEOS-CF grid. Global means change little in this interval; country and continent estimates vary more. Regional means currently use equal weights per accepted image pixel.",
     normalization: "The supplied norm selects one of 11 C major pentatonic notes from C3 to C5. The front end does not recompute norm. Missing norm or zero pixel coverage means silence.",
     caveat: "CO values are image-derived estimates, not a direct numerical GEOS-CF field. Coverage is the share of analyzed image pixels used, not accuracy or geographic area. The synthetic voice does not assess health risk.",
-    legend: "A narrated comparison of 40 and 500 ppbv legend endpoints, not the current measurements. Higher supplied concentration maps to higher pitch. The legend pauses the player.",
+    legend: "A comparison of 40 and 500 ppbv legend endpoints, not the current measurements. Higher supplied concentration maps to higher pitch. The legend pauses the player. Labels are spoken only when spoken navigation is on.",
     exampleSpeech: "Lower carbon monoxide concentration means a lower trumpet-like note. Higher concentration means a higher note. This sound is not a health-risk rating.",
   };
   if (kind === "ozone") return {
@@ -28,7 +28,7 @@ export function describeExperience(track) {
     readings: "Ozone is an image-derived near-surface concentration estimate in ppbv, decoded from NASA SVS 5152 colors. It is not the raw numerical GEOS-CF grid. The global mean changes little in this interval; regional estimates vary more. Regional means currently use equal weights per accepted image pixel.",
     normalization: "The supplied norm selects one of 11 C major pentatonic notes from C4 to C6. The front end does not recompute norm. Missing norm or zero pixel coverage means silence.",
     caveat: "Ozone values are image-derived estimates, not a direct numerical GEOS-CF field. About 43–46% of analyzed pixels are used in the current frames; this is image-pixel coverage, not accuracy or geographic area. The sound is not a health-risk rating.",
-    legend: "A narrated comparison of 5 and 60 ppbv legend endpoints, not the current measurements. Higher supplied concentration maps to higher pitch. The legend pauses the player.",
+    legend: "A comparison of 5 and 60 ppbv legend endpoints, not the current measurements. Higher supplied concentration maps to higher pitch. The legend pauses the player. Labels are spoken only when spoken navigation is on.",
     exampleSpeech: "Lower ozone concentration means a lower plucked note. Higher concentration means a higher note. This sound is not a health-risk rating.",
   };
   if (track && kind === null) {
@@ -56,7 +56,7 @@ export function describeExperience(track) {
     readings: "The visual index combines log-scaled color intensity with its area-weighted extent. It supports comparisons of more versus less signal. The concentration mean in µg/m³ remains a separate diagnostic; the index is not a concentration or health rating.",
     normalization: "Sound uses the supplied visual index directly. Higher indices always produce higher, brighter sustained tones on the same fixed curve. No detected pixels means unavailable and silent; it does not mean clean air. Mean and normalized mean remain separate diagnostics.",
     caveat: "Image-derived qualitative PM2.5 signal. Comparisons with GEOS-CF improve regional ordering, but individual reversals and missing colors remain possible. Absolute concentrations are not validated.",
-    legend: "A narrated comparison of visual indices 0 and 1, not concentration measurements or the current frame. The higher index produces a higher, brighter metallic tone at the same loudness. The legend pauses playback.",
+    legend: "A comparison of visual indices 0 and 1, not concentration measurements or the current frame. The higher index produces a higher, brighter metallic tone at the same loudness. The legend pauses playback.",
     exampleSpeech: "Less visible PM2.5 signal means a lower, darker tone. More visible signal means a higher, brighter tone. This index is not a concentration or health-risk rating.",
   };
   if (kind === "pm25") return {
@@ -70,21 +70,21 @@ export function describeExperience(track) {
     readings: "PM2.5 is an image-derived near-surface concentration estimate in µg/m³. The sound uses the supplied logarithmic legend position. Its metallic shimmer is a metaphor, not a measurement of particle size, wind or health risk.",
     normalization: "The provided norm follows the logarithmic 0.4–409.6 µg/m³ legend. A fixed curve, brightness = norm + 0.3 × sin(π × norm), sets a low-pass cutoff from 1400 to 6200 Hz and a continuous tone from C4 to C6. The curve is shared by the global image and every region; the front end does not recompute norm. Loudness stays fixed. Missing values or zero pixel coverage release the voice.",
     caveat: "Image-derived PM2.5 estimate, not a direct numerical GEOS-CF grid or health assessment. A higher, brighter tone means a higher supplied concentration position, not a danger rating.",
-    legend: "A narrated comparison of 0.4 and 409.6 µg/m³ reference values, not the current frame. Higher log-scaled PM2.5 position means a higher, brighter metallic tone at the same loudness. The legend pauses the player.",
+    legend: "A comparison of 0.4 and 409.6 µg/m³ reference values, not the current frame. Higher log-scaled PM2.5 position means a higher, brighter metallic tone at the same loudness. The legend pauses the player. Labels are spoken only when spoken navigation is on.",
     exampleSpeech: "Lower PM2.5 legend position means a lower, darker metallic tone. Higher position means a higher, brighter tone at the same loudness. This is not a health-risk rating.",
   };
   if (kind === "precipitation") return {
     kind, name: "Precipitation", instrument: "Dry tamborim-style percussion",
-    character: "Fixed G3 · bright drum skin · dry snare-like attack",
+    character: "Tuned drum · C pentatonic · crisp stick attack",
     heading: "Precipitation becomes drum rhythm",
-    mapping: "More supplied precipitation in millimeters produces more crisp drum strokes per second. The carrier stays at G3; pulse density, not pitch or loudness, carries the amount.",
-    low: "Slower strokes", lowDetail: "0.5 mm example", high: "Faster strokes", highDetail: "10 mm example",
+    mapping: "More supplied precipitation in millimeters produces more crisp drum strokes per second. The drum also rises through C pentatonic notes as the amount grows, so short comparisons remain audible. Every place uses the same fixed scale.",
+    low: "Slower, lower strokes", lowDetail: "0.5 mm example", high: "Faster, higher strokes", highDetail: "1 mm example",
     scale: "Zero amount is silent. Positive amounts map to 0.5–5 coded drum strokes per second. These are musical symbols, not recorded raindrops or measured rainfall intensity.",
     readings: "The supplied amount is in millimeters, not millimeters per hour. Its accumulation interval is not stated in this JSON. The visualization includes total precipitation, including rain and snow. The mean uses color-filtered pixels only, not the whole Earth.",
-    normalization: "Sound uses mean amount a in mm directly: zero is silent; positive amounts use 0.5 + 4.5 × (1 − exp(−a / 5)) strokes/s. The normalized value remains as supplied. Missing amount or zero pixel coverage produces silence.",
+    normalization: "Sound uses mean amount a in mm directly: zero is silent; positive amounts use a fixed curve through 0.25 mm → 0.8, 0.5 mm → 1.5, 0.75 mm → 3, 1 mm → 4 and 2 mm → 4.7 strokes/s, approaching 5 for larger amounts. Drum pitch follows this same curve from C3 to C5. The normalized value remains as supplied. Missing amount or zero pixel coverage produces silence.",
     caveat: "Image-derived precipitation estimate. Colored precipitation overlays clouds and the basemap; only color-filtered pixels contribute. Coverage is the analyzed image-pixel share, not the land area receiving rain. No whole-Earth average or mm/hour conversion is assumed.",
-    legend: "A narrated comparison of 0.5 mm and 10 mm reference amounts, not the current frame. Higher amount means faster drum strokes. The legend pauses playback.",
-    exampleSpeech: "Lower precipitation amount means slower drum strokes. Higher amount means faster drum strokes. These are millimeters, not millimeters per hour.",
+    legend: "A comparison of 0.5 mm and 1 mm reference amounts, not the current frame. Higher amount means faster, higher drum strokes. The legend pauses playback.",
+    exampleSpeech: "Lower precipitation amount means slower, lower drum strokes. Higher amount means faster, higher drum strokes. These are millimeters, not millimeters per hour.",
   };
   if (kind === "humidity") return {
     kind, name: "Humidity", instrument: "Bowed string pad",
@@ -96,7 +96,7 @@ export function describeExperience(track) {
     readings: "Specific humidity is supplied in grams of water vapor per kilogram of air, not relative humidity in percent. Values are estimated from color-filtered pixels. Image-pixel coverage is not the proportion of Earth's area with high humidity.",
     normalization: "For supplied mean specific humidity q in g/kg, nominal bandwidth = 160 + 1440 × (1 − exp(−q / 12)) Hz. The pad also opens a low-pass filter with cutoff 180 × 20^((bandwidth − 160) / 1440) Hz to reveal string harmonics, with gain compensation. This fixed expressive transfer is shared by frames and the legend. The provided norm is not recalculated. Missing values or zero pixel coverage produce silence.",
     caveat: "Image-derived specific-humidity estimate in g/kg. This is not a direct GEOS-FP numerical field or a relative-humidity percentage. High specific humidity does not by itself imply precipitation.",
-    legend: "A narrated comparison of 0 g/kg and 22 g/kg reference values at the visualization scale endpoints, not the current frame. Higher specific humidity means richer string harmonics. The legend pauses playback.",
+    legend: "A comparison of 0 g/kg and 22 g/kg reference values at the visualization scale endpoints, not the current frame. Higher specific humidity means richer string harmonics. The legend pauses playback.",
     exampleSpeech: "Lower specific humidity means dark, thin strings. Higher specific humidity means brighter, richer strings, not rainfall.",
   };
   if (kind === "wind" && track?.sonification?.input === "visualSignal") return {
@@ -109,7 +109,7 @@ export function describeExperience(track) {
     readings: "The visual index combines the intensity of accepted colors with their latitude-weighted extent. The conditional mean in m/s is shown only as a diagnostic. Transparent areas are unknown wind, not measured calm. No accepted pixels means unavailable, not zero wind.",
     normalization: "Python computes visualSignal = sum(area weight × accepted pixel's position on the wind legend) / sum(analyzed area weights). Mean and norm retain their original meanings separately. Pulse rate = 0.3 + 3.7 × (1 − exp(−visualSignal / 0.04)) Hz.",
     caveat: "Qualitative image-derived wind signal. Transparency and the basemap still hide some winds. A three-instant comparison improved country ordering versus the old conditional mean; it does not validate every country or time. Silence for missing values does not mean no wind.",
-    legend: "A narrated comparison of visual indices 0.01 and 0.10, not current measurements or m/s. The legend pauses playback.",
+    legend: "A comparison of visual indices 0.01 and 0.10, not current measurements or m/s. The legend pauses playback.",
     exampleSpeech: "More intense and extensive visible wind colors mean faster pulses. This index is not physical wind speed. Missing colors do not prove calm wind.",
   };
   const wind = kind === "wind";
@@ -123,7 +123,7 @@ export function describeExperience(track) {
     readings: "This is an image-derived estimate of near-surface wind speed at about 10 meters. The mean uses only color-filtered pixels, not the whole Earth. Coverage is a fraction of analyzed image pixels, not a fraction of Earth's surface area. No wind direction is encoded.",
     normalization: "The supplied normalized value is shown for reference. The sound uses mean speed in m/s directly: rate = 0.3 + 3.7 × (1 − exp(−speed / 12)) Hz. Missing speed or zero valid-pixel coverage produces silence. Small speed changes can sound very similar.",
     caveat: "Image-derived wind estimate. Transparent low speeds and overlap with the basemap exclude many pixels. This is not a full global mean or a direct numerical GEOS-FP field. Comparison with GEOS-FP remains pending.",
-    legend: "A narrated comparison of 5 m/s and 25 m/s examples, not the current frame. Higher speed means faster musical pulses. The legend pauses the player.",
+    legend: "A comparison of 5 m/s and 25 m/s examples, not the current frame. Higher speed means faster musical pulses. The legend pauses the player. Labels are spoken only when spoken navigation is on.",
     exampleSpeech: "Lower wind speed means slower musical pulses. Higher wind speed means faster musical pulses.",
   } : {
     kind: "temperature", name: "Temperature", instrument: "Soft dark organ",
@@ -134,7 +134,7 @@ export function describeExperience(track) {
     scale: "The 11 notes follow a C major pentatonic scale across two octaves. Different values can share a note; no artificial melody is added. One temperature voice plays at a time.",
     readings: "The image-pixel mean temperature sets one note for the selected frame and region. The current mean method is explained below; area weighting still applies only to decoded pixels used. These weather values are not historical climate anomalies; a higher note is not a danger rating.",
     normalization: "The supplied normalized value ranges from 0 to 1. Zero maps to C3; one maps to C5. Intermediate values select the nearest step in the 11-note scale. The front end does not recalculate this value. It is not a percentage of the Earth.",
-    caveat: "Image-derived temperature estimate decoded from visualization pixels. This is not a direct numerical GEOS-FP field or a complete global field. Small variations can remain on the same pentatonic note.", legend: "A narrated low-to-high pitch comparison using reference values 0 and 1, not the current frame. The legend pauses the player.",
+    caveat: "Image-derived temperature estimate decoded from visualization pixels. This is not a direct numerical GEOS-FP field or a complete global field. Small variations can remain on the same pentatonic note.", legend: "A narrated low-to-high pitch comparison using reference values 0 and 1, not the current frame. The legend pauses the player. Labels are spoken only when spoken navigation is on.",
     exampleSpeech: "Lower temperature values mean lower pitch. Higher temperature values mean higher pitch.",
   };
 }
@@ -152,5 +152,7 @@ export function renderExperience(track) {
   set("readings-help", experience.readings);
   set("sound-mapping-detail", experience.normalization);
   set("legend-help", `${experience.legend} Press the button again or navigate to stop it.`);
+  const legend = document.getElementById("sound-legend");
+  if (legend) legend.dataset.spokenDescription = `${experience.name}: ${experience.low}; then ${experience.high}. Pauses playback. Labels are spoken when navigation voice is on. Activate again to stop.`;
   return experience;
 }

@@ -1,0 +1,1364 @@
+{
+  "source": "public/data/clima-ozonio/regions.json",
+  "interpretation": "Each valid region-frame has equal weight. Countries and regions overlap. Fractions are not geographic area, time coverage of Earth, health limits, or proof of daily cycles.",
+  "regionalValueCount": 20307,
+  "quantiles": {
+    "0.1": 31.401,
+    "0.25": 35.001,
+    "0.5": 40.087,
+    "0.75": 45.104,
+    "0.9": 50.014
+  },
+  "candidates": [
+    {
+      "enter": 40,
+      "exit": 38,
+      "valid": 20307,
+      "highlightedFraction": 0.5621706800610626,
+      "regionsWithBothStates": 123
+    },
+    {
+      "enter": 42,
+      "exit": 40,
+      "valid": 20307,
+      "highlightedFraction": 0.4564928349830108,
+      "regionsWithBothStates": 126
+    },
+    {
+      "enter": 44,
+      "exit": 42,
+      "valid": 20307,
+      "highlightedFraction": 0.35667503816417984,
+      "regionsWithBothStates": 130
+    },
+    {
+      "enter": 45,
+      "exit": 43,
+      "valid": 20307,
+      "highlightedFraction": 0.3047225094794898,
+      "regionsWithBothStates": 118
+    },
+    {
+      "enter": 46,
+      "exit": 44,
+      "valid": 20307,
+      "highlightedFraction": 0.2555768946668636,
+      "regionsWithBothStates": 110
+    },
+    {
+      "enter": 48,
+      "exit": 46,
+      "valid": 20307,
+      "highlightedFraction": 0.17230511646230365,
+      "regionsWithBothStates": 88
+    }
+  ],
+  "selected": {
+    "enter": 42,
+    "exit": 40
+  },
+  "regions": {
+    "country:Fiji": {
+      "valid": 0,
+      "missing": 124,
+      "highlighted": 0,
+      "highlightedFraction": null,
+      "transitions": 0
+    },
+    "continent:Oceania": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 7,
+      "highlightedFraction": 0.056451612903225805,
+      "transitions": 4
+    },
+    "country:Tanzania": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "continent:Africa": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 79,
+      "highlightedFraction": 0.6370967741935484,
+      "transitions": 31
+    },
+    "country:Western Sahara": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 12,
+      "highlightedFraction": 0.0967741935483871,
+      "transitions": 2
+    },
+    "country:Canada": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 122,
+      "highlightedFraction": 0.9838709677419355,
+      "transitions": 1
+    },
+    "continent:North America": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 124,
+      "highlightedFraction": 1,
+      "transitions": 1
+    },
+    "country:United States of America": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 122,
+      "highlightedFraction": 0.9838709677419355,
+      "transitions": 3
+    },
+    "country:Kazakhstan": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 4,
+      "highlightedFraction": 0.03225806451612903,
+      "transitions": 2
+    },
+    "continent:Asia": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 124,
+      "highlightedFraction": 1,
+      "transitions": 1
+    },
+    "country:Uzbekistan": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 72,
+      "highlightedFraction": 0.5806451612903226,
+      "transitions": 4
+    },
+    "country:Papua New Guinea": {
+      "valid": 21,
+      "missing": 103,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Indonesia": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 9,
+      "highlightedFraction": 0.07258064516129033,
+      "transitions": 8
+    },
+    "country:Argentina": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 60,
+      "highlightedFraction": 0.4838709677419355,
+      "transitions": 15
+    },
+    "continent:South America": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Chile": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 60,
+      "highlightedFraction": 0.4838709677419355,
+      "transitions": 13
+    },
+    "country:Democratic Republic of the Congo": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Somalia": {
+      "valid": 110,
+      "missing": 14,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Kenya": {
+      "valid": 116,
+      "missing": 8,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Sudan": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 76,
+      "highlightedFraction": 0.6129032258064516,
+      "transitions": 19
+    },
+    "country:Chad": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 69,
+      "highlightedFraction": 0.5564516129032258,
+      "transitions": 19
+    },
+    "country:Haiti": {
+      "valid": 115,
+      "missing": 9,
+      "highlighted": 40,
+      "highlightedFraction": 0.34782608695652173,
+      "transitions": 20
+    },
+    "country:Dominican Republic": {
+      "valid": 117,
+      "missing": 7,
+      "highlighted": 17,
+      "highlightedFraction": 0.1452991452991453,
+      "transitions": 14
+    },
+    "country:Russia": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "continent:Europe": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:The Bahamas": {
+      "valid": 113,
+      "missing": 11,
+      "highlighted": 111,
+      "highlightedFraction": 0.9823008849557522,
+      "transitions": 16
+    },
+    "country:Falkland Islands": {
+      "valid": 0,
+      "missing": 124,
+      "highlighted": 0,
+      "highlightedFraction": null,
+      "transitions": 0
+    },
+    "country:Norway": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 117,
+      "highlightedFraction": 0.9435483870967742,
+      "transitions": 1
+    },
+    "country:Greenland": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 124,
+      "highlightedFraction": 1,
+      "transitions": 1
+    },
+    "country:French Southern and Antarctic Lands": {
+      "valid": 0,
+      "missing": 124,
+      "highlighted": 0,
+      "highlightedFraction": null,
+      "transitions": 0
+    },
+    "continent:Seven seas (open ocean)": {
+      "valid": 0,
+      "missing": 124,
+      "highlighted": 0,
+      "highlightedFraction": null,
+      "transitions": 0
+    },
+    "country:East Timor": {
+      "valid": 5,
+      "missing": 119,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:South Africa": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 86,
+      "highlightedFraction": 0.6935483870967742,
+      "transitions": 19
+    },
+    "country:Lesotho": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 110,
+      "highlightedFraction": 0.8870967741935484,
+      "transitions": 5
+    },
+    "country:Mexico": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 47,
+      "highlightedFraction": 0.3790322580645161,
+      "transitions": 19
+    },
+    "country:Uruguay": {
+      "valid": 120,
+      "missing": 4,
+      "highlighted": 14,
+      "highlightedFraction": 0.11666666666666667,
+      "transitions": 7
+    },
+    "country:Brazil": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 9,
+      "highlightedFraction": 0.07258064516129033,
+      "transitions": 6
+    },
+    "country:Bolivia": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Peru": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Colombia": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Panama": {
+      "valid": 119,
+      "missing": 5,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Costa Rica": {
+      "valid": 68,
+      "missing": 56,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Nicaragua": {
+      "valid": 82,
+      "missing": 42,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Honduras": {
+      "valid": 118,
+      "missing": 6,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:El Salvador": {
+      "valid": 115,
+      "missing": 9,
+      "highlighted": 44,
+      "highlightedFraction": 0.3826086956521739,
+      "transitions": 21
+    },
+    "country:Guatemala": {
+      "valid": 121,
+      "missing": 3,
+      "highlighted": 2,
+      "highlightedFraction": 0.01652892561983471,
+      "transitions": 2
+    },
+    "country:Belize": {
+      "valid": 38,
+      "missing": 86,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Venezuela": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Guyana": {
+      "valid": 47,
+      "missing": 77,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Suriname": {
+      "valid": 33,
+      "missing": 91,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:France": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 11,
+      "highlightedFraction": 0.08870967741935484,
+      "transitions": 8
+    },
+    "country:Ecuador": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Puerto Rico": {
+      "valid": 4,
+      "missing": 120,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Jamaica": {
+      "valid": 98,
+      "missing": 26,
+      "highlighted": 30,
+      "highlightedFraction": 0.30612244897959184,
+      "transitions": 14
+    },
+    "country:Cuba": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 7,
+      "highlightedFraction": 0.056451612903225805,
+      "transitions": 5
+    },
+    "country:Zimbabwe": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 107,
+      "highlightedFraction": 0.8629032258064516,
+      "transitions": 11
+    },
+    "country:Botswana": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 122,
+      "highlightedFraction": 0.9838709677419355,
+      "transitions": 3
+    },
+    "country:Namibia": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 107,
+      "highlightedFraction": 0.8629032258064516,
+      "transitions": 15
+    },
+    "country:Senegal": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 75,
+      "highlightedFraction": 0.6048387096774194,
+      "transitions": 31
+    },
+    "country:Mali": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 42,
+      "highlightedFraction": 0.3387096774193548,
+      "transitions": 20
+    },
+    "country:Mauritania": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 24,
+      "highlightedFraction": 0.1935483870967742,
+      "transitions": 4
+    },
+    "country:Benin": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 97,
+      "highlightedFraction": 0.782258064516129,
+      "transitions": 31
+    },
+    "country:Niger": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 4,
+      "highlightedFraction": 0.03225806451612903,
+      "transitions": 1
+    },
+    "country:Nigeria": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 79,
+      "highlightedFraction": 0.6370967741935484,
+      "transitions": 31
+    },
+    "country:Cameroon": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 33,
+      "highlightedFraction": 0.2661290322580645,
+      "transitions": 17
+    },
+    "country:Togo": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 83,
+      "highlightedFraction": 0.6693548387096774,
+      "transitions": 29
+    },
+    "country:Ghana": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 40,
+      "highlightedFraction": 0.3225806451612903,
+      "transitions": 23
+    },
+    "country:Ivory Coast": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 6,
+      "highlightedFraction": 0.04838709677419355,
+      "transitions": 4
+    },
+    "country:Guinea": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 64,
+      "highlightedFraction": 0.5161290322580645,
+      "transitions": 25
+    },
+    "country:Guinea-Bissau": {
+      "valid": 120,
+      "missing": 4,
+      "highlighted": 57,
+      "highlightedFraction": 0.475,
+      "transitions": 17
+    },
+    "country:Liberia": {
+      "valid": 122,
+      "missing": 2,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Sierra Leone": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Burkina Faso": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 113,
+      "highlightedFraction": 0.9112903225806451,
+      "transitions": 17
+    },
+    "country:Central African Republic": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 92,
+      "highlightedFraction": 0.7419354838709677,
+      "transitions": 23
+    },
+    "country:Republic of the Congo": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Gabon": {
+      "valid": 114,
+      "missing": 10,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Equatorial Guinea": {
+      "valid": 119,
+      "missing": 5,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Zambia": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 124,
+      "highlightedFraction": 1,
+      "transitions": 1
+    },
+    "country:Malawi": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 106,
+      "highlightedFraction": 0.8548387096774194,
+      "transitions": 19
+    },
+    "country:Mozambique": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 17,
+      "highlightedFraction": 0.13709677419354838,
+      "transitions": 12
+    },
+    "country:Eswatini": {
+      "valid": 117,
+      "missing": 7,
+      "highlighted": 65,
+      "highlightedFraction": 0.5555555555555556,
+      "transitions": 22
+    },
+    "country:Angola": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 99,
+      "highlightedFraction": 0.7983870967741935,
+      "transitions": 21
+    },
+    "country:Burundi": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 8,
+      "highlightedFraction": 0.06451612903225806,
+      "transitions": 6
+    },
+    "country:Israel": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 87,
+      "highlightedFraction": 0.7016129032258065,
+      "transitions": 30
+    },
+    "country:Lebanon": {
+      "valid": 123,
+      "missing": 1,
+      "highlighted": 85,
+      "highlightedFraction": 0.6910569105691057,
+      "transitions": 27
+    },
+    "country:Madagascar": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Palestine": {
+      "valid": 49,
+      "missing": 75,
+      "highlighted": 18,
+      "highlightedFraction": 0.3673469387755102,
+      "transitions": 23
+    },
+    "country:The Gambia": {
+      "valid": 45,
+      "missing": 79,
+      "highlighted": 44,
+      "highlightedFraction": 0.9777777777777777,
+      "transitions": 26
+    },
+    "country:Tunisia": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 94,
+      "highlightedFraction": 0.7580645161290323,
+      "transitions": 5
+    },
+    "country:Algeria": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 49,
+      "highlightedFraction": 0.3951612903225806,
+      "transitions": 6
+    },
+    "country:Jordan": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 123,
+      "highlightedFraction": 0.9919354838709677,
+      "transitions": 3
+    },
+    "country:United Arab Emirates": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 107,
+      "highlightedFraction": 0.8629032258064516,
+      "transitions": 13
+    },
+    "country:Qatar": {
+      "valid": 120,
+      "missing": 4,
+      "highlighted": 82,
+      "highlightedFraction": 0.6833333333333333,
+      "transitions": 21
+    },
+    "country:Kuwait": {
+      "valid": 123,
+      "missing": 1,
+      "highlighted": 85,
+      "highlightedFraction": 0.6910569105691057,
+      "transitions": 15
+    },
+    "country:Iraq": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 113,
+      "highlightedFraction": 0.9112903225806451,
+      "transitions": 13
+    },
+    "country:Oman": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 93,
+      "highlightedFraction": 0.75,
+      "transitions": 17
+    },
+    "country:Vanuatu": {
+      "valid": 0,
+      "missing": 124,
+      "highlighted": 0,
+      "highlightedFraction": null,
+      "transitions": 0
+    },
+    "country:Cambodia": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 20,
+      "highlightedFraction": 0.16129032258064516,
+      "transitions": 2
+    },
+    "country:Thailand": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 74,
+      "highlightedFraction": 0.5967741935483871,
+      "transitions": 23
+    },
+    "country:Laos": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 22,
+      "highlightedFraction": 0.1774193548387097,
+      "transitions": 2
+    },
+    "country:Myanmar": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 6,
+      "highlightedFraction": 0.04838709677419355,
+      "transitions": 4
+    },
+    "country:Vietnam": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 36,
+      "highlightedFraction": 0.2903225806451613,
+      "transitions": 11
+    },
+    "country:North Korea": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 102,
+      "highlightedFraction": 0.8225806451612904,
+      "transitions": 9
+    },
+    "country:South Korea": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 20,
+      "highlightedFraction": 0.16129032258064516,
+      "transitions": 22
+    },
+    "country:Mongolia": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 124,
+      "highlightedFraction": 1,
+      "transitions": 1
+    },
+    "country:India": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 120,
+      "highlightedFraction": 0.967741935483871,
+      "transitions": 5
+    },
+    "country:Bangladesh": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 91,
+      "highlightedFraction": 0.7338709677419355,
+      "transitions": 25
+    },
+    "country:Bhutan": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 124,
+      "highlightedFraction": 1,
+      "transitions": 1
+    },
+    "country:Nepal": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 124,
+      "highlightedFraction": 1,
+      "transitions": 1
+    },
+    "country:Pakistan": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 124,
+      "highlightedFraction": 1,
+      "transitions": 1
+    },
+    "country:Afghanistan": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 116,
+      "highlightedFraction": 0.9354838709677419,
+      "transitions": 7
+    },
+    "country:Tajikistan": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 124,
+      "highlightedFraction": 1,
+      "transitions": 1
+    },
+    "country:Kyrgyzstan": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 124,
+      "highlightedFraction": 1,
+      "transitions": 1
+    },
+    "country:Turkmenistan": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 65,
+      "highlightedFraction": 0.5241935483870968,
+      "transitions": 17
+    },
+    "country:Iran": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 124,
+      "highlightedFraction": 1,
+      "transitions": 1
+    },
+    "country:Syria": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 122,
+      "highlightedFraction": 0.9838709677419355,
+      "transitions": 5
+    },
+    "country:Armenia": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 117,
+      "highlightedFraction": 0.9435483870967742,
+      "transitions": 5
+    },
+    "country:Sweden": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 95,
+      "highlightedFraction": 0.7661290322580645,
+      "transitions": 1
+    },
+    "country:Belarus": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 27,
+      "highlightedFraction": 0.21774193548387097,
+      "transitions": 8
+    },
+    "country:Ukraine": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 17,
+      "highlightedFraction": 0.13709677419354838,
+      "transitions": 8
+    },
+    "country:Poland": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Austria": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 30,
+      "highlightedFraction": 0.24193548387096775,
+      "transitions": 11
+    },
+    "country:Hungary": {
+      "valid": 119,
+      "missing": 5,
+      "highlighted": 16,
+      "highlightedFraction": 0.13445378151260504,
+      "transitions": 9
+    },
+    "country:Moldova": {
+      "valid": 105,
+      "missing": 19,
+      "highlighted": 32,
+      "highlightedFraction": 0.3047619047619048,
+      "transitions": 6
+    },
+    "country:Romania": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 27,
+      "highlightedFraction": 0.21774193548387097,
+      "transitions": 7
+    },
+    "country:Lithuania": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 39,
+      "highlightedFraction": 0.31451612903225806,
+      "transitions": 3
+    },
+    "country:Latvia": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 50,
+      "highlightedFraction": 0.4032258064516129,
+      "transitions": 7
+    },
+    "country:Estonia": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 63,
+      "highlightedFraction": 0.5080645161290323,
+      "transitions": 5
+    },
+    "country:Germany": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 5,
+      "highlightedFraction": 0.04032258064516129,
+      "transitions": 4
+    },
+    "country:Bulgaria": {
+      "valid": 121,
+      "missing": 3,
+      "highlighted": 46,
+      "highlightedFraction": 0.38016528925619836,
+      "transitions": 6
+    },
+    "country:Greece": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 80,
+      "highlightedFraction": 0.6451612903225806,
+      "transitions": 3
+    },
+    "country:Turkey": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 119,
+      "highlightedFraction": 0.9596774193548387,
+      "transitions": 3
+    },
+    "country:Albania": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 58,
+      "highlightedFraction": 0.46774193548387094,
+      "transitions": 9
+    },
+    "country:Croatia": {
+      "valid": 113,
+      "missing": 11,
+      "highlighted": 31,
+      "highlightedFraction": 0.2743362831858407,
+      "transitions": 11
+    },
+    "country:Switzerland": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 39,
+      "highlightedFraction": 0.31451612903225806,
+      "transitions": 7
+    },
+    "country:Luxembourg": {
+      "valid": 0,
+      "missing": 124,
+      "highlighted": 0,
+      "highlightedFraction": null,
+      "transitions": 0
+    },
+    "country:Belgium": {
+      "valid": 89,
+      "missing": 35,
+      "highlighted": 5,
+      "highlightedFraction": 0.056179775280898875,
+      "transitions": 5
+    },
+    "country:Netherlands": {
+      "valid": 84,
+      "missing": 40,
+      "highlighted": 12,
+      "highlightedFraction": 0.14285714285714285,
+      "transitions": 4
+    },
+    "country:Portugal": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 121,
+      "highlightedFraction": 0.9758064516129032,
+      "transitions": 3
+    },
+    "country:Spain": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 116,
+      "highlightedFraction": 0.9354838709677419,
+      "transitions": 5
+    },
+    "country:Ireland": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 36,
+      "highlightedFraction": 0.2903225806451613,
+      "transitions": 5
+    },
+    "country:New Caledonia": {
+      "valid": 18,
+      "missing": 106,
+      "highlighted": 4,
+      "highlightedFraction": 0.2222222222222222,
+      "transitions": 3
+    },
+    "country:Solomon Islands": {
+      "valid": 0,
+      "missing": 124,
+      "highlighted": 0,
+      "highlightedFraction": null,
+      "transitions": 0
+    },
+    "country:New Zealand": {
+      "valid": 117,
+      "missing": 7,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Australia": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 7,
+      "highlightedFraction": 0.056451612903225805,
+      "transitions": 4
+    },
+    "country:Sri Lanka": {
+      "valid": 105,
+      "missing": 19,
+      "highlighted": 12,
+      "highlightedFraction": 0.11428571428571428,
+      "transitions": 8
+    },
+    "country:People's Republic of China": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 124,
+      "highlightedFraction": 1,
+      "transitions": 1
+    },
+    "country:Taiwan": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 120,
+      "highlightedFraction": 0.967741935483871,
+      "transitions": 2
+    },
+    "country:Italy": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 67,
+      "highlightedFraction": 0.5403225806451613,
+      "transitions": 5
+    },
+    "country:Denmark": {
+      "valid": 111,
+      "missing": 13,
+      "highlighted": 39,
+      "highlightedFraction": 0.35135135135135137,
+      "transitions": 5
+    },
+    "country:United Kingdom": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 34,
+      "highlightedFraction": 0.27419354838709675,
+      "transitions": 3
+    },
+    "country:Iceland": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 124,
+      "highlightedFraction": 1,
+      "transitions": 1
+    },
+    "country:Azerbaijan": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 89,
+      "highlightedFraction": 0.717741935483871,
+      "transitions": 7
+    },
+    "country:Georgia": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 124,
+      "highlightedFraction": 1,
+      "transitions": 1
+    },
+    "country:Philippines": {
+      "valid": 115,
+      "missing": 9,
+      "highlighted": 34,
+      "highlightedFraction": 0.2956521739130435,
+      "transitions": 4
+    },
+    "country:Malaysia": {
+      "valid": 121,
+      "missing": 3,
+      "highlighted": 18,
+      "highlightedFraction": 0.1487603305785124,
+      "transitions": 8
+    },
+    "country:Brunei": {
+      "valid": 0,
+      "missing": 124,
+      "highlighted": 0,
+      "highlightedFraction": null,
+      "transitions": 0
+    },
+    "country:Slovenia": {
+      "valid": 120,
+      "missing": 4,
+      "highlighted": 31,
+      "highlightedFraction": 0.25833333333333336,
+      "transitions": 11
+    },
+    "country:Finland": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 67,
+      "highlightedFraction": 0.5403225806451613,
+      "transitions": 3
+    },
+    "country:Slovakia": {
+      "valid": 122,
+      "missing": 2,
+      "highlighted": 32,
+      "highlightedFraction": 0.26229508196721313,
+      "transitions": 9
+    },
+    "country:Czech Republic": {
+      "valid": 122,
+      "missing": 2,
+      "highlighted": 7,
+      "highlightedFraction": 0.05737704918032787,
+      "transitions": 3
+    },
+    "country:Eritrea": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 49,
+      "highlightedFraction": 0.3951612903225806,
+      "transitions": 12
+    },
+    "country:Japan": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 124,
+      "highlightedFraction": 1,
+      "transitions": 1
+    },
+    "country:Paraguay": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 34,
+      "highlightedFraction": 0.27419354838709675,
+      "transitions": 5
+    },
+    "country:Yemen": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 54,
+      "highlightedFraction": 0.43548387096774194,
+      "transitions": 4
+    },
+    "country:Saudi Arabia": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 106,
+      "highlightedFraction": 0.8548387096774194,
+      "transitions": 15
+    },
+    "country:Antarctica": {
+      "valid": 61,
+      "missing": 63,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "continent:Antarctica": {
+      "valid": 61,
+      "missing": 63,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Turkish Republic of Northern Cyprus": {
+      "valid": 92,
+      "missing": 32,
+      "highlighted": 92,
+      "highlightedFraction": 1,
+      "transitions": 20
+    },
+    "country:Cyprus": {
+      "valid": 122,
+      "missing": 2,
+      "highlighted": 122,
+      "highlightedFraction": 1,
+      "transitions": 3
+    },
+    "country:Morocco": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 12,
+      "highlightedFraction": 0.0967741935483871,
+      "transitions": 1
+    },
+    "country:Egypt": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 116,
+      "highlightedFraction": 0.9354838709677419,
+      "transitions": 7
+    },
+    "country:Libya": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 59,
+      "highlightedFraction": 0.47580645161290325,
+      "transitions": 7
+    },
+    "country:Ethiopia": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 41,
+      "highlightedFraction": 0.33064516129032256,
+      "transitions": 16
+    },
+    "country:Djibouti": {
+      "valid": 108,
+      "missing": 16,
+      "highlighted": 31,
+      "highlightedFraction": 0.28703703703703703,
+      "transitions": 12
+    },
+    "country:Somaliland": {
+      "valid": 115,
+      "missing": 9,
+      "highlighted": 36,
+      "highlightedFraction": 0.3130434782608696,
+      "transitions": 12
+    },
+    "country:Uganda": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 0,
+      "highlightedFraction": 0,
+      "transitions": 0
+    },
+    "country:Rwanda": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 4,
+      "highlightedFraction": 0.03225806451612903,
+      "transitions": 4
+    },
+    "country:Bosnia and Herzegovina": {
+      "valid": 111,
+      "missing": 13,
+      "highlighted": 48,
+      "highlightedFraction": 0.43243243243243246,
+      "transitions": 5
+    },
+    "country:North Macedonia": {
+      "valid": 108,
+      "missing": 16,
+      "highlighted": 51,
+      "highlightedFraction": 0.4722222222222222,
+      "transitions": 5
+    },
+    "country:Serbia": {
+      "valid": 116,
+      "missing": 8,
+      "highlighted": 33,
+      "highlightedFraction": 0.28448275862068967,
+      "transitions": 9
+    },
+    "country:Montenegro": {
+      "valid": 120,
+      "missing": 4,
+      "highlighted": 63,
+      "highlightedFraction": 0.525,
+      "transitions": 3
+    },
+    "country:Kosovo": {
+      "valid": 95,
+      "missing": 29,
+      "highlighted": 51,
+      "highlightedFraction": 0.5368421052631579,
+      "transitions": 9
+    },
+    "country:Trinidad and Tobago": {
+      "valid": 0,
+      "missing": 124,
+      "highlighted": 0,
+      "highlightedFraction": null,
+      "transitions": 0
+    },
+    "country:South Sudan": {
+      "valid": 124,
+      "missing": 0,
+      "highlighted": 115,
+      "highlightedFraction": 0.9274193548387096,
+      "transitions": 11
+    }
+  },
+  "world": {
+    "valid": 124,
+    "missing": 0,
+    "highlighted": 101,
+    "highlightedFraction": 0.8145161290322581,
+    "transitions": 1
+  }
+}

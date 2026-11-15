@@ -143,6 +143,7 @@ function releaseSound() {
 
 const legend = createLegend({
   audio, speech, enableAudio,
+  shouldNarrate: () => pageNarration?.enabled === true,
   getKind: () => combined.enabled ? combined.legendKind : player?.currentTrack?.sonification?.input === "visualSignal" ? (soundKind(player?.currentTrack) === "pm25" ? "pm25Visual" : "windVisual") : soundKind(player?.currentTrack),
   onBeforeStart: () => { player?.pause("Playback paused for sound examples."); releaseSound(); },
   onState: (active) => {
@@ -193,6 +194,7 @@ enable.addEventListener("click", async () => {
   } catch { /* enableAudio provides the visible error and leaves the player usable. */ }
 });
 speech.refreshVoices();
+
 pulsePeriod.addEventListener("change", () => {
   timePulse.reset();
   timePulse.advance(player?.currentFrame?.date, pulsePeriod.value, false);
@@ -253,15 +255,15 @@ try {
     onTrackLoading: () => { legendButton.disabled = true; audio.stop(); },
     onTrack: (track) => { renderExperience(track); legendButton.disabled = !soundKind(track); combinedLegendButton.disabled = false; updateNoteStatus(null, track); },
     onFrame: (frame, index, total, reason, track, isCurrent = () => true) => {
-      const regional = regions?.getFrame(frame, index) ?? { frame, track };
       const applyFrame = () => {
         if (!isCurrent()) return;
+        const regional = regions?.getFrame(frame, index) ?? { frame, track };
         regions?.setFrame(index);
         renderReading(document.getElementById("player"), regional.frame, regional.track);
         const currentReason = reason === "playback" && !player?.isPlaying ? "paused" : reason;
         onFrame(regional.frame, index, total, currentReason, regional.track);
       };
-      return combined.enabled ? combined.render(regional.frame).then(applyFrame) : applyFrame();
+      return combined.enabled ? combined.render(frame).then(applyFrame) : applyFrame();
     },
   });
   removeKeyboard = initKeyboard(player);

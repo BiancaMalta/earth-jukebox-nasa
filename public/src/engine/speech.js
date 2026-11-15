@@ -47,13 +47,13 @@ export function createSpeechEngine(scope = window, onStatus = () => {}, onSpeaki
         if (utterance !== current) return;
         utterance = undefined;
         onSpeaking(false);
-        report(`Speech could not play (${event.error || "unknown error"}). Try Test voice or another browser. Date text remains available.`);
+        report(`Speech could not play (${event.error || "unknown error"}). Check spoken navigation or try another browser. Example labels remain available as text.`);
         complete();
       };
       watchdog = setTimeout(() => {
         if (utterance !== current) return;
         cancel();
-        report("The browser did not start speech. Try Test voice; if no voice is heard, check system voices or use another browser.");
+        report("The browser did not start speech. Check system voices or use another browser. Example labels remain available as text.");
       }, 3000);
       try { synthesis.speak(current); return true; }
       catch { cancel(); report("Speech could not start. Check your browser and system voice settings."); return false; }

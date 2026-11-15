@@ -19,8 +19,11 @@ AI-assisted: OpenAI Codex. Front-end engineering notes; the data contract remain
   do not declare this new mode; it is never a missing-index fallback.
 - Precipitation (SVS 5149, mm): use supplied mean amount `a`, never infer mm/h.
   At `a = 0` the instrument is silent. Positive amounts map to
-  `0.5 + 4.5 * (1 - exp(-a / 5))` coded drum strokes/s, bounded by 5.
-  Fixed G3 is a timbral carrier, not an amount-to-pitch mapping. Missing,
+  a piecewise-linear curve through [mm, strokes/s] anchors
+  [0, .5], [.25, .8], [.5, 1.5], [.75, 3], [1, 4], [2, 4.7],
+  followed by 4.7 + .3 * (1 - exp(-(a - 2) / 5)), bounded by 5.
+  The drum pitch redundantly follows round(clamp((rate - .5) / 4.5) * 10)
+  in the shared C3–C5 pentatonic scale. Missing,
   negative, nonfinite amounts or zero pixel coverage mean silence. The JSON
   does not specify the accumulation interval, so no rainfall-rate conversion
   or claim of observed drops/events is made.
@@ -73,14 +76,16 @@ with quiet gaps; only its frequency follows the explicitly declared wind input m
 an expressive reference, not a second wind-speed mapping or a competing melody.
 A 2600 Hz lowpass and 12% reverb soften the presentation. No geographic stereo
 direction is implied. The LFO never advances dataset frames.
-Precipitation uses discrete G3 membrane strikes scheduled by a Tone.Clock at the
-unchanged amount-to-rate mapping (0.5–5 strokes/s for positive amounts). The body
+Precipitation uses discrete tuned membrane strikes scheduled by a Tone.Clock at
+the shared amount-to-rate mapping (0.5–5 strokes/s for positive amounts). Pitch
+also follows the same amount, making short comparisons easier to distinguish.
+Neither pitch nor rhythm is normalized independently for a region or country. The body
 has a fixed 0.7-octave pitch drop over 18 ms, a 3 ms attack and 90 ms decay.
 A separate bandpassed white-noise stick attack lasts about 20 ms at low fixed
 velocity. Body velocity .55 and stick velocity .09 remain constant. Zero and
 missing values stop the clock and release both voices. Finite legend examples
 schedule a clock stop; subsequent examples and playback reset that stop.
-The precipitation channel gain is 6 (four times the previous 1.5, about +12 dB).
+The precipitation channel gain is 4.75, lowered from 5.25 by about 0.87 dB to reduce listening fatigue.
 All nodes are reused and disposed with the shared audio engine. These settings
 replace the continuous noise and LFO gate that could sound like sweeping.
 
@@ -109,7 +114,7 @@ During playback, the first valid frame starts a sustained metallic voice; later
 frames use portamento to move its pitch and ramp the filter without retriggering
 the envelope. Pause, missing data, mute and experience changes release it. The
 player remains the only clock. Manual frame selection and the sound legend use
-bounded notes. Its synth level is -3 dB and its channel calibration is 2.5,
+bounded notes. Its synth level is -3 dB and its channel calibration is 3.5,
 about 8 dB above the previous setting; the shared limiter still caps the mixed
 output at -6 dBFS. The timbre suggests a fine metallic shimmer, not literal
 particles, wind, ocean or health risk.
@@ -119,15 +124,15 @@ pentatonic note. It is a synthesized timbre, not a trumpet sample. Ozone uses
 one soft harp-like `PluckSynth` voice, with a gentle attack, resonant decay and
 light reverb. Its supplied norm still selects its C4–C6 pentatonic note. These
 are distinct sound identities; neither instrument owns a clock or adds notes.
-Ozone's initial channel calibration is 2.8 (up from 0.75) to keep its pluck
-present in the mix; the shared limiter remains active.
+Ozone's channel calibration is 2.3, reduced from 2.8 for a softer mix;
+the shared limiter remains active.
 All seven instruments use smooth ramps/envelopes and are allocated once per audio
 initialization, behind a silent gate until explicitly played.
 
 The visual player owns time. No instrument has a JavaScript frame timer.
 Legend timers compare explicitly labeled reference values only: temperature
 norm 0/1, wind visual indices 0.01/0.10 (legacy speed data: 5/25 m/s),
-precipitation 0.5/10 mm, humidity 0/22 g/kg, or PM2.5 log positions 0/1
+precipitation 0.5/1 mm, humidity 0/22 g/kg, or PM2.5 log positions 0/1
 (0.4/409.6 µg/m³). Manual previews and the last frame have bounded envelopes;
 pause, missing data, mute and switching experiences stop the old sound.
 
@@ -202,3 +207,19 @@ Whole-map mode offers countries and regions; Region offers regions; Country
 offers countries, restricted to the selected region when present. This ranking
 is for the active record, including when a combined preview is visible, rather
 than a claim about the complete mix. No static preferred-country list is used.
+
+## Ozone volume
+
+Ozone retains its original per-frame plucked voice and pitch mapping, without
+threshold gating or concentration-dependent volume. The channel calibration is
+2.3, reduced from 2.8 by about 1.7 dB. Missing data remains silent. The threshold
+and volume-dynamics experiments were discarded after listening feedback.
+
+PM2.5 channel calibration is 3.5, raised from 2.5 by about 2.9 dB to balance
+it against the other instruments. Its data-to-pitch and brightness mappings stay intact.
+
+Sound-example labels are spoken only when spoken navigation is enabled. Without
+it, the low/high examples play directly with visible text labels. With it, each
+spoken label finishes before the instrument starts; instruments stop before the
+next label. Page narration remains suspended throughout the sequence. Legend
+status text is not an automatic live announcement over the demonstration.

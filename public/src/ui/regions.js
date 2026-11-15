@@ -69,6 +69,8 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
     for (const item of choices) {
       const button = document.createElement("button"); button.type = "button";
       button.className = "place-track";
+      button.setAttribute("data-spoken-description", "Select this place and start sound playback.");
+      button.dataset.suggestionKey = item.key;
       const disc = document.createElement("span"); disc.className = "place-track-disc"; disc.setAttribute("aria-hidden", "true");
       const label = document.createElement("span"); label.className = "place-track-label";
       const name = document.createElement("strong"); name.textContent = regionDisplayName(item.key);
@@ -89,7 +91,9 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
         const selectionRequest = requestId;
         const [enabled] = await Promise.all([audioReady, loading]);
         if (selectionRequest !== requestId || seriesState !== "ready" || !enabled) return;
-        root.querySelector("summary").focus();
+        const updatedButton = [...container.querySelectorAll("button")].find(candidate => candidate.dataset.suggestionKey === item.key);
+        const focusTarget = updatedButton ?? (item.kind === "country" ? countrySelect : continentSelect);
+        focusTarget.focus({ preventScroll: true });
         onPreviewReady();
       });
       container.append(button);
@@ -120,9 +124,17 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
   function updateFrame(index) {
     currentIndex = index;
     if (!selectedFeatures.length) return;
+    if (seriesState === "loading") {
+      currentText.textContent = `${selectedDisplayName()}: loading regional values…`;
+      return;
+    }
+    if (seriesState === "error") {
+      currentText.textContent = `${selectedDisplayName()}: regional values could not be loaded. Retry selecting this place.`;
+      return;
+    }
     const point = series[index];
     currentText.textContent = !point || point[0] === null
-      ? `${selectedDisplayName()}: no regional value is available for this frame. Regional audio is silent.`
+      ? `${selectedDisplayName()}: this record has no regional value for this frame. Its instrument is silent; other combined layers or the time pulse may still sound.`
       : `${selectedDisplayName()}, ${activeData.frames[index]?.date ?? `frame ${index + 1}`}: ${formatNumber(point[0], activeData.unit)}. ${describePixelCoverage(point[3])} within this region; playback sounds this regional value.`;
   }
 
