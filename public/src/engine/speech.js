@@ -1,7 +1,8 @@
 // AI-assisted: OpenAI Codex
 export function createSpeechEngine(scope = window, onStatus = () => {}, onSpeaking = () => {}) {
   const supported = Boolean(scope.speechSynthesis && scope.SpeechSynthesisUtterance);
-  let utterance, watchdog, voice, lastStatus;
+  let utterance, watchdog, voice, lastStatus, completion;
+  function complete() { const callback = completion; completion = undefined; callback?.(); }
   function report(message) {
     if (message !== lastStatus) { lastStatus = message; onStatus(message); }
   }
@@ -20,11 +21,12 @@ export function createSpeechEngine(scope = window, onStatus = () => {}, onSpeaki
     scope.speechSynthesis.cancel();
     utterance = undefined;
     onSpeaking(false);
+    complete();
   }
   scope.speechSynthesis?.addEventListener?.("voiceschanged", refreshVoices);
   return {
     supported, cancel, refreshVoices,
-    speak(text, interrupt = false) {
+    speak(text, interrupt = false, onComplete) {
       if (!supported || typeof text !== "string" || !text) { if (!supported) refreshVoices(); return false; }
       const synthesis = scope.speechSynthesis;
       if (!interrupt && (utterance || synthesis.speaking || synthesis.pending)) return false;
@@ -33,18 +35,20 @@ export function createSpeechEngine(scope = window, onStatus = () => {}, onSpeaki
       synthesis.resume();
       const current = new scope.SpeechSynthesisUtterance(text);
       utterance = current;
+      completion = onComplete;
       current.voice = voice;
       current.lang = voice.lang;
       current.rate = 1;
       current.volume = 0.8;
       current.onstart = () => { clearTimeout(watchdog); if (utterance === current) onSpeaking(true); };
-      current.onend = () => { clearTimeout(watchdog); if (utterance === current) { utterance = undefined; onSpeaking(false); } };
+      current.onend = () => { clearTimeout(watchdog); if (utterance === current) { utterance = undefined; onSpeaking(false); complete(); } };
       current.onerror = (event) => {
         clearTimeout(watchdog);
         if (utterance !== current) return;
         utterance = undefined;
         onSpeaking(false);
         report(`Speech could not play (${event.error || "unknown error"}). Try Test voice or another browser. Date text remains available.`);
+        complete();
       };
       watchdog = setTimeout(() => {
         if (utterance !== current) return;

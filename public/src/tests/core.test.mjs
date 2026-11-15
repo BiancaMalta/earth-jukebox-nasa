@@ -342,6 +342,33 @@ test("CDN/init failures remain retryable at the engine boundary", async () => {
   engine.dispose();
 });
 
+test("legend waits for each spoken label before playing and cancels stale speech completions", async () => {
+  const originalWindow = globalThis.window;
+  const tasks = [], notes = [], finishes = [];
+  globalThis.window = { setTimeout(fn) { tasks.push(fn); return tasks.length; }, clearTimeout() {} };
+  try {
+    const legend = createLegend({
+      audio: { stop() {}, playNote(note) { notes.push(note); return true; } },
+      speech: { cancel() {}, speak(text, interrupt, done) { finishes.push(done); return true; } },
+      enableAudio: async () => {}, onBeforeStart() {}, onState() {}, onError(message) { assert.fail(message); },
+    });
+    await legend.toggle();
+    assert.deepEqual(notes, []);
+    finishes[0]();
+    assert.deepEqual(notes, ['C3']);
+    tasks[0]();
+    assert.deepEqual(notes, ['C3'], 'High example waits for its own spoken label');
+    finishes[1]();
+    assert.deepEqual(notes, ['C3', 'C5']);
+    tasks[1]();
+    assert.equal(legend.active, false);
+    await legend.toggle();
+    legend.cancel();
+    finishes[2]();
+    assert.deepEqual(notes, ['C3', 'C5']);
+  } finally { globalThis.window = originalWindow; }
+});
+
 test("speech skips a busy voice, replaces legend speech and cancels owned utterances", () => {
   const spoken = [];
   let cancellations = 0;
@@ -446,7 +473,7 @@ test("sound legend uses held comparison notes and visible steps without speech v
     assert.deepEqual(notes, [["C3", 1.8]]);
     tasks.find((task) => task.delay === 2500).fn();
     assert.deepEqual(notes, [["C3", 1.8], ["C5", 1.8]]);
-    tasks.find((task) => task.delay === 5000).fn();
+    tasks.at(-1).fn();
     assert.equal(legend.active, false);
     assert.match(steps[0], /Low values/);
     assert.match(steps[1], /High values/);
@@ -607,7 +634,7 @@ test("wind legend compares labeled speed examples, not musical pitches or datase
       speech: { cancel() {}, speak() {} }, enableAudio: async () => {}, getKind: () => "wind",
       onBeforeStart() {}, onState() {}, onStep(text) { steps.push(text); }, onError() { assert.fail("Unexpected error"); },
     });
-    await legend.toggle(); tasks.find((task) => task.delay === 2500).fn(); tasks.find((task) => task.delay === 5000).fn();
+    await legend.toggle(); tasks.find((task) => task.delay === 2500).fn(); tasks.at(-1).fn();
     assert.deepEqual(speeds, [5, 25]);
     assert.match(steps[0], /Example 5 m\/s/); assert.match(steps[1], /Example 25 m\/s/);
     assert.match(steps[2], /not current measurements/);
@@ -729,7 +756,7 @@ test("new legends compare stated amount, humidity and pollutant reference endpoi
       const tasks = [], values = [], steps = [];
       globalThis.window = { setTimeout(fn, delay) { tasks.push({ fn, delay }); return tasks.length; }, clearTimeout() {} };
       const legend = createLegend({ audio: { stop() {}, [method](value) { values.push(value); return true; } }, speech: { cancel() {}, speak() {} }, enableAudio: async () => {}, getKind: () => kind, onBeforeStart() {}, onState() {}, onStep(text) { steps.push(text); }, onError() { assert.fail("Unexpected error"); } });
-      await legend.toggle(); tasks.find((t) => t.delay === 2500).fn(); tasks.find((t) => t.delay === 5000).fn();
+      await legend.toggle(); tasks.find((t) => t.delay === 2500).fn(); tasks.at(-1).fn();
       assert.deepEqual(values, expected); assert.match(steps.at(-1), /not current measurements/); assert.equal(legend.active, false);
       if (kind === "pm25") {
         assert.match(steps[0], /0\.4 µg\/m³/);

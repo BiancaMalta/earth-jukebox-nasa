@@ -56,7 +56,7 @@ test('PM2.5 visual legend uses index references instead of concentration claims'
   globalThis.window={setTimeout(fn,delay){tasks.push({fn,delay});return tasks.length;},clearTimeout(){}};
   try{
     const legend=createLegend({audio:{stop(){},playPm25(v){values.push(v);return true;}},speech:{cancel(){},speak(){}},enableAudio:async()=>{},getKind:()=> 'pm25Visual',onBeforeStart(){},onState(){},onStep(s){steps.push(s)},onError(){assert.fail('Unexpected error')}});
-    await legend.toggle();tasks.find(t=>t.delay===2500).fn();tasks.find(t=>t.delay===5000).fn();
+    await legend.toggle();tasks.find(t=>t.delay===2500).fn();tasks.at(-1).fn();
     assert.deepEqual(values,[0,1]);assert.match(steps[0],/index 0/);assert.doesNotMatch(steps.join(' '),/µg/);
   }finally{globalThis.window=saved;}
 });

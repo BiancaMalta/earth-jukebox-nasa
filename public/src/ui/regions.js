@@ -8,11 +8,9 @@ const SVG_NS = "http://www.w3.org/2000/svg";
 const WIDTH = 1024, HEIGHT = 512;
 
 export function regionDisplayName(key) {
-  if (key === "continent:Seven seas (open ocean)") return "Oceanic island territories (land only)";
+  if (key === "continent:Seven seas (open ocean)") return "Oceanic island territories";
   const name = key.slice(key.indexOf(":") + 1);
-  if (key === "continent:Europe") return "Europe country group (includes all Russia)";
-  if (key === "continent:Asia") return "Asia country group (excludes Russia)";
-  return key.startsWith("continent:") ? `${name} country group` : name;
+  return name;
 }
 
 
@@ -59,6 +57,16 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
   let geojson, activeTrack, activeData, activeFrames, frameDirectory, regionalData;
   let selectedFeatures = [], series = [], seriesState = "idle", currentIndex = 0, requestId = 0, controller;
   let outline, maskCutout, geoPromise;
+  let scope = "world";
+
+  function syncAreaControls() {
+    if (continentSelect.options[0]) continentSelect.options[0].textContent = scope === "country" ? "All regions" : "Choose a region";
+    document.querySelectorAll('input[name="region-scope"]').forEach(input => { input.checked = input.value === scope; });
+    document.getElementById("region-group-field").hidden = scope === "world";
+    document.getElementById("region-country-field").hidden = scope !== "country";
+    document.getElementById("region-reset").hidden = scope === "world";
+    document.getElementById("region-selection-name").textContent = selectedFeatures.length ? selectedDisplayName() : scope === "world" ? "Whole map" : scope === "country" ? "Choose a country" : "Choose a region";
+  }
 
   function selectedName() {
     return level.value === "continent" ? continentSelect.value : countrySelect.selectedOptions[0]?.textContent;
@@ -79,6 +87,7 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
 
   function setGeometry(features) {
     selectedFeatures = features;
+    syncAreaControls();
     series = [];
     seriesState = features.length ? "loading" : "idle";
     const path = outlinePath(features);
@@ -145,11 +154,13 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
     }
     if (id !== requestId) return;
     root.hidden = !geojson || data.mock || data.vmin === null || data.vmax === null;
-    root.closest("details")?.toggleAttribute("hidden", root.hidden);
-    status.textContent = root.hidden ? "Regional exploration is unavailable for this visualization." : "Choose a country group to focus and hear its regional values.";
+    document.getElementById("region-options").hidden = root.hidden;
+    status.textContent = root.hidden ? "Regional exploration is unavailable for this visualization." : "Choose a region to focus and hear its regional values.";
+    scope = "world";
+    level.value = "continent";
     setGeometry([]);
     if (!root.hidden) {
-      continentSelect.replaceChildren(new Option("Choose a country group", ""));
+      continentSelect.replaceChildren(new Option("Choose a region", ""));
       const names = [...new Set(geojson.features.map((feature) => feature.properties.CONTINENT).filter(Boolean))].sort();
       for (const name of names) continentSelect.add(new Option(regionDisplayName(`continent:${name}`), name));
       countrySelect.replaceChildren(new Option("Choose a country", ""));
@@ -162,17 +173,18 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
   function changeContinent() {
     ++requestId; controller?.abort(); series = [];
     countrySelect.replaceChildren(new Option("Choose a country", ""));
-    const candidates = continentSelect.value ? continentFeatures(continentSelect.value) : [];
+    const candidates = continentSelect.value ? continentFeatures(continentSelect.value) : level.value === "country" ? geojson.features : [];
     for (const feature of candidates) {
       const name = feature.properties.NAME_EN || feature.properties.ADMIN || feature.properties.NAME;
       countrySelect.add(new Option(name, String(geojson.features.indexOf(feature))));
     }
     [...countrySelect.options].slice(1).sort((a, b) => a.text.localeCompare(b.text)).forEach((option) => countrySelect.append(option));
-    countrySelect.disabled = !continentSelect.value;
+    countrySelect.disabled = !candidates.length;
     if (level.value === "continent" && continentSelect.value) {
       setGeometry(candidates);
     } else setGeometry([]);
-    currentText.textContent = continentSelect.value ? "Choose a country to focus its map area." : "No region selected. Playback uses the full-frame value.";
+    status.textContent = selectedFeatures.length ? "Preparing regional values…" : "Choose a place. Until then, playback uses the whole map.";
+    currentText.textContent = selectedFeatures.length ? "Loading the selected region…" : "Playback uses the full-frame value.";
     onSelection();
     if (selectedFeatures.length) void loadRegionalValues();
   }
@@ -180,6 +192,7 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
   function changeLevel() {
     ++requestId; controller?.abort(); series = [];
     const isCountry = level.value === "country";
+    scope = level.value;
     countrySelect.hidden = countryLabel.hidden = !isCountry;
     // Reset the country selector and choose the appropriate continent geometry.
     changeContinent();
@@ -192,6 +205,21 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
     currentText.textContent = "Choose a country to focus its map area.";
     onSelection();
     if (feature) void loadRegionalValues();
+  }
+
+  function chooseScope(value) {
+    scope = value;
+    if (value !== "world") {
+      level.value = value;
+      changeLevel();
+    } else {
+      ++requestId; controller?.abort();
+      continentSelect.value = ""; countrySelect.value = "";
+      setGeometry([]);
+      currentText.textContent = "Playback uses the full-frame value.";
+      status.textContent = "Listening to the whole map. Choose another place whenever you like.";
+      onSelection();
+    }
   }
 
   try {
@@ -213,6 +241,16 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
     level.addEventListener("change", changeLevel);
     continentSelect.addEventListener("change", changeContinent);
     countrySelect.addEventListener("change", changeCountry);
+    document.querySelectorAll('input[name="region-scope"]').forEach(input => input.addEventListener("change", () => { if (input.checked) chooseScope(input.value); }));
+    document.getElementById("region-reset").addEventListener("click", () => {
+      chooseScope("world");
+      document.querySelector('input[name="region-scope"][value="world"]').focus();
+    });
+    document.querySelectorAll("[data-region-preset]").forEach(button => button.addEventListener("click", () => {
+      chooseScope("continent");
+      continentSelect.value = button.dataset.regionPreset;
+      changeContinent();
+    }));
     geoPromise = fetch(GEOJSON_URL).then((response) => {
       if (!response.ok) throw new Error(`World boundaries failed to load (HTTP ${response.status}).`);
       return response.json();

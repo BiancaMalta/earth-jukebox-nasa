@@ -52,6 +52,11 @@ Visualizations courtesy of **NASA's Scientific Visualization Studio**.
 
 ## Use of AI
 
+The retro jukebox visual direction was proposed by the user. OpenAI Codex
+implemented the CSS cabinet, record collection and native radio interaction,
+and checked desktop/mobile layout and keyboard selection. No external artwork
+or fonts were added; see docs/JUKEBOX_DESIGN.md.
+
 | Where | Tool | What it did |
 |---|---|---|
 | Planning document | Claude | Research of references and organization of the plan (the solution idea and mappings were decided by the team) |

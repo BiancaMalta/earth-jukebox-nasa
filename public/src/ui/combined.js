@@ -56,8 +56,8 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
     variableControls.push({ control, select });
     return { control, select };
   }
-  const guideChooser = makeVariableControl("combined-variable", "Variable to explain");
-  const methodsChooser = makeVariableControl("combined-methods-variable", "Variable for these methods");
+  const guideChooser = makeVariableControl("combined-variable", "Record to explain");
+  const methodsChooser = makeVariableControl("combined-methods-variable", "Record details");
   const variableSelect = guideChooser.select;
   const guideHeading = document.getElementById("guide-heading");
 
@@ -73,15 +73,17 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
   if (methodsSummary) methodsSummary.after(methodsChooser.control);
   let datasets = null, pending, generation = 0, destroyed = false, controller, legendActive = false;
   function syncMode(combined) {
+    const description = document.getElementById("mode-description");
+    if (description) description.textContent = combined ? "Compare maps and hear their sounds together." : "Explore one map and its sound.";
     const individualTab = document.getElementById("individual-preview-tab");
     const combinedTab = document.getElementById("combined-preview-tab");
     const mapPanel = document.getElementById("frame-map-panel");
 
     if (individualTab && combinedTab && mapPanel) {
       individualTab.setAttribute("aria-selected", String(!combined));
-      individualTab.tabIndex = combined ? -1 : 0;
+      individualTab.tabIndex = 0;
       combinedTab.setAttribute("aria-selected", String(combined));
-      combinedTab.tabIndex = combined ? 0 : -1;
+      combinedTab.tabIndex = 0;
       mapPanel.setAttribute(
         "aria-labelledby",
         combined ? combinedTab.id : individualTab.id
@@ -92,7 +94,7 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
 
     if (title) {
       title.textContent = combined
-        ? "Combination preview"
+        ? "Combine variables"
         : title.dataset.singleTitle ?? title.textContent;
     }
 
@@ -100,8 +102,8 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
 
     if (modeLabel) {
       modeLabel.textContent = combined
-        ? "Active mode: Combination preview"
-        : "Active mode: Single visualization";
+        ? "Active mode: Combine variables"
+        : "Active mode: One variable";
     }
 
     variableControls.forEach(({ control }) => {
@@ -113,7 +115,7 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
     document.getElementById("frame-readings")?.toggleAttribute("hidden", combined);
   }
   controls.innerHTML = LAYERS.map(([, key, name, instrument]) => `<div class="combined-layer">
-    <label class="checkbox-label"><input id="layer-${key}" type="checkbox" ${instrument || key !== "carbon-monoxide" && key !== "ozone" ? "checked" : ""}> ${name}</label>
+    <label class="checkbox-label"><input id="layer-${key}" type="checkbox" aria-describedby="reading-${key}" ${instrument || key !== "carbon-monoxide" && key !== "ozone" ? "checked" : ""}> ${name}</label>
     ${instrument ? "" : `<span class="control-help">Visual layer only; a dedicated sound mapping is not available yet.</span>`}
     <span id="reading-${key}" class="control-help">Unavailable</span></div>`).join("");
   function layerKey(track) { return LAYERS.find(([id]) => id === track?.id)?.[1] ?? null; }
@@ -198,7 +200,7 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
       if (soundSettings) soundSettings.hidden = false;
       restoreSingle();
       audio.stop(); audio.setCombinedMode(false); applyControls();
-      status.textContent = `Combined sound unavailable: ${error.message} Individual playback remains available. Toggle to retry.`;
+      status.textContent = `Combined sound unavailable: ${error.message} Individual playback remains available. Activate Combine variables to retry.`;
       onChange();
     }
   });
