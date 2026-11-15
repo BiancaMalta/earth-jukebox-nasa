@@ -116,6 +116,5 @@ Wind and PM2.5 use `schemaVersion: 3` in the regional table and declare `sonific
 - [GEOS-FP OPeNDAP — surface fluxes](https://opendap.nccs.nasa.gov/dods/GEOS-5/fp/0.25_deg/assim/tavg1_2d_flx_Nx.info)
 - [Xarray — area weighting by latitude](https://docs.xarray.dev/en/stable/examples/area_weighted_temperature.html)
 - [UN M49 — statistical groupings](https://unstats.un.org/unsd/methodology/m49/)
-- Berkeley Earth was consulted only as historical and spatial context; its climatologies were not used to determine whether a 2026 image is correct.
 
 Research and implementation assisted by OpenAI Codex. Reference data: NASA GMAO; visualizations: NASA Scientific Visualization Studio.

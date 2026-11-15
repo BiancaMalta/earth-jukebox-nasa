@@ -74,7 +74,6 @@ The image JSON reports mm without specifying an accumulation interval. The PRECT
 - GMAO File Specification for GEOS FP: https://gmao.gsfc.nasa.gov/pubs/docs/Lucchesi1203.pdf
 - Area weighting on a latitude/longitude grid (official Xarray documentation): https://docs.xarray.dev/en/stable/examples/area_weighted_temperature.html
 - UN M49: statistical country groupings are not automatically physical continent boundaries: https://unstats.un.org/unsd/methodology/m49/
-- Berkeley Earth Europe archive (spatial-definition/historical-climatology context only; not validation of October/November 2026): https://berkeley-earth-temperature.s3.us-west-1.amazonaws.com/Regional/TAVG/europe-TAVG-Trend.txt
 
 ## Reproduction
 

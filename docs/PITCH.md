@@ -20,7 +20,10 @@ Use the complete [Earth Jukebox project article](PROJECT_ARTICLE.md). It explain
 - [x] Public project and source links: [live site](https://nasaearthjukebox.netlify.app/) · [repository](https://github.com/BiancaMalta/earth-jukebox-nasa)
 - [x] AI disclosure and data references: [CREDITS.md](../CREDITS.md)
 - [x] EIC source relationship documented against [NASA SVS Daily Visualizations](https://svs.gsfc.nasa.gov/gallery/daily-visualizations/)
-- [ ] Demo video or slide deck link (submission requires a public link; add it here)
-- [ ] Open every submission link in a private browser window and confirm it works
+- [x] Demo video completed and included with the external submission
+- [x] Challenge form submitted
+- [x] Project submitted for judging
+- [x] Submission links checked in a private browser window and over an alternate network
+- [x] Final submission checklist completed and signed
 
-The live site and repository links are filled from the project links currently known in the repo and team context. Add the team's NASA submission page URL and demo link when available.
+The team confirms that the external submission steps above are complete. Submission records and the signed checklist are maintained outside this repository.

@@ -8,14 +8,14 @@ The tables below preserve attack plan v4; they were not maintained as an executi
 |---|---|
 | Implemented | Seven tracks, SVS 5147–5153, in the player index; playback and synchronized mixing; regional selection; keyboard controls; accessibility features; and browser-based sound synthesis. See the [data inventory](DATA_INVENTORY.md), [mappings](MAPPINGS.md), and [test record](TESTS.md). |
 | Implemented | Pixel-processing pipeline and image-derived summaries, scientific comparisons of variables, and the qualitative PM2.5 follow-up. Methods, evidence, and limitations are in [PROJECT_ARTICLE.md](PROJECT_ARTICLE.md) and the scientific studies linked there. |
-| Implemented, with a traceability task remaining | Project documentation, pitch, data sources, libraries, and AI use are described. The repository still needs a review to ensure every AI-generated code file has the comments required by `CONTRIBUTING.md`; the README now links to the credits without claiming every file is marked. |
+| Implemented | Project documentation, pitch, data sources, libraries, and AI use are documented. AI-assisted code files are marked in accordance with `CONTRIBUTING.md`; no code-marking review remains open. |
 | Planned but not integrated | Lightning (5011), fires (5113), ice (5046), and night lights (5313): only extracted frames remain, with no playable track. `quando-voce-nasceu` and `terra-respirando` are empty folders. |
 | Not completed according to the available record | Tests with blind or low-vision participants and eyes-closed comprehension tests. No results are recorded; do not claim user validation. |
-| Not completed in the repository | Demo video, confirmation that the challenge form was submitted, confirmation of submission for judging, anonymous-window and alternate-network link checks, and signed final checklist. The repository cannot verify these external steps. |
+| Completed outside the repository (confirmed by the team) | Demo video, challenge form submission, submission for judging, private-window and alternate-network link checks, and signed final checklist. Supporting submission records are maintained outside this repository. |
 | Replaced by a different solution | The plan specified GitHub Pages; the README links to the site deployed on Netlify. It also specified CC0 sound files/samples and three recorded audio guides; the current version synthesizes sounds with Tone.js and contains no audio files. |
 | Outside the final scope | “Earth Today” via GIBS, the “When you were born” track, the “Earth breathing” track, and the original four-voice/sound-family concepts are not listed as implemented features. |
 
-Therefore, do not read the original plan as “all tasks completed.” Use the status documents above for a current technical review. Keep submission tasks pending until the team confirms that they were completed outside GitHub.
+Therefore, do not read the original plan as “all tasks completed.” Use the status documents above for a current technical review. The team confirms that the external submission tasks listed in the audit have been completed; their supporting records are maintained outside GitHub.
 
 ## Role ownership
 

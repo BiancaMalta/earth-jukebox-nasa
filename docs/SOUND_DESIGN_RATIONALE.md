@@ -41,6 +41,12 @@ The mapping formulas and implementation details are maintained separately in
 6. **Keep playback under one timeline.** The player advances frames and updates
    the sounds. Individual instruments do not create their own frame clocks;
    this keeps audio changes aligned with the displayed date and selected map.
+7. **Offer a separate time landmark.** The optional metronome marks crossed
+   daily or Monday-based weekly boundaries with one high click. This supports
+   orientation in a long audio sequence without encoding another data value
+   or adding spoken announcements. It is off by default and follows playback
+   speed; its keyboard-accessible controls are documented in the
+   [accessibility and interface notes](JUKEBOX_DESIGN.md#optional-audio-time-cue).
 
 ## Why each mapping uses its sound parameters
 

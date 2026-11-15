@@ -16,6 +16,8 @@ Each active track has a track definition and processed data (frames, feature rea
 | Ozone | 5152 | `public/data/clima-ozonio/` |
 | Carbon monoxide | 5153 | `public/data/ar-co/` |
 
+Official NASA links for these tracks are listed in [`CREDITS.md`](../CREDITS.md).
+
 [`public/data/world-countries.geojson`](../public/data/world-countries.geojson) is also active: the app uses it to offer country and continent selections and compute regional summaries.
 
 ## Downloaded frames not integrated into the player

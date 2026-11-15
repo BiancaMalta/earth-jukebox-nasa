@@ -64,6 +64,26 @@ the visual metaphor to explain a function. The tabs now use functional terms
 and short descriptions that are visible and associated with each tab for
 spoken navigation.
 
+## Optional audio time cue
+
+The player includes a **Metronome** control for listeners who want an audible
+landmark while following a long sequence. It is off by default. The listener
+can enable one high click at each new day or week, choose the interval, and
+preview the click with **Try click**. Weeks begin on Monday. During playback,
+the click follows the selected playback speed and marks the next crossed
+calendar boundary. Enabling the feature, loading a frame, or moving manually
+sets the current frame as a quiet starting point; skipped calendar boundaries
+produce one click rather than a burst. The click marks time only; it does not
+encode a data value.
+
+The toggle is a native labeled checkbox, the interval is a labeled native
+select, and the preview is a button with an accessible name. Their help text
+explains the cue, so they can be reached and used through standard keyboard
+navigation and exposed to assistive technology. This is an optional
+non-speech orientation aid alongside the data sonification; it does not
+replace screen-reader support or spoken descriptions. The control is part of
+the playback sidebar and follows the app's regular control order.
+
 ## Methods and speed
 
 **About the values and methods** is open by default below the sound guide in

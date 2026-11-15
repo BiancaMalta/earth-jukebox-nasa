@@ -27,7 +27,7 @@ The frame-only folders above hold project copies of NASA visualization frames, b
 
 | Source | Use | License | Link |
 |---|---|---|---|
-| Natural Earth, Admin 0 Countries (1:110m) | Bundled as `public/data/world-countries.geojson`; supplies country outlines and continent assignments for regional selection, summaries and spatial masks | Public domain | https://github.com/nvkelso/natural-earth-vector |
+| Natural Earth, Admin 0 Countries (1:110m) | Bundled as `public/data/world-countries.geojson`; `pipeline/regions.py` uses its geometries to precompute country/continent masks and regional summaries, and `public/src/ui/regions.js` loads it for region choices and map outlines | Public domain | https://github.com/nvkelso/natural-earth-vector |
 | NASA GMAO GEOS-CF v2 AQC | Archived near-surface PM2.5, CO and O3 numerical subsets for the scientific audit; reference data are not inserted into playback | NASA open data; credit NASA GMAO | https://opendap.nccs.nasa.gov/dods/gmao/geos-cf/v2/ana/aqc_tavg_1hr_glo_L1440x721_slv.info |
 
 ## Libraries
