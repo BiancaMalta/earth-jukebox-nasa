@@ -10,6 +10,11 @@ import { announce, initKeyboard } from "./ui/a11y.js";
 import { createLegend } from "./ui/legend.js";
 import { initRegionalExplorer } from "./ui/regions.js";
 import { initCombined } from "./ui/combined.js";
+import { initGuidedIntro } from "./ui/guidedIntro.js";
+import { initPageNarration } from "./ui/pageNarration.js";
+
+initPageNarration();
+initGuidedIntro();
 
 // Elements from the removed sound panel may not exist; look them up through an inert fallback.
 const inert = () => ({ textContent: "", checked: false, value: "", disabled: false, hidden: false, setAttribute() {}, removeAttribute() {}, addEventListener() {}, setCustomValidity() {} });

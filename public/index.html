@@ -13,14 +13,37 @@
   </script>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to player</a>
+  <section id="spoken-navigation" class="spoken-navigation" aria-labelledby="spoken-navigation-question">
+    <p id="spoken-navigation-question">Would you like the page to speak controls and their instructions as you navigate with the keyboard? If your screen reader already reads this page aloud, choose No to avoid overlapping voices. This optional voice reads focused controls; press Escape at any time to stop it and turn it off.</p>
+    <button id="spoken-navigation-toggle" type="button" aria-pressed="false" aria-describedby="spoken-navigation-question">Yes, turn on spoken navigation</button>
+    <button id="spoken-navigation-no" type="button" aria-describedby="spoken-navigation-question">No, continue without spoken navigation</button>
+    <p id="spoken-navigation-status" class="sr-only" role="status" aria-atomic="true"></p>
+  </section>
   <header class="site-header">
     <div><p class="eyebrow">NASA Space Apps Challenge · 2026</p><h1>Earth Jukebox</h1><p class="intro">A changing planet. A different way to listen.</p></div>
     <p class="header-note">See the pattern.<br>Hear the change.</p>
   </header>
   <main id="main" tabindex="-1">
+    <section id="guided-intro" class="panel guided-intro" aria-labelledby="guided-intro-heading">
+      <p class="eyebrow">One-minute guided introduction</p>
+      <h2 id="guided-intro-heading" tabindex="-1">Get to know Earth Jukebox</h2>
+      <p id="guided-intro-progress" class="control-help">Six short steps. Use the buttons to move at your own pace.</p>
+      <button id="intro-start" class="primary-button" type="button">Start introduction</button>
+      <div id="intro-content" aria-live="polite" aria-atomic="true" hidden>
+        <h3 id="intro-step-heading" tabindex="-1" aria-describedby="intro-step-text"></h3>
+        <p id="intro-step-text"></p>
+        <div id="intro-actions" class="intro-actions" role="group" aria-label="Shortcuts to page sections"></div>
+      </div>
+      <div class="player-controls intro-controls">
+        <button id="intro-prev" type="button" hidden disabled>Previous step</button>
+        <button id="intro-next" type="button" hidden>Next step</button>
+        <button id="intro-stop" type="button" hidden>End introduction</button>
+      </div>
+      <p id="intro-status" class="sr-only" role="status" aria-atomic="true"></p>
+    </section>
+    <a class="skip" href="#player">Skip the guided introduction and go to the player</a>
     <div class="experience-layout">
-      <section id="player" class="panel player-panel" aria-label="Earth data player"></section>
+      <section id="player" class="panel player-panel" aria-label="Earth data player" tabindex="-1"></section>
       <aside class="listening-sidebar" aria-label="Sound controls">
         <section id="exploration-options" class="panel exploration-options" aria-labelledby="exploration-options-heading">
           <h2 id="exploration-options-heading">More ways to explore</h2>
@@ -43,7 +66,7 @@
                 <p id="combined-status" class="status-text" role="status"></p>
                 <p class="status-text status-sizer" aria-hidden="true"></p>
               </div>
-              <div id="combined-layers" role="group" aria-label="Combined map and sound layers" hidden></div>
+              <div id="combined-layers" role="group" aria-label="Combined map and sound layers" tabindex="-1" hidden></div>
             </section>
             <section id="combined-sound-guide" class="combined-sound-guide" aria-labelledby="combined-guide-heading" hidden>
               <p class="eyebrow">Combined Earth</p>
@@ -55,7 +78,7 @@
               <p id="combined-legend-status" class="status-text" role="status" aria-atomic="true" hidden></p>
             </section>
             <section class="guide-panel" aria-labelledby="guide-heading">
-              <p class="eyebrow">Understand the sound</p><h2 id="guide-heading">From data to music</h2>
+              <p class="eyebrow">Understand the sound</p><h2 id="guide-heading" tabindex="-1">From data to music</h2>
               <p id="mapping-help">Lower normalized values become lower notes. Higher values become higher notes.</p>
               <div class="pitch-legend"><p><span class="pitch-dot" aria-hidden="true"></span><strong id="guide-low">Lower value</strong><span id="guide-low-detail">Lower pitch · C3</span></p><p><span class="pitch-dot pitch-dot--high" aria-hidden="true"></span><strong id="guide-high">Higher value</strong><span id="guide-high-detail">Higher pitch · C5</span></p></div>
               <p id="scale-description" class="control-help">The 11 notes follow a C major pentatonic scale across two octaves.</p>
@@ -68,7 +91,7 @@
       </aside>
     </div>
 
-    <details class="panel explanation-details">
+    <details id="explanation-details" class="panel explanation-details">
       <summary>About the values and methods</summary>
       <div class="explanation-panel" aria-labelledby="reading-heading">
         <div><p class="eyebrow">Read the frame</p><h2 id="reading-heading">What the numbers mean</h2><p>Without a regional selection, readings summarize decoded pixels across the image. Select a country group or country to focus the map and switch both readings and sound to that region. Pixel inclusion shows the share of analyzed image pixels used, not accuracy or geographic surface area.</p></div>
