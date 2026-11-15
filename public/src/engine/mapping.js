@@ -53,7 +53,7 @@ export function mapHumidity(specificHumidity) {
   return 160 + 1440 * (1 - Math.exp(-specificHumidity / 12));
 }
 // Keep one fixed monotonic perceptual curve across the whole globe and all regions.
-// The input remains the producer's log-scale norm; no regional rescaling occurs.
+// The input is the producer's visual index (or legacy norm); no regional rescaling occurs.
 export function mapPm25(position) {
   if (typeof position !== "number" || !Number.isFinite(position) || position < 0 || position > 1) return null;
   const brightness = position + 0.3 * Math.sin(Math.PI * position);
@@ -87,7 +87,7 @@ export function mapFrameSound(frame, track) {
     return note ? { kind, note } : null;
   }
   if (kind === "pm25") {
-    const texture = mapPm25(frame?.norm);
+    const texture = mapPm25(track?.sonification?.input === "visualSignal" ? frame?.visualSignal : frame?.norm);
     return texture ? { kind, ...texture } : null;
   }
   if (kind === "carbonMonoxide") {

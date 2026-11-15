@@ -10,7 +10,7 @@ import numpy as np
 from PIL import Image
 from skimage.draw import polygon as raster_polygon
 
-from features import WIND_SONIFICATION, visible_wind_signal, AREA_STATISTICS, area_weights, analysis_mask, decode_pixels, summarize_values
+from features import WIND_SONIFICATION, PM25_SONIFICATION, visible_wind_signal, visible_pm25_signal, AREA_STATISTICS, area_weights, analysis_mask, decode_pixels, summarize_values
 
 COLUMNS = ["mean", "p90", "norm", "coverage"]
 
@@ -79,9 +79,11 @@ def generate_regions(track_id: str, data_dir: Path, geojson_path: Path, update_f
     if not update_features and source.get("statistics") != AREA_STATISTICS:
         raise ValueError("Source mean method is not area-weighted; run with --update-features.")
     wind_signal = track_id == "clima-vento"
-    if wind_signal and not update_features and source.get("sonification") != WIND_SONIFICATION:
-        raise ValueError("Wind visual-signal metadata is stale; run with --update-features.")
-    columns = COLUMNS + (["visualSignal"] if wind_signal else [])
+    signal_function = visible_wind_signal if wind_signal else visible_pm25_signal if track_id == "ar-pm25" else None
+    sonification = WIND_SONIFICATION if wind_signal else PM25_SONIFICATION if signal_function else None
+    if signal_function and not update_features and source.get("sonification") != sonification:
+        raise ValueError("Visual-signal metadata is stale; run with --update-features.")
+    columns = COLUMNS + (["visualSignal"] if signal_function else [])
     frames = source["frames"]
     if not frames:
         raise ValueError("No source frames.")
@@ -105,8 +107,8 @@ def generate_regions(track_id: str, data_dir: Path, geojson_path: Path, update_f
         values = decode_pixels(pixels, colorbar, cache)
         # Detect stale source features, including weighting, scale and filtering.
         summary = summarize_values(values, vmin, vmax, weights, scale)
-        if wind_signal:
-            summary["visualSignal"] = visible_wind_signal(values, weights, vmin, vmax)
+        if signal_function:
+            summary["visualSignal"] = signal_function(values, weights, vmin, vmax)
         if update_features:
             updated_frames.append({**frame, **summary})
         else:
@@ -115,23 +117,23 @@ def generate_regions(track_id: str, data_dir: Path, geojson_path: Path, update_f
                     raise ValueError(f"Source {frame['file']} has stale {field}; regenerate features first.")
         for key, offsets in indices.items():
             stats = summarize_values(values[offsets], vmin, vmax, weights[offsets], scale)
-            if wind_signal:
-                stats["visualSignal"] = visible_wind_signal(values[offsets], weights[offsets], vmin, vmax)
+            if signal_function:
+                stats["visualSignal"] = signal_function(values[offsets], weights[offsets], vmin, vmax)
             regions[key]["values"].append([stats[column] for column in columns])
         if index % 10 == 9 or index == len(frames) - 1:
             print(f"{track_id}: {index + 1}/{len(frames)} frames, {len(regions)} regions", flush=True)
     if update_features:
-        source = {**source, "statistics": dict(AREA_STATISTICS), "frames": updated_frames, **({"sonification": dict(WIND_SONIFICATION)} if wind_signal else {})}
+        source = {**source, "statistics": dict(AREA_STATISTICS), "frames": updated_frames, **({"sonification": dict(sonification)} if sonification else {})}
         temporary = directory / "features.json.tmp"
         temporary.write_text(json.dumps(source, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
         temporary.replace(directory / "features.json")
         frames = updated_frames
     return {
-        "schemaVersion": 3 if wind_signal else 2, "track": track_id, "svsId": source["svsId"],
+        "schemaVersion": 3 if signal_function else 2, "track": track_id, "svsId": source["svsId"],
         "mock": False, "unit": source["unit"], "vmin": vmin, "vmax": vmax,
         "method": "image-derived; cosine-latitude area-weighted mean; pixel-center boundaries; shared pipeline filters",
         "statistics": dict(AREA_STATISTICS),
-        **({"sonification": dict(WIND_SONIFICATION)} if wind_signal else {}),
+        **({"sonification": dict(sonification)} if sonification else {}),
         "frames": frames, "columns": columns, "regions": regions,
     }
 

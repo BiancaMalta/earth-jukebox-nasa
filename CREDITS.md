@@ -23,12 +23,17 @@ Visualizations courtesy of **NASA's Scientific Visualization Studio**.
 | Source | Use | License | Link |
 |---|---|---|---|
 | Natural Earth, Admin 0 Countries (1:110m) | Country and continent boundaries for regional map summaries | Public domain | https://github.com/nvkelso/natural-earth-vector |
+| NASA GMAO GEOS-CF v2 AQC | Archived near-surface PM2.5, CO and O3 numerical subsets for the scientific audit; reference data are not inserted into playback | NASA open data; credit NASA GMAO | https://opendap.nccs.nasa.gov/dods/gmao/geos-cf/v2/ana/aqc_tavg_1hr_glo_L1440x721_slv.info |
 
 ## Libraries
 
 | Name | Version | License | Link |
 |---|---|---|---|
 | Tone.js | | MIT | https://github.com/Tonejs/Tone.js |
+| NumPy | Pipeline dependency | BSD-3-Clause | https://numpy.org/ |
+| Pillow | Pipeline dependency | MIT-CMU | https://python-pillow.github.io/ |
+| Requests / urllib3 | Pipeline dependency / transitive dependency | Apache-2.0 / MIT | https://requests.readthedocs.io/ / https://urllib3.readthedocs.io/ |
+| scikit-image / SciPy | Pipeline dependency / transitive dependency; geographic masks and scientific evaluation | BSD-3-Clause | https://scikit-image.org/ / https://scipy.org/ |
 
 ## Sounds
 
@@ -39,6 +44,9 @@ Visualizations courtesy of **NASA's Scientific Visualization Studio**.
 
 | Reference | Link |
 |---|---|
+| File Specification for GEOS-CF Products v2, draft; AQC fields, units and averaging intervals | https://portal.nccs.nasa.gov/datashare/gmao/geos-cf/v2/GEOS-CF_FileSpecv2.0_Draft2.pdf |
+| File Specification for GEOS-CF Products v1.3; distinct particulate-matter definitions | https://gmao.gsfc.nasa.gov/pubs/docs/Knowland1446.pdf |
+| GEOS-CF system description | https://gmao.gsfc.nasa.gov/gmao-products/geos-cf/system-description_geos-cf/ |
 
 ## Inspiration (no code copied)
 
@@ -50,3 +58,4 @@ Visualizations courtesy of **NASA's Scientific Visualization Studio**.
 | Repository scaffold | Claude | Initial folder structure, empty stubs, contribution guide and issue list |
 | Wind pixel pipeline and player integration | Copilot SDK in VS Code | Adapted pixel-feature extraction for SVS 5148 and generalized the player to support wind units and coverage. |
 | Carbon monoxide track and calibration | Copilot SDK in VS Code | Added the SVS 5153 colorbar calibration, image-derived features, and visual-only track integration. |
+| Pollutant scientific audit and qualitative PM2.5 follow-up | OpenAI Codex | Investigated prior validation, archived NASA reference subsets, compared regional ordering and temporal directions, implemented and tested the PM2.5 visual index and player integration, and documented results and remaining errors. The user set preservation of relative contrasts and trends as the priority. |

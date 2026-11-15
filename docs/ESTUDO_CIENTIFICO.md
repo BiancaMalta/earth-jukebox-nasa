@@ -6,6 +6,8 @@ O objetivo do projeto é tornar os padrões das visualizações NASA perceptíve
 
 Este documento reúne a pesquisa, as comparações e a mudança implementada no vento. O relatório inicial foi preservado como histórico; os dados atualmente publicados na aplicação já incorporam médias ponderadas por latitude e um índice visual para a sonificação do vento.
 
+A [auditoria inicial de PM2.5, CO e ozônio, de 15/11/2026](estudo-cientifico/validacao-poluentes.md) encontrou as três tabelas químicas ainda sem ponderação e acrescentou comparações com GEOS-CF em cinco instantes. CO e O3 preservaram bem a ordenação nas amostras; PM2.5 apresentou discrepâncias e inversões importantes. Depois, a [avaliação qualitativa de PM2.5](estudo-cientifico/pm25-qualitativo.md) ampliou a comparação para 29 instantes e adotou um índice de intensidade logarítmica × extensão, preservando melhor mais/menos e aumentou/diminuiu. PM2.5 também recebeu ponderação por latitude; CO e O3 permanecem no método anterior. Consulte os relatórios para métricas, snapshots, reprodução e limites; esses resultados não validam a série completa nem equivalem a observações independentes.
+
 ## Comparação com campos numéricos NASA
 
 Foi arquivado um recorte pequeno do GEOS-FP, não o dataset completo: um instante na grade subamostrada de aproximadamente 1,25°, com temperatura a 2 m, umidade específica a 2 m, componentes do vento a 10 m e fluxo de precipitação. Os nomes, unidades, índices consultados e origem estão no [metadado da amostra](estudo-cientifico/dados/geos-amostra-metadata.json).
@@ -101,7 +103,7 @@ Para regenerar a experiência de vento a partir das mesmas imagens (altera arqui
 python pipeline/regions.py --update-features --track clima-vento
 ```
 
-Os novos arquivos de vento usam schemaVersion 3 na tabela regional e declaram sonification.input=visualSignal. As demais tabelas permanecem na versão 2. O player valida o formato, as datas e os valores fonte, e não deriva o índice em JavaScript.
+Os arquivos de vento e PM2.5 usam schemaVersion 3 na tabela regional e declaram sonification.input=visualSignal; cada variável tem sua própria fórmula de índice. As demais tabelas meteorológicas permanecem na versão 2; CO e O3 permanecem na versão 1. O player valida o formato, as datas e os valores fonte, e não deriva os índices em JavaScript.
 
 ## Fontes e atribuição
 

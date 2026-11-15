@@ -31,20 +31,21 @@ AI-assisted: OpenAI Codex. Front-end engineering notes; the data contract remain
   rain events, relative-humidity percentages or data-driven pitch changes.
   Missing, negative, nonfinite values or zero coverage mean silence. Zero
   specific humidity is a valid thin-pad reference, not a missing value.
-- PM2.5 (SVS 5151, µg/m³): use the supplied `norm` on the logarithmic
-  0.4–409.6 µg/m³ legend. A fixed monotonic curve, `brightness = norm + 0.3 *
-  sin(π * norm)`, is shared across the full image and all regions. It controls
-  the low-pass cutoff `1400 + 4800 * brightness` Hz and a continuous C4–C6 tone
-  `261.625565 * 4 ** brightness` Hz. One metallic FM voice starts once during
-  playback and glides between frames; it does not strike on every frame. Gain
-  and loudness are fixed. This is a metallic shimmer metaphor, not measured
-  particle motion or a health risk. In the current 124-frame extraction the global mean is 1.494–2.017
-  µg/m³ (`norm` 0.190–0.233); continent-period means range from Antarctica at
-  0.47 / 0.022 to Asia at 8.17 / 0.431. The regional table uses equal pixel
-  weights. Its open-ocean row is not treated as a reliable signal: it has only
-  83 valid frames out of 124, with mean coverage 0.214 on those valid frames,
-  despite an extreme mean near 375 µg/m³. Missing values or zero pixel coverage
-  mean silence.
+- PM2.5 (SVS 5151): use supplied dimensionless `visualSignal`, the area-weighted
+  log-color intensity times detected extent. Python averages per-pixel positions
+  `clip(log(decoded / 0.4) / log(409.6 / 0.4), 0, 1)` with the entire analyzed
+  area in the denominator. This limits extreme pixel influence and retains
+  detected extent; unknown pixels are not measured zero concentration.
+  The fixed curve `brightness = visualSignal + 0.3 * sin(π * visualSignal)`
+  controls cutoff `1400 + 4800 * brightness` Hz and continuous C4–C6 pitch
+  `261.625565 * 4 ** brightness` Hz. Both strictly increase with the index.
+  One metallic FM voice glides between frames at fixed loudness. Mean/p90/norm
+  remain separate diagnostics; the concentration mean now uses cosine-latitude
+  weights. Missing index or zero pixel coverage means silence, without fallback
+  to concentration. The legacy norm path exists only for undeclared old sources.
+  The [qualitative study](../../../docs/estudo-cientifico/pm25-qualitativo.md)
+  checks regional ordering, three-hour directions and nominal pitch separation.
+  It does not establish exact concentrations or individual auditory perception.
 - Carbon monoxide (SVS 5153, ppbv): use the supplied linear-legend `norm` to
   select one of 11 C major pentatonic notes from C3 to C5. A filtered,
   brass-like single voice follows the frame; rising concentration means higher
@@ -170,42 +171,12 @@ and page suspension release every layer. This explicit seven-layer experiment
 extends the earlier planned three-layer first combination.
 
 
-## Why scalar mappings retain physical means
+## Fixed scales and separate diagnostics
 
-For a fixed shared scale, norm = (mean - vmin) / (vmax - vmin) simply changes
-coordinates. Substituting normalized input and transforming the mapping's
-constants accordingly produces the same sound, apart from supplied rounding.
-It does not amplify country/continent differences by itself. Wind, precipitation
-and humidity therefore continue to use supplied mean values; temperature and
-PM2.5 use their supplied normalized positions. Their fields remain visible and
-unmodified. Greater perceptual contrast requires an explicit
-change to the transfer curve, not silent per-region rescaling. No such curve
-change accompanies this percussion timbre update.
-
-
-Humidity channel calibration is now 2 (+6 dB), with string base gain .55 instead
-of .38, to keep it audible alongside the other layers. Its spectral mapping,
-fixed pitch and gain compensation remain unchanged. Percussion now emphasizes
-a G3 skin and filtered white-noise crack with short, dry windows, rather than
-the earlier low tom. These are synthesized approximations, not drum samples.
-
-
-## Area-weighted data update
-
-Mean values now use cosine-latitude weights over accepted image pixels; norm is
-recomputed by Python from that mean with unchanged legend limits. The same
-instrument mapping therefore follows the revised statistic without an extra
-front-end normalization. P90 remains a pixel percentile, and pixel inclusion
-remains a count ratio. General/regional method metadata must agree; Combined
-Earth refuses to mix legacy equal-pixel and new area-weighted datasets. Whole-
-country groups, including the entire Russia in Europe, are labeled explicitly.
-This does not fix wind transparency bias or precipitation interval ambiguity.
-
-
-The exploratory rank/direction study and graphs are archived in
-[ESTUDO_CIENTIFICO.md](../../../docs/ESTUDO_CIENTIFICO.md). Three sampled instants
-improved country-order Spearman correlation from 0.30–0.40 to 0.79–0.90; direction
-agreed in 105/117 pairs with reference changes above 0.5 m/s, versus 77/117 for
-the old conditional mean. Those samples informed adoption and are not an
-independent test set or a universal quality guarantee. The app labels the index
-accordingly. No numeric GEOS fields are injected into the playback datasets.
+For a fixed shared scale, normalizing a mean only changes coordinates; it does
+not repair an ordering inversion in the underlying mean. Wind and PM2.5 therefore
+use explicitly supplied visual indices, while precipitation/humidity use means
+and temperature/CO/ozone use supplied normalized means. PM2.5 aggregates logarithmic
+pixel positions before the regional average, instead of taking the logarithm
+of the concentration mean. No region or period receives its own min/max stretch.
+Mean, p90, norm and pixel inclusion retain their diagnostic definitions separately.

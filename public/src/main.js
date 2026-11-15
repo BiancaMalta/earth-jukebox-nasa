@@ -108,7 +108,7 @@ function releaseSound() {
 
 const legend = createLegend({
   audio, speech, enableAudio,
-  getKind: () => player?.currentTrack?.sonification?.input === "visualSignal" ? "windVisual" : soundKind(player?.currentTrack),
+  getKind: () => player?.currentTrack?.sonification?.input === "visualSignal" ? (soundKind(player?.currentTrack) === "pm25" ? "pm25Visual" : "windVisual") : soundKind(player?.currentTrack),
   onBeforeStart: () => { player?.pause("Playback paused for the sound legend."); releaseSound(); },
   onState: (active) => {
     combined.setLegendMode(active);

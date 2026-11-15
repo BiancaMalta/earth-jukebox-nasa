@@ -64,8 +64,8 @@ python pipeline/features.py --frames-dir public/data/ar-pm25/frames --colorbar p
 SVS 5151 estimates near-surface PM2.5 with NASA GMAO GEOS-CF. Its legend is
 logarithmic from 0.4 to 409.6 µg/m³. Values are decoded estimates from rendered
 pixels, not raw model-grid values; coverage is the matched share of image
-pixels, not geographic area. This visual-only track has no sound mapping and
-does not provide a health assessment.
+pixels, not geographic area. Its sound uses the supplied dimensionless visual index described below;
+concentration diagnostics do not provide a health assessment.
 
 For near-surface ozone (SVS 5152), extract the source frames, retain the aligned
 3-hour samples above, then calibrate NASA's 5–60 ppbv colorbar and calculate
@@ -172,3 +172,50 @@ python pipeline/evaluate_wind_signal.py --output /tmp/wind-evaluation.json
 
 NumPy and scikit-image are already pipeline dependencies. Regenerating figures
 additionally needs Matplotlib, used only by the study plotting script.
+
+## Pollutant evaluation
+
+The [pollutant audit](../docs/estudo-cientifico/validacao-poluentes.md) compares
+PM2.5, CO and ozone with five archived GEOS-CF v2 analysis samples. Reproduce
+offline without writing production JSONs:
+
+```bash
+python pipeline/evaluate_pollutants.py --baseline-dir docs/estudo-cientifico/dados/poluentes/baseline --output-dir /tmp/pollutant-evaluation
+```
+
+To collect fresh reference subsets separately:
+
+```bash
+python pipeline/fetch_pollutant_reference.py --output-dir /tmp/pollutant-reference
+python pipeline/evaluate_pollutants.py --reference-dir /tmp/pollutant-reference --output-dir /tmp/pollutant-evaluation-new
+```
+
+The evaluator audits the selected published or archived mean method and
+calculates area-weighted alternatives. The initial PM2.5 tables are archived
+under the baseline directory because that track now uses a visual index. It rejects changed
+units, snapshot hashes, coordinates, timestamps and non-reproducible published
+means. These comparisons do not establish independent observational accuracy;
+the exact SVS source run and PM2.5 recipe remain unconfirmed.
+
+
+## Qualitative PM2.5 sonification
+
+PM2.5 now exports `visualSignal`: area-weighted per-pixel log-legend positions
+summed over accepted pixels and divided by all analyzed area weights. Its source
+and regional metadata declare the dimensionless input; the regional schema is 3.
+The physical mean uses cosine-latitude weights, while norm keeps its separate
+log-normalized concentration-mean definition. No accepted pixels yields null.
+
+The [follow-up study](../docs/estudo-cientifico/pm25-qualitativo.md) evaluates
+29 timestamps, strong more/less contrasts, 24 three-hour transitions, opposite
+regional trends and the fixed audio pitch curve. Reproduce offline:
+
+```bash
+python pipeline/evaluate_pm25_signal.py --output-dir /tmp/pm25-qualitative
+```
+
+Regenerate production PM2.5 without changing image dates:
+
+```bash
+python pipeline/regions.py --update-features --track ar-pm25
+```

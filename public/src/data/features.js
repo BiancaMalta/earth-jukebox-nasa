@@ -29,7 +29,7 @@ export function validateFeatures(data, trackId, expectedUnit) {
     };
   });
   const sonification = data.sonification ?? null;
-  if (sonification && (trackId !== "clima-vento" || sonification.input !== "visualSignal" || sonification.unit !== "1")) throw new Error("Unsupported sonification input in features.json.");
+  if (sonification && (!["clima-vento", "ar-pm25"].includes(trackId) || sonification.input !== "visualSignal" || sonification.unit !== "1")) throw new Error("Unsupported sonification input in features.json.");
   const statistics = data.statistics ?? null;
   if (statistics && (statistics.mean !== "area_weighted" || statistics.weighting !== "cos_latitude" || statistics.p90 !== "unweighted_pixel_percentile" || statistics.coverage !== "accepted_pixel_fraction")) {
     throw new Error("Unsupported statistics method in features.json.");

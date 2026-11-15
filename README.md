@@ -74,3 +74,7 @@ AI tools were used for research, planning and to generate the initial repository
 ## Scientific study and qualitative validation
 
 The [scientific study](docs/ESTUDO_CIENTIFICO.md) contains the comparisons, graphs, source snapshots, limitations and commands to reproduce the evaluation. Wind uses an explicitly labeled visual-signal index for qualitative sonification, not an inferred full-region wind-speed measurement.
+
+The [PM2.5, CO and ozone audit](docs/estudo-cientifico/validacao-poluentes.md) compares five image timestamps with archived GEOS-CF numerical fields. It documents strong ordering agreement for CO and ozone, substantial PM2.5 discrepancies, and the remaining source-definition and sampling limitations.
+
+The [PM2.5 qualitative follow-up](docs/estudo-cientifico/pm25-qualitativo.md) evaluates 29 timestamps and 24 consecutive three-hour transitions. PM2.5 now uses an explicit log-color intensity-and-extent index to improve regional ordering and temporal directions, with one shared sound scale.

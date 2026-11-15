@@ -1,0 +1,17 @@
+{
+  "frame": 64,
+  "image_label": "2026-11-07T02:00",
+  "utc_center": "2026-11-07T07:30:00+00:00",
+  "retrieved_utc": "2026-11-15T04:34:49.301641+00:00",
+  "source_url": "https://opendap.nccs.nasa.gov/dods/gmao/geos-cf/v2/ana/aqc_tavg_1hr_glo_L1440x721_slv.ascii?pm25_rh35[11038][0][0:5:720][0:5:1439]",
+  "time_index": 11038,
+  "units": {
+    "pm25_rh35": "µg/m³"
+  },
+  "level": "72 (bottom model layer)",
+  "returned_time_coordinate_days": 739928.3125,
+  "time_origin_label": "09:30z04aug2025",
+  "ascii_sha256": "cd54afbb293f06ddcc3e162031dcceb6d746396c4c0c020dac6c2597c2df8472",
+  "snapshot_sha256": "31e3680cfea0f2c82608b77266e7f28a01e883e1492fc2e13c469c29e8551479",
+  "caveat": "GEOS-CF v2 analysis, hourly mean 30 min after image label interpreted as Eastern. Exact SVS collection/run and PM recipe not established; not independent observations."
+}
