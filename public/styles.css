@@ -175,3 +175,13 @@ button, dt, h1 { overflow-wrap: anywhere; }
 .time-series-table th, .time-series-table td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
 .time-series-table th { color: var(--muted); }
 .time-series-table tr[aria-current="true"] { background: #203747; }
+
+.combined-frame-grid { display: grid; grid-template-columns: repeat(var(--combined-count, 1), minmax(0, 1fr)); gap: 10px; width: 100%; align-items: start; }
+.combined-frame-grid[hidden] { display: none; }
+.combined-frame-grid--single { display: block; }
+.combined-frame { min-width: 0; margin: 0; }
+.combined-frame img { display: block; width: 100%; height: auto; aspect-ratio: 2 / 1; object-fit: contain; border-radius: 8px; background: #0b141d; }
+.combined-frame figcaption { overflow-wrap: anywhere; }
+.combined-frame-missing { display: grid; place-items: center; min-height: 100px; padding: 12px; border-radius: 8px; background: #0b141d; color: var(--muted); text-align: center; font-size: .8rem; }
+.frame-map--combined-multiple #region-overlay { display: none; }
+@media (max-width: 600px) { .combined-frame-grid--multiple { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

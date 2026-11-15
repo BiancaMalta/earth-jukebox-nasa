@@ -13,7 +13,7 @@ const LAYERS = [
   ["clima-umidade", "humidity", "Humidity · strings"],
 ];
 
-export function initCombined({ audio, getFrame, getRegion, onChange }) {
+export function initCombined({ audio, getFrame, getRegion, onChange, onVisuals = () => {} }) {
   const toggle = document.getElementById("combine-sounds"), status = document.getElementById("combined-status");
   const controls = document.getElementById("combined-layers"), scope = document.getElementById("combined-scope");
   let datasets = null, pending, generation = 0, destroyed = false, controller, legendActive = false;
@@ -47,10 +47,12 @@ export function initCombined({ audio, getFrame, getRegion, onChange }) {
     return datasets && frame ? combinedFrames(datasets, frame.date, getRegion()) : [];
   }
   function render(frame = getFrame()) {
-    if (!toggle.checked) return;
+    if (!toggle.checked) { onVisuals(null); return; }
     const region = getRegion();
     scope.textContent = `${region ? regionDisplayName(region) : "Full-frame values"} · ${frame?.date ?? "No frame selected"}. The image and main reading show the selected visual experience.`;
-    for (const { track, frame: value } of entries(frame)) {
+    const aligned = entries(frame);
+    onVisuals(aligned.filter(({ track }) => document.getElementById(`layer-${soundKind(track)}`)?.checked));
+    for (const { track, frame: value } of aligned) {
       const reading = describeReading(value, track), kind = soundKind(track);
       document.getElementById(`reading-${kind}`).textContent = `${reading.mean} · ${reading.soundValue} · ${reading.coverageDetail}${!mapFrameSound(value, track) ? " · silent" : ""}`;
     }

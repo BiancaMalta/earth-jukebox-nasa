@@ -20,7 +20,7 @@ export function initPlayer(index, hooks = {}) {
     <div class="track-toolbar"><label for="track-select">Experience</label><select id="track-select"></select><span id="demo-data" class="badge" hidden>Demo data</span></div>
     <p id="demo-notice" class="demo-notice" hidden><strong>Demonstration values.</strong> Dataset values and dates are simulated, not scientific measurements.</p>
     <p id="data-caveat" class="data-caveat" hidden></p>
-    <figure class="player-visualization"><div class="frame-map"><img id="frame-image" alt="Global map of near-surface air temperature from NASA GEOS-FP." hidden width="1024" height="512"><svg id="region-overlay" viewBox="0 0 1024 512" aria-hidden="true" hidden></svg></div><figcaption id="frame-description">Select a visualization to begin.</figcaption></figure>
+    <figure class="player-visualization"><div class="frame-map"><img id="frame-image" alt="Global map of near-surface air temperature from NASA GEOS-FP." hidden width="1024" height="512"><svg id="region-overlay" viewBox="0 0 1024 512" aria-hidden="true" hidden></svg><div id="combined-frame-grid" class="combined-frame-grid" role="group" aria-label="Selected combined map frames" hidden></div></div><figcaption id="frame-description">Select a visualization to begin.</figcaption></figure>
     <section id="regional-explorer" class="regional-explorer" aria-labelledby="regional-heading" hidden>
       <div><p class="eyebrow">Explore a place</p><h3 id="regional-heading">Focus the map and listen to a region</h3><p class="control-help">Choose a country group or country. The area stays highlighted as the video plays, and Python-calculated regional values determine the reading and sound. Groups follow whole-country assignments, not physical continental boundaries.</p></div>
       <div class="region-controls">
@@ -62,7 +62,7 @@ export function initPlayer(index, hooks = {}) {
     <p id="frame-position-help" class="control-help">Use the arrow keys on this slider to select a frame. Selecting a frame pauses playback.</p>
     <p id="player-status" role="status" aria-atomic="true">Loading visualizations…</p>`;
   const find = (id) => root.querySelector(`#${id}`);
-  const select = find("track-select"), image = find("frame-image"), slider = find("frame-position");
+  const select = find("track-select"), image = find("frame-image"), slider = find("frame-position"), combinedGrid = find("combined-frame-grid");
   const playButton = find("play-pause"), previous = find("previous-frame"), next = find("next-frame");
   const status = find("player-status"), count = find("frame-count"), description = find("frame-description");
   let frames = [], frameIndex = -1, frameDirectory, activeTrack, playing = false, timer;
@@ -115,6 +115,56 @@ export function initPlayer(index, hooks = {}) {
     currentTableRow?.removeAttribute("aria-current");
     currentTableRow = Number.isInteger(index) ? timeSeriesBody.rows[index] ?? null : null;
     currentTableRow?.setAttribute("aria-current", "true");
+  }
+
+  function setCombinedFrames(entries) {
+    if (!Array.isArray(entries)) {
+      combinedGrid.replaceChildren();
+      combinedGrid.hidden = true;
+      combinedGrid.className = "combined-frame-grid";
+      root.querySelector(".frame-map").classList.remove("frame-map--combined-multiple");
+      image.hidden = !image.getAttribute("src");
+      return;
+    }
+    const selected = entries.filter((entry) => entry?.track);
+    if (!selected.length) {
+      combinedGrid.replaceChildren();
+      combinedGrid.hidden = true;
+      combinedGrid.className = "combined-frame-grid";
+      root.querySelector(".frame-map").classList.remove("frame-map--combined-multiple");
+      image.hidden = !image.getAttribute("src");
+      return;
+    }
+    const multiple = selected.length > 1;
+    combinedGrid.replaceChildren();
+    combinedGrid.className = "combined-frame-grid" + (multiple ? " combined-frame-grid--multiple" : " combined-frame-grid--single");
+    root.querySelector(".frame-map").classList.toggle("frame-map--combined-multiple", multiple);
+    combinedGrid.style.setProperty("--combined-count", String(selected.length));
+    for (const { track, frame } of selected) {
+      const title = track.title?.en ?? track.title?.pt ?? localizedText(track.quantity, track.id ?? "Dataset");
+      const tile = document.createElement("figure");
+      tile.className = "combined-frame";
+      if (frame?.file && track.frames) {
+        const directory = new URL(track.frames.endsWith("/") ? track.frames : `${track.frames}/`, document.baseURI);
+        const tileImage = document.createElement("img");
+        tileImage.src = new URL(encodeURIComponent(frame.file), directory).href;
+        const model = track.model ?? "NASA GEOS-FP";
+        tileImage.alt = `${localizedText(track.quantity, title)} visualization from ${model}; ${frame.date ?? "time unavailable"}.`;
+        tileImage.loading = "eager";
+        tile.append(tileImage);
+      } else {
+        const missing = document.createElement("p");
+        missing.className = "combined-frame-missing";
+        missing.textContent = `No frame available for ${frame?.date ?? "this time"}.`;
+        tile.append(missing);
+      }
+      const caption = document.createElement("figcaption");
+      caption.textContent = title;
+      tile.append(caption);
+      combinedGrid.append(tile);
+    }
+    combinedGrid.hidden = false;
+    image.hidden = true;
   }
 
   function updateControls() {
@@ -324,7 +374,7 @@ export function initPlayer(index, hooks = {}) {
   else { select.disabled = true; status.textContent = "No tracks are available."; }
 
   return {
-    toggle, step, pause,
+    toggle, step, pause, setCombinedFrames,
     setRegionalTable(value) {
       regionalTable = value;
       renderTimeSeries();

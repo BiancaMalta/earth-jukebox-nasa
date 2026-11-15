@@ -23,6 +23,7 @@ const combined = initCombined({
   audio,
   getFrame: () => player?.currentFrame,
   getRegion: () => regions?.selectionKey() ?? null,
+  onVisuals: (entries) => player?.setCombinedFrames(entries),
   onChange: () => {
     legend.cancel();
     updateNoteStatus();
