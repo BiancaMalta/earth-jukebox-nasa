@@ -178,15 +178,15 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
     if (combinedGuide) combinedGuide.hidden = true;
     if (!toggle.checked) {
       restoreSingle();
-      status.textContent = "Single experience mode active."; onChange(); return;
+      status.textContent = " "; onChange(); return;
     }
-    status.textContent = "Loading seven aligned datasets…"; render(); onChange();
+    status.textContent = " "; render(); onChange();
     try {
       await load();
       if (destroyed || id !== generation || !toggle.checked) return;
       showVariableGuide();
       soundGuide.hidden = false;
-      status.textContent = "Combined experience mode active.";
+      status.textContent = " ";
       render(); onChange();
     } catch (error) {
       if (destroyed || id !== generation) return;
