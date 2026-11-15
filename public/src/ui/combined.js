@@ -11,8 +11,8 @@ const LAYERS = [
   ["clima-chuva", "precipitation", "Precipitation · percussion", "precipitation"],
   ["clima-umidade", "humidity", "Humidity · strings", "humidity"],
   ["ar-pm25", "pm25", "PM2.5 · wave and air", "pm25"],
-  ["ar-co", "carbon-monoxide", "Carbon monoxide (CO) · map only", null],
-  ["clima-ozonio", "ozone", "Ozone (O₃) · map only", null],
+  ["ar-co", "carbon-monoxide", "Carbon monoxide (CO) · brass lead", "carbonMonoxide"],
+  ["clima-ozonio", "ozone", "Ozone (O₃) · plucked strings", "ozone"],
 ];
 
 export function initCombined({ audio, getFrame, getRegion, onChange, onVisuals = () => {} }) {

@@ -3,7 +3,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { validateFeatures, describeDate } from "../data/features.js";
-import { mapValue, PENTATONIC_NOTES, mapWindSpeed, mapFrameSound, soundKind, mapPrecipitation, mapHumidity, mapPm25 } from "../engine/mapping.js";
+import { mapValue, PENTATONIC_NOTES, CO_NOTES, OZONE_NOTES, mapWindSpeed, mapFrameSound, soundKind, mapPrecipitation, mapHumidity, mapPm25, mapCarbonMonoxide, mapOzone } from "../engine/mapping.js";
 import { createAudioEngine } from "../engine/audio.js";
 import { createSpeechEngine } from "../engine/speech.js";
 import { initKeyboard } from "../ui/a11y.js";
@@ -90,7 +90,7 @@ test("the precipitation track's generated features satisfy the front-end contrac
   assert.ok(result.frames.every((frame) => frame.norm !== null && frame.coverage !== null));
 });
 
-test("the ozone track loads ppbv data without assigning a sound mapping", async () => {
+test("ozone keeps the supplied ppbv norm and maps it to the upper pentatonic plucked voice", async () => {
   const [index, track, data] = await Promise.all([
     readFile(new URL("../../tracks/index.json", import.meta.url)).then(JSON.parse),
     readFile(new URL("../../tracks/clima-ozonio.json", import.meta.url)).then(JSON.parse),
@@ -107,13 +107,15 @@ test("the ozone track loads ppbv data without assigning a sound mapping", async 
   assert.equal(result.frames[0].date, "2026-10-30T06:00");
   assert.equal(result.frames.at(-1).date, "2026-11-14T14:00");
   assert.ok(result.frames.every((frame) => frame.coverage > 0 && frame.coverage < 1));
-  assert.equal(soundKind(track), null);
-  assert.equal(mapFrameSound(result.frames[0], track), null);
-  assert.equal(describeExperience(track).kind, null);
-  assert.equal(describeReading(result.frames[0], track).soundLabel, "Sound mapping");
+  assert.equal(soundKind(track), "ozone");
+  assert.deepEqual(mapFrameSound(result.frames[0], track), { kind: "ozone", note: mapOzone(result.frames[0].norm) });
+  assert.equal(mapFrameSound({ ...result.frames[0], norm: null }, track), null);
+  assert.equal(mapFrameSound({ ...result.frames[0], coverage: 0 }, track), null);
+  assert.equal(describeExperience(track).kind, "ozone");
+  assert.equal(describeReading(result.frames[0], track).soundValue, mapOzone(result.frames[0].norm));
 });
 
-test("the PM2.5 track uses its logarithmic concentration range for the wave-and-air texture", async () => {
+test("the PM2.5 track uses its logarithmic concentration range for metallic brightness", async () => {
   const [index, track, data] = await Promise.all([
     readFile(new URL("../../tracks/index.json", import.meta.url)).then(JSON.parse),
     readFile(new URL("../../tracks/ar-pm25.json", import.meta.url)).then(JSON.parse),
@@ -138,10 +140,10 @@ test("the PM2.5 track uses its logarithmic concentration range for the wave-and-
   assert.equal(mapFrameSound({ ...firstFrame, coverage: 0 }, track), null);
   assert.equal(soundKind({ ...track, unit: "ppbv" }), null);
   assert.equal(describeExperience(track).kind, "pm25");
-  assert.equal(describeReading(firstFrame, track).soundLabel, "Wave-texture position");
+  assert.equal(describeReading(firstFrame, track).soundLabel, "Tone / filter brightness");
 });
 
-test("the carbon monoxide track loads calibrated ppbv data without assigning sound", async () => {
+test("carbon monoxide keeps the supplied ppbv norm and maps it to the lower brass-like voice", async () => {
   const [index, track, data] = await Promise.all([
     readFile(new URL("../../tracks/index.json", import.meta.url)).then(JSON.parse),
     readFile(new URL("../../tracks/ar-co.json", import.meta.url)).then(JSON.parse),
@@ -158,8 +160,30 @@ test("the carbon monoxide track loads calibrated ppbv data without assigning sou
   assert.equal(result.frames[0].date, "2026-10-30T06:00");
   assert.equal(result.frames.at(-1).date, "2026-11-14T14:00");
   assert.ok(result.frames.every((frame) => frame.coverage > 0 && frame.coverage < 1));
-  assert.equal(soundKind(track), null);
-  assert.equal(mapFrameSound(result.frames[0], track), null);
+  assert.equal(soundKind(track), "carbonMonoxide");
+  assert.deepEqual(mapFrameSound(result.frames[0], track), { kind: "carbonMonoxide", note: mapCarbonMonoxide(result.frames[0].norm) });
+  assert.equal(mapFrameSound({ ...result.frames[0], norm: null }, track), null);
+  assert.equal(mapFrameSound({ ...result.frames[0], coverage: 0 }, track), null);
+  assert.equal(describeExperience(track).kind, "carbonMonoxide");
+  assert.equal(describeReading(result.frames[0], track).soundValue, mapCarbonMonoxide(result.frames[0].norm));
+});
+
+test("CO and ozone pitch mappings are bounded, deterministic and monotonic on fixed registers", () => {
+  assert.equal(mapCarbonMonoxide(0), CO_NOTES[0]);
+  assert.equal(mapCarbonMonoxide(1), CO_NOTES.at(-1));
+  assert.equal(mapOzone(0), OZONE_NOTES[0]);
+  assert.equal(mapOzone(1), OZONE_NOTES.at(-1));
+  for (const map of [mapCarbonMonoxide, mapOzone]) {
+    let previous = -1;
+    for (let i = 0; i <= 1000; i++) {
+      const note = map(i / 1000);
+      const index = (map === mapCarbonMonoxide ? CO_NOTES : OZONE_NOTES).indexOf(note);
+      assert.ok(index >= previous);
+      assert.equal(map(i / 1000), note);
+      previous = index;
+    }
+    for (const value of [null, undefined, "0.5", false, NaN, Infinity, -0.1, 1.1]) assert.equal(map(value), null);
+  }
 });
 
 test("CO, PM2.5 and ozone use the climate tracks' shared timestamps", async () => {
@@ -199,7 +223,7 @@ test("dates retain wall time and timezone; invalid or missing dates are not inve
 });
 
 function fakeTone() {
-  const calls = { starts: 0, synths: 0, cancels: 0, notes: [], disposals: 0, created: [], rates: [], windAttacks: 0, windReleases: 0, noiseStarts: 0 };
+  const calls = { starts: 0, synths: 0, cancels: 0, notes: [], disposals: 0, created: [], rates: [], windAttacks: 0, windReleases: 0, noiseStarts: 0, brassAttacks: 0, plucks: 0, pmAttacks: 0, pmReleases: 0, pmVelocities: [], pmNoteChanges: [], pm25Cutoffs: [] };
   const context = { state: "running" };
   let output;
   const signal = (value, updates) => ({ value, rampTo(v) { this.value = v; updates?.push(v); } });
@@ -215,13 +239,33 @@ function fakeTone() {
   class Reverb extends Node {
     constructor(options) { super(); assert.ok(options.decay > 0 && options.decay <= 2); this.wet = signal(options.wet); this.ready = Promise.resolve(); }
   }
-  class Filter extends Node { constructor(options) { super(); assert.ok(["lowpass", "bandpass"].includes(options.type)); this.Q = signal(options.Q); this.frequency = signal(options.frequency); } }
+  class Filter extends Node { constructor(options) { super(); assert.ok(["lowpass", "bandpass"].includes(options.type)); this.options = options; this.Q = signal(options.Q); this.frequency = signal(options.frequency, options.frequency === 3100 ? calls.pm25Cutoffs : undefined); } }
   class Synth extends Node {
     constructor(options) { super(); calls.synths++; assert.equal(options.oscillator.type, "custom"); assert.equal(options.envelope.sustain, 1); this.envelope = { cancel: () => { calls.cancels++; } }; }
     triggerAttack(note) { calls.notes.push(note); }
     setNote(note) { calls.notes.push(note); }
     triggerRelease() {}
     triggerAttackRelease(note) { calls.notes.push(note); }
+  }
+  class MonoSynth extends Node {
+    constructor(options) { super(); assert.ok(["sawtooth", "pulse"].includes(options.oscillator.type)); assert.equal(options.filter.type, "lowpass"); this.options = options; }
+    triggerAttack(note) { calls.brassAttacks++; calls.notes.push(note); }
+    setNote(note) { calls.notes.push(note); }
+    triggerRelease() {}
+    triggerAttackRelease(note) { calls.brassAttacks++; calls.notes.push(note); }
+  }
+  class PluckSynth extends Node {
+    constructor(options) { super(); assert.ok(options.resonance > 0 && options.resonance < 1); this.options = options; }
+    triggerAttack() { calls.plucks++; }
+    triggerRelease() {}
+    triggerAttackRelease(note) { calls.plucks++; calls.notes.push(note); }
+  }
+  class FMSynth extends Node {
+    constructor(options) { super(); assert.equal(options.oscillator.type, "sine"); assert.equal(options.modulation.type, "sine"); assert.ok(options.portamento > 0); this.options = options; this.volume = signal(0); }
+    triggerAttack(note, time, velocity) { calls.pmAttacks++; calls.pmVelocities.push(velocity); calls.notes.push(note); }
+    setNote(note) { calls.pmNoteChanges.push(note); }
+    triggerAttackRelease(note, duration, time, velocity) { calls.pmAttacks++; calls.pmVelocities.push(velocity); calls.notes.push(note); }
+    triggerRelease() { calls.pmReleases++; }
   }
   class Noise extends Node {
     constructor(options) { super(); assert.ok(["pink", "white"].includes(options.type)); }
@@ -251,7 +295,7 @@ function fakeTone() {
   }
   return {
     calls, context, get output() { return output; },
-    module: { Volume, Gain, Limiter, Filter, Reverb, Synth, Noise, Oscillator, FatOscillator, FMOscillator, LFO, Pow, AmplitudeEnvelope, start: async () => { calls.starts++; }, now: () => 1, getContext: () => context },
+    module: { Volume, Gain, Limiter, Filter, Reverb, Synth, MonoSynth, PluckSynth, FMSynth, Noise, Oscillator, FatOscillator, FMOscillator, LFO, Pow, AmplitudeEnvelope, start: async () => { calls.starts++; }, now: () => 1, getContext: () => context },
   };
 }
 
@@ -611,45 +655,54 @@ test("specific humidity maps to monotonic nominal bandwidth without generating r
   assert.equal(mapFrameSound({ mean: 7.9, norm: 0.01 }, { id: "clima-umidade", unit: "g/kg" }).bandwidth, mapHumidity(7.9));
 });
 
-test("PM2.5 maps its supplied log position to bounded, monotonic wave and air rates", () => {
-  assert.deepEqual(mapPm25(0), { waveRate: 0.07, airRate: 0.22, openness: 0 });
-  assert.deepEqual(mapPm25(1), { waveRate: 0.18, airRate: 0.42, openness: 1 });
-  let previousWave = 0, previousAir = 0;
+test("PM2.5 maps its supplied log position to bounded, monotonic metallic brightness", () => {
+  assert.deepEqual(mapPm25(0), { brightness: 0, frequency: 261.625565 });
+  assert.deepEqual(mapPm25(1), { brightness: 1, frequency: 1046.50226 });
+  let previous = 0;
+  let previousFrequency = 0;
   for (let i = 0; i <= 10000; i++) {
     const mapped = mapPm25(i / 10000);
-    assert.ok(mapped.waveRate >= previousWave && mapped.waveRate <= 0.18);
-    assert.ok(mapped.airRate >= previousAir && mapped.airRate <= 0.42);
-    assert.equal(mapped.openness, i / 10000);
-    previousWave = mapped.waveRate;
-    previousAir = mapped.airRate;
+    assert.ok(mapped.brightness >= previous && mapped.brightness <= 1);
+    assert.ok(mapped.frequency >= previousFrequency && mapped.frequency <= 1046.6);
+    previous = mapped.brightness;
+    previousFrequency = mapped.frequency;
   }
+  assert.ok(mapPm25(0.233).brightness - mapPm25(0.19).brightness > 0.07, "Fixed curve makes the narrow global range more audible without regional rescaling");
+  assert.ok(mapPm25(0.233).frequency - mapPm25(0.19).frequency > 40, "The same fixed curve makes global concentration changes audible as a gentle pitch glide");
   for (const value of [null, undefined, "0.5", false, NaN, Infinity, -Infinity, -0.01, 1.01]) {
     assert.equal(mapPm25(value), null);
   }
 });
 
-test("PM2.5 uses persistent wave-and-air noise that follows its supplied log position", async () => {
+test("PM2.5 sustains one metallic voice and glides pitch and brightness with supplied log position", async () => {
   const fake = fakeTone(), engine = createAudioEngine(async () => fake.module);
   const track = { id: "ar-pm25", svsId: 5151, unit: "µg/m³" };
   await engine.enable();
-  const count = fake.calls.created.length, sources = fake.calls.noiseStarts;
-  const pmNoises = fake.calls.created.filter(node => node instanceof fake.module.Noise).slice(-2);
-  const fixedLevels = pmNoises.map(noise => noise.connections[1].gain.value);
+  const count = fake.calls.created.length;
+  const synth = fake.calls.created.find(node => node instanceof fake.module.FMSynth);
+  const filter = fake.calls.created.find(node => node instanceof fake.module.Filter && node.options.frequency === 3100);
+  assert.ok(synth && filter);
+  assert.equal(synth.volume.value, -3);
+  assert.ok(fake.calls.created.some(node => node instanceof fake.module.Gain && node.gain.value === 2.5), "PM2.5 keeps its raised independent channel calibration");
+  const initialAttacks = fake.calls.pmAttacks;
   assert.equal(engine.playFrame({ norm: 0 }, track), true);
-  assert.deepEqual(fake.calls.rates.slice(-2), [0.07, 0.22]);
+  const darkCutoff = fake.calls.pm25Cutoffs.at(-1);
+  assert.equal(fake.calls.pmAttacks, initialAttacks + 1);
   assert.equal(engine.playFrame({ norm: 1 }, track), true);
-  assert.deepEqual(fake.calls.rates.slice(-2), [0.18, 0.42]);
-  assert.deepEqual(pmNoises.map(noise => noise.connections[1].gain.value), fixedLevels, "Concentration changes texture, not loudness");
-  assert.equal(fake.calls.created.length, count, "Frame updates reuse the same filtered noise sources");
-  assert.equal(fake.calls.noiseStarts, sources);
-  const releases = fake.calls.windReleases;
+  const brightCutoff = fake.calls.pm25Cutoffs.at(-1);
+  assert.ok(brightCutoff > darkCutoff);
+  assert.equal(fake.calls.pmAttacks, initialAttacks + 1, "Regular frame updates glide the voice instead of retriggering a hit");
+  assert.ok(fake.calls.pmNoteChanges.at(-1) > fake.calls.notes.at(-1), "Higher concentration raises the sustained note");
+  assert.deepEqual(fake.calls.pmVelocities, [0.32], "Concentration changes pitch and spectral color, not loudness");
+  assert.equal(fake.calls.created.length, count, "Frame updates reuse the same FM synth, filter and reverb");
+  const releases = fake.calls.pmReleases;
   assert.equal(engine.playFrame({ norm: null }, track), false);
-  assert.ok(fake.calls.windReleases > releases);
+  assert.ok(fake.calls.pmReleases > releases);
   engine.dispose();
   assert.equal(fake.calls.disposals, count);
 });
 
-test("the five instruments share resources, silence zero precipitation and dispose completely", async () => {
+test("the seven instruments share resources, silence zero precipitation and dispose completely", async () => {
   const fake = fakeTone(), engine = createAudioEngine(async () => fake.module);
   assert.equal(engine.playPrecipitation(1), false); assert.equal(engine.playHumidity(8), false);
   await engine.enable(); const allocated = fake.calls.created.length;
@@ -658,16 +711,19 @@ test("the five instruments share resources, silence zero precipitation and dispo
   assert.equal(engine.playPrecipitation(0), true);
   assert.ok(fake.calls.windReleases > rainReleases);
   assert.equal(engine.playHumidity(2), true); assert.equal(engine.playHumidity(18), true);
+  assert.equal(engine.playCarbonMonoxide(0.2), true); assert.equal(engine.playCarbonMonoxide(0.8), true);
+  assert.equal(engine.playOzone(0.2), true); assert.equal(engine.playOzone(0.8), true);
+  assert.ok(fake.calls.brassAttacks > 0); assert.ok(fake.calls.plucks > 0);
   assert.equal(fake.calls.created.length, allocated);
   assert.equal(fake.calls.created.filter((node) => node instanceof fake.module.Limiter).length, 1);
   engine.setMuted(true); assert.equal(engine.playHumidity(8), false); assert.equal(engine.playPrecipitation(1), false);
   engine.dispose(); assert.equal(fake.calls.disposals, allocated);
 });
 
-test("new legends compare stated amount and specific-humidity references", async () => {
+test("new legends compare stated amount, humidity and pollutant reference endpoints", async () => {
   const originalWindow = globalThis.window;
   try {
-    for (const [kind, method, expected] of [["precipitation", "playPrecipitation", [0.5, 10]], ["humidity", "playHumidity", [0, 22]], ["pm25", "playPm25", [0, 1]]]) {
+    for (const [kind, method, expected] of [["precipitation", "playPrecipitation", [0.5, 10]], ["humidity", "playHumidity", [0, 22]], ["pm25", "playPm25", [0, 1]], ["carbonMonoxide", "playCarbonMonoxide", [0, 1]], ["ozone", "playOzone", [0, 1]]]) {
       const tasks = [], values = [], steps = [];
       globalThis.window = { setTimeout(fn, delay) { tasks.push({ fn, delay }); return tasks.length; }, clearTimeout() {} };
       const legend = createLegend({ audio: { stop() {}, [method](value) { values.push(value); return true; } }, speech: { cancel() {}, speak() {} }, enableAudio: async () => {}, getKind: () => kind, onBeforeStart() {}, onState() {}, onStep(text) { steps.push(text); }, onError() { assert.fail("Unexpected error"); } });
@@ -676,8 +732,10 @@ test("new legends compare stated amount and specific-humidity references", async
       if (kind === "pm25") {
         assert.match(steps[0], /0\.4 µg\/m³/);
         assert.match(steps[1], /409\.6 µg\/m³/);
-        assert.match(steps.at(-1), /not measured wind or ocean activity/);
+        assert.match(steps.at(-1), /not a health-risk rating/);
       }
+      if (kind === "carbonMonoxide") { assert.match(steps[0], /40 ppbv/); assert.match(steps[1], /500 ppbv/); }
+      if (kind === "ozone") { assert.match(steps[0], /5 ppbv/); assert.match(steps[1], /60 ppbv/); }
     }
   } finally { globalThis.window = originalWindow; }
 });
@@ -700,7 +758,7 @@ test("humidity reference extremes reveal harmonics with fixed pitch and no new v
 });
 
 
-test("combined audio updates five persistent instruments and stops missing layers", async () => {
+test("combined audio updates seven persistent instruments and stops missing layers", async () => {
   const fake=fakeTone(),engine=createAudioEngine(async()=>fake.module);
   engine.setCombinedMode(true);
   await engine.enable();
@@ -711,6 +769,8 @@ test("combined audio updates five persistent instruments and stops missing layer
     {frame:{mean:1},track:{id:'clima-chuva',svsId:5149,unit:'mm'}},
     {frame:{mean:8},track:{id:'clima-umidade',svsId:5150,unit:'g/kg'}},
     {frame:{norm:.4},track:{id:'ar-pm25',svsId:5151,unit:'µg/m³'}},
+    {frame:{norm:.3},track:{id:'ar-co',svsId:5153,unit:'ppbv'}},
+    {frame:{norm:.7},track:{id:'clima-ozonio',svsId:5152,unit:'ppbv'}},
   ];
   assert.equal(engine.playLayers(layers),true);
   const envelopes=fake.calls.created.filter(n=>n instanceof fake.module.AmplitudeEnvelope);

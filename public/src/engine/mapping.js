@@ -1,11 +1,28 @@
 // AI-assisted: OpenAI Codex
 export const PENTATONIC_NOTES = Object.freeze(["C3", "D3", "E3", "G3", "A3", "C4", "D4", "E4", "G4", "A4", "C5"]);
+export const CO_NOTES = PENTATONIC_NOTES;
+export const OZONE_NOTES = Object.freeze(["C4", "D4", "E4", "G4", "A4", "C5", "D5", "E5", "G5", "A5", "C6"]);
 
 // Eleven pitches: round(norm * 10) selects the nearest scale step.
 // Reject invalid input rather than silently turning missing values into cold notes.
 export function mapValue(norm) {
   if (typeof norm !== "number" || !Number.isFinite(norm) || norm < 0 || norm > 1) return null;
   return PENTATONIC_NOTES[Math.round(norm * (PENTATONIC_NOTES.length - 1))];
+}
+
+function mapNotePosition(position, notes) {
+  if (typeof position !== "number" || !Number.isFinite(position) || position < 0 || position > 1) return null;
+  return notes[Math.round(position * (notes.length - 1))];
+}
+
+// CO uses the supplied concentration position and a lower brass-like register.
+export function mapCarbonMonoxide(position) {
+  return mapNotePosition(position, CO_NOTES);
+}
+
+// Ozone uses the same fixed pentatonic intervals one octave higher.
+export function mapOzone(position) {
+  return mapNotePosition(position, OZONE_NOTES);
 }
 
 // Fixed visual-signal transfer: both intensity and detected color extent count.
@@ -35,14 +52,15 @@ export function mapHumidity(specificHumidity) {
   if (typeof specificHumidity !== "number" || !Number.isFinite(specificHumidity) || specificHumidity < 0) return null;
   return 160 + 1440 * (1 - Math.exp(-specificHumidity / 12));
 }
-// The supplied PM2.5 norm is already the position on its logarithmic legend.
-// It controls synthetic texture only, not measured wind speed or loudness.
+// Keep one fixed monotonic perceptual curve across the whole globe and all regions.
+// The input remains the producer's log-scale norm; no regional rescaling occurs.
 export function mapPm25(position) {
   if (typeof position !== "number" || !Number.isFinite(position) || position < 0 || position > 1) return null;
+  const brightness = position + 0.3 * Math.sin(Math.PI * position);
+  const boundedBrightness = Math.min(1, Math.max(0, brightness));
   return {
-    waveRate: 0.07 * (1 - position) + 0.18 * position,
-    airRate: 0.22 * (1 - position) + 0.42 * position,
-    openness: position,
+    brightness: boundedBrightness,
+    frequency: 261.625565 * Math.pow(4, boundedBrightness),
   };
 }
 
@@ -52,6 +70,8 @@ const identities = [
   ["clima-chuva", 5149, "mm", "precipitation"],
   ["clima-umidade", 5150, "g/kg", "humidity"],
   ["ar-pm25", 5151, "µg/m³", "pm25"],
+  ["clima-ozonio", 5152, "ppbv", "ozone"],
+  ["ar-co", 5153, "ppbv", "carbonMonoxide"],
 ];
 export function soundKind(track) {
   if (!track) return "temperature";
@@ -69,6 +89,14 @@ export function mapFrameSound(frame, track) {
   if (kind === "pm25") {
     const texture = mapPm25(frame?.norm);
     return texture ? { kind, ...texture } : null;
+  }
+  if (kind === "carbonMonoxide") {
+    const note = mapCarbonMonoxide(frame?.norm);
+    return note ? { kind, note } : null;
+  }
+  if (kind === "ozone") {
+    const note = mapOzone(frame?.norm);
+    return note ? { kind, note } : null;
   }
   if (kind === "wind") {
     const rate = track?.sonification?.input === "visualSignal" ? mapWindActivity(frame?.visualSignal) : mapWindSpeed(frame?.mean);

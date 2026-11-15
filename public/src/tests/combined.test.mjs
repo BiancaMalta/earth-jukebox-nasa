@@ -28,7 +28,7 @@ test('combined timeline rejects invalid or duplicate dates without guessing a ti
  assert.equal(combinedFrames([dataset([{...a,date:a.date+'Z'}])],a.date)[0].frame,null);
 });
 
-test('all four published datasets share the same 124 supplied timestamp labels',async()=>{
+test('the four climate datasets share the same 124 supplied timestamp labels',async()=>{
  const ids=['clima-temperatura','clima-vento','clima-chuva','clima-umidade'];
  const datasets=await Promise.all(ids.map(async id=>{
   const data=JSON.parse(await readFile(new URL(`../../data/${id}/features.json`,import.meta.url),'utf8'));

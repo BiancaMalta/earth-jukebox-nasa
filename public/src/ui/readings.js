@@ -36,17 +36,21 @@ export function describeReading(frame, track) {
   const mean = visualWind ? isFiniteNumber(frame?.visualSignal) ? `${frame.visualSignal.toFixed(4)} / 1` : "Unavailable" : meanNumber === null ? "Unavailable" : `${meanNumber} ${unit}`;
   const coverageDetail = describePixelCoverage(frame?.coverage);
   const validNorm = isFiniteNumber(frame?.norm) && frame.norm >= 0 && frame.norm <= 1;
-  const soundLabel = visualOnly ? "Sound mapping" : wind ? "Wind pulse rate" : kind === "precipitation" ? "Drum stroke rate" : kind === "humidity" ? "Pad spectral width" : kind === "pm25" ? "Wave-texture position" : "Mapped musical note";
-  const soundValue = visualOnly ? "Not implemented" : !sound ? "Unavailable" : kind === "humidity" ? `${Math.round(sound.bandwidth)} Hz` : kind === "temperature" ? sound.note : kind === "pm25" ? `${sound.openness.toFixed(2)} / 1` : `${sound.rate.toFixed(2)} Hz`;
+  const melodic = kind === "temperature" || kind === "carbonMonoxide" || kind === "ozone";
+  const soundLabel = visualOnly ? "Sound mapping" : wind ? "Wind pulse rate" : kind === "precipitation" ? "Drum stroke rate" : kind === "humidity" ? "Pad spectral width" : kind === "pm25" ? "Tone / filter brightness" : "Mapped musical note";
+  const soundValue = visualOnly ? "Not implemented" : !sound ? "Unavailable" : kind === "humidity" ? `${Math.round(sound.bandwidth)} Hz` : melodic ? sound.note : kind === "pm25" ? `${sound.frequency.toFixed(0)} Hz · ${sound.brightness.toFixed(2)} / 1` : `${sound.rate.toFixed(2)} Hz`;
   const soundSummary = !sound ? visualOnly ? "Visual-only experience; no sound mapping assigned." : "Sound data unavailable or no valid pixels; no note or texture."
     : kind === "temperature" ? `Mapped note ${sound.note}.`
+      : kind === "carbonMonoxide" ? `Brass-like mapped note ${sound.note}; higher image-derived concentration means higher pitch, not higher health risk.`
+        : kind === "ozone" ? `Plucked mapped note ${sound.note}; higher image-derived concentration means higher pitch, not higher health risk.`
       : wind ? `Wind rhythm ${sound.rate.toFixed(2)} pulses per second; fixed C5 pitch, not measured gusts.`
         : kind === "precipitation" ? `Musical density ${sound.rate.toFixed(2)} drum strokes per second; fixed G3 carrier, not measured rainfall intensity.`
           : kind === "humidity" ? `Nominal pad bandwidth ${Math.round(sound.bandwidth)} hertz; fixed C3 string ensemble, not rainfall.`
-            : `Synthetic wave-and-air texture position ${sound.openness.toFixed(2)} / 1; not measured wind or ocean waves.`;
+            : kind === "pm25" ? `Sustained metallic tone at ${sound.frequency.toFixed(0)} Hz; brightness ${sound.brightness.toFixed(2)} / 1. It glides with the frame, adds no beat and is not a health-risk reading.`
+              : `Mapped musical value ${sound.rate.toFixed(2)}.`;
   return {
     date, dateLabel, timeLabel, mean, measure: visualWind ? "Visible wind signal (index)" : kind === "precipitation" ? "Estimated precipitation · image-derived" : measure, sound, soundLabel, soundValue,
-    note: sound?.kind === "temperature" ? sound.note : null,
+    note: melodic && sound ? sound.note : null,
     measureDetail: visualWind ? `Accepted-pixel mean: ${meanNumber ?? "unavailable"} ${unit}; supplied normalized mean: ${isFiniteNumber(frame?.norm) ? frame.norm.toFixed(3) : "unavailable"}. These are diagnostics, not a complete regional wind mean.` : `${quantity} (${unit}). ${weightingDetail}`, coverageDetail,
     normalized: visualWind ? isFiniteNumber(frame?.visualSignal) ? `${frame.visualSignal.toFixed(4)} / 1` : "Unavailable" : validNorm ? `${frame.norm.toFixed(3)} / 1.000` : "Unavailable",
     summary: visualWind ? `${date ?? "Date unavailable"}. Visible wind signal index ${isFiniteNumber(frame?.visualSignal) ? frame.visualSignal.toFixed(4) : "unavailable"}. ${coverageDetail}. ${soundSummary}` : `${date ?? "Date unavailable"}. ${measure}: ${meanNumber === null ? "unavailable" : `${meanNumber} ${unitDescription}`}. ${coverageDetail ? `${coverageDetail}. ` : ""}${soundSummary}`,
@@ -69,10 +73,10 @@ export function renderReading(root, frame, track) {
   find("coverage-detail").hidden = !reading.coverageDetail;
   find("sound-label").textContent = reading.soundLabel;
   find("current-note").textContent = reading.soundValue;
-  find("normalized-label").textContent = visualWind ? "Visible wind signal index" : wind ? "Supplied normalized speed" : kind === "temperature" ? "Normalized temperature" : kind === "pm25" ? "Log-scaled PM2.5 position" : "Supplied normalized value";
+  find("normalized-label").textContent = visualWind ? "Visible wind signal index" : wind ? "Supplied normalized speed" : kind === "temperature" ? "Normalized temperature" : kind === "carbonMonoxide" ? "Normalized CO concentration" : kind === "ozone" ? "Normalized ozone concentration" : kind === "pm25" ? "Log-scaled PM2.5 position" : "Supplied normalized value";
   find("normalized-value").textContent = reading.normalized;
-  find("scale-low").textContent = visualWind ? "Less detected color signal" : wind ? "Lower speed" : kind === "temperature" ? "Lower · C3" : kind === "pm25" ? "Lower · smoother swell" : "Lower value";
-  find("scale-high").textContent = visualWind ? "More detected color signal" : wind ? "Higher speed" : kind === "temperature" ? "Higher · C5" : kind === "pm25" ? "Higher · brighter swell" : "Higher value";
+  find("scale-low").textContent = visualWind ? "Less detected color signal" : wind ? "Lower speed" : kind === "temperature" || kind === "carbonMonoxide" ? "Lower · C3" : kind === "ozone" ? "Lower · C4" : kind === "pm25" ? "Lower, darker · C4" : "Lower value";
+  find("scale-high").textContent = visualWind ? "More detected color signal" : wind ? "Higher speed" : kind === "temperature" ? "Higher · C5" : kind === "carbonMonoxide" ? "Higher · C5" : kind === "ozone" ? "Higher · C6" : kind === "pm25" ? "Higher, brighter · C6" : "Higher value";
   const meter = find("temperature-position");
   meter.hidden = reading.normalized === "Unavailable";
   if (!meter.hidden) {
