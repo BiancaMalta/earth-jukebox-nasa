@@ -4,6 +4,7 @@ import { validateRegionalFeatures } from "../data/regions.js";
 import { indexTimeline, combinedFrames } from "../data/combined.js";
 import { soundKind, mapFrameSound } from "../engine/mapping.js";
 import { describeReading } from "./readings.js";
+import { describeExperience } from "./experience.js";
 
 const LAYERS = [
   ["clima-temperatura", "temperature", "Temperature · organ", "temperature"],
@@ -18,12 +19,54 @@ const LAYERS = [
 export function initCombined({ audio, getFrame, getRegion, onChange, onVisuals = () => {} }) {
   const toggle = document.getElementById("combine-sounds"), status = document.getElementById("combined-status");
   const controls = document.getElementById("combined-layers");
+  const combinedGuide = document.getElementById("combined-sound-guide");
+  const combinedGuideList = document.getElementById("combined-sound-guide-list");
+  const combinedGuideLoading = document.getElementById("combined-sound-guide-loading");
+  const soundGuide = document.querySelector(".guide-panel");
+  const soundSettings = document.querySelector(".sound-settings");
+  const listeningSidebar = document.querySelector(".listening-sidebar");
   let datasets = null, pending, generation = 0, destroyed = false, controller, legendActive = false;
+  function syncPreviewTabs(combined) {
+    const individualTab = document.getElementById("individual-preview-tab");
+    const combinedTab = document.getElementById("combined-preview-tab");
+    const mapPanel = document.getElementById("frame-map-panel");
+    if (!individualTab || !combinedTab || !mapPanel) return;
+    individualTab.setAttribute("aria-selected", String(!combined));
+    individualTab.tabIndex = combined ? -1 : 0;
+    combinedTab.setAttribute("aria-selected", String(combined));
+    combinedTab.tabIndex = combined ? 0 : -1;
+    mapPanel.setAttribute("aria-labelledby", combined ? combinedTab.id : individualTab.id);
+  }
   controls.innerHTML = LAYERS.map(([, key, name, instrument]) => `<div class="combined-layer">
     <label class="checkbox-label"><input id="layer-${key}" type="checkbox" ${instrument || key !== "carbon-monoxide" && key !== "ozone" ? "checked" : ""}> ${name}</label>
     ${instrument ? `<label class="sr-only" for="gain-${key}">${name} volume</label><input id="gain-${key}" type="range" min="0" max="100" value="65" aria-label="${name} volume" aria-valuetext="65 percent">` : `<span class="control-help">Visual layer only; a dedicated sound mapping is not available yet.</span>`}
     <span id="reading-${key}" class="control-help">Unavailable</span></div>`).join("");
   function layerKey(track) { return LAYERS.find(([id]) => id === track?.id)?.[1] ?? null; }
+  function renderCombinedGuide(entries) {
+    const summaries = {
+      temperature: "warmer → higher pitch",
+      wind: "more visible signal → faster pulses",
+      precipitation: "larger amount → faster drum",
+      humidity: "higher → brighter strings",
+      pm25: "higher → brighter metallic tone",
+      carbonMonoxide: "higher → higher note",
+      ozone: "higher → higher pluck",
+    };
+    combinedGuideList.replaceChildren(...entries.map(({ track }) => {
+      const description = describeExperience(track);
+      const item = document.createElement("li");
+      const name = document.createElement("strong");
+      name.textContent = `${description.name}: `;
+      const mapping = document.createElement("span");
+      mapping.textContent = summaries[description.kind] ?? description.heading;
+      if (description.kind === "wind" && track.sonification?.input !== "visualSignal") {
+        mapping.textContent = "higher speed → faster pulses";
+      }
+      item.append(name, mapping);
+      return item;
+    }));
+    combinedGuideLoading.hidden = true;
+  }
   function applyControls() {
     for (const [, key, , instrument] of LAYERS) {
       if (!instrument) continue;
@@ -63,7 +106,13 @@ export function initCombined({ audio, getFrame, getRegion, onChange, onVisuals =
   toggle.addEventListener("change", async () => {
     const id = ++generation;
     audio.stop(); audio.setCombinedMode(toggle.checked); applyControls();
+    syncPreviewTabs(toggle.checked);
     controls.hidden = !toggle.checked;
+    listeningSidebar.classList.toggle("combined-active", toggle.checked);
+    soundGuide.hidden = toggle.checked;
+    soundSettings.hidden = toggle.checked;
+    combinedGuide.hidden = true;
+    combinedGuideLoading.hidden = false;
     const frameReadings = document.getElementById("frame-readings");
     if (frameReadings) frameReadings.hidden = toggle.checked;
     if (!toggle.checked) { status.textContent = "Individual experience mode."; onChange(); return; }
@@ -71,12 +120,19 @@ export function initCombined({ audio, getFrame, getRegion, onChange, onVisuals =
     try {
       await load();
       if (destroyed || id !== generation || !toggle.checked) return;
+      renderCombinedGuide(datasets);
+      combinedGuide.hidden = false;
       status.textContent = "Experimental mix: exact supplied timestamp labels. Time zones and scientific interval alignment are not confirmed. Missing layer values are silent.";
       render(); onChange();
     } catch (error) {
       if (destroyed || id !== generation) return;
       controller?.abort();
       toggle.checked = false; controls.hidden = true;
+      syncPreviewTabs(false);
+      listeningSidebar.classList.remove("combined-active");
+      soundGuide.hidden = false;
+      soundSettings.hidden = false;
+      combinedGuide.hidden = true;
       if (frameReadings) frameReadings.hidden = false;
       audio.stop(); audio.setCombinedMode(false); applyControls();
       status.textContent = `Combined sound unavailable: ${error.message} Individual playback remains available. Toggle to retry.`;

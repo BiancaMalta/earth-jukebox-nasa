@@ -17,10 +17,14 @@ export function initPlayer(index, hooks = {}) {
       <div><p class="eyebrow">Explore the Earth</p><h2 id="track-title">Earth player</h2></div>
       <span id="playback-state" class="playback-state">Paused</span>
     </div>
+    <div class="player-preview-tabs" role="tablist" aria-label="Visualization preview">
+      <button id="individual-preview-tab" type="button" role="tab" aria-selected="true" aria-controls="frame-map-panel" tabindex="0">Single visualization</button>
+      <button id="combined-preview-tab" type="button" role="tab" aria-selected="false" aria-controls="frame-map-panel" tabindex="-1">Combination preview</button>
+    </div>
     <div class="track-toolbar"><label for="track-select">Experience</label><select id="track-select"></select><span id="demo-data" class="badge" hidden>Demo data</span></div>
     <p id="demo-notice" class="demo-notice" hidden><strong>Demonstration values.</strong> Dataset values and dates are simulated, not scientific measurements.</p>
     <p id="data-caveat" class="data-caveat" hidden></p>
-    <figure class="player-visualization"><div class="frame-map"><img id="frame-image" alt="Global map of near-surface air temperature from NASA GEOS-FP." hidden width="1024" height="512"><svg id="region-overlay" viewBox="0 0 1024 512" aria-hidden="true" hidden></svg><div id="combined-frame-grid" class="combined-frame-grid" role="group" aria-label="Selected combined map frames" hidden></div></div><figcaption id="frame-description">Select a visualization to begin.</figcaption></figure>
+    <figure id="frame-map-panel" class="player-visualization" role="tabpanel" aria-labelledby="individual-preview-tab" tabindex="0"><div class="frame-map"><img id="frame-image" alt="Global map of near-surface air temperature from NASA GEOS-FP." hidden width="1024" height="512"><svg id="region-overlay" viewBox="0 0 1024 512" aria-hidden="true" hidden></svg><div id="combined-frame-grid" class="combined-frame-grid" role="group" aria-label="Selected combined map frames" hidden></div></div><figcaption id="frame-description">Select a visualization to begin.</figcaption></figure>
     <details id="region-options" class="region-options" hidden>
       <summary>Explore a country or continent (optional)</summary>
       <section id="regional-explorer" class="regional-explorer" aria-labelledby="regional-heading" hidden>
@@ -63,6 +67,37 @@ export function initPlayer(index, hooks = {}) {
   const combinedLayers = document.getElementById("combined-layers");
   root.querySelector("#frame-readings").after(combinedLayers);
   const find = (id) => root.querySelector(`#${id}`);
+  const combineToggle = document.getElementById("combine-sounds");
+  find("frame-readings").hidden = combineToggle.checked;
+  const individualTab = find("individual-preview-tab"), combinedTab = find("combined-preview-tab");
+  const frameMapPanel = find("frame-map-panel"), tabList = root.querySelector("[role='tablist']");
+  function syncPreviewTabs(combined) {
+    individualTab.setAttribute("aria-selected", String(!combined));
+    individualTab.tabIndex = combined ? -1 : 0;
+    combinedTab.setAttribute("aria-selected", String(combined));
+    combinedTab.tabIndex = combined ? 0 : -1;
+    frameMapPanel.setAttribute("aria-labelledby", combined ? combinedTab.id : individualTab.id);
+  }
+  function selectPreview(combined) {
+    if (combineToggle.checked !== combined) {
+      combineToggle.checked = combined;
+      combineToggle.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+    syncPreviewTabs(combined);
+  }
+  individualTab.addEventListener("click", () => selectPreview(false));
+  combinedTab.addEventListener("click", () => selectPreview(true));
+  combineToggle.addEventListener("change", () => syncPreviewTabs(combineToggle.checked));
+  tabList.addEventListener("keydown", (event) => {
+    const currentIndex = [individualTab, combinedTab].indexOf(document.activeElement);
+    if (currentIndex < 0 || !["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+    event.preventDefault();
+    const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? 1 : 1 - currentIndex;
+    const nextTab = [individualTab, combinedTab][nextIndex];
+    nextTab.focus();
+    nextTab.click();
+  });
+  syncPreviewTabs(combineToggle.checked);
   const select = find("track-select"), image = find("frame-image"), slider = find("frame-position"), combinedGrid = find("combined-frame-grid");
   const playButton = find("play-pause"), previous = find("previous-frame"), next = find("next-frame");
   const status = find("player-status"), count = find("frame-count"), description = find("frame-description");

@@ -16,6 +16,9 @@ const speech = createSpeechEngine(window, (message) => { document.getElementById
 const enable = document.getElementById("enable-sound");
 const soundStatus = document.getElementById("sound-status");
 const legendButton = document.getElementById("sound-legend");
+const combinedLegendButton = document.getElementById("combined-sound-legend");
+const legendButtons = [legendButton, combinedLegendButton];
+const combinedLegendStatus = document.getElementById("combined-legend-status");
 const narrate = document.getElementById("narrate-dates");
 const interval = document.getElementById("narration-interval");
 let player, removeKeyboard, regions, lastNarratedIndex = null;
@@ -112,14 +115,29 @@ const legend = createLegend({
   onBeforeStart: () => { player?.pause("Playback paused for the sound legend."); releaseSound(); },
   onState: (active) => {
     combined.setLegendMode(active);
-    legendButton.textContent = active ? "Stop sound legend" : "Play sound legend";
-    legendButton.setAttribute("aria-pressed", String(active));
-    document.getElementById("legend-status").textContent = active ? "Preparing the sound legend…" : "Legend stopped. Play to hear it again.";
+    legendButtons.forEach((button) => {
+      button.textContent = active ? "Stop sound legend" : "Play sound legend";
+      button.setAttribute("aria-pressed", String(active));
+    });
+    const message = active ? "Preparing the sound legend…" : "Legend stopped. Play to hear it again.";
+    document.getElementById("legend-status").textContent = message;
+    combinedLegendStatus.textContent = message;
+    combinedLegendStatus.hidden = !active || !combined.enabled;
     updateNoteStatus();
   },
-  onStep: (message) => { document.getElementById("legend-status").textContent = message; },
-  onError: (message) => { document.getElementById("legend-status").textContent = `Could not play the legend. ${message || "Try enabling sound again."}`; },
+  onStep: (message) => {
+    document.getElementById("legend-status").textContent = message;
+    combinedLegendStatus.textContent = message;
+    combinedLegendStatus.hidden = !combined.enabled;
+  },
+  onError: (message) => {
+    const error = `Could not play the legend. ${message || "Try enabling sound again."}`;
+    document.getElementById("legend-status").textContent = error;
+    combinedLegendStatus.textContent = error;
+    combinedLegendStatus.hidden = !combined.enabled;
+  },
 });
+for (const button of legendButtons) button.addEventListener("click", () => { void legend.toggle(); });
 
 enable.addEventListener("click", async () => {
   legend.cancel();
@@ -141,7 +159,6 @@ enable.addEventListener("click", async () => {
     }
   } catch { /* enableAudio provides the visible error and leaves the player usable. */ }
 });
-legendButton.addEventListener("click", () => { void legend.toggle(); });
 document.getElementById("temperature-ambience").addEventListener("change", (event) => { audio.setAmbience(event.target.checked); });
 document.getElementById("volume").addEventListener("input", (event) => {
   const value = Number(event.target.value);
@@ -216,8 +233,8 @@ try {
     onPause: () => { releaseSound(); updateNoteStatus(); },
     onInteraction: () => { legend.cancel(); speech.cancel(); lastNarratedIndex = null; },
     onPlaybackState: () => updateNoteStatus(),
-    onTrackLoading: () => { legendButton.disabled = true; audio.stop(); },
-    onTrack: (track) => { renderExperience(track); legendButton.disabled = !soundKind(track); updateNoteStatus(null, track); },
+    onTrackLoading: () => { legendButtons.forEach((button) => { button.disabled = true; }); audio.stop(); },
+    onTrack: (track) => { renderExperience(track); legendButtons.forEach((button) => { button.disabled = !soundKind(track); }); updateNoteStatus(null, track); },
     onFrame: (frame, index, total, reason, track, isCurrent = () => true) => {
       const regional = regions?.getFrame(frame, index) ?? { frame, track };
       const applyFrame = () => {
