@@ -37,6 +37,17 @@ export function initPlayer(index, hooks = {}) {
       <div class="reading"><dt id="measure-label">Dataset measure</dt><dd><span id="frame-mean">Unavailable</span><span id="measure-detail" class="reading-detail">Value and unit for this dataset</span><span id="coverage-detail" class="reading-detail" hidden></span></dd></div>
       <div class="reading"><dt id="sound-label">Mapped musical note</dt><dd><span id="current-note">Unavailable</span><span id="note-status" class="reading-detail">Enable sound to listen.</span></dd></div>
     </dl>
+    <details id="time-series-panel" class="time-series-panel">
+      <summary>View values by time</summary>
+      <p id="time-series-scope" class="control-help">Full-frame estimates for this experience.</p>
+      <div class="time-series-scroll" role="region" tabindex="0" aria-label="Time-series data table; scroll horizontally if needed">
+        <table class="time-series-table">
+          <caption id="time-series-caption">Values by frame</caption>
+          <thead><tr><th scope="col">Date and time</th><th scope="col">Mean</th><th scope="col">P90</th><th scope="col">Coverage</th></tr></thead>
+          <tbody id="time-series-body"></tbody>
+        </table>
+      </div>
+    </details>
     <div class="normalized-reading">
       <div class="scale-heading"><label id="normalized-label" for="temperature-position">Normalized value</label><span id="normalized-value">Unavailable</span></div>
       <meter id="temperature-position" min="0" max="1" aria-describedby="normalization-help" hidden></meter>
@@ -57,12 +68,75 @@ export function initPlayer(index, hooks = {}) {
   let frames = [], frameIndex = -1, frameDirectory, activeTrack, playing = false, timer;
   let requestId = 0, trackRequestId = 0, imageController, trackController, currentObjectURL;
   let destroyed = false;
+  let regionalTable = null, currentTableRow = null;
+  const timeSeriesBody = find("time-series-body");
+  const timeSeriesScope = find("time-series-scope");
+  const timeSeriesCaption = find("time-series-caption");
+
+  function renderTimeSeries() {
+    timeSeriesBody.replaceChildren();
+    currentTableRow = null;
+    const regionalReady = !regionalTable || regionalTable.state === "ready";
+    timeSeriesScope.textContent = !regionalTable
+      ? "Full-frame estimates for this experience."
+      : regionalTable.state === "loading"
+        ? "Loading regional estimates for " + regionalTable.name + "."
+        : regionalTable.state === "error"
+          ? "Regional estimates for " + regionalTable.name + " could not be loaded."
+          : "Image-derived estimates for " + regionalTable.name + ".";
+    timeSeriesCaption.textContent = (regionalTable ? regionalTable.name : "Full-frame") + " values by frame";
+    if (!regionalReady) return;
+    frames.forEach((frame, index) => {
+      const regional = regionalTable?.values?.[index];
+      const values = regionalTable ? regional : [frame.mean, frame.p90, frame.norm, frame.coverage];
+      const row = document.createElement("tr");
+      row.dataset.frameIndex = String(index);
+      const dateCell = document.createElement("td");
+      const time = document.createElement("time");
+      time.textContent = frame.date ? describeDate(frame.date) || frame.date : "Time unavailable";
+      if (frame.date) time.setAttribute("datetime", frame.date);
+      dateCell.append(time);
+      row.append(dateCell);
+      for (const value of [values?.[0], values?.[1]]) {
+        const cell = document.createElement("td");
+        cell.textContent = typeof value === "number" ? value.toFixed(2) + " " + activeTrack.unit : "No data";
+        row.append(cell);
+      }
+      const coverageCell = document.createElement("td");
+      const coverage = values?.[3];
+      coverageCell.textContent = typeof coverage === "number" ? (coverage * 100).toFixed(1) + "%" : "Unavailable";
+      row.append(coverageCell);
+      timeSeriesBody.append(row);
+    });
+    setCurrentTableRow(frameIndex);
+  }
+
+  function setCurrentTableRow(index) {
+    currentTableRow?.removeAttribute("aria-current");
+    currentTableRow = Number.isInteger(index) ? timeSeriesBody.rows[index] ?? null : null;
+    currentTableRow?.setAttribute("aria-current", "true");
+  }
 
   function updateControls() {
     slider.disabled = !frames.length;
     slider.max = String(Math.max(0, frames.length - 1));
     slider.value = String(Math.max(0, frameIndex));
-    slider.setAttribute("aria-valuetext", frameIndex < 0 ? `No frame displayed; ${frames.length} available` : `Frame ${frameIndex + 1} of ${frames.length}`);
+    if (playing) {
+      slider.removeAttribute("aria-valuetext");
+    } else if (frameIndex < 0) {
+      slider.setAttribute("aria-valuetext", "No frame displayed; " + frames.length + " available");
+    } else {
+      const frame = frames[frameIndex];
+      const regional = regionalTable?.values?.[frameIndex];
+      const mean = regionalTable ? regional?.[0] : frame.mean;
+      const coverage = regionalTable ? regional?.[3] : frame.coverage;
+      const scope = regionalTable ? regionalTable.name + "; " : "Full-frame; ";
+      const date = describeDate(frame.date) || frame.date || "time unavailable";
+      const value = typeof mean === "number" ? mean.toFixed(2) + " " + activeTrack.unit : "value unavailable";
+      const coverageText = typeof coverage === "number" ? (coverage * 100).toFixed(1) + "% valid pixel coverage" : "coverage unavailable";
+      slider.setAttribute("aria-valuetext", scope + "frame " + (frameIndex + 1) + " of " + frames.length + "; " + date + "; mean " + value + "; " + coverageText);
+    }
+    setCurrentTableRow(frameIndex);
     count.textContent = `${frameIndex + 1} / ${frames.length}`;
     find("playback-state").textContent = playing ? "Playing" : "Paused";
     previous.disabled = frameIndex <= 0;
@@ -145,6 +219,8 @@ export function initPlayer(index, hooks = {}) {
     trackController = new AbortController();
     frames = [];
     frameIndex = -1;
+    regionalTable = null;
+    renderTimeSeries();
     activeTrack = undefined;
     hooks.onTrackLoading?.();
     image.hidden = true;
@@ -179,6 +255,8 @@ export function initPlayer(index, hooks = {}) {
       frameDirectory = directory;
       activeTrack = { ...track, unit: data.unit, statistics: data.statistics, sonification: data.sonification };
       frames = data.frames;
+      regionalTable = null;
+      renderTimeSeries();
       const experience = describeExperience(activeTrack);
       find("data-caveat").textContent = experience.caveat;
       find("data-caveat").hidden = data.mock || !experience.caveat;
@@ -247,6 +325,11 @@ export function initPlayer(index, hooks = {}) {
 
   return {
     toggle, step, pause,
+    setRegionalTable(value) {
+      regionalTable = value;
+      renderTimeSeries();
+      updateControls();
+    },
     get currentFrame() { return frames[frameIndex] ?? null; },
     get currentTrack() { return activeTrack; },
     get currentIndex() { return frameIndex; },

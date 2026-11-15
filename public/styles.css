@@ -167,3 +167,11 @@ button, dt, h1 { overflow-wrap: anywhere; }
 .combined-layer { display: grid; gap: 6px; padding: 14px 0; border-top: 1px solid var(--line); min-width: 0; }
 .combined-layer input[type="range"] { width: 100%; min-width: 0; }
 .combined-layer .control-help, #combined-scope { overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+
+.time-series-panel { margin: 18px 0; border-top: 1px solid var(--line); padding-top: 14px; }
+.time-series-scroll { max-width: 100%; overflow: auto; margin-top: 12px; }
+.time-series-table { width: 100%; border-collapse: collapse; font-size: .8rem; font-variant-numeric: tabular-nums; }
+.time-series-table caption { text-align: left; color: var(--muted); padding: 8px 0; }
+.time-series-table th, .time-series-table td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+.time-series-table th { color: var(--muted); }
+.time-series-table tr[aria-current="true"] { background: #203747; }

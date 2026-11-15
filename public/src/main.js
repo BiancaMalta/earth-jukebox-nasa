@@ -65,11 +65,17 @@ function updateNoteStatus(frame = player?.currentFrame, track = player?.currentT
 }
 
 function updateRegionalReading() {
+  if (!regions) return;
+  const tableData = regions.getTableData();
+  player?.setRegionalTable(tableData);
   const frame = player?.currentFrame;
-  if (!frame || !regions) return;
+  if (!frame) return;
   const regional = regions.getFrame(frame, player.currentIndex);
   renderReading(document.getElementById("player"), regional.frame, regional.track);
   updateNoteStatus(regional.frame);
+  if (tableData?.state === "ready") {
+    announce("Regional values for " + tableData.name + " are ready. " + describeReading(regional.frame, regional.track).summary);
+  }
 }
 
 async function enableAudio() {
@@ -179,7 +185,7 @@ function onFrame(frame, index, total, reason, track) {
   const parameters = mapFrameSound(frame, track);
   if ((!parameters && !combined.enabled) || reason === "paused") audio.stop();
   updateNoteStatus(frame, track);
-  if (reason === "manual") announce(`Frame ${index + 1} of ${total}. ${document.getElementById("demo-data").hidden ? "" : "Demo data. "}${describeReading(frame, track).summary}`);
+  if (reason === "manual" || reason === "initial") announce((reason === "initial" ? "First frame loaded. " : "") + "Frame " + (index + 1) + " of " + total + ". " + (document.getElementById("demo-data").hidden ? "" : "Demo data. ") + describeReading(frame, track).summary);
   if (reason === "initial" || reason === "paused" || legend.active) return;
   try { if (parameters || combined.enabled) playFrameSound(frame, track, reason === "playback" && index < total - 1 ? undefined : 0.9); }
   catch { soundStatus.textContent = "Audio playback failed. Try enabling sound again; the visual player still works."; }

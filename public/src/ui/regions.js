@@ -57,7 +57,7 @@ function formatNumber(value, unit) {
 export function initRegionalExplorer({ onSelection = () => {}, onValueChange = () => {} } = {}) {
   let root, level, continentSelect, countrySelect, countryLabel, status, currentText;
   let geojson, activeTrack, activeData, activeFrames, frameDirectory, regionalData;
-  let selectedFeatures = [], series = [], currentIndex = 0, requestId = 0, controller;
+  let selectedFeatures = [], series = [], seriesState = "idle", currentIndex = 0, requestId = 0, controller;
   let outline, maskCutout, geoPromise;
 
   function selectedName() {
@@ -79,6 +79,8 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
 
   function setGeometry(features) {
     selectedFeatures = features;
+    series = [];
+    seriesState = features.length ? "loading" : "idle";
     const path = outlinePath(features);
     outline.setAttribute("d", path);
     maskCutout.setAttribute("d", path);
@@ -109,6 +111,7 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
     const displayName = selectedDisplayName();
     status.textContent = `Loading Python-calculated values for ${displayName}…`;
     series = [];
+    seriesState = "loading";
     updateFrame(currentIndex);
     onValueChange();
     try {
@@ -119,12 +122,14 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
       regionalData = data;
       if (!Object.hasOwn(data.regions, key)) throw new Error("This region has no precomputed data.");
       series = data.regions[key].values;
+      seriesState = "ready";
       status.textContent = `${displayName}: Python-calculated regional values are ready. Playback now uses this region.`;
       updateFrame(currentIndex);
       onValueChange();
     } catch (error) {
       if (id !== requestId || error.name === "AbortError") return;
       series = [];
+      seriesState = "error";
       status.textContent = `Could not load this region. ${error.message} Regional audio remains silent.`;
       updateFrame(currentIndex);
       onValueChange();
@@ -132,7 +137,7 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
   }
 
   async function configure({ track, data, frames, frameDirectory: directory }) {
-    const id = ++requestId; controller?.abort(); series = []; selectedFeatures = [];
+    const id = ++requestId; controller?.abort(); series = []; seriesState = "idle"; selectedFeatures = [];
     activeTrack = track; activeData = data; activeFrames = frames; frameDirectory = directory; regionalData = null; currentIndex = 0; root.hidden = true;
     if (!geojson && geoPromise) {
       try { geojson = await geoPromise; }
@@ -222,6 +227,7 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
     getFrame,
     hasSelection: () => selectedFeatures.length > 0,
     selectionKey: () => selectedFeatures.length ? `${level.value}:${selectedName()}` : null,
+    getTableData: () => selectedFeatures.length ? { name: selectedName(), values: series, state: seriesState } : null,
     destroy() { ++requestId; controller?.abort(); },
   };
 }
