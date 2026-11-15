@@ -14,7 +14,7 @@
 
 ## Live demo
 
-- Site: https://nasaearthjukebox.netlify.app/
+- Site: https://biancamalta.github.io/earth-jukebox-nasa/
 - Video (≤ 30 s): _coming soon_
 
 ## Project documentation
