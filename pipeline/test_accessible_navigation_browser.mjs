@@ -87,7 +87,7 @@ try {
   await check('Voice activation resumes synthesis and reveals explicit row speech', '__resumes>0 && !document.getElementById("read-current-row").hidden');
   await evaluate('document.querySelector("#time-series-panel > summary").focus(); __spoken.length=0');
   await key('\uE007');
-  await check('Opening the table announces its name and expanded state without reading rows', `document.getElementById('time-series-panel').open && __spoken.length===1 && /View values by time.*Expanded/.test(__spoken[0]) && __spoken[0].length<160`);
+  await check('Opening the table announces its name and expanded state without reading rows', `document.getElementById('time-series-panel').open && __spoken.length===1 && /Values over time.*Expanded/.test(__spoken[0]) && __spoken[0].length<160`);
   await key('\uE004');
   await check('The first table action is explicit current-row speech', 'document.activeElement.id === "read-current-row"');
   await key('\uE007');
@@ -107,7 +107,7 @@ try {
   await evaluate(`document.getElementById('combine-sounds').checked=true; document.getElementById('combine-sounds').dispatchEvent(new Event('change',{bubbles:true}));`);
   await waitFor('!document.getElementById("combined-layers").hidden');
   await focus('combined-layers');
-  await check('Combined group focus does not read all seven layers', '__spoken.at(-1) === "Combined map and sound layers"');
+  await check('Combined group focus does not read all seven layers', '__spoken.at(-1) === "Records in your mix"');
   await focus('layer-temperature');
   await check('Individual layer has its own current-reading description', 'document.activeElement.getAttribute("aria-describedby")==="reading-temperature" && /Temperature/.test(__spoken.at(-1))');
   await key('\uE00C');

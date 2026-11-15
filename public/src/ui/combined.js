@@ -56,8 +56,8 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
     variableControls.push({ control, select });
     return { control, select };
   }
-  const guideChooser = makeVariableControl("combined-variable", "Variable to explain");
-  const methodsChooser = makeVariableControl("combined-methods-variable", "Variable for these methods");
+  const guideChooser = makeVariableControl("combined-variable", "Record to explain");
+  const methodsChooser = makeVariableControl("combined-methods-variable", "Record details");
   const variableSelect = guideChooser.select;
   const guideHeading = document.getElementById("guide-heading");
 
@@ -73,6 +73,8 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
   if (methodsSummary) methodsSummary.after(methodsChooser.control);
   let datasets = null, pending, generation = 0, destroyed = false, controller, legendActive = false;
   function syncMode(combined) {
+    const description = document.getElementById("mode-description");
+    if (description) description.textContent = combined ? "Compare maps and hear their sounds together." : "Explore one map and its sound.";
     const individualTab = document.getElementById("individual-preview-tab");
     const combinedTab = document.getElementById("combined-preview-tab");
     const mapPanel = document.getElementById("frame-map-panel");
@@ -92,7 +94,7 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
 
     if (title) {
       title.textContent = combined
-        ? "Combination preview"
+        ? "Combine variables"
         : title.dataset.singleTitle ?? title.textContent;
     }
 
@@ -100,8 +102,8 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
 
     if (modeLabel) {
       modeLabel.textContent = combined
-        ? "Active mode: Combination preview"
-        : "Active mode: Single visualization";
+        ? "Active mode: Combine variables"
+        : "Active mode: One variable";
     }
 
     variableControls.forEach(({ control }) => {
@@ -198,7 +200,7 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
       if (soundSettings) soundSettings.hidden = false;
       restoreSingle();
       audio.stop(); audio.setCombinedMode(false); applyControls();
-      status.textContent = `Combined sound unavailable: ${error.message} Individual playback remains available. Activate Combination preview to retry.`;
+      status.textContent = `Combined sound unavailable: ${error.message} Individual playback remains available. Activate Combine variables to retry.`;
       onChange();
     }
   });

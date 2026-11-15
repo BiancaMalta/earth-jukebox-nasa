@@ -43,7 +43,7 @@ export function createLegend({ audio, speech, enableAudio, onBeforeStart, onStat
             if (!example.play(high)) throw new Error("Enable sound to hear the legend.");
             later(2500, () => {
               if (!high) present(true);
-              else { cancel(); onStep(`Legend complete. ${example.meaning}. Examples are not current measurements.`, 0); }
+              else { cancel(); onStep(`Sound examples complete. ${example.meaning}. Examples are not current measurements.`, 0); }
             });
           } catch (error) { cancel(); onError(error.message); }
         };

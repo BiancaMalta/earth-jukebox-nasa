@@ -16,11 +16,11 @@ function element(tag, attributes = {}, extra = {}) {
 
 test('expanded disclosures never collect their table or methods body', () => {
   const summary = element('summary', {}, {
-    textContent: 'View values by time',
+    textContent: 'Values over time',
     parentElement: { open: true, textContent: 'All 124 rows and a long methods explanation' },
   });
   const spoken = describeNavigationTarget(summary);
-  assert.match(spoken, /View values by time\. Expanded/);
+  assert.match(spoken, /Values over time\. Expanded/);
   assert.doesNotMatch(spoken, /124|methods|rows/);
   summary.parentElement.open = false;
   assert.match(describeNavigationTarget(summary), /Collapsed/);
@@ -29,13 +29,13 @@ test('expanded disclosures never collect their table or methods body', () => {
 test('unlabelled menus announce only the selected option and named groups stay concise', () => {
   const menu = element('select', {}, { textContent: 'Brazil France Japan', selectedOptions: [{ textContent: 'France' }] });
   assert.equal(describeNavigationTarget(menu), 'Menu. Selected: France');
-  const group = element('div', { role: 'group', 'aria-label': 'Combined map and sound layers' }, { textContent: 'Seven long readings' });
-  assert.equal(describeNavigationTarget(group), 'Combined map and sound layers');
+  const group = element('div', { role: 'group', 'aria-label': 'Records in your mix' }, { textContent: 'Seven long readings' });
+  assert.equal(describeNavigationTarget(group), 'Records in your mix');
 });
 
 test('slider descriptions use the accessible frame value rather than a zero-based counter', () => {
-  const slider = element('input', { 'aria-label': 'Frame position', 'aria-valuetext': 'Frame 7 of 124' }, { type: 'range', value: '6', max: '123' });
-  assert.equal(describeNavigationTarget(slider), 'Frame position. Frame 7 of 124');
+  const slider = element('input', { 'aria-label': 'Timeline', 'aria-valuetext': 'Frame 7 of 124' }, { type: 'range', value: '6', max: '123' });
+  assert.equal(describeNavigationTarget(slider), 'Timeline. Frame 7 of 124');
 });
 
 test('explicit table speech reads only the current row with its column names', () => {

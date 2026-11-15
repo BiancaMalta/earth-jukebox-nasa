@@ -16,14 +16,17 @@ export function initPlayer(index, hooks = {}) {
   const root = document.getElementById("player");
   root.innerHTML = `
     <div class="player-preview-tabs" role="tablist" aria-label="Visualization preview">
-      <button id="individual-preview-tab" type="button" role="tab" aria-selected="true" aria-controls="frame-map-panel" tabindex="0">Single visualization</button>
-      <button id="combined-preview-tab" type="button" role="tab" aria-selected="false" aria-controls="frame-map-panel" tabindex="0">Combination preview</button>
+      <button id="individual-preview-tab" type="button" role="tab" aria-selected="true" aria-controls="frame-map-panel" aria-describedby="single-mode-help" tabindex="0">One variable</button>
+      <button id="combined-preview-tab" type="button" role="tab" aria-selected="false" aria-controls="frame-map-panel" aria-describedby="combined-mode-help" tabindex="0">Combine variables</button>
     </div>
+    <p id="single-mode-help" class="sr-only">Explore one map and its sound.</p>
+    <p id="combined-mode-help" class="sr-only">Compare maps and hear their sounds together.</p>
+    <p id="mode-description" class="mode-description control-help">Explore one map and its sound.</p>
     <div class="player-heading">
-      <div><p class="eyebrow">Explore the Earth</p><h2 id="track-title">Earth player</h2></div>
+      <div><p class="eyebrow">Now on the turntable</p><h2 id="track-title">Earth player</h2></div>
       <span id="playback-state" class="playback-state">Paused</span>
     </div>
-    <div class="track-toolbar"><label for="track-select">Experience</label><select id="track-select"></select><span id="demo-data" class="badge" hidden>Demo data</span></div>
+    <div class="track-toolbar"><label class="sr-only" for="track-select">Experience</label><select id="track-select" hidden></select><fieldset class="record-collection"><legend>Choose your record <span>Seven ways to hear our planet</span></legend><div id="record-sleeves" class="record-sleeves"></div></fieldset><span id="demo-data" class="badge" hidden>Demo data</span></div>
     <p id="demo-notice" class="demo-notice" hidden><strong>Demonstration values.</strong> Dataset values and dates are simulated, not scientific measurements.</p>
     <p id="data-caveat" class="data-caveat" hidden></p>
     <figure id="frame-map-panel" class="player-visualization" role="tabpanel" aria-labelledby="individual-preview-tab" tabindex="0"><div class="frame-map"><img id="frame-image" alt="Global map of near-surface air temperature from NASA GEOS-FP." hidden width="1024" height="512"><svg id="region-overlay" viewBox="0 0 1024 512" aria-hidden="true" hidden></svg><div id="combined-frame-grid" class="combined-frame-grid" role="group" aria-label="Selected combined map frames" hidden></div></div><figcaption id="frame-description">Select a visualization to begin.</figcaption></figure>
@@ -32,8 +35,10 @@ export function initPlayer(index, hooks = {}) {
       <button id="play-pause" class="primary-button" type="button" aria-pressed="false" disabled>Play</button>
       <button id="next-frame" type="button" aria-label="Next frame" disabled>Next <span aria-hidden="true">→</span></button>
     </div>
-    <div class="frame-progress"><label for="frame-position">Frame position</label><span id="frame-count">0 / 0</span><input id="frame-position" type="range" min="0" max="0" value="0" aria-describedby="frame-position-help" disabled></div>
+    <div class="frame-progress"><label for="frame-position">Timeline</label><span id="frame-count">0 / 0</span><input id="frame-position" type="range" min="0" max="0" value="0" aria-describedby="frame-position-help" disabled></div>
     <p id="frame-position-help" class="control-help">Use the arrow keys on this slider to select a frame. Selecting a frame pauses playback.</p>
+    <div class="playback-speed"><label for="playback-speed">Playback speed</label><select id="playback-speed" aria-describedby="playback-speed-help"><option value="0.25">0.25× · Slowest</option><option value="0.5">0.5× · Slower</option><option value="1" selected>1× · Normal</option><option value="1.5">1.5× · Faster</option><option value="2">2× · Fastest</option></select></div>
+    <p id="playback-speed-help" class="control-help">Changes the pace of playback. Dataset times and sound mappings stay the same.</p>
     <p id="player-status" role="status" aria-atomic="true">Loading visualizations…</p>
     <section id="region-options" class="region-options" aria-labelledby="regional-heading" hidden>
       <section id="regional-explorer" class="regional-explorer" aria-labelledby="regional-heading" hidden>
@@ -41,12 +46,12 @@ export function initPlayer(index, hooks = {}) {
       <p id="region-help" class="control-help">Keep the same moment. Change the place. The highlighted area shapes both your readings and your sound.</p>
       <fieldset class="region-scopes"><legend class="sr-only">Listening area</legend>
         <label class="region-scope"><input type="radio" name="region-scope" value="world" checked><span><strong>Whole map</strong><small>The big picture</small></span></label>
-        <label class="region-scope"><input type="radio" name="region-scope" value="continent"><span><strong>Country group</strong><small>Compare larger regions</small></span></label>
+        <label class="region-scope"><input type="radio" name="region-scope" value="continent"><span><strong>Region</strong><small>Compare larger regions</small></span></label>
         <label class="region-scope"><input type="radio" name="region-scope" value="country"><span><strong>Country</strong><small>Listen a little closer</small></span></label>
       </fieldset>
-      <select id="region-level" hidden aria-label="Regional level"><option value="continent">Country group</option><option value="country">Country</option></select>
+      <select id="region-level" hidden aria-label="Regional level"><option value="continent">Region</option><option value="country">Country</option></select>
       <div class="region-controls">
-        <div id="region-group-field" class="region-field" hidden><label for="region-continent">Country group</label><select id="region-continent"><option value="">Choose a country group</option></select></div>
+        <div id="region-group-field" class="region-field" hidden><label for="region-continent">Region</label><select id="region-continent"><option value="">Choose a region</option></select></div>
         <div id="region-country-field" class="region-field" hidden><label for="region-country">Country</label><select id="region-country" disabled><option value="">Choose a country</option></select></div>
       </div>
       <div class="region-discover"><span>Start exploring</span><button type="button" data-region-preset="South America">South America</button><button type="button" data-region-preset="Europe">Europe</button><button type="button" data-region-preset="Asia">Asia</button></div>
@@ -63,10 +68,10 @@ export function initPlayer(index, hooks = {}) {
       <div class="reading"><dt id="sound-label">Mapped musical note</dt><dd><span id="current-note">Unavailable</span><span id="note-status" class="reading-detail">Enable sound to listen.</span></dd></div>
     </dl>
     <details id="time-series-panel" class="time-series-panel">
-      <summary aria-describedby="time-series-scope">View values by time</summary>
+      <summary aria-describedby="time-series-scope">Values over time</summary>
       <p id="time-series-scope" class="control-help">Full-frame estimates for this experience.</p>
-      <p id="time-series-help" class="control-help">Use your screen reader’s table commands to explore cells. With spoken navigation, use Read current frame row to hear only the highlighted frame.</p>
-      <button id="read-current-row" type="button" data-spoken-only hidden>Read current frame row</button>
+      <p id="time-series-help" class="control-help">Use your screen reader’s table commands to explore cells. With spoken navigation, use Read this frame to hear only the highlighted frame.</p>
+      <button id="read-current-row" type="button" data-spoken-only hidden>Read this frame</button>
       <div class="time-series-scroll" role="region" tabindex="0" aria-label="Values by time" aria-describedby="time-series-help">
         <table class="time-series-table">
           <caption id="time-series-caption">Values by frame</caption>
@@ -83,10 +88,11 @@ export function initPlayer(index, hooks = {}) {
   const combineToggle = document.getElementById("combine-sounds");
   find("frame-readings").hidden = combineToggle.checked;
   let singleTitle = "Earth player";
-  const setTitle = (text) => { singleTitle = text; const el = find("track-title"); el.dataset.singleTitle = text; el.textContent = combineToggle.checked ? "Combination preview" : text; };
+  const setTitle = (text) => { singleTitle = text; const el = find("track-title"); el.dataset.singleTitle = text; el.textContent = combineToggle.checked ? "Combine variables" : text; };
   const individualTab = find("individual-preview-tab"), combinedTab = find("combined-preview-tab");
   const frameMapPanel = find("frame-map-panel"), tabList = root.querySelector("[role='tablist']");
   function syncPreviewTabs(combined) {
+    find("mode-description").textContent = combined ? "Compare maps and hear their sounds together." : "Explore one map and its sound.";
     individualTab.setAttribute("aria-selected", String(!combined));
     individualTab.tabIndex = 0;
     combinedTab.setAttribute("aria-selected", String(combined));
@@ -117,6 +123,7 @@ export function initPlayer(index, hooks = {}) {
   const playButton = find("play-pause"), previous = find("previous-frame"), next = find("next-frame");
   const status = find("player-status"), count = find("frame-count"), description = find("frame-description");
   let frames = [], frameIndex = -1, frameDirectory, activeTrack, playing = false, timer;
+  let playbackSpeed = 1;
   let requestId = 0, trackRequestId = 0, imageController, trackController, currentObjectURL;
   let destroyed = false;
   let combinedVisualRequest = 0, combinedSelectionKey = null, combinedFrameKey = null;
@@ -363,7 +370,7 @@ export function initPlayer(index, hooks = {}) {
         if (frameIndex === frames.length - 1) pause("End of track.", false);
         else schedule();
       }
-    }, FRAME_INTERVAL_MS);
+    }, FRAME_INTERVAL_MS / playbackSpeed);
   }
 
   async function loadTrack(trackId) {
@@ -467,13 +474,53 @@ export function initPlayer(index, hooks = {}) {
   previous.addEventListener("click", () => step(-1));
   next.addEventListener("click", () => step(1));
   slider.addEventListener("input", () => seek(Number(slider.value)));
-  select.addEventListener("change", () => { void loadTrack(select.value); });
+  find("playback-speed").addEventListener("change", event => {
+    const speed = Number(event.target.value);
+    if (![0.25, 0.5, 1, 1.5, 2].includes(speed)) return;
+    playbackSpeed = speed;
+    // A frame already loading finishes normally; its next timer uses the new pace.
+    if (playing && timer !== undefined) schedule();
+    status.textContent = `Playback speed: ${speed} times normal.`;
+  });
+  select.addEventListener("change", () => {
+    root.querySelectorAll('input[name="earth-record"]').forEach(input => { input.checked = input.value === select.value; });
+    void loadTrack(select.value);
+  });
   const trackIds = Array.isArray(index?.tracks) ? index.tracks.filter((id) => typeof id === "string" && /^[\w-]+$/.test(id)) : [];
   for (const id of trackIds) {
     const option = document.createElement("option");
     option.value = id;
     option.textContent = ({ "clima-temperatura": "Temperature", "clima-vento": "Wind", "clima-chuva": "Precipitation", "clima-umidade": "Humidity", "ar-pm25": "Particulate matter (PM2.5)", "ar-co": "Carbon monoxide (CO)", "clima-ozonio": "Ozone" })[id] ?? id;
     select.append(option);
+    const catalog = {
+      "clima-temperatura": ["Temperature", "Organ", "#e68e65"],
+      "clima-vento": ["Wind", "Flute", "#a7c8bb"],
+      "clima-chuva": ["Precipitation", "Percussion", "#83b9d4"],
+      "clima-umidade": ["Humidity", "Strings", "#c0b0d0"],
+      "ar-pm25": ["PM2.5", "Metallic shimmer", "#dcba6b"],
+      "ar-co": ["Carbon monoxide", "Brass", "#d59896"],
+      "clima-ozonio": ["Ozone", "Plucked strings", "#9dc4a2"],
+    };
+    const [name, instrument, color] = catalog[id] ?? [option.textContent, "Earth sounds", "#a7c8bb"];
+    const sleeve = document.createElement("label");
+    sleeve.className = "record-sleeve";
+    sleeve.style.setProperty("--record-color", color);
+    const input = document.createElement("input");
+    input.type = "radio"; input.name = "earth-record"; input.value = id;
+    input.checked = id === trackIds[0];
+    input.setAttribute("aria-label", `${option.textContent}, ${instrument}`);
+    const cover = document.createElement("span"); cover.className = "record-cover"; cover.setAttribute("aria-hidden", "true");
+    const number = document.createElement("span"); number.className = "record-number"; number.textContent = `0${trackIds.indexOf(id) + 1}`;
+    const vinyl = document.createElement("span"); vinyl.className = "vinyl";
+    const title = document.createElement("strong"); title.textContent = name;
+    const subtitle = document.createElement("small"); subtitle.textContent = instrument;
+    cover.append(number, vinyl); sleeve.append(input, cover, title, subtitle);
+    input.addEventListener("change", () => {
+      if (!input.checked) return;
+      select.value = id;
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+    find("record-sleeves").append(sleeve);
   }
   if (trackIds.length) void loadTrack(trackIds[0]);
   else { select.disabled = true; status.textContent = "No tracks are available."; }

@@ -3,6 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {describePixelCoverage, describePixelFilters, describeReading} from '../ui/readings.js';
 import {regionDisplayName} from '../ui/regions.js';
+import {readFile} from 'node:fs/promises';
 
 test('pixel inclusion distinguishes missing, zero, small positive ratios and near-total inclusion',()=>{
  assert.equal(describePixelCoverage(.866),'86.6% of analyzed image pixels used');
@@ -28,13 +29,17 @@ test('temperature regional inclusion is visible and mean, norm and coverage reta
 });
 
 test('oceanic territory labels do not imply an ocean average and leave other region names intact',()=>{
- assert.equal(regionDisplayName('continent:Seven seas (open ocean)'),'Oceanic island territories (land only)');
- assert.equal(regionDisplayName('continent:South America'),'South America country group');
+ assert.equal(regionDisplayName('continent:Seven seas (open ocean)'),'Oceanic island territories');
+ assert.equal(regionDisplayName('continent:South America'),'South America');
  assert.equal(regionDisplayName('country:Brazil'),'Brazil');
 });
 
 
-test('whole-country group labels disclose the transcontinental Russia assignment',()=>{
- assert.match(regionDisplayName('continent:Europe'),/includes all Russia/);
- assert.match(regionDisplayName('continent:Asia'),/excludes Russia/);
+test('short place names retain boundary explanations beside the selector',async()=>{
+ assert.equal(regionDisplayName('continent:Europe'),'Europe');
+ assert.equal(regionDisplayName('continent:Asia'),'Asia');
+ assert.equal(regionDisplayName('continent:North America'),'North America');
+ const source=await readFile(new URL('../ui/player.js',import.meta.url),'utf8');
+ assert.match(source,/Europe includes all of Russia; Asia excludes Russia/);
+ assert.match(source,/Oceanic island territories cover land only/);
 });

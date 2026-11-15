@@ -43,7 +43,7 @@ export function describeExperience(track) {
       readings: "Read the selected dataset's measure, unit and timestamp below the image. Values are derived from visualization pixels and are not automatically whole-Earth averages. Coverage describes color-filtered image pixels.",
       normalization: "The normalized value and its limits come from the dataset. No sonification has been implemented for this quantity yet.",
       caveat: "Image-derived values. Use the stated dataset measure and pixel coverage; no whole-Earth average or new sound mapping is assumed.",
-      legend: "A sound legend is not available for this experience yet.",
+      legend: "Sound examples are not available for this record yet.",
       exampleSpeech: "This experience is visual only. Its dedicated sound mapping is not implemented yet.",
     };
   }
@@ -134,7 +134,7 @@ export function describeExperience(track) {
     scale: "The 11 notes follow a C major pentatonic scale across two octaves. Different values can share a note; no artificial melody is added. One temperature voice plays at a time.",
     readings: "The image-pixel mean temperature sets one note for the selected frame and region. The current mean method is explained below; area weighting still applies only to decoded pixels used. These weather values are not historical climate anomalies; a higher note is not a danger rating.",
     normalization: "The supplied normalized value ranges from 0 to 1. Zero maps to C3; one maps to C5. Intermediate values select the nearest step in the 11-note scale. The front end does not recalculate this value. It is not a percentage of the Earth.",
-    caveat: "Image-derived temperature estimate decoded from visualization pixels. This is not a direct numerical GEOS-FP field or a complete global field. Small variations can remain on the same pentatonic note.", legend: "A five-second low-to-high pitch comparison using reference values 0 and 1, not the current frame. The legend pauses the player.",
+    caveat: "Image-derived temperature estimate decoded from visualization pixels. This is not a direct numerical GEOS-FP field or a complete global field. Small variations can remain on the same pentatonic note.", legend: "A narrated low-to-high pitch comparison using reference values 0 and 1, not the current frame. The legend pauses the player.",
     exampleSpeech: "Lower temperature values mean lower pitch. Higher temperature values mean higher pitch.",
   };
 }

@@ -8,11 +8,9 @@ const SVG_NS = "http://www.w3.org/2000/svg";
 const WIDTH = 1024, HEIGHT = 512;
 
 export function regionDisplayName(key) {
-  if (key === "continent:Seven seas (open ocean)") return "Oceanic island territories (land only)";
+  if (key === "continent:Seven seas (open ocean)") return "Oceanic island territories";
   const name = key.slice(key.indexOf(":") + 1);
-  if (key === "continent:Europe") return "Europe country group (includes all Russia)";
-  if (key === "continent:Asia") return "Asia country group (excludes Russia)";
-  return key.startsWith("continent:") ? `${name} country group` : name;
+  return name;
 }
 
 
@@ -62,12 +60,12 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
   let scope = "world";
 
   function syncAreaControls() {
-    if (continentSelect.options[0]) continentSelect.options[0].textContent = scope === "country" ? "All country groups" : "Choose a country group";
+    if (continentSelect.options[0]) continentSelect.options[0].textContent = scope === "country" ? "All regions" : "Choose a region";
     document.querySelectorAll('input[name="region-scope"]').forEach(input => { input.checked = input.value === scope; });
     document.getElementById("region-group-field").hidden = scope === "world";
     document.getElementById("region-country-field").hidden = scope !== "country";
     document.getElementById("region-reset").hidden = scope === "world";
-    document.getElementById("region-selection-name").textContent = selectedFeatures.length ? selectedDisplayName() : scope === "world" ? "Whole map" : scope === "country" ? "Choose a country" : "Choose a country group";
+    document.getElementById("region-selection-name").textContent = selectedFeatures.length ? selectedDisplayName() : scope === "world" ? "Whole map" : scope === "country" ? "Choose a country" : "Choose a region";
   }
 
   function selectedName() {
@@ -157,12 +155,12 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
     if (id !== requestId) return;
     root.hidden = !geojson || data.mock || data.vmin === null || data.vmax === null;
     document.getElementById("region-options").hidden = root.hidden;
-    status.textContent = root.hidden ? "Regional exploration is unavailable for this visualization." : "Choose a country group to focus and hear its regional values.";
+    status.textContent = root.hidden ? "Regional exploration is unavailable for this visualization." : "Choose a region to focus and hear its regional values.";
     scope = "world";
     level.value = "continent";
     setGeometry([]);
     if (!root.hidden) {
-      continentSelect.replaceChildren(new Option("Choose a country group", ""));
+      continentSelect.replaceChildren(new Option("Choose a region", ""));
       const names = [...new Set(geojson.features.map((feature) => feature.properties.CONTINENT).filter(Boolean))].sort();
       for (const name of names) continentSelect.add(new Option(regionDisplayName(`continent:${name}`), name));
       countrySelect.replaceChildren(new Option("Choose a country", ""));

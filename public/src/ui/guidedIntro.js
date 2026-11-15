@@ -1,19 +1,19 @@
 const COPY = {
   steps: [
-    ["1. Choose an experience", "Use the Experience menu to choose one of seven NASA Earth variables, such as temperature, wind, precipitation, humidity, or air quality. Each variable turns its changing data into a distinct sound."],
-    ["2. Focus on a place, or keep the whole planet", "Below playback, Where do you want to listen lets you choose Whole map, Country group, or Country. Pick a place from the menus or try a suggested group. The highlighted place determines both readings and sound. Back to whole map clears the selection."],
-    ["3. Move through time", "Play and Pause move through frames in order. Previous and Next move one frame at a time; the Frame position slider jumps to a point in the sequence. Use Tab and Shift plus Tab to reach controls, then Enter or Space to activate them. With focus outside controls, Space plays or pauses and the left and right arrows change frames."],
-    ["4. Listen to a frame's readings", "Pause, then use your screen reader to explore the current date and time, data value and unit, and its sound description. Open View values by time for a table of mean, ninetieth percentile, and pixel coverage. Automatic playback does not announce every frame; selecting frames manually announces their readings."],
-    ["5. Learn how values become sound", "Beside the player, From data to music explains how values map to notes or sound textures. Play sound legend gives a short comparison. Below the player, About the values and methods explains image-derived estimates, pixel coverage, and calculation limits."],
-    ["6. Compare variables", "Above the player, activate the Combination preview tab. Choose which variables to include with the checkboxes; their sounds are mixed and their maps appear in the Combination preview tab above the player. Playback and place controls still apply, and the layer list gives each variable's readings. Activate the Single visualization tab to return to one variable."],
+    ["1. Choose a record", "Choose one of seven records, such as temperature, wind, precipitation, humidity, or air quality. Use arrow keys within the record collection to change your selection. Each variable turns its changing data into a distinct sound."],
+    ["2. Focus on a place, or keep the whole planet", "Below playback, Where do you want to listen lets you choose Whole map, Region, or Country. Pick a place from the menus or try a suggested group. The highlighted place determines both readings and sound. Back to whole map clears the selection."],
+    ["3. Move through time", "Play and Pause move through frames in order. Previous and Next move one frame at a time; the Timeline slider jumps to a point in the sequence. Use Tab and Shift plus Tab to reach controls, then Enter or Space to activate them. With focus outside controls, Space plays or pauses and the left and right arrows change frames."],
+    ["4. Listen to a frame's readings", "Pause, then use your screen reader to explore the current date and time, data value and unit, and its sound description. Open Values over time for a table of mean, ninetieth percentile, and pixel coverage. Automatic playback does not announce every frame; selecting frames manually announces their readings."],
+    ["5. Learn how values become sound", "Beside the player, From data to music explains how values map to notes or sound textures. Hear sound examples gives a short comparison. Below the sound guide, About the values and methods explains image-derived estimates, pixel coverage, and calculation limits."],
+    ["6. Combine variables", "Above the player, activate Combine variables. Choose the records to include with the checkboxes. Their sounds play together and their maps appear in the display. Playback and place controls still apply. Activate One variable to return to an individual variable."],
   ],
   actions: [
-    [["experience", "Go to the Experience menu"]],
+    [["experience", "Go to the record collection"]],
     [["region", "Open the place controls"]],
     [["playback", "Go to playback controls"]],
     [["readings", "Go to current readings"], ["table", "Open the values-by-time table"]],
     [["sound", "Go to the sound guide"], ["methods", "Open values and methods"]],
-    [["enable-layers", "Open Combination preview and go to variable choices"]],
+    [["enable-layers", "Open Combine variables and go to variable choices"]],
   ],
 };
 
@@ -83,7 +83,7 @@ export function initGuidedIntro() {
     };
     const combined = document.getElementById("combine-sounds");
     if (action === "experience") {
-      focus(combined.checked ? document.querySelector("#combined-layers input[type=checkbox]") : document.getElementById("track-select"));
+      focus(combined.checked ? document.querySelector("#combined-layers input[type=checkbox]") : document.querySelector('input[name="earth-record"]:checked'));
     } else if (action === "region") {
       const section = document.getElementById("region-options");
       if (section.hidden) { status.textContent = "Place controls are unavailable for this visualization."; return; }
