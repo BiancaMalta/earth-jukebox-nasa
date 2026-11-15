@@ -13,7 +13,7 @@ const COPY = {
     [["playback", "Go to playback controls"]],
     [["readings", "Go to current readings"], ["table", "Open the values-by-time table"]],
     [["sound", "Go to the sound guide"], ["methods", "Open values and methods"]],
-    [["combined", "Go to Combined mode"], ["enable-layers", "Turn on Combined and go to variable choices"], ["preview", "Open the combination map preview"]],
+    [["enable-layers", "Activate Combined and go to variable choices"]],
   ],
 };
 
@@ -104,18 +104,12 @@ export function initGuidedIntro() {
       const panel = document.getElementById("explanation-details");
       panel.open = true;
       focus(panel.querySelector(":scope > summary"));
-    } else if (action === "combined") {
-      focus(combined);
     } else if (action === "enable-layers") {
       if (!combined.checked) {
         combined.checked = true;
         combined.dispatchEvent(new Event("change", { bubbles: true }));
       }
       focus(document.querySelector("#combined-layers input[type=checkbox]"));
-    } else if (action === "preview") {
-      const tab = document.getElementById("combined-preview-tab");
-      tab.click();
-      focus(tab);
     }
   });
 }
