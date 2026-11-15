@@ -2,7 +2,7 @@
 export const isFiniteNumber = (value) => typeof value === "number" && Number.isFinite(value);
 
 export async function fetchJSON(url, signal) {
-  const response = await fetch(url, { signal });
+  const response = await fetch(url, { signal, cache: "no-cache" });
   if (!response.ok) throw new Error(`Could not load ${new URL(url, document.baseURI).pathname} (HTTP ${response.status}).`);
   return response.json();
 }
@@ -35,7 +35,9 @@ export function validateFeatures(data, trackId, expectedUnit) {
     throw new Error("Unsupported statistics method in features.json.");
   }
   const validRange = isFiniteNumber(data.vmin) && isFiniteNumber(data.vmax) && data.vmin < data.vmax;
-  return { mock: data.mock, unit: data.unit, statistics, sonification, frames, vmin: validRange ? data.vmin : null, vmax: validRange ? data.vmax : null };
+  const analysisSource = data.analysisSource ?? null;
+  if (analysisSource && (analysisSource.width !== 2048 || analysisSource.height !== 1024 || analysisSource.format !== "PNG" || analysisSource.dateLabelsVerified !== true || !/^[a-f0-9]{64}$/.test(analysisSource.manifestSha256))) throw new Error("Invalid native analysis provenance.");
+  return { mock: data.mock, unit: data.unit, statistics, sonification, analysisSource, frames, vmin: validRange ? data.vmin : null, vmax: validRange ? data.vmax : null };
 }
 
 // Keep the producer's wall time and explicit offset. Never apply the browser's zone.

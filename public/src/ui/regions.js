@@ -1,7 +1,7 @@
 // AI-assisted: OpenAI Codex
 import { describePixelCoverage } from "./readings.js";
-import { fetchJSON } from "../data/features.js";
 import { validateRegionalFeatures, regionalFrame } from "../data/regions.js";
+import { describeAvailability } from "../data/availability.js";
 
 const GEOJSON_URL = "data/world-countries.geojson";
 const SVG_NS = "http://www.w3.org/2000/svg";
@@ -58,7 +58,7 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
   let root, level, continentSelect, countrySelect, countryLabel, status, currentText;
   let geojson, activeTrack, activeData, activeFrames, frameDirectory, regionalData;
   let selectedFeatures = [], series = [], seriesState = "idle", currentIndex = 0, requestId = 0, controller;
-  let outline, maskCutout, geoPromise;
+  let outline, maskCutout, geoPromise, retryButton;
 
   function selectedName() {
     return level.value === "continent" ? continentSelect.value : countrySelect.selectedOptions[0]?.textContent;
@@ -72,12 +72,18 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
     currentIndex = index;
     if (!selectedFeatures.length) return;
     const point = series[index];
+    const availability = describeAvailability({ ...regionalFrame(activeData.frames[index], point), availability: { state: seriesState === "ready" && !point ? "missing" : seriesState } });
+    if (availability.detail) {
+      currentText.textContent = `${selectedDisplayName()}: ${availability.detail}`;
+      return;
+    }
     currentText.textContent = !point || point[0] === null
-      ? `${selectedDisplayName()}: no regional value is available for this frame. Regional audio is silent.`
+      ? `${selectedDisplayName()}: regional value unavailable for this frame. Regional audio is silent.`
       : `${selectedDisplayName()}, ${activeData.frames[index]?.date ?? `frame ${index + 1}`}: ${formatNumber(point[0], activeData.unit)}. ${describePixelCoverage(point[3])} within this region; playback sounds this regional value.`;
   }
 
   function setGeometry(features) {
+    retryButton.hidden = true;
     selectedFeatures = features;
     series = [];
     seriesState = features.length ? "loading" : "idle";
@@ -95,7 +101,7 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
   function getFrame(frame, index) {
     if (!selectedFeatures.length) return { frame, track: activeTrack, selected: false };
     return {
-      frame: regionalFrame(frame, series[index]),
+      frame: { ...regionalFrame(frame, series[index]), availability: { state: seriesState === "ready" && !series[index] ? "missing" : seriesState } },
       track: { ...activeTrack, measure: `${selectedDisplayName()} · ${activeTrack.statistics?.mean === "area_weighted" ? "area-weighted image mean" : "image-pixel mean"}` },
       selected: true,
     };
@@ -106,18 +112,27 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
     const id = ++requestId;
     controller?.abort(); controller = new AbortController();
     const signal = controller.signal;
+    const requestController = controller;
+    let timedOut = false;
+    const timeout = setTimeout(() => { timedOut = true; requestController.abort(); }, 15000);
     const name = selectedName();
     const key = `${level.value}:${name}`;
     const displayName = selectedDisplayName();
     status.textContent = `Loading Python-calculated values for ${displayName}…`;
     series = [];
     seriesState = "loading";
+    retryButton.hidden = true;
     updateFrame(currentIndex);
     onValueChange();
     try {
-      const data = regionalData ?? validateRegionalFeatures(
-        await fetchJSON(new URL("../regions.json", frameDirectory), signal), activeTrack, activeData,
-      );
+      let data = regionalData;
+      if (!data) {
+        const response = await fetch(new URL("../regions.json", frameDirectory), { signal, cache: "no-cache" });
+        if (!response.ok) throw new Error(`Regional data request failed (HTTP ${response.status}).`);
+        const raw = await response.json();
+        if (id !== requestId || signal.aborted) return;
+        data = validateRegionalFeatures(raw, activeTrack, activeData);
+      }
       if (id !== requestId || signal.aborted) return;
       regionalData = data;
       if (!Object.hasOwn(data.regions, key)) throw new Error("This region has no precomputed data.");
@@ -127,18 +142,23 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
       updateFrame(currentIndex);
       onValueChange();
     } catch (error) {
-      if (id !== requestId || error.name === "AbortError") return;
+      if (id !== requestId || (error.name === "AbortError" && !timedOut)) return;
       series = [];
       seriesState = "error";
-      status.textContent = `Could not load this region. ${error.message} Regional audio remains silent.`;
+      regionalData = null;
+      retryButton.hidden = false;
+      status.textContent = `Could not load this region. ${timedOut ? "The request timed out." : error.message} Retry regional data. Regional audio remains silent.`;
       updateFrame(currentIndex);
       onValueChange();
+    } finally {
+      clearTimeout(timeout);
     }
   }
 
   async function configure({ track, data, frames, frameDirectory: directory }) {
     const id = ++requestId; controller?.abort(); series = []; seriesState = "idle"; selectedFeatures = [];
     activeTrack = track; activeData = data; activeFrames = frames; frameDirectory = directory; regionalData = null; currentIndex = 0; root.hidden = true;
+    retryButton.hidden = true;
     if (!geojson && geoPromise) {
       try { geojson = await geoPromise; }
       catch (error) { status.textContent = `Regional boundaries could not be loaded. ${error.message}`; }
@@ -201,6 +221,10 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
     countrySelect = document.getElementById("region-country");
     countryLabel = countrySelect.previousElementSibling;
     status = document.getElementById("region-status"); currentText = document.getElementById("region-current");
+    retryButton = document.createElement("button");
+    retryButton.type = "button"; retryButton.textContent = "Retry regional data"; retryButton.hidden = true;
+    retryButton.addEventListener("click", () => { regionalData = null; void loadRegionalValues(); });
+    status.after(retryButton);
     const overlay = document.getElementById("region-overlay");
     const defs = document.createElementNS(SVG_NS, "defs");
     const mask = document.createElementNS(SVG_NS, "mask"); mask.id = "region-dim-mask";

@@ -1,10 +1,16 @@
 {
   "id": "clima-chuva",
-  "title": { "pt": "Precipitação total", "en": "Total precipitation" },
-  "quantity": { "pt": "precipitação total", "en": "total precipitation" },
+  "title": {
+    "pt": "Precipitação total",
+    "en": "Total precipitation"
+  },
+  "quantity": {
+    "pt": "precipitação total",
+    "en": "total precipitation"
+  },
   "measure": {
-    "pt": "Média dos pixels de precipitação coloridos e confiáveis",
-    "en": "Mean of confidently color-matched precipitation pixels"
+    "pt": "Média dos pixels de precipitação reconhecidos pelos filtros",
+    "en": "Mean of color-filtered precipitation pixels"
   },
   "svsId": 5149,
   "unit": "mm",
@@ -20,5 +26,16 @@
   "preset": "campo-continuo",
   "sound": {},
   "speech": {},
-  "credit": "NASA Scientific Visualization Studio / GMAO GEOS-FP"
+  "credit": "NASA Scientific Visualization Studio / GMAO GEOS-FP",
+  "dataSemantics": {
+    "includes": [
+      "rain",
+      "snow"
+    ],
+    "imageUnit": "mm",
+    "accumulationInterval": null,
+    "zeroFromMissingPixels": false,
+    "referenceFluxUnit": "kg/m²/s",
+    "source": "https://svs.gsfc.nasa.gov/5149/"
+  }
 }

@@ -142,7 +142,7 @@ export function initPlayer(index, hooks = {}) {
       row.append(dateCell);
       for (const value of [values?.[0], values?.[1]]) {
         const cell = document.createElement("td");
-        cell.textContent = typeof value === "number" ? value.toFixed(2) + " " + activeTrack.unit : "No data";
+        cell.textContent = typeof value === "number" ? value.toFixed(2) + " " + activeTrack.unit : values?.[3] === 0 ? "No recognized pixels" : "No regional data";
         row.append(cell);
       }
       const coverageCell = document.createElement("td");
@@ -382,6 +382,8 @@ export function initPlayer(index, hooks = {}) {
     setTitle(trackId);
     updateControls();
     status.textContent = "Loading track…";
+    find("frame-mean").textContent = "Loading…";
+    find("current-note").textContent = "Loading…";
     byId("pixel-filter-method").textContent = "Loading color-filter settings…";
     try {
       const signal = trackController.signal;
@@ -397,7 +399,7 @@ export function initPlayer(index, hooks = {}) {
       }
       if (id !== trackRequestId || destroyed) return;
       frameDirectory = directory;
-      activeTrack = { ...track, unit: data.unit, statistics: data.statistics, sonification: data.sonification };
+      activeTrack = { ...track, unit: data.unit, statistics: data.statistics, sonification: data.sonification, analysisSource: data.analysisSource };
       frames = data.frames;
       regionalTable = null;
       renderTimeSeries();
@@ -420,6 +422,8 @@ export function initPlayer(index, hooks = {}) {
       if (id === trackRequestId && !destroyed && error.name !== "AbortError") {
         description.textContent = "Track unavailable.";
         status.textContent = `Could not load the track. ${error.message}`;
+        find("frame-mean").textContent = "Load failed";
+        find("current-note").textContent = "Load failed";
       }
     }
   }

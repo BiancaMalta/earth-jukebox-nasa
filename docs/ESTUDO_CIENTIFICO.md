@@ -2,6 +2,26 @@
 
 ## O que queremos preservar
 
+A [revisão musical de CO e PM2.5](estudo-cientifico/co-pm25-variabilidade.md)
+mediu a variabilidade que chega ao som e levou à adoção de CO em Dó maior
+C2–C6 e PM2.5 contínuo C3–C7. Os dados, índices e filtros de extração foram
+preservados; a comparação com as curvas anteriores continua reproduzível.
+
+A [sensibilidade musical do ozônio](estudo-cientifico/ozonio-sensibilidade.md)
+foi ampliada com uma curva fixa de Dó maior de C3 a C7, com passos de cerca de
+1 ppbv entre 30 e 50 ppbv. Os dados físicos e filtros de ozônio não mudaram.
+
+A [auditoria de disponibilidade dos sons](estudo-cientifico/disponibilidade-sons.md)
+inventaria as lacunas de todas as variáveis, distingue ausência de pixels de
+carregamento e silêncio do áudio, e propõe ações para cada causa. Inclui a
+reprodução do estado transitório `Unavailable` na seleção regional e confirma
+que o grupo América do Norte tem ozônio válido em todos os 124 horários.
+
+A [recuperação de precipitação](estudo-cientifico/precipitacao-recuperacao.md)
+implementa os estados de espera/erro com nova tentativa, compara a resolução
+original com as prévias e documenta a fonte nativa e os limites de interpretação
+de pixels ausentes. Os filtros de cor e a curva percussiva são mantidos.
+
 O objetivo do projeto é tornar os padrões das visualizações NASA perceptíveis por som. Não estamos reconstruindo medições exatas a partir de um vídeo. O requisito útil é preservar contrastes e tendências: onde há mais ou menos sinal e quando ele cresce ou diminui. Mesmo assim, não podemos chamar uma seleção incompleta de pixels de média física de todo um país, nem confundir falta de cor com vento zero.
 
 Este documento reúne a pesquisa, as comparações e a mudança implementada no vento. O relatório inicial foi preservado como histórico; os dados atualmente publicados na aplicação já incorporam médias ponderadas por latitude e um índice visual para a sonificação do vento.

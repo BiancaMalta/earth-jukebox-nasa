@@ -1,0 +1,1131 @@
+{
+  "track": "clima-chuva",
+  "svsId": 5149,
+  "width": 2048,
+  "height": 1024,
+  "format": "PNG",
+  "pixelFilter": {
+    "minSaturation": 40,
+    "maxColorDistance": 30
+  },
+  "accumulationInterval": null,
+  "missingPixels": "unknown, never inferred zero",
+  "frames": [
+    {
+      "file": "frame_000001.webp",
+      "date": "2026-10-30T06:00",
+      "nativeFile": "frame_000001.png",
+      "sourceIndex": 2,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000002.png",
+      "sha256": "7b1aa7bac19429e2ac728c116aaa2a33e002c47dfa5dddeca2ef3b7b2e5ca983",
+      "verifiedLabel": "30 Oct 2026 06:00:00 EDT"
+    },
+    {
+      "file": "frame_000002.webp",
+      "date": "2026-10-30T09:00",
+      "nativeFile": "frame_000002.png",
+      "sourceIndex": 5,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000005.png",
+      "sha256": "1526ab829fa7d5bfcf600cbe990e15c952bb31badc391a4bef9aacea3042cbbd",
+      "verifiedLabel": "30 Oct 2026 09:00:00 EDT"
+    },
+    {
+      "file": "frame_000003.webp",
+      "date": "2026-10-30T12:00",
+      "nativeFile": "frame_000003.png",
+      "sourceIndex": 8,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000008.png",
+      "sha256": "f36fb54af8d21d0861022ff964d62c0364c7b418fef67f0c710a1e2abea8ba43",
+      "verifiedLabel": "30 Oct 2026 12:00:00 EDT"
+    },
+    {
+      "file": "frame_000004.webp",
+      "date": "2026-10-30T15:00",
+      "nativeFile": "frame_000004.png",
+      "sourceIndex": 11,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000011.png",
+      "sha256": "dd33fc046558e2e139f33c854f03e28dbc7b29f93cb3030ad650a33a79be141f",
+      "verifiedLabel": "30 Oct 2026 15:00:00 EDT"
+    },
+    {
+      "file": "frame_000005.webp",
+      "date": "2026-10-30T18:00",
+      "nativeFile": "frame_000005.png",
+      "sourceIndex": 14,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000014.png",
+      "sha256": "3e77de99c0498d425744ac6be0888fecf1b4799ba689b093ac93c833e485da22",
+      "verifiedLabel": "30 Oct 2026 18:00:00 EDT"
+    },
+    {
+      "file": "frame_000006.webp",
+      "date": "2026-10-30T21:00",
+      "nativeFile": "frame_000006.png",
+      "sourceIndex": 17,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000017.png",
+      "sha256": "5b6c92323cf9cec31ceeefbb9024e86d9a3d88e80a098bab623d01f453c24157",
+      "verifiedLabel": "30 Oct 2026 21:00:00 EDT"
+    },
+    {
+      "file": "frame_000007.webp",
+      "date": "2026-10-31T00:00",
+      "nativeFile": "frame_000007.png",
+      "sourceIndex": 20,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000020.png",
+      "sha256": "64023b18bbc51a60a480602e7e164cb2de0f42405e043ac96a55b6c8bbb01ed8",
+      "verifiedLabel": "31 Oct 2026 00:00:00 EDT"
+    },
+    {
+      "file": "frame_000008.webp",
+      "date": "2026-10-31T03:00",
+      "nativeFile": "frame_000008.png",
+      "sourceIndex": 23,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000023.png",
+      "sha256": "530f7441511b929ba34a6599b5bdb29b9ad0755f62445b3ebe81abdb9f844366",
+      "verifiedLabel": "31 Oct 2026 03:00:00 EDT"
+    },
+    {
+      "file": "frame_000009.webp",
+      "date": "2026-10-31T06:00",
+      "nativeFile": "frame_000009.png",
+      "sourceIndex": 26,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000026.png",
+      "sha256": "4fb22244b526c31204c5b3fcfa4c4b785f8792fc48eaa58283d4733d23638ae0",
+      "verifiedLabel": "31 Oct 2026 06:00:00 EDT"
+    },
+    {
+      "file": "frame_000010.webp",
+      "date": "2026-10-31T09:00",
+      "nativeFile": "frame_000010.png",
+      "sourceIndex": 29,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000029.png",
+      "sha256": "9cb5c567fd64bf0537e03b173e7d7b1d606d1316e7f9527122cda754c4c56369",
+      "verifiedLabel": "31 Oct 2026 09:00:00 EDT"
+    },
+    {
+      "file": "frame_000011.webp",
+      "date": "2026-10-31T12:00",
+      "nativeFile": "frame_000011.png",
+      "sourceIndex": 32,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000032.png",
+      "sha256": "97384e46da877a0016a4741a025d646bf090da6e38b0f006f7e2200a724c5e08",
+      "verifiedLabel": "31 Oct 2026 12:00:00 EDT"
+    },
+    {
+      "file": "frame_000012.webp",
+      "date": "2026-10-31T15:00",
+      "nativeFile": "frame_000012.png",
+      "sourceIndex": 35,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000035.png",
+      "sha256": "7389466fadeffc02bd8ecc879e5e642b7a9a2f024f12db689da735295032c8fd",
+      "verifiedLabel": "31 Oct 2026 15:00:00 EDT"
+    },
+    {
+      "file": "frame_000013.webp",
+      "date": "2026-10-31T18:00",
+      "nativeFile": "frame_000013.png",
+      "sourceIndex": 38,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000038.png",
+      "sha256": "27cf5a13f48d7e622213f2c74d43fac0c235b8c8c412ca84945bc106b68ef8ea",
+      "verifiedLabel": "31 Oct 2026 18:00:00 EDT"
+    },
+    {
+      "file": "frame_000014.webp",
+      "date": "2026-10-31T21:00",
+      "nativeFile": "frame_000014.png",
+      "sourceIndex": 41,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000041.png",
+      "sha256": "c95e10e6368627a4ed783a105311341f45bb7c05627869745bc9e5e9df3b02dc",
+      "verifiedLabel": "31 Oct 2026 21:00:00 EDT"
+    },
+    {
+      "file": "frame_000015.webp",
+      "date": "2026-11-01T00:00",
+      "nativeFile": "frame_000015.png",
+      "sourceIndex": 44,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000044.png",
+      "sha256": "45d3763a9754dd7627ddc09a3c8d998a67090349231126fa78733bc1efc54cd0",
+      "verifiedLabel": "01 Nov 2026 00:00:00 EDT"
+    },
+    {
+      "file": "frame_000016.webp",
+      "date": "2026-11-01T02:00",
+      "nativeFile": "frame_000016.png",
+      "sourceIndex": 47,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000047.png",
+      "sha256": "1e448efd8c5b2fa3c56e98ae7f4c91158ffa296c447aaaf6dd0bcfe65c966a3d",
+      "verifiedLabel": "01 Nov 2026 02:00:00 EST"
+    },
+    {
+      "file": "frame_000017.webp",
+      "date": "2026-11-01T05:00",
+      "nativeFile": "frame_000017.png",
+      "sourceIndex": 50,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000050.png",
+      "sha256": "99455955c66cd406c4028ebb18fce576f21c1d672d6958dc210842473a58dded",
+      "verifiedLabel": "01 Nov 2026 05:00:00 EST"
+    },
+    {
+      "file": "frame_000018.webp",
+      "date": "2026-11-01T08:00",
+      "nativeFile": "frame_000018.png",
+      "sourceIndex": 53,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000053.png",
+      "sha256": "d0c6ec54e0782ce658ef84441ad0188812ce8379ad3c89065560a4fd97cf40d3",
+      "verifiedLabel": "01 Nov 2026 08:00:00 EST"
+    },
+    {
+      "file": "frame_000019.webp",
+      "date": "2026-11-01T11:00",
+      "nativeFile": "frame_000019.png",
+      "sourceIndex": 56,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000056.png",
+      "sha256": "82cf4359e3e8b00edacd7a3dd3454ec4fd35f9b740afc17132d37ee5a67abe21",
+      "verifiedLabel": "01 Nov 2026 11:00:00 EST"
+    },
+    {
+      "file": "frame_000020.webp",
+      "date": "2026-11-01T14:00",
+      "nativeFile": "frame_000020.png",
+      "sourceIndex": 59,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000059.png",
+      "sha256": "340e775d2bf45f69098d10fedb3f16ddb4737c68169bd14d8192ef38e6085309",
+      "verifiedLabel": "01 Nov 2026 14:00:00 EST"
+    },
+    {
+      "file": "frame_000021.webp",
+      "date": "2026-11-01T17:00",
+      "nativeFile": "frame_000021.png",
+      "sourceIndex": 62,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000062.png",
+      "sha256": "347b3aec180672a6a0fdd1f7b72264a7bbf0d88846715dcd36dbce2035b84481",
+      "verifiedLabel": "01 Nov 2026 17:00:00 EST"
+    },
+    {
+      "file": "frame_000022.webp",
+      "date": "2026-11-01T20:00",
+      "nativeFile": "frame_000022.png",
+      "sourceIndex": 65,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000065.png",
+      "sha256": "4efa45f4b10bf37ff2a8ebe835b6519b3b4d2c918e2c5388eb15e4b512cde013",
+      "verifiedLabel": "01 Nov 2026 20:00:00 EST"
+    },
+    {
+      "file": "frame_000023.webp",
+      "date": "2026-11-01T23:00",
+      "nativeFile": "frame_000023.png",
+      "sourceIndex": 68,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000068.png",
+      "sha256": "19517e0fdbf89d26412584a2b4813b31616f19c20b1f39eda52ffc80ff47ddd4",
+      "verifiedLabel": "01 Nov 2026 23:00:00 EST"
+    },
+    {
+      "file": "frame_000024.webp",
+      "date": "2026-11-02T02:00",
+      "nativeFile": "frame_000024.png",
+      "sourceIndex": 71,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000071.png",
+      "sha256": "0a980750349b9bfb1aac8db00f714e4c08718b10f9aada4daf5d6b37e0414655",
+      "verifiedLabel": "02 Nov 2026 02:00:00 EST"
+    },
+    {
+      "file": "frame_000025.webp",
+      "date": "2026-11-02T05:00",
+      "nativeFile": "frame_000025.png",
+      "sourceIndex": 74,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000074.png",
+      "sha256": "422773e527751d9ec0dfe6235ae2164f089db3fd39d1d5e894b1c378d2bae805",
+      "verifiedLabel": "02 Nov 2026 05:00:00 EST"
+    },
+    {
+      "file": "frame_000026.webp",
+      "date": "2026-11-02T08:00",
+      "nativeFile": "frame_000026.png",
+      "sourceIndex": 77,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000077.png",
+      "sha256": "38fe53cd0a3e7bee2f046c46015b576d8fe752783f28ce43a8ca1c9606560975",
+      "verifiedLabel": "02 Nov 2026 08:00:00 EST"
+    },
+    {
+      "file": "frame_000027.webp",
+      "date": "2026-11-02T11:00",
+      "nativeFile": "frame_000027.png",
+      "sourceIndex": 80,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000080.png",
+      "sha256": "38559b77e041193076c2beb6b0a7ba2d6f5f18e8fa7e14f2d5cbae52c3a608a2",
+      "verifiedLabel": "02 Nov 2026 11:00:00 EST"
+    },
+    {
+      "file": "frame_000028.webp",
+      "date": "2026-11-02T14:00",
+      "nativeFile": "frame_000028.png",
+      "sourceIndex": 83,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000083.png",
+      "sha256": "0ace4f88dd75b9516b25f024e29490e31ff1f6bbb46d4d601e5c1a764a9df6ea",
+      "verifiedLabel": "02 Nov 2026 14:00:00 EST"
+    },
+    {
+      "file": "frame_000029.webp",
+      "date": "2026-11-02T17:00",
+      "nativeFile": "frame_000029.png",
+      "sourceIndex": 86,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000086.png",
+      "sha256": "1a9c3266d82f1ce85a259fba01d3ab057b65bad40f430b9009d9af541bbac9c2",
+      "verifiedLabel": "02 Nov 2026 17:00:00 EST"
+    },
+    {
+      "file": "frame_000030.webp",
+      "date": "2026-11-02T20:00",
+      "nativeFile": "frame_000030.png",
+      "sourceIndex": 89,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000089.png",
+      "sha256": "76c3227efae0341d686b43e6e7a0e82475bf331589b95b0b3ed33dee53911989",
+      "verifiedLabel": "02 Nov 2026 20:00:00 EST"
+    },
+    {
+      "file": "frame_000031.webp",
+      "date": "2026-11-02T23:00",
+      "nativeFile": "frame_000031.png",
+      "sourceIndex": 92,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000092.png",
+      "sha256": "2319b821eb235fa545aaa64194e408358d97476da5f8f3df8545598444f442bf",
+      "verifiedLabel": "02 Nov 2026 23:00:00 EST"
+    },
+    {
+      "file": "frame_000032.webp",
+      "date": "2026-11-03T02:00",
+      "nativeFile": "frame_000032.png",
+      "sourceIndex": 95,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000095.png",
+      "sha256": "60bc4877e8a807dbb393901284fe9baaa991dde5cfae7afb56d8fb6e4b16ab0f",
+      "verifiedLabel": "03 Nov 2026 02:00:00 EST"
+    },
+    {
+      "file": "frame_000033.webp",
+      "date": "2026-11-03T05:00",
+      "nativeFile": "frame_000033.png",
+      "sourceIndex": 98,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000098.png",
+      "sha256": "57588be25a53c7eb1002b9d4ad596e01b648b4a987ba1f167b3af3617d2525a4",
+      "verifiedLabel": "03 Nov 2026 05:00:00 EST"
+    },
+    {
+      "file": "frame_000034.webp",
+      "date": "2026-11-03T08:00",
+      "nativeFile": "frame_000034.png",
+      "sourceIndex": 101,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000101.png",
+      "sha256": "bfb309a0a09be7b7984b4bd7fda5917b149d787d0660e222537b47ad56e4b7cd",
+      "verifiedLabel": "03 Nov 2026 08:00:00 EST"
+    },
+    {
+      "file": "frame_000035.webp",
+      "date": "2026-11-03T11:00",
+      "nativeFile": "frame_000035.png",
+      "sourceIndex": 104,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000104.png",
+      "sha256": "aff0fd078d5571c000b917370edb05ced874db4a071d1086131d851e2dcac0ae",
+      "verifiedLabel": "03 Nov 2026 11:00:00 EST"
+    },
+    {
+      "file": "frame_000036.webp",
+      "date": "2026-11-03T14:00",
+      "nativeFile": "frame_000036.png",
+      "sourceIndex": 107,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000107.png",
+      "sha256": "c2e8c55629b3b9559d8c623eb6d15753a4c34f9e472034a188368e0567ef8e91",
+      "verifiedLabel": "03 Nov 2026 14:00:00 EST"
+    },
+    {
+      "file": "frame_000037.webp",
+      "date": "2026-11-03T17:00",
+      "nativeFile": "frame_000037.png",
+      "sourceIndex": 110,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000110.png",
+      "sha256": "9ff59759f3a7c7719d50a8702bc55c80a1a44e2ac7bdbf300ec8f4b2c74a1cc1",
+      "verifiedLabel": "03 Nov 2026 17:00:00 EST"
+    },
+    {
+      "file": "frame_000038.webp",
+      "date": "2026-11-03T20:00",
+      "nativeFile": "frame_000038.png",
+      "sourceIndex": 113,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000113.png",
+      "sha256": "005061da5afc9edeae206f1e57e202fe2e3b998cce8de36a3f2511380029facf",
+      "verifiedLabel": "03 Nov 2026 20:00:00 EST"
+    },
+    {
+      "file": "frame_000039.webp",
+      "date": "2026-11-03T23:00",
+      "nativeFile": "frame_000039.png",
+      "sourceIndex": 116,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000116.png",
+      "sha256": "ef6bbe2710e2d0b3000c380830ce2b98ebfb007fe6afe9c0f81d3d82f69a0784",
+      "verifiedLabel": "03 Nov 2026 23:00:00 EST"
+    },
+    {
+      "file": "frame_000040.webp",
+      "date": "2026-11-04T02:00",
+      "nativeFile": "frame_000040.png",
+      "sourceIndex": 119,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000119.png",
+      "sha256": "f945cc60091a5932d7647f466110d98204b7ee0d23a713f78c7c18efd81665e2",
+      "verifiedLabel": "04 Nov 2026 02:00:00 EST"
+    },
+    {
+      "file": "frame_000041.webp",
+      "date": "2026-11-04T05:00",
+      "nativeFile": "frame_000041.png",
+      "sourceIndex": 122,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000122.png",
+      "sha256": "e69f9123d36c0ffc5a9c75b162081b114c91210783c14035ec827f6dd036ee11",
+      "verifiedLabel": "04 Nov 2026 05:00:00 EST"
+    },
+    {
+      "file": "frame_000042.webp",
+      "date": "2026-11-04T08:00",
+      "nativeFile": "frame_000042.png",
+      "sourceIndex": 125,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000125.png",
+      "sha256": "58744bbbe884d9c3a3a1551b3b12b953b6b8ff461c465cad936327eb86849b14",
+      "verifiedLabel": "04 Nov 2026 08:00:00 EST"
+    },
+    {
+      "file": "frame_000043.webp",
+      "date": "2026-11-04T11:00",
+      "nativeFile": "frame_000043.png",
+      "sourceIndex": 128,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000128.png",
+      "sha256": "9cd883fa10165dd5f801ae969abbffa67800947a137c2757668d3f3c17624afa",
+      "verifiedLabel": "04 Nov 2026 11:00:00 EST"
+    },
+    {
+      "file": "frame_000044.webp",
+      "date": "2026-11-04T14:00",
+      "nativeFile": "frame_000044.png",
+      "sourceIndex": 131,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000131.png",
+      "sha256": "de087fae22559786c85657cdb2c73c1dd5fc6eb877b15bdf59fd4442655560b5",
+      "verifiedLabel": "04 Nov 2026 14:00:00 EST"
+    },
+    {
+      "file": "frame_000045.webp",
+      "date": "2026-11-04T17:00",
+      "nativeFile": "frame_000045.png",
+      "sourceIndex": 134,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000134.png",
+      "sha256": "85c9f7c31bf862dfac9ebed38845519af81b465c9fdba91808a058d8a2537ab3",
+      "verifiedLabel": "04 Nov 2026 17:00:00 EST"
+    },
+    {
+      "file": "frame_000046.webp",
+      "date": "2026-11-04T20:00",
+      "nativeFile": "frame_000046.png",
+      "sourceIndex": 137,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000137.png",
+      "sha256": "ee92e3a6e2a61f87d9decece87df5cff88b2f25a39a152f88679b043e47c3af4",
+      "verifiedLabel": "04 Nov 2026 20:00:00 EST"
+    },
+    {
+      "file": "frame_000047.webp",
+      "date": "2026-11-04T23:00",
+      "nativeFile": "frame_000047.png",
+      "sourceIndex": 140,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000140.png",
+      "sha256": "92aa8a3e3959db9ed6dd746844b5982680f5d30ce4257cf85548ec73fcaa3319",
+      "verifiedLabel": "04 Nov 2026 23:00:00 EST"
+    },
+    {
+      "file": "frame_000048.webp",
+      "date": "2026-11-05T02:00",
+      "nativeFile": "frame_000048.png",
+      "sourceIndex": 143,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000143.png",
+      "sha256": "bbc6ca4608e0d0f557cdf2c85be7ccaeeae29506efbcc765c9bda6893e2afd30",
+      "verifiedLabel": "05 Nov 2026 02:00:00 EST"
+    },
+    {
+      "file": "frame_000049.webp",
+      "date": "2026-11-05T05:00",
+      "nativeFile": "frame_000049.png",
+      "sourceIndex": 146,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000146.png",
+      "sha256": "98ce96eca06359e71508863581c3bf7f46463860531d9b36beb8e315cc1b9a30",
+      "verifiedLabel": "05 Nov 2026 05:00:00 EST"
+    },
+    {
+      "file": "frame_000050.webp",
+      "date": "2026-11-05T08:00",
+      "nativeFile": "frame_000050.png",
+      "sourceIndex": 149,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000149.png",
+      "sha256": "acffe242b50aa5067ca81723df30cfbc1b6729038abd29f9cececff87546bc8b",
+      "verifiedLabel": "05 Nov 2026 08:00:00 EST"
+    },
+    {
+      "file": "frame_000051.webp",
+      "date": "2026-11-05T11:00",
+      "nativeFile": "frame_000051.png",
+      "sourceIndex": 152,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000152.png",
+      "sha256": "1cb71f5c372c075858929f57ee6713ccbee4f17ffc6d58e7620cf663c3c9f8ab",
+      "verifiedLabel": "05 Nov 2026 11:00:00 EST"
+    },
+    {
+      "file": "frame_000052.webp",
+      "date": "2026-11-05T14:00",
+      "nativeFile": "frame_000052.png",
+      "sourceIndex": 155,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000155.png",
+      "sha256": "009e509ac59318e375b7ca4be04cef4eee3f6c885a30e47bd7f6e2f9b4ae625d",
+      "verifiedLabel": "05 Nov 2026 14:00:00 EST"
+    },
+    {
+      "file": "frame_000053.webp",
+      "date": "2026-11-05T17:00",
+      "nativeFile": "frame_000053.png",
+      "sourceIndex": 158,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000158.png",
+      "sha256": "4190b7027eaaa20a1a31068a98b7be551839713502e73fe6ca1a6c6a2d88f6fa",
+      "verifiedLabel": "05 Nov 2026 17:00:00 EST"
+    },
+    {
+      "file": "frame_000054.webp",
+      "date": "2026-11-05T20:00",
+      "nativeFile": "frame_000054.png",
+      "sourceIndex": 161,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000161.png",
+      "sha256": "b2fec401c32f31772e78fc1fdd4a166482686b05d3c6ab3a8a5bf3dc5e736611",
+      "verifiedLabel": "05 Nov 2026 20:00:00 EST"
+    },
+    {
+      "file": "frame_000055.webp",
+      "date": "2026-11-05T23:00",
+      "nativeFile": "frame_000055.png",
+      "sourceIndex": 164,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000164.png",
+      "sha256": "ae995913d380df4515a6700650fbb37c7a3b587912010eb3a70c6a2c70bff96c",
+      "verifiedLabel": "05 Nov 2026 23:00:00 EST"
+    },
+    {
+      "file": "frame_000056.webp",
+      "date": "2026-11-06T02:00",
+      "nativeFile": "frame_000056.png",
+      "sourceIndex": 167,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000167.png",
+      "sha256": "a3236a64cd9f2cf6322414ef3730bef1b00f4ee01107b3f49eec046f1c4ca52b",
+      "verifiedLabel": "06 Nov 2026 02:00:00 EST"
+    },
+    {
+      "file": "frame_000057.webp",
+      "date": "2026-11-06T05:00",
+      "nativeFile": "frame_000057.png",
+      "sourceIndex": 170,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000170.png",
+      "sha256": "9eb16444123e92ecb0f91606ac717b609a6f95a6107a813d50c033ea0e6cbfe4",
+      "verifiedLabel": "06 Nov 2026 05:00:00 EST"
+    },
+    {
+      "file": "frame_000058.webp",
+      "date": "2026-11-06T08:00",
+      "nativeFile": "frame_000058.png",
+      "sourceIndex": 173,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000173.png",
+      "sha256": "4440556d7c1e9f6a8c1c90ccd3cb16a3f5429c5b79bdef7c8a4560ba3826c571",
+      "verifiedLabel": "06 Nov 2026 08:00:00 EST"
+    },
+    {
+      "file": "frame_000059.webp",
+      "date": "2026-11-06T11:00",
+      "nativeFile": "frame_000059.png",
+      "sourceIndex": 176,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000176.png",
+      "sha256": "03d3ad612b1375755c025569ce084e515e097ad8b18ce4076917a62d0f74c598",
+      "verifiedLabel": "06 Nov 2026 11:00:00 EST"
+    },
+    {
+      "file": "frame_000060.webp",
+      "date": "2026-11-06T14:00",
+      "nativeFile": "frame_000060.png",
+      "sourceIndex": 179,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000179.png",
+      "sha256": "7b8a8b51668bcea2f31815396cacebdeb0831b1bc9d7f0dbdded8ff433288325",
+      "verifiedLabel": "06 Nov 2026 14:00:00 EST"
+    },
+    {
+      "file": "frame_000061.webp",
+      "date": "2026-11-06T17:00",
+      "nativeFile": "frame_000061.png",
+      "sourceIndex": 182,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000182.png",
+      "sha256": "5fd2066a43c280cf1b1be3f757ecb82a4609c839f05f27f572b8f569685c5393",
+      "verifiedLabel": "06 Nov 2026 17:00:00 EST"
+    },
+    {
+      "file": "frame_000062.webp",
+      "date": "2026-11-06T20:00",
+      "nativeFile": "frame_000062.png",
+      "sourceIndex": 185,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000185.png",
+      "sha256": "0dad220c6bbdee1a98bd339ceb0a35ecbaa5be3c26f7a51b754c722abee6cc62",
+      "verifiedLabel": "06 Nov 2026 20:00:00 EST"
+    },
+    {
+      "file": "frame_000063.webp",
+      "date": "2026-11-06T23:00",
+      "nativeFile": "frame_000063.png",
+      "sourceIndex": 188,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000188.png",
+      "sha256": "4ecf67d799e92da02ce11b09a9b835c890fb6aae31d9454fd68dadd963617858",
+      "verifiedLabel": "06 Nov 2026 23:00:00EST"
+    },
+    {
+      "file": "frame_000064.webp",
+      "date": "2026-11-07T02:00",
+      "nativeFile": "frame_000064.png",
+      "sourceIndex": 191,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000191.png",
+      "sha256": "08022ed0bb6c5203685c1a2bb570356d204302c87cba86d6deed70dffb147007",
+      "verifiedLabel": "07 Nov 2026 02:00:00EST"
+    },
+    {
+      "file": "frame_000065.webp",
+      "date": "2026-11-07T05:00",
+      "nativeFile": "frame_000065.png",
+      "sourceIndex": 194,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000194.png",
+      "sha256": "b401f551a27609fd515e660f796a0b481b89bad42783dd35d8c77064e1fd2c58",
+      "verifiedLabel": "07 Nov 2026 05:00:00 EST"
+    },
+    {
+      "file": "frame_000066.webp",
+      "date": "2026-11-07T08:00",
+      "nativeFile": "frame_000066.png",
+      "sourceIndex": 197,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000197.png",
+      "sha256": "c5f55ff0a1ac31e0e732388b48cf9c62a8eeec256f29293dd0750d585b359756",
+      "verifiedLabel": "07 Nov 2026 08:00:00 EST"
+    },
+    {
+      "file": "frame_000067.webp",
+      "date": "2026-11-07T11:00",
+      "nativeFile": "frame_000067.png",
+      "sourceIndex": 200,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000200.png",
+      "sha256": "00bef782f73e01ed6f25eaa53ee992fe45d48d748630bf5d884476703d6c1744",
+      "verifiedLabel": "07 Nov 2026 11:00:00 EST"
+    },
+    {
+      "file": "frame_000068.webp",
+      "date": "2026-11-07T14:00",
+      "nativeFile": "frame_000068.png",
+      "sourceIndex": 203,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000203.png",
+      "sha256": "dfc222e0acbb99b8394b9decad7df892a43f5b79e3ad64be391fe520efd98e26",
+      "verifiedLabel": "07 Nov 2026 14:00:00 EST"
+    },
+    {
+      "file": "frame_000069.webp",
+      "date": "2026-11-07T17:00",
+      "nativeFile": "frame_000069.png",
+      "sourceIndex": 206,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000206.png",
+      "sha256": "81ddd2ee04127bbf6c3617570439524f4c8ab1170b9d66b0a7e0771b9d3bc327",
+      "verifiedLabel": "07 Nov 2026 17:00:00 EST"
+    },
+    {
+      "file": "frame_000070.webp",
+      "date": "2026-11-07T20:00",
+      "nativeFile": "frame_000070.png",
+      "sourceIndex": 209,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000209.png",
+      "sha256": "b85220337a6c975a924580fd68b132c5aabc1b60c2ace5ee8e2605b0294a85be",
+      "verifiedLabel": "07 Nov 2026 20:00:00 EST"
+    },
+    {
+      "file": "frame_000071.webp",
+      "date": "2026-11-07T23:00",
+      "nativeFile": "frame_000071.png",
+      "sourceIndex": 212,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000212.png",
+      "sha256": "a227ded6818cf34d47effb274e58016a84af640f01473762fd5d68b9d8193153",
+      "verifiedLabel": "07 Nov 2026 23:00:00 EST"
+    },
+    {
+      "file": "frame_000072.webp",
+      "date": "2026-11-08T02:00",
+      "nativeFile": "frame_000072.png",
+      "sourceIndex": 215,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000215.png",
+      "sha256": "98cfd9b04e8d79193e84f49fd5291ca3fc76c998ff5cfc0b82574c013ebbffad",
+      "verifiedLabel": "08 Nov 2026 02:00:00 EST"
+    },
+    {
+      "file": "frame_000073.webp",
+      "date": "2026-11-08T05:00",
+      "nativeFile": "frame_000073.png",
+      "sourceIndex": 218,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000218.png",
+      "sha256": "d003d1fcd1c85aee7005181197956afdd1e28ff0103f6b748892d18ad0d71824",
+      "verifiedLabel": "08 Nov 2026 05:00:00 EST"
+    },
+    {
+      "file": "frame_000074.webp",
+      "date": "2026-11-08T08:00",
+      "nativeFile": "frame_000074.png",
+      "sourceIndex": 221,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000221.png",
+      "sha256": "fc89a7e45c06b9e21432ef0d813f07e14a507a8f349f0eee322b79cbaf562949",
+      "verifiedLabel": "08 Nov 2026 08:00:00EST"
+    },
+    {
+      "file": "frame_000075.webp",
+      "date": "2026-11-08T11:00",
+      "nativeFile": "frame_000075.png",
+      "sourceIndex": 224,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000224.png",
+      "sha256": "c549e0ed2f23f6a4861d56313c3de415f8a60e7a4b75580648cdb7be79cad5aa",
+      "verifiedLabel": "08 Nov 2026 11:00:00EST"
+    },
+    {
+      "file": "frame_000076.webp",
+      "date": "2026-11-08T14:00",
+      "nativeFile": "frame_000076.png",
+      "sourceIndex": 227,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000227.png",
+      "sha256": "55d8f847f48158bccd99a930894f3221361ba80428be985c06bfd98ac611fc1a",
+      "verifiedLabel": "08 Nov 2026 14:00:00 EST"
+    },
+    {
+      "file": "frame_000077.webp",
+      "date": "2026-11-08T17:00",
+      "nativeFile": "frame_000077.png",
+      "sourceIndex": 230,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000230.png",
+      "sha256": "ae876837a2c6dc7133b4c31f745d9a4336c4da7977b35b615b45769ee7b87c81",
+      "verifiedLabel": "08 Nov 2026 17:00:00EST"
+    },
+    {
+      "file": "frame_000078.webp",
+      "date": "2026-11-08T20:00",
+      "nativeFile": "frame_000078.png",
+      "sourceIndex": 233,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000233.png",
+      "sha256": "12cf296fe96dc710ac614b270b3faa27db24a653b207c8b776f28fd9290c7997",
+      "verifiedLabel": "08 Nov 2026 20:00:00EST"
+    },
+    {
+      "file": "frame_000079.webp",
+      "date": "2026-11-08T23:00",
+      "nativeFile": "frame_000079.png",
+      "sourceIndex": 236,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000236.png",
+      "sha256": "75d671465fcca063c561695b7e1fc1cad73052bb134b634a6f077f8bdfff0b32",
+      "verifiedLabel": "08 Nov 2026 23:00:00 EST"
+    },
+    {
+      "file": "frame_000080.webp",
+      "date": "2026-11-09T02:00",
+      "nativeFile": "frame_000080.png",
+      "sourceIndex": 239,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000239.png",
+      "sha256": "c0ee11ad1c58b371fa6a4fd7b199e1a4cdd235a5f465059892bfbcc7f6842dfc",
+      "verifiedLabel": "09 Nov 2026 02:00:00EST"
+    },
+    {
+      "file": "frame_000081.webp",
+      "date": "2026-11-09T05:00",
+      "nativeFile": "frame_000081.png",
+      "sourceIndex": 242,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000242.png",
+      "sha256": "db4b87cbab832e7ba40ba0bab5ba9fde8b10e0a45cabeb4c4496a9699b67cb5d",
+      "verifiedLabel": "09 Nov 2026 05:00:00EST"
+    },
+    {
+      "file": "frame_000082.webp",
+      "date": "2026-11-09T08:00",
+      "nativeFile": "frame_000082.png",
+      "sourceIndex": 245,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000245.png",
+      "sha256": "821bdc201bc8bec924cad2b93f64d8dd20c7d8309da1d9de85df3d69aa17f96b",
+      "verifiedLabel": "09 Nov 2026 08:00:00 EST"
+    },
+    {
+      "file": "frame_000083.webp",
+      "date": "2026-11-09T11:00",
+      "nativeFile": "frame_000083.png",
+      "sourceIndex": 248,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000248.png",
+      "sha256": "74091baec04826897a10aa09115874dbdf783d9a3f4474bba78f33978f029f17",
+      "verifiedLabel": "09 Nov 2026 11:00:00 EST"
+    },
+    {
+      "file": "frame_000084.webp",
+      "date": "2026-11-09T14:00",
+      "nativeFile": "frame_000084.png",
+      "sourceIndex": 251,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000251.png",
+      "sha256": "78c2cb3a77fafdf3d34de33de1b137a9ae9a4132d732c85ddd67fa7bfdcb79df",
+      "verifiedLabel": "09 Nov 2026 14:00:00 EST"
+    },
+    {
+      "file": "frame_000085.webp",
+      "date": "2026-11-09T17:00",
+      "nativeFile": "frame_000085.png",
+      "sourceIndex": 254,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000254.png",
+      "sha256": "84b65fa3559d371c3296ac9e454364f5d7f52bb4f19edd5355ea0ae7e42f25d4",
+      "verifiedLabel": "09 Nov 2026 17:00:00 EST"
+    },
+    {
+      "file": "frame_000086.webp",
+      "date": "2026-11-09T20:00",
+      "nativeFile": "frame_000086.png",
+      "sourceIndex": 257,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000257.png",
+      "sha256": "168aa08941bc1cd7b3085fada7692d13514822ccab468acde0f422eba119e219",
+      "verifiedLabel": "09 Nov 2026 20:00:00 EST"
+    },
+    {
+      "file": "frame_000087.webp",
+      "date": "2026-11-09T23:00",
+      "nativeFile": "frame_000087.png",
+      "sourceIndex": 260,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000260.png",
+      "sha256": "c0ed0000f08ce68a5a76f8715d6854206756390a07473dfa2ac181f78ed0e91f",
+      "verifiedLabel": "09 Nov 2026 23:00:00 EST"
+    },
+    {
+      "file": "frame_000088.webp",
+      "date": "2026-11-10T02:00",
+      "nativeFile": "frame_000088.png",
+      "sourceIndex": 263,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000263.png",
+      "sha256": "af852d6785b9c2178076480db17aca3595828df2cc3ba09f4cff9fc0a8c05db6",
+      "verifiedLabel": "10 Nov 2026 02:00:00 EST"
+    },
+    {
+      "file": "frame_000089.webp",
+      "date": "2026-11-10T05:00",
+      "nativeFile": "frame_000089.png",
+      "sourceIndex": 266,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000266.png",
+      "sha256": "56bd07d1292bf87d1880f8a872940208ad295c472b05462f93f2f331fbdb1280",
+      "verifiedLabel": "10 Nov 2026 05:00:00 EST"
+    },
+    {
+      "file": "frame_000090.webp",
+      "date": "2026-11-10T08:00",
+      "nativeFile": "frame_000090.png",
+      "sourceIndex": 269,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000269.png",
+      "sha256": "05cab3a600e5a9169f60fb202b408a6295fc413106a43e43da502db54ae933be",
+      "verifiedLabel": "10 Nov 2026 08:00:00 EST"
+    },
+    {
+      "file": "frame_000091.webp",
+      "date": "2026-11-10T11:00",
+      "nativeFile": "frame_000091.png",
+      "sourceIndex": 272,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000272.png",
+      "sha256": "a86ec12c69d39d6f6399d93522b04905e44060ede6a1d354ba673ba4dd405999",
+      "verifiedLabel": "10 Nov 2026 11:00:00 EST"
+    },
+    {
+      "file": "frame_000092.webp",
+      "date": "2026-11-10T14:00",
+      "nativeFile": "frame_000092.png",
+      "sourceIndex": 275,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000275.png",
+      "sha256": "ae820589fb390e91f02534833346f9de335e32f2d04b1f748ca3e20cfddf51be",
+      "verifiedLabel": "10 Nov 2026 14:00:00 EST"
+    },
+    {
+      "file": "frame_000093.webp",
+      "date": "2026-11-10T17:00",
+      "nativeFile": "frame_000093.png",
+      "sourceIndex": 278,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000278.png",
+      "sha256": "54d9427780f910d813f53c2a55e2bfc0aceeb5094bb6958f79b769a3988bddce",
+      "verifiedLabel": "10 Nov 2026 17:00:00 EST"
+    },
+    {
+      "file": "frame_000094.webp",
+      "date": "2026-11-10T20:00",
+      "nativeFile": "frame_000094.png",
+      "sourceIndex": 281,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000281.png",
+      "sha256": "3517fd67eca0dbe2768575cf851fc7215296b60e9b2a12389a23fb3b412f530f",
+      "verifiedLabel": "10 Nov 2026 20:00:00 EST"
+    },
+    {
+      "file": "frame_000095.webp",
+      "date": "2026-11-10T23:00",
+      "nativeFile": "frame_000095.png",
+      "sourceIndex": 284,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000284.png",
+      "sha256": "d97f63065e62d3a0227debf3a318cf0ea2d0dc878ee78315c4408da33a580fad",
+      "verifiedLabel": "10 Nov 2026 23:00:00 EST"
+    },
+    {
+      "file": "frame_000096.webp",
+      "date": "2026-11-11T02:00",
+      "nativeFile": "frame_000096.png",
+      "sourceIndex": 287,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000287.png",
+      "sha256": "841578c7388e81200416ce2137df8c8634b35cb9d5b4cd7c36b4a0e34cd32e48",
+      "verifiedLabel": "11 Nov 2026 02:00:00 EST"
+    },
+    {
+      "file": "frame_000097.webp",
+      "date": "2026-11-11T05:00",
+      "nativeFile": "frame_000097.png",
+      "sourceIndex": 290,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000290.png",
+      "sha256": "357ae279e49130351a47590f78f581cac1000c51a0bc07d9c85fc3ac5e3ddcb2",
+      "verifiedLabel": "11 Nov 2026 05:00:00 EST"
+    },
+    {
+      "file": "frame_000098.webp",
+      "date": "2026-11-11T08:00",
+      "nativeFile": "frame_000098.png",
+      "sourceIndex": 293,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000293.png",
+      "sha256": "fb04b02295f0d3dd9ff3038683049e57fc764cbda17c70ccf1c0ae0fe3cc3aa0",
+      "verifiedLabel": "11 Nov 2026 08:00:00 EST"
+    },
+    {
+      "file": "frame_000099.webp",
+      "date": "2026-11-11T11:00",
+      "nativeFile": "frame_000099.png",
+      "sourceIndex": 296,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000296.png",
+      "sha256": "d9ddec5490bc755621e8f39af3efbebe318c7f0c354d82c4448cc8bb160a334c",
+      "verifiedLabel": "11 Nov 2026 11:00:00 EST"
+    },
+    {
+      "file": "frame_000100.webp",
+      "date": "2026-11-11T14:00",
+      "nativeFile": "frame_000100.png",
+      "sourceIndex": 299,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000299.png",
+      "sha256": "0888c3e79bd1bab532aca394d46145f513ca7d73c567c11806c77e3203f3cf46",
+      "verifiedLabel": "11 Nov 2026 14:00:00 EST"
+    },
+    {
+      "file": "frame_000101.webp",
+      "date": "2026-11-11T17:00",
+      "nativeFile": "frame_000101.png",
+      "sourceIndex": 302,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000302.png",
+      "sha256": "200b94e428c349a2e4f2b7b0d9f419c1dc657e5a21766ff3773196768d050348",
+      "verifiedLabel": "11 Nov 2026 17:00:00 EST"
+    },
+    {
+      "file": "frame_000102.webp",
+      "date": "2026-11-11T20:00",
+      "nativeFile": "frame_000102.png",
+      "sourceIndex": 305,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000305.png",
+      "sha256": "0432b77c915f85d5e5ee57a23dc4bfea40586e3f79f09720fdcf300cf7a75dab",
+      "verifiedLabel": "11 Nov 2026 20:00:00 EST"
+    },
+    {
+      "file": "frame_000103.webp",
+      "date": "2026-11-11T23:00",
+      "nativeFile": "frame_000103.png",
+      "sourceIndex": 308,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000308.png",
+      "sha256": "c1ecc78c81a693ac2fd530c6cd1aad338beda8493343cb0aadd07172d7a98376",
+      "verifiedLabel": "11 Nov 2026 23:00:00 EST"
+    },
+    {
+      "file": "frame_000104.webp",
+      "date": "2026-11-12T02:00",
+      "nativeFile": "frame_000104.png",
+      "sourceIndex": 311,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000311.png",
+      "sha256": "a9f6b57909bfc23038d45e16403a33a1f0ecf8d66ebd6f7492324cb2301314dc",
+      "verifiedLabel": "12 Nov 2026 02:00:00 EST"
+    },
+    {
+      "file": "frame_000105.webp",
+      "date": "2026-11-12T05:00",
+      "nativeFile": "frame_000105.png",
+      "sourceIndex": 314,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000314.png",
+      "sha256": "366222db7c622095cfdb914a1dee9df3666a694215c94b34564c684a0ae95c70",
+      "verifiedLabel": "12 Nov 2026 05:00:00 EST"
+    },
+    {
+      "file": "frame_000106.webp",
+      "date": "2026-11-12T08:00",
+      "nativeFile": "frame_000106.png",
+      "sourceIndex": 317,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000317.png",
+      "sha256": "235f0948b1e7bea2084eaab7f8aebad5c5ed2908ead048113928ee3767ef6983",
+      "verifiedLabel": "12 Nov 2026 08:00:00 EST"
+    },
+    {
+      "file": "frame_000107.webp",
+      "date": "2026-11-12T11:00",
+      "nativeFile": "frame_000107.png",
+      "sourceIndex": 320,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000320.png",
+      "sha256": "488d8ba6c7407d8117f26a4393084a53f3bc0b7262a3a8b9aeb0658c67ea5537",
+      "verifiedLabel": "12 Nov 2026 11:00:00 EST"
+    },
+    {
+      "file": "frame_000108.webp",
+      "date": "2026-11-12T14:00",
+      "nativeFile": "frame_000108.png",
+      "sourceIndex": 323,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000323.png",
+      "sha256": "237f73eb4c7044bef454dc39440aeb6c2337a4906fbc5cb8d55339744d028bcd",
+      "verifiedLabel": "12 Nov 2026 14:00:00 EST"
+    },
+    {
+      "file": "frame_000109.webp",
+      "date": "2026-11-12T17:00",
+      "nativeFile": "frame_000109.png",
+      "sourceIndex": 326,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000326.png",
+      "sha256": "a75707a3809af4bf6ae97c17183a18d76a654cb436b9ad6bc33344a611767620",
+      "verifiedLabel": "12 Nov 2026 17:00:00 EST"
+    },
+    {
+      "file": "frame_000110.webp",
+      "date": "2026-11-12T20:00",
+      "nativeFile": "frame_000110.png",
+      "sourceIndex": 329,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000329.png",
+      "sha256": "64204454a478cd0b2863cd878036c62210c90668a6c39ec17d8cb983cdb3c372",
+      "verifiedLabel": "12 Nov 2026 20:00:00 EST"
+    },
+    {
+      "file": "frame_000111.webp",
+      "date": "2026-11-12T23:00",
+      "nativeFile": "frame_000111.png",
+      "sourceIndex": 332,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000332.png",
+      "sha256": "51e716d2312d335627b6c6dcd5081bd33e0f94ec5323bcac9dfb810f22c27e19",
+      "verifiedLabel": "12 Nov 2026 23:00:00 EST"
+    },
+    {
+      "file": "frame_000112.webp",
+      "date": "2026-11-13T02:00",
+      "nativeFile": "frame_000112.png",
+      "sourceIndex": 335,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000335.png",
+      "sha256": "cebc25a5b309258ed0eea382f71b8dc32cd18e64ea4d53d3541539a841bfb383",
+      "verifiedLabel": "13 Nov 2026 02:00:00 EST"
+    },
+    {
+      "file": "frame_000113.webp",
+      "date": "2026-11-13T05:00",
+      "nativeFile": "frame_000113.png",
+      "sourceIndex": 338,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000338.png",
+      "sha256": "8e5aa7608f86e812ff369e4a90a2b2de685c8ff70ac26238740073a4b90a59b6",
+      "verifiedLabel": "13 Nov 2026 05:00:00 EST"
+    },
+    {
+      "file": "frame_000114.webp",
+      "date": "2026-11-13T08:00",
+      "nativeFile": "frame_000114.png",
+      "sourceIndex": 341,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000341.png",
+      "sha256": "4ec45d58c7a08d96be236d0e4a7045504177bcbc7d1e56d63981056222080996",
+      "verifiedLabel": "13 Nov 2026 08:00:00 EST"
+    },
+    {
+      "file": "frame_000115.webp",
+      "date": "2026-11-13T11:00",
+      "nativeFile": "frame_000115.png",
+      "sourceIndex": 344,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000344.png",
+      "sha256": "a09be394da4c2db564acffe2ad5f775e044789673fee775c5083e9801c3354d8",
+      "verifiedLabel": "13 Nov 2026 11:00:00 EST"
+    },
+    {
+      "file": "frame_000116.webp",
+      "date": "2026-11-13T14:00",
+      "nativeFile": "frame_000116.png",
+      "sourceIndex": 347,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000347.png",
+      "sha256": "3b75aefcf30cb4b880d0a774b87fbcc37651f5d65e84067c80ada40583097dcb",
+      "verifiedLabel": "13 Nov 2026 14:00:00 EST"
+    },
+    {
+      "file": "frame_000117.webp",
+      "date": "2026-11-13T17:00",
+      "nativeFile": "frame_000117.png",
+      "sourceIndex": 350,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000350.png",
+      "sha256": "9840ff151a1a26715e38e3be2470eb00fbdc9f0e43a376461ae7e577a8ec64ff",
+      "verifiedLabel": "13 Nov 2026 17:00:00 EST"
+    },
+    {
+      "file": "frame_000118.webp",
+      "date": "2026-11-13T20:00",
+      "nativeFile": "frame_000118.png",
+      "sourceIndex": 353,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000353.png",
+      "sha256": "724bbfdf0f5c975749951abdb95f9ac6369a39c20cb6a9db65fb11f4c96cf6f9",
+      "verifiedLabel": "13 Nov 2026 20:00:00 EST"
+    },
+    {
+      "file": "frame_000119.webp",
+      "date": "2026-11-13T23:00",
+      "nativeFile": "frame_000119.png",
+      "sourceIndex": 356,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000356.png",
+      "sha256": "3c5ebbe128fb2745614c3a103c4768f68bcb9e79c4e2af389ca91acd888ce807",
+      "verifiedLabel": "13 Nov 2026 23:00:00 EST"
+    },
+    {
+      "file": "frame_000120.webp",
+      "date": "2026-11-14T02:00",
+      "nativeFile": "frame_000120.png",
+      "sourceIndex": 359,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000359.png",
+      "sha256": "a802a7f66969b7c3ac65a230dd47c44c87e4b8e99f6c514be76119ee62ef642c",
+      "verifiedLabel": "14 Nov 2026 02:00:00 EST"
+    },
+    {
+      "file": "frame_000121.webp",
+      "date": "2026-11-14T05:00",
+      "nativeFile": "frame_000121.png",
+      "sourceIndex": 362,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000362.png",
+      "sha256": "7a5793ead1c8eb2e1d6a0ae80da6123ccc9ea8fcff2c2d4646fe9dccb48d56a0",
+      "verifiedLabel": "14 Nov 2026 05:00:00 EST"
+    },
+    {
+      "file": "frame_000122.webp",
+      "date": "2026-11-14T08:00",
+      "nativeFile": "frame_000122.png",
+      "sourceIndex": 365,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000365.png",
+      "sha256": "fa8354b4cd54adde4f2e4ae6d8338b87293a7f8cb1beba310933e544792dcbc8",
+      "verifiedLabel": "14 Nov 2026 08:00:00 EST"
+    },
+    {
+      "file": "frame_000123.webp",
+      "date": "2026-11-14T11:00",
+      "nativeFile": "frame_000123.png",
+      "sourceIndex": 368,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000368.png",
+      "sha256": "7b731dfce0805b01ddc1a39c31fa2d6a40ee24aab973b2a93552941b89d8960a",
+      "verifiedLabel": "14 Nov 2026 11:00:00 EST"
+    },
+    {
+      "file": "frame_000124.webp",
+      "date": "2026-11-14T14:00",
+      "nativeFile": "frame_000124.png",
+      "sourceIndex": 371,
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005149/frames/2048x1024_2x1_12p/MC03_stage3_GMAO_precipitation_2048x1024_en-hwtool/00000371.png",
+      "sha256": "f720ba036308e4d98fd7539c3033574ff661b8e0f43d7a4b3d9f804684937297",
+      "verifiedLabel": "14 Nov 2026 14:00:00 EST"
+    }
+  ]
+}

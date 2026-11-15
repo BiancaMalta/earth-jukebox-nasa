@@ -6,6 +6,12 @@ O requisito da sonificação é preservar os contrastes e a direção das mudan�
 
 **Resultado:** o áudio de PM2.5 passou a usar `visualSignal`, um índice adimensional de intensidade logarítmica e extensão das cores detectadas. A curva musical, o instrumento, o volume e a escala compartilhada foram mantidos. As verificações ampliadas mostram melhora forte de mais/menos e melhora de aumentou/diminuiu. Ainda existem inversões individuais; os dados numéricos de referência continuam sendo GEOS-CF, não observações independentes.
 
+**Atualização musical posterior:** após esta avaliação, foi adotado o registro
+contínuo C3–C7, que dobra todos os intervalos em cents da curva C4–C6 usada
+aqui. O índice visual, seu ordenamento, o brilho e os dados permanecem iguais.
+As métricas e o avaliador deste estudo mantêm a curva histórica para permitir
+reprodução. Veja a [revisão de variabilidade](co-pm25-variabilidade.md).
+
 ## Por que a média anterior invertia alguns contrastes
 
 A média aritmética de concentrações decodificadas pode ser dominada por poucos pixels escuros atribuídos ao extremo alto da legenda. Isso é especialmente problemático quando há linhas e detalhes do mapa ou mistura de cores. A auditoria não identificou a origem de cada pixel extremo; por isso não afirmamos que todos sejam artefatos. Entretanto, o comportamento da agregação é verificável: poucos valores de centenas de µg/m³ podem superar uma região com sinal moderado espalhado.

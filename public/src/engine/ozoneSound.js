@@ -1,4 +1,4 @@
-// Soft harp-like Karplus–Strong pluck; pitch follows the supplied norm.
+// Soft harp-like Karplus–Strong pluck; pitch follows the shared C-major ozone curve.
 export function createOzoneSound(tone, destination) {
   const pluck = new tone.PluckSynth({
     attackNoise: 0.9, dampening: 3500, resonance: 0.96, release: 0.18,

@@ -34,6 +34,7 @@ Visualizations courtesy of **NASA's Scientific Visualization Studio**.
 | Pillow | Pipeline dependency | MIT-CMU | https://python-pillow.github.io/ |
 | Requests / urllib3 | Pipeline dependency / transitive dependency | Apache-2.0 / MIT | https://requests.readthedocs.io/ / https://urllib3.readthedocs.io/ |
 | scikit-image / SciPy | Pipeline dependency / transitive dependency; geographic masks and scientific evaluation | BSD-3-Clause | https://scikit-image.org/ / https://scipy.org/ |
+| Tesseract OCR / tessdata_fast English model | Acquisition verification only; reads dates on native precipitation PNGs, not required by the published site | Apache-2.0 | https://github.com/tesseract-ocr/tesseract / https://github.com/tesseract-ocr/tessdata_fast |
 
 ## Sounds
 
@@ -59,3 +60,6 @@ Visualizations courtesy of **NASA's Scientific Visualization Studio**.
 | Wind pixel pipeline and player integration | Copilot SDK in VS Code | Adapted pixel-feature extraction for SVS 5148 and generalized the player to support wind units and coverage. |
 | Carbon monoxide track and calibration | Copilot SDK in VS Code | Added the SVS 5153 colorbar calibration, image-derived features, and visual-only track integration. |
 | Pollutant scientific audit and qualitative PM2.5 follow-up | OpenAI Codex | Investigated prior validation, archived NASA reference subsets, compared regional ordering and temporal directions, implemented and tested the PM2.5 visual index and player integration, and documented results and remaining errors. The user set preservation of relative contrasts and trends as the priority. |
+| Availability states and native precipitation analysis | OpenAI Codex | Implemented loading/error/no-pixel states, regional retry and timeout, verified 124 original NASA PNG timestamps with OCR, reprocessed rain with unchanged filters, measured gains and losses, and documented the unresolved accumulation interval. |
+| Ozone musical sensitivity | OpenAI Codex | Implemented the user's approved fixed C-major curve, denser concentration steps between 30 and 50 ppbv, updated the sound legend, tested ordering and missing-data behavior, and evaluated note changes on unchanged published data. |
+| CO and PM2.5 musical variability | OpenAI Codex | Reviewed all published global/regional series and implemented the user's approved CO C2–C6 C-major curve and continuous PM2.5 C3–C7 range, updated both audio validation layers and legends, tested fixed-scale behavior, and preserved reproducible historical comparisons. |

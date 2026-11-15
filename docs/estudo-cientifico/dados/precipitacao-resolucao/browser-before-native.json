@@ -1,0 +1,33 @@
+{
+  "snapshots": [
+    {
+      "label": "loading",
+      "mean": "Loading…",
+      "note": "Loading…",
+      "status": "Loading Python-calculated values for North America country group…",
+      "retry": false
+    },
+    {
+      "label": "failed",
+      "mean": "Load failed",
+      "note": "Load failed",
+      "status": "Could not load this region. Regional data request failed (HTTP 503). Retry regional data. Regional audio remains silent.",
+      "retry": true
+    },
+    {
+      "label": "retry-recovered",
+      "mean": "0.80 mm",
+      "note": "1.17 Hz",
+      "status": "North America country group: Python-calculated regional values are ready. Playback now uses this region.",
+      "retry": false
+    },
+    {
+      "label": "chad-no-pixels",
+      "mean": "No recognized pixels",
+      "note": "No recognized pixels",
+      "status": "Chad: Python-calculated regional values are ready. Playback now uses this region.",
+      "retry": false
+    }
+  ],
+  "consoleErrors": []
+}

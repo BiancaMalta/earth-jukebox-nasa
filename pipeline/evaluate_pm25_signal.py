@@ -32,7 +32,9 @@ CANDIDATES = ("legacy_norm", "weighted_norm", "log_conditional", "visual_signal"
 
 
 def pitch_cents(position):
-    # Same curve as mapPm25 in JS, in cents relative to C4. No adaptive scaling.
+    # Historical C4–C6 curve used when this visual-index study was conducted.
+    # The later C3–C7 musical update doubles these pitch differences; keep this
+    # baseline frozen so the archived scientific study remains reproducible.
     return 2400 * (position + .3 * np.sin(np.pi * position))
 
 

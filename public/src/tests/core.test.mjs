@@ -90,7 +90,7 @@ test("the precipitation track's generated features satisfy the front-end contrac
   assert.ok(result.frames.every((frame) => frame.norm !== null && frame.coverage !== null));
 });
 
-test("ozone keeps the supplied ppbv norm and maps it to the upper pentatonic plucked voice", async () => {
+test("ozone keeps the supplied ppbv norm and maps it to the sensitive C-major plucked voice", async () => {
   const [index, track, data] = await Promise.all([
     readFile(new URL("../../tracks/index.json", import.meta.url)).then(JSON.parse),
     readFile(new URL("../../tracks/clima-ozonio.json", import.meta.url)).then(JSON.parse),
@@ -658,14 +658,14 @@ test("specific humidity maps to monotonic nominal bandwidth without generating r
 });
 
 test("PM2.5 maps its supplied log position to bounded, monotonic metallic brightness", () => {
-  assert.deepEqual(mapPm25(0), { brightness: 0, frequency: 261.625565 });
-  assert.deepEqual(mapPm25(1), { brightness: 1, frequency: 1046.50226 });
+  assert.deepEqual(mapPm25(0), { brightness: 0, frequency: 130.8127825 });
+  assert.deepEqual(mapPm25(1), { brightness: 1, frequency: 2093.00452 });
   let previous = 0;
   let previousFrequency = 0;
   for (let i = 0; i <= 10000; i++) {
     const mapped = mapPm25(i / 10000);
     assert.ok(mapped.brightness >= previous && mapped.brightness <= 1);
-    assert.ok(mapped.frequency >= previousFrequency && mapped.frequency <= 1046.6);
+    assert.ok(mapped.frequency >= previousFrequency && mapped.frequency <= 2093.1);
     previous = mapped.brightness;
     previousFrequency = mapped.frequency;
   }
@@ -688,9 +688,11 @@ test("PM2.5 sustains one metallic voice and glides pitch and brightness with sup
   assert.ok(fake.calls.created.some(node => node instanceof fake.module.Gain && node.gain.value === 2.5), "PM2.5 keeps its raised independent channel calibration");
   const initialAttacks = fake.calls.pmAttacks;
   assert.equal(engine.playFrame({ norm: 0 }, track), true);
+  assert.equal(fake.calls.notes.at(-1),130.8127825, "PM2.5 instrument accepts C3 through the audio engine");
   const darkCutoff = fake.calls.pm25Cutoffs.at(-1);
   assert.equal(fake.calls.pmAttacks, initialAttacks + 1);
   assert.equal(engine.playFrame({ norm: 1 }, track), true);
+  assert.equal(fake.calls.pmNoteChanges.at(-1),2093.00452, "PM2.5 instrument accepts C7 through the audio engine");
   const brightCutoff = fake.calls.pm25Cutoffs.at(-1);
   assert.ok(brightCutoff > darkCutoff);
   assert.equal(fake.calls.pmAttacks, initialAttacks + 1, "Regular frame updates glide the voice instead of retriggering a hit");
@@ -714,6 +716,8 @@ test("the seven instruments share resources, silence zero precipitation and disp
   assert.ok(fake.calls.windReleases > rainReleases);
   assert.equal(engine.playHumidity(2), true); assert.equal(engine.playHumidity(18), true);
   assert.equal(engine.playCarbonMonoxide(0.2), true); assert.equal(engine.playCarbonMonoxide(0.8), true);
+  assert.equal(engine.playCarbonMonoxide(0),true);assert.equal(fake.calls.notes.at(-1),'C2');
+  assert.equal(engine.playCarbonMonoxide(1),true);assert.equal(fake.calls.notes.at(-1),'C6');
   assert.equal(engine.playOzone(0.2), true); assert.equal(engine.playOzone(0.8), true);
   assert.ok(fake.calls.brassAttacks > 0); assert.ok(fake.calls.plucks > 0);
   assert.equal(fake.calls.created.length, allocated);
@@ -725,7 +729,7 @@ test("the seven instruments share resources, silence zero precipitation and disp
 test("new legends compare stated amount, humidity and pollutant reference endpoints", async () => {
   const originalWindow = globalThis.window;
   try {
-    for (const [kind, method, expected] of [["precipitation", "playPrecipitation", [0.5, 10]], ["humidity", "playHumidity", [0, 22]], ["pm25", "playPm25", [0, 1]], ["carbonMonoxide", "playCarbonMonoxide", [0, 1]], ["ozone", "playOzone", [0, 1]]]) {
+    for (const [kind, method, expected] of [["precipitation", "playPrecipitation", [0.5, 10]], ["humidity", "playHumidity", [0, 22]], ["pm25", "playPm25", [0, 1]], ["carbonMonoxide", "playCarbonMonoxide", [60 / 460, 67 / 460]], ["ozone", "playOzone", [35 / 55, 36 / 55]]]) {
       const tasks = [], values = [], steps = [];
       globalThis.window = { setTimeout(fn, delay) { tasks.push({ fn, delay }); return tasks.length; }, clearTimeout() {} };
       const legend = createLegend({ audio: { stop() {}, [method](value) { values.push(value); return true; } }, speech: { cancel() {}, speak() {} }, enableAudio: async () => {}, getKind: () => kind, onBeforeStart() {}, onState() {}, onStep(text) { steps.push(text); }, onError() { assert.fail("Unexpected error"); } });
@@ -736,8 +740,8 @@ test("new legends compare stated amount, humidity and pollutant reference endpoi
         assert.match(steps[1], /409\.6 µg\/m³/);
         assert.match(steps.at(-1), /not a health-risk rating/);
       }
-      if (kind === "carbonMonoxide") { assert.match(steps[0], /40 ppbv/); assert.match(steps[1], /500 ppbv/); }
-      if (kind === "ozone") { assert.match(steps[0], /5 ppbv/); assert.match(steps[1], /60 ppbv/); }
+      if (kind === "carbonMonoxide") { assert.match(steps[0], /100 ppbv/); assert.match(steps[1], /107 ppbv/); }
+      if (kind === "ozone") { assert.match(steps[0], /40 ppbv/); assert.match(steps[1], /41 ppbv/); }
     }
   } finally { globalThis.window = originalWindow; }
 });

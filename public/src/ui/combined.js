@@ -115,7 +115,7 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
   controls.innerHTML = LAYERS.map(([, key, name, instrument]) => `<div class="combined-layer">
     <label class="checkbox-label"><input id="layer-${key}" type="checkbox" ${instrument || key !== "carbon-monoxide" && key !== "ozone" ? "checked" : ""}> ${name}</label>
     ${instrument ? "" : `<span class="control-help">Visual layer only; a dedicated sound mapping is not available yet.</span>`}
-    <span id="reading-${key}" class="control-help">Unavailable</span></div>`).join("");
+    <span id="reading-${key}" class="control-help">Waiting for combined data</span></div>`).join("");
   function layerKey(track) { return LAYERS.find(([id]) => id === track?.id)?.[1] ?? null; }
   function showVariableGuide() {
     const entry = datasets?.find((item) => item.layerKey === variableSelect.value);
@@ -141,7 +141,7 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
       const track = await fetchJSON(`tracks/${id}.json`, controller.signal);
       const directory = new URL(track.frames.endsWith("/") ? track.frames : `${track.frames}/`, document.baseURI);
       const data = validateFeatures(await fetchJSON(new URL("../features.json", directory), controller.signal), id, track.unit ?? track.colorbar?.unit);
-      const activeTrack = { ...track, unit: data.unit, statistics: data.statistics, sonification: data.sonification };
+      const activeTrack = { ...track, unit: data.unit, statistics: data.statistics, sonification: data.sonification, analysisSource: data.analysisSource };
       if ((instrument && soundKind(activeTrack) !== instrument) || (!instrument && soundKind(activeTrack) !== null)) throw new Error(`Unexpected instrument for ${id}.`);
       const regional = validateRegionalFeatures(await fetchJSON(new URL("../regions.json", directory), controller.signal), activeTrack, data);
       let colorbar = null;
@@ -149,7 +149,7 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
         try { colorbar = await fetchJSON(new URL("../colorbar.json", directory), controller.signal); }
         catch (error) { if (error.name === "AbortError") throw error; }
       }
-      return { track: activeTrack, layerKey: key, instrument, timeline: indexTimeline(data.frames), regional, mock: data.mock, statistics: data.statistics, sonification: data.sonification, colorbar, data: { vmin: data.vmin, vmax: data.vmax, unit: data.unit, mock: data.mock, statistics: data.statistics, sonification: data.sonification } };
+      return { track: activeTrack, layerKey: key, instrument, timeline: indexTimeline(data.frames), regional, mock: data.mock, statistics: data.statistics, sonification: data.sonification, colorbar, data: { vmin: data.vmin, vmax: data.vmax, unit: data.unit, mock: data.mock, statistics: data.statistics, sonification: data.sonification, analysisSource: data.analysisSource } };
     })).then((result) => {     const soundLayers = result.filter((entry) => entry.instrument && entry.statistics?.mean); if (soundLayers.some((entry) => JSON.stringify(entry.statistics) !== JSON.stringify(soundLayers[0].statistics))) throw new Error("Sound datasets have different mean methods. Finish regenerating all sound tracks before combining."); if (!destroyed) datasets = result; return result; }).finally(() => { pending = null; });
     return pending;
   }
@@ -181,6 +181,7 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
       status.textContent = "Single experience mode active."; onChange(); return;
     }
     status.textContent = "Loading seven aligned datasets…"; render(); onChange();
+    if (!datasets) for (const [, key] of LAYERS) document.getElementById(`reading-${key}`).textContent = "Loading…";
     try {
       await load();
       if (destroyed || id !== generation || !toggle.checked) return;

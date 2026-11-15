@@ -1,0 +1,7064 @@
+{
+  "scope": "Musical parameter sensitivity only; no increased physical measurement accuracy or listener study",
+  "anchors": [
+    [
+      5,
+      0
+    ],
+    [
+      30,
+      4
+    ],
+    [
+      50,
+      24
+    ],
+    [
+      60,
+      28
+    ]
+  ],
+  "notes": [
+    "C3",
+    "D3",
+    "E3",
+    "F3",
+    "G3",
+    "A3",
+    "B3",
+    "C4",
+    "D4",
+    "E4",
+    "F4",
+    "G4",
+    "A4",
+    "B4",
+    "C5",
+    "D5",
+    "E5",
+    "F5",
+    "G5",
+    "A5",
+    "B5",
+    "C6",
+    "D6",
+    "E6",
+    "F6",
+    "G6",
+    "A6",
+    "B6",
+    "C7"
+  ],
+  "rows": [
+    {
+      "region": "global",
+      "minMean": 40.842,
+      "maxMean": 42.758,
+      "before": {
+        "distinctNotes": [
+          "E5"
+        ],
+        "changes": 0,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "E5",
+          "D5",
+          "F5"
+        ],
+        "changes": 18,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Fiji",
+      "minMean": null,
+      "maxMean": null,
+      "before": {
+        "distinctNotes": [],
+        "changes": 0,
+        "comparableTransitions": 0,
+        "reversedChanges": 0,
+        "missing": 124
+      },
+      "after": {
+        "distinctNotes": [],
+        "changes": 0,
+        "comparableTransitions": 0,
+        "reversedChanges": 0,
+        "missing": 124
+      }
+    },
+    {
+      "region": "continent:Oceania",
+      "minMean": 32.268,
+      "maxMean": 42.882,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "C5",
+          "E5"
+        ],
+        "changes": 30,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B4",
+          "G4",
+          "F4",
+          "E4",
+          "D4",
+          "A4",
+          "C4",
+          "B3",
+          "D5",
+          "C5",
+          "E5",
+          "F5"
+        ],
+        "changes": 102,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Tanzania",
+      "minMean": 31.281,
+      "maxMean": 40.609,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "C5"
+        ],
+        "changes": 17,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "F4",
+          "G4",
+          "E4",
+          "D4",
+          "C4",
+          "B3",
+          "A3",
+          "A4",
+          "B4",
+          "C5",
+          "D5"
+        ],
+        "changes": 74,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "continent:Africa",
+      "minMean": 37.698,
+      "maxMean": 44.411,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "D5"
+        ],
+        "changes": 30,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "F5",
+          "G5",
+          "E5",
+          "C5",
+          "B4",
+          "D5",
+          "A4"
+        ],
+        "changes": 101,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Western Sahara",
+      "minMean": 29.231,
+      "maxMean": 44.571,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "E5",
+          "A4"
+        ],
+        "changes": 23,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "C4",
+          "G4",
+          "A4",
+          "D5",
+          "B4",
+          "F5",
+          "G5",
+          "E5",
+          "A5",
+          "C5",
+          "F4",
+          "E4",
+          "D4",
+          "B3",
+          "A3",
+          "G3"
+        ],
+        "changes": 69,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Canada",
+      "minMean": 41.089,
+      "maxMean": 43.009,
+      "before": {
+        "distinctNotes": [
+          "E5"
+        ],
+        "changes": 0,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "E5",
+          "F5",
+          "D5"
+        ],
+        "changes": 22,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "continent:North America",
+      "minMean": 41.467,
+      "maxMean": 44.751,
+      "before": {
+        "distinctNotes": [
+          "E5"
+        ],
+        "changes": 0,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "F5",
+          "G5",
+          "E5",
+          "D5",
+          "A5"
+        ],
+        "changes": 52,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:United States of America",
+      "minMean": 39.763,
+      "maxMean": 47.301,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "G5",
+          "D5"
+        ],
+        "changes": 16,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "G5",
+          "A5",
+          "C6",
+          "F5",
+          "E5",
+          "D5",
+          "C5",
+          "B5"
+        ],
+        "changes": 101,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Kazakhstan",
+      "minMean": 33.182,
+      "maxMean": 42.239,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "E5",
+          "C5"
+        ],
+        "changes": 19,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "D5",
+          "C5",
+          "B4",
+          "A4",
+          "G4",
+          "F4",
+          "E5",
+          "E4",
+          "D4",
+          "C4"
+        ],
+        "changes": 86,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "continent:Asia",
+      "minMean": 41.688,
+      "maxMean": 48.014,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "E5"
+        ],
+        "changes": 23,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "D6",
+          "C6",
+          "A5",
+          "G5",
+          "F5",
+          "E5",
+          "B5"
+        ],
+        "changes": 102,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Uzbekistan",
+      "minMean": 35.799,
+      "maxMean": 47.846,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "G5",
+          "D5"
+        ],
+        "changes": 19,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B5",
+          "A5",
+          "G5",
+          "F5",
+          "D6",
+          "C6",
+          "E5",
+          "D5",
+          "C5",
+          "B4",
+          "A4",
+          "G4",
+          "F4"
+        ],
+        "changes": 91,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Papua New Guinea",
+      "minMean": 29.653,
+      "maxMean": 34.324,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "A4"
+        ],
+        "changes": 1,
+        "comparableTransitions": 15,
+        "reversedChanges": 0,
+        "missing": 103
+      },
+      "after": {
+        "distinctNotes": [
+          "A3",
+          "G3",
+          "B3",
+          "D4",
+          "C4"
+        ],
+        "changes": 12,
+        "comparableTransitions": 15,
+        "reversedChanges": 0,
+        "missing": 103
+      }
+    },
+    {
+      "region": "country:Indonesia",
+      "minMean": 31.316,
+      "maxMean": 43.452,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "C5",
+          "E5"
+        ],
+        "changes": 46,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B4",
+          "F4",
+          "D4",
+          "C4",
+          "B3",
+          "C5",
+          "D5",
+          "A4",
+          "E4",
+          "E5",
+          "F5",
+          "G4",
+          "A3"
+        ],
+        "changes": 105,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Argentina",
+      "minMean": 32.949,
+      "maxMean": 49.814,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "E5",
+          "C5",
+          "G5"
+        ],
+        "changes": 34,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "E4",
+          "B4",
+          "E5",
+          "F5",
+          "D5",
+          "A4",
+          "G4",
+          "G5",
+          "B5",
+          "C5",
+          "A5",
+          "F4",
+          "D4",
+          "C4",
+          "C6",
+          "E6",
+          "F6"
+        ],
+        "changes": 104,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "continent:South America",
+      "minMean": 34.56,
+      "maxMean": 41.764,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "E5"
+        ],
+        "changes": 20,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "E4",
+          "A4",
+          "B4",
+          "C5",
+          "G4",
+          "F4",
+          "D5",
+          "E5"
+        ],
+        "changes": 102,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Chile",
+      "minMean": 35.698,
+      "maxMean": 47.043,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "E5",
+          "G5"
+        ],
+        "changes": 25,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "G4",
+          "B4",
+          "E5",
+          "C5",
+          "A4",
+          "D5",
+          "F4",
+          "F5",
+          "G5",
+          "A5",
+          "C6",
+          "B5"
+        ],
+        "changes": 87,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Democratic Republic of the Congo",
+      "minMean": 32.687,
+      "maxMean": 38.853,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "C5"
+        ],
+        "changes": 15,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "A4",
+          "G4",
+          "B4",
+          "F4",
+          "E4",
+          "D4",
+          "C4"
+        ],
+        "changes": 65,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Somalia",
+      "minMean": 27.659,
+      "maxMean": 41.638,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "C5",
+          "E5",
+          "A4"
+        ],
+        "changes": 28,
+        "comparableTransitions": 107,
+        "reversedChanges": 0,
+        "missing": 14
+      },
+      "after": {
+        "distinctNotes": [
+          "C5",
+          "B4",
+          "F4",
+          "D4",
+          "B3",
+          "C4",
+          "G4",
+          "E4",
+          "E5",
+          "A3",
+          "G3"
+        ],
+        "changes": 67,
+        "comparableTransitions": 107,
+        "reversedChanges": 0,
+        "missing": 14
+      }
+    },
+    {
+      "region": "country:Kenya",
+      "minMean": 27.168,
+      "maxMean": 34.938,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "A4"
+        ],
+        "changes": 20,
+        "comparableTransitions": 108,
+        "reversedChanges": 0,
+        "missing": 8
+      },
+      "after": {
+        "distinctNotes": [
+          "C4",
+          "B3",
+          "A3",
+          "G3",
+          "E4",
+          "D4"
+        ],
+        "changes": 59,
+        "comparableTransitions": 108,
+        "reversedChanges": 0,
+        "missing": 8
+      }
+    },
+    {
+      "region": "country:Sudan",
+      "minMean": 34.386,
+      "maxMean": 48.374,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "D5",
+          "C5",
+          "G5"
+        ],
+        "changes": 34,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "D5",
+          "E5",
+          "B4",
+          "A4",
+          "G4",
+          "F5",
+          "C5",
+          "A5",
+          "G5",
+          "E4",
+          "F4",
+          "D4",
+          "B5",
+          "C6",
+          "D6"
+        ],
+        "changes": 102,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Chad",
+      "minMean": 34.193,
+      "maxMean": 50.753,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "D5",
+          "C5",
+          "G5"
+        ],
+        "changes": 43,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "D5",
+          "F5",
+          "E5",
+          "C5",
+          "A4",
+          "F4",
+          "E4",
+          "G5",
+          "G4",
+          "A5",
+          "B4",
+          "B5",
+          "C6",
+          "D4",
+          "D6",
+          "E6",
+          "F6"
+        ],
+        "changes": 107,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Haiti",
+      "minMean": 29.237,
+      "maxMean": 49.477,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "E5",
+          "C5",
+          "A4",
+          "G5"
+        ],
+        "changes": 55,
+        "comparableTransitions": 110,
+        "reversedChanges": 0,
+        "missing": 9
+      },
+      "after": {
+        "distinctNotes": [
+          "E4",
+          "F4",
+          "C5",
+          "F5",
+          "A5",
+          "D4",
+          "G3",
+          "G4",
+          "G5",
+          "A3",
+          "A4",
+          "C4",
+          "E5",
+          "D5",
+          "B4",
+          "C6",
+          "B3",
+          "B5",
+          "E6"
+        ],
+        "changes": 106,
+        "comparableTransitions": 110,
+        "reversedChanges": 0,
+        "missing": 9
+      }
+    },
+    {
+      "region": "country:Dominican Republic",
+      "minMean": 29.027,
+      "maxMean": 48.376,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "E5",
+          "A4",
+          "G5"
+        ],
+        "changes": 52,
+        "comparableTransitions": 111,
+        "reversedChanges": 0,
+        "missing": 7
+      },
+      "after": {
+        "distinctNotes": [
+          "D4",
+          "B3",
+          "G4",
+          "F5",
+          "D5",
+          "A3",
+          "G3",
+          "C4",
+          "E4",
+          "A4",
+          "B4",
+          "A5",
+          "E5",
+          "F4",
+          "C5",
+          "D6",
+          "G5"
+        ],
+        "changes": 100,
+        "comparableTransitions": 111,
+        "reversedChanges": 0,
+        "missing": 7
+      }
+    },
+    {
+      "region": "country:Russia",
+      "minMean": 37.996,
+      "maxMean": 40.936,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "E5"
+        ],
+        "changes": 4,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "A4",
+          "B4",
+          "C5",
+          "D5"
+        ],
+        "changes": 10,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "continent:Europe",
+      "minMean": 38.211,
+      "maxMean": 41.013,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "E5"
+        ],
+        "changes": 6,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "A4",
+          "B4",
+          "C5",
+          "D5"
+        ],
+        "changes": 19,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:The Bahamas",
+      "minMean": 39.515,
+      "maxMean": 59.298,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "G5",
+          "A5",
+          "C6",
+          "D5"
+        ],
+        "changes": 31,
+        "comparableTransitions": 101,
+        "reversedChanges": 0,
+        "missing": 11
+      },
+      "after": {
+        "distinctNotes": [
+          "E5",
+          "D5",
+          "G5",
+          "F5",
+          "A5",
+          "F6",
+          "D6",
+          "G6",
+          "A6",
+          "E6",
+          "C6",
+          "B5",
+          "B6",
+          "C5",
+          "C7"
+        ],
+        "changes": 64,
+        "comparableTransitions": 101,
+        "reversedChanges": 0,
+        "missing": 11
+      }
+    },
+    {
+      "region": "country:Falkland Islands",
+      "minMean": null,
+      "maxMean": null,
+      "before": {
+        "distinctNotes": [],
+        "changes": 0,
+        "comparableTransitions": 0,
+        "reversedChanges": 0,
+        "missing": 124
+      },
+      "after": {
+        "distinctNotes": [],
+        "changes": 0,
+        "comparableTransitions": 0,
+        "reversedChanges": 0,
+        "missing": 124
+      }
+    },
+    {
+      "region": "country:Norway",
+      "minMean": 38.463,
+      "maxMean": 47.866,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "E5",
+          "G5"
+        ],
+        "changes": 11,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "C5",
+          "A4",
+          "B4",
+          "D5",
+          "E5",
+          "F5",
+          "G5",
+          "A5",
+          "B5",
+          "C6",
+          "D6"
+        ],
+        "changes": 46,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Greenland",
+      "minMean": 44.082,
+      "maxMean": 48.651,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "E5"
+        ],
+        "changes": 4,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "C6",
+          "B5",
+          "A5",
+          "G5",
+          "D6",
+          "E6"
+        ],
+        "changes": 18,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:French Southern and Antarctic Lands",
+      "minMean": null,
+      "maxMean": null,
+      "before": {
+        "distinctNotes": [],
+        "changes": 0,
+        "comparableTransitions": 0,
+        "reversedChanges": 0,
+        "missing": 124
+      },
+      "after": {
+        "distinctNotes": [],
+        "changes": 0,
+        "comparableTransitions": 0,
+        "reversedChanges": 0,
+        "missing": 124
+      }
+    },
+    {
+      "region": "continent:Seven seas (open ocean)",
+      "minMean": null,
+      "maxMean": null,
+      "before": {
+        "distinctNotes": [],
+        "changes": 0,
+        "comparableTransitions": 0,
+        "reversedChanges": 0,
+        "missing": 124
+      },
+      "after": {
+        "distinctNotes": [],
+        "changes": 0,
+        "comparableTransitions": 0,
+        "reversedChanges": 0,
+        "missing": 124
+      }
+    },
+    {
+      "region": "country:East Timor",
+      "minMean": 29.974,
+      "maxMean": 35.306,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5"
+        ],
+        "changes": 0,
+        "comparableTransitions": 1,
+        "reversedChanges": 0,
+        "missing": 119
+      },
+      "after": {
+        "distinctNotes": [
+          "G3",
+          "D4",
+          "E4",
+          "A3"
+        ],
+        "changes": 0,
+        "comparableTransitions": 1,
+        "reversedChanges": 0,
+        "missing": 119
+      }
+    },
+    {
+      "region": "country:South Africa",
+      "minMean": 33.073,
+      "maxMean": 52.756,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "A5",
+          "E5",
+          "D5",
+          "C5"
+        ],
+        "changes": 62,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "F6",
+          "G6",
+          "D6",
+          "A5",
+          "E5",
+          "C5",
+          "B5",
+          "B4",
+          "F4",
+          "E4",
+          "G5",
+          "D5",
+          "A4",
+          "C6",
+          "F5",
+          "C4",
+          "D4",
+          "G4",
+          "E6"
+        ],
+        "changes": 113,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Lesotho",
+      "minMean": 28.677,
+      "maxMean": 59.464,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "A5",
+          "E5",
+          "D5",
+          "C6",
+          "C5",
+          "A4"
+        ],
+        "changes": 41,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "E6",
+          "F6",
+          "G6",
+          "A6",
+          "B6",
+          "D6",
+          "A5",
+          "C5",
+          "A4",
+          "B5",
+          "C6",
+          "G5",
+          "F5",
+          "E5",
+          "C7",
+          "D4",
+          "G3",
+          "F4",
+          "B3"
+        ],
+        "changes": 71,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Mexico",
+      "minMean": 34.101,
+      "maxMean": 45.246,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "E5",
+          "C5"
+        ],
+        "changes": 33,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "F4",
+          "B4",
+          "D5",
+          "E5",
+          "C5",
+          "A4",
+          "G4",
+          "E4",
+          "D4",
+          "F5",
+          "G5",
+          "A5"
+        ],
+        "changes": 102,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Uruguay",
+      "minMean": 29.126,
+      "maxMean": 50.96,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "E5",
+          "G5",
+          "A4"
+        ],
+        "changes": 38,
+        "comparableTransitions": 118,
+        "reversedChanges": 0,
+        "missing": 4
+      },
+      "after": {
+        "distinctNotes": [
+          "B3",
+          "D4",
+          "F4",
+          "G4",
+          "E4",
+          "G3",
+          "A4",
+          "C5",
+          "C4",
+          "B4",
+          "D5",
+          "B5",
+          "F6",
+          "D6",
+          "A5",
+          "E5",
+          "G5",
+          "A3"
+        ],
+        "changes": 91,
+        "comparableTransitions": 118,
+        "reversedChanges": 0,
+        "missing": 4
+      }
+    },
+    {
+      "region": "country:Brazil",
+      "minMean": 33.659,
+      "maxMean": 42.352,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "E5"
+        ],
+        "changes": 22,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "E4",
+          "B4",
+          "C5",
+          "A4",
+          "G4",
+          "F4",
+          "D5",
+          "E5",
+          "D4"
+        ],
+        "changes": 90,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Bolivia",
+      "minMean": 32.572,
+      "maxMean": 39.222,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5"
+        ],
+        "changes": 23,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "D4",
+          "E4",
+          "F4",
+          "C4",
+          "A4",
+          "G4",
+          "B4"
+        ],
+        "changes": 84,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Peru",
+      "minMean": 30.914,
+      "maxMean": 37.057,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5"
+        ],
+        "changes": 15,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B3",
+          "C4",
+          "D4",
+          "A3",
+          "E4",
+          "F4",
+          "G4"
+        ],
+        "changes": 74,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Colombia",
+      "minMean": 31.329,
+      "maxMean": 39.999,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5"
+        ],
+        "changes": 27,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B3",
+          "C4",
+          "F4",
+          "G4",
+          "D4",
+          "E4",
+          "A3",
+          "A4",
+          "C5",
+          "B4"
+        ],
+        "changes": 86,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Panama",
+      "minMean": 28.431,
+      "maxMean": 39.091,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "A4",
+          "D5"
+        ],
+        "changes": 23,
+        "comparableTransitions": 115,
+        "reversedChanges": 0,
+        "missing": 5
+      },
+      "after": {
+        "distinctNotes": [
+          "G3",
+          "A3",
+          "C4",
+          "B3",
+          "E4",
+          "G4",
+          "D4",
+          "F4",
+          "B4",
+          "A4"
+        ],
+        "changes": 77,
+        "comparableTransitions": 115,
+        "reversedChanges": 0,
+        "missing": 5
+      }
+    },
+    {
+      "region": "country:Costa Rica",
+      "minMean": 28.431,
+      "maxMean": 34.622,
+      "before": {
+        "distinctNotes": [
+          "A4",
+          "C5"
+        ],
+        "changes": 20,
+        "comparableTransitions": 51,
+        "reversedChanges": 0,
+        "missing": 56
+      },
+      "after": {
+        "distinctNotes": [
+          "G3",
+          "A3",
+          "B3",
+          "C4",
+          "E4"
+        ],
+        "changes": 21,
+        "comparableTransitions": 51,
+        "reversedChanges": 0,
+        "missing": 56
+      }
+    },
+    {
+      "region": "country:Nicaragua",
+      "minMean": 27.168,
+      "maxMean": 40.126,
+      "before": {
+        "distinctNotes": [
+          "A4",
+          "C5",
+          "D5"
+        ],
+        "changes": 18,
+        "comparableTransitions": 69,
+        "reversedChanges": 0,
+        "missing": 42
+      },
+      "after": {
+        "distinctNotes": [
+          "G3",
+          "B3",
+          "A3",
+          "C4",
+          "D4",
+          "E4",
+          "F4",
+          "G4",
+          "B4",
+          "A4",
+          "C5"
+        ],
+        "changes": 40,
+        "comparableTransitions": 69,
+        "reversedChanges": 0,
+        "missing": 42
+      }
+    },
+    {
+      "region": "country:Honduras",
+      "minMean": 28.901,
+      "maxMean": 37.826,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "A4"
+        ],
+        "changes": 25,
+        "comparableTransitions": 114,
+        "reversedChanges": 0,
+        "missing": 6
+      },
+      "after": {
+        "distinctNotes": [
+          "B3",
+          "A4",
+          "G4",
+          "F4",
+          "D4",
+          "C4",
+          "E4",
+          "A3",
+          "G3"
+        ],
+        "changes": 70,
+        "comparableTransitions": 114,
+        "reversedChanges": 0,
+        "missing": 6
+      }
+    },
+    {
+      "region": "country:El Salvador",
+      "minMean": 28.536,
+      "maxMean": 53.433,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "A4",
+          "E5",
+          "G5",
+          "D5",
+          "A5"
+        ],
+        "changes": 65,
+        "comparableTransitions": 108,
+        "reversedChanges": 0,
+        "missing": 9
+      },
+      "after": {
+        "distinctNotes": [
+          "A3",
+          "G3",
+          "G5",
+          "B5",
+          "F6",
+          "G6",
+          "A4",
+          "C6",
+          "D5",
+          "E4",
+          "F4",
+          "B3",
+          "C4",
+          "B4",
+          "D4",
+          "E6",
+          "D6",
+          "G4",
+          "E5",
+          "A5",
+          "F5",
+          "C5"
+        ],
+        "changes": 103,
+        "comparableTransitions": 108,
+        "reversedChanges": 0,
+        "missing": 9
+      }
+    },
+    {
+      "region": "country:Guatemala",
+      "minMean": 28.756,
+      "maxMean": 43.3,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "E5",
+          "D5",
+          "A4"
+        ],
+        "changes": 33,
+        "comparableTransitions": 118,
+        "reversedChanges": 0,
+        "missing": 3
+      },
+      "after": {
+        "distinctNotes": [
+          "C4",
+          "D5",
+          "F5",
+          "B4",
+          "F4",
+          "E4",
+          "C5",
+          "A4",
+          "D4",
+          "B3",
+          "G3",
+          "A3",
+          "G4"
+        ],
+        "changes": 84,
+        "comparableTransitions": 118,
+        "reversedChanges": 0,
+        "missing": 3
+      }
+    },
+    {
+      "region": "country:Belize",
+      "minMean": 27.168,
+      "maxMean": 34.464,
+      "before": {
+        "distinctNotes": [
+          "A4",
+          "C5"
+        ],
+        "changes": 10,
+        "comparableTransitions": 29,
+        "reversedChanges": 0,
+        "missing": 86
+      },
+      "after": {
+        "distinctNotes": [
+          "G3",
+          "D4",
+          "B3",
+          "A3"
+        ],
+        "changes": 11,
+        "comparableTransitions": 29,
+        "reversedChanges": 0,
+        "missing": 86
+      }
+    },
+    {
+      "region": "country:Venezuela",
+      "minMean": 30.627,
+      "maxMean": 36.596,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5"
+        ],
+        "changes": 4,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B3",
+          "C4",
+          "D4",
+          "A3",
+          "E4",
+          "F4",
+          "G4"
+        ],
+        "changes": 66,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Guyana",
+      "minMean": 29.133,
+      "maxMean": 32.395,
+      "before": {
+        "distinctNotes": [
+          "A4",
+          "C5"
+        ],
+        "changes": 10,
+        "comparableTransitions": 32,
+        "reversedChanges": 0,
+        "missing": 77
+      },
+      "after": {
+        "distinctNotes": [
+          "G3",
+          "A3",
+          "B3"
+        ],
+        "changes": 4,
+        "comparableTransitions": 32,
+        "reversedChanges": 0,
+        "missing": 77
+      }
+    },
+    {
+      "region": "country:Suriname",
+      "minMean": 28.922,
+      "maxMean": 31.76,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "A4"
+        ],
+        "changes": 10,
+        "comparableTransitions": 20,
+        "reversedChanges": 0,
+        "missing": 91
+      },
+      "after": {
+        "distinctNotes": [
+          "G3",
+          "A3",
+          "B3"
+        ],
+        "changes": 8,
+        "comparableTransitions": 20,
+        "reversedChanges": 0,
+        "missing": 91
+      }
+    },
+    {
+      "region": "country:France",
+      "minMean": 31.098,
+      "maxMean": 45.246,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "E5",
+          "C5"
+        ],
+        "changes": 26,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B4",
+          "A5",
+          "E5",
+          "G4",
+          "G5",
+          "D5",
+          "A4",
+          "F4",
+          "E4",
+          "D4",
+          "C4",
+          "B3",
+          "A3",
+          "C5",
+          "F5"
+        ],
+        "changes": 83,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Ecuador",
+      "minMean": 29.588,
+      "maxMean": 37.097,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "A4"
+        ],
+        "changes": 15,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "A3",
+          "D4",
+          "E4",
+          "B3",
+          "G3",
+          "F4",
+          "C4",
+          "G4"
+        ],
+        "changes": 76,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Puerto Rico",
+      "minMean": 33.341,
+      "maxMean": 40.076,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5"
+        ],
+        "changes": 1,
+        "comparableTransitions": 2,
+        "reversedChanges": 0,
+        "missing": 120
+      },
+      "after": {
+        "distinctNotes": [
+          "C4",
+          "A4",
+          "C5"
+        ],
+        "changes": 2,
+        "comparableTransitions": 2,
+        "reversedChanges": 0,
+        "missing": 120
+      }
+    },
+    {
+      "region": "country:Jamaica",
+      "minMean": 29.413,
+      "maxMean": 48.378,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "A4",
+          "D5",
+          "E5",
+          "G5"
+        ],
+        "changes": 45,
+        "comparableTransitions": 92,
+        "reversedChanges": 0,
+        "missing": 26
+      },
+      "after": {
+        "distinctNotes": [
+          "D4",
+          "A3",
+          "G3",
+          "G4",
+          "E5",
+          "D5",
+          "F4",
+          "E4",
+          "B3",
+          "B4",
+          "D6",
+          "B5",
+          "C5",
+          "A4",
+          "C4",
+          "A5",
+          "C6",
+          "G5",
+          "F5"
+        ],
+        "changes": 79,
+        "comparableTransitions": 92,
+        "reversedChanges": 0,
+        "missing": 26
+      }
+    },
+    {
+      "region": "country:Cuba",
+      "minMean": 29.796,
+      "maxMean": 43.186,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "E5"
+        ],
+        "changes": 28,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "C4",
+          "A4",
+          "C5",
+          "B4",
+          "G4",
+          "E4",
+          "B3",
+          "F4",
+          "D4",
+          "A3",
+          "G3",
+          "E5",
+          "F5",
+          "D5"
+        ],
+        "changes": 98,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Zimbabwe",
+      "minMean": 32.66,
+      "maxMean": 57.669,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "E5",
+          "D5",
+          "A5",
+          "C6",
+          "C5"
+        ],
+        "changes": 62,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B5",
+          "E6",
+          "F5",
+          "C5",
+          "A4",
+          "G5",
+          "F6",
+          "G6",
+          "E5",
+          "C6",
+          "D6",
+          "A5",
+          "D5",
+          "A6",
+          "B6",
+          "B4",
+          "E4",
+          "D4",
+          "C4",
+          "G4",
+          "F4"
+        ],
+        "changes": 105,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Botswana",
+      "minMean": 36.795,
+      "maxMean": 59.235,
+      "before": {
+        "distinctNotes": [
+          "A5",
+          "C6",
+          "G5",
+          "E5",
+          "D5"
+        ],
+        "changes": 69,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "A6",
+          "B6",
+          "G6",
+          "D6",
+          "G5",
+          "F6",
+          "B5",
+          "E6",
+          "C6",
+          "D5",
+          "G4",
+          "A5",
+          "C7"
+        ],
+        "changes": 94,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Namibia",
+      "minMean": 35.538,
+      "maxMean": 54.603,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "A5",
+          "E5",
+          "D5"
+        ],
+        "changes": 54,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "F6",
+          "G6",
+          "E6",
+          "A5",
+          "F5",
+          "D5",
+          "G5",
+          "B5",
+          "C5",
+          "A4",
+          "E5",
+          "D6",
+          "C6",
+          "B4",
+          "G4",
+          "F4",
+          "A6"
+        ],
+        "changes": 108,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Senegal",
+      "minMean": 31.539,
+      "maxMean": 56.53,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "A5",
+          "G5",
+          "E5",
+          "C5"
+        ],
+        "changes": 68,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B4",
+          "G6",
+          "B6",
+          "A6",
+          "E6",
+          "E5",
+          "A4",
+          "F5",
+          "G5",
+          "F4",
+          "F6",
+          "C6",
+          "D5",
+          "B5",
+          "D6",
+          "C5",
+          "D4",
+          "G4",
+          "E4",
+          "B3",
+          "C4",
+          "A5"
+        ],
+        "changes": 115,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Mali",
+      "minMean": 33.5,
+      "maxMean": 45.286,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "D5",
+          "C5"
+        ],
+        "changes": 35,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "E5",
+          "A5",
+          "F5",
+          "C5",
+          "A4",
+          "D5",
+          "G5",
+          "B4",
+          "G4",
+          "F4",
+          "E4",
+          "C4",
+          "D4"
+        ],
+        "changes": 105,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Mauritania",
+      "minMean": 33.523,
+      "maxMean": 45.861,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "E5",
+          "C5"
+        ],
+        "changes": 22,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B4",
+          "G5",
+          "A5",
+          "F5",
+          "E5",
+          "D5",
+          "B5",
+          "C5",
+          "A4",
+          "F4",
+          "E4",
+          "G4",
+          "D4"
+        ],
+        "changes": 82,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Benin",
+      "minMean": 33.377,
+      "maxMean": 54.016,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "G5",
+          "D5",
+          "A5",
+          "C5"
+        ],
+        "changes": 71,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "A5",
+          "E6",
+          "F6",
+          "D6",
+          "E5",
+          "A4",
+          "E4",
+          "G5",
+          "G6",
+          "C6",
+          "F5",
+          "C5",
+          "G4",
+          "A6",
+          "F4",
+          "B5",
+          "D5",
+          "C4",
+          "B4"
+        ],
+        "changes": 116,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Niger",
+      "minMean": 31.41,
+      "maxMean": 44.225,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "E5",
+          "C5"
+        ],
+        "changes": 23,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "F4",
+          "A4",
+          "G4",
+          "B4",
+          "C5",
+          "D5",
+          "E4",
+          "C4",
+          "D4",
+          "B3",
+          "A3",
+          "E5",
+          "G5"
+        ],
+        "changes": 80,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Nigeria",
+      "minMean": 32.891,
+      "maxMean": 52.401,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "G5",
+          "D5",
+          "C5",
+          "A5"
+        ],
+        "changes": 67,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "F5",
+          "D6",
+          "E6",
+          "B5",
+          "B4",
+          "A4",
+          "G4",
+          "G5",
+          "F6",
+          "C6",
+          "C5",
+          "E5",
+          "F4",
+          "A5",
+          "D5",
+          "E4",
+          "D4",
+          "C4",
+          "G6"
+        ],
+        "changes": 123,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Cameroon",
+      "minMean": 34.508,
+      "maxMean": 45.51,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "D5",
+          "C5"
+        ],
+        "changes": 30,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "D5",
+          "E5",
+          "B4",
+          "A4",
+          "C5",
+          "G5",
+          "F5",
+          "G4",
+          "E4",
+          "F4",
+          "B5",
+          "A5"
+        ],
+        "changes": 87,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Togo",
+      "minMean": 33.301,
+      "maxMean": 52.156,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "G5",
+          "D5",
+          "C5",
+          "A5"
+        ],
+        "changes": 65,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "E5",
+          "C6",
+          "G5",
+          "D5",
+          "A4",
+          "F4",
+          "B5",
+          "E6",
+          "G4",
+          "E4",
+          "F5",
+          "C5",
+          "D6",
+          "B4",
+          "C4",
+          "F6",
+          "D4",
+          "A5",
+          "G6"
+        ],
+        "changes": 113,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Ghana",
+      "minMean": 32.353,
+      "maxMean": 47.186,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "E5",
+          "C5",
+          "G5"
+        ],
+        "changes": 51,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "G4",
+          "D5",
+          "C5",
+          "B4",
+          "A4",
+          "F4",
+          "E4",
+          "E5",
+          "D4",
+          "G5",
+          "F5",
+          "B3",
+          "C4",
+          "B5",
+          "A5",
+          "C6"
+        ],
+        "changes": 117,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Ivory Coast",
+      "minMean": 30.867,
+      "maxMean": 44.2,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "E5"
+        ],
+        "changes": 35,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "D4",
+          "G4",
+          "F4",
+          "E4",
+          "C4",
+          "B3",
+          "A3",
+          "A4",
+          "B4",
+          "C5",
+          "D5",
+          "F5",
+          "G5"
+        ],
+        "changes": 110,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Guinea",
+      "minMean": 31.934,
+      "maxMean": 51.738,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "C5",
+          "E5",
+          "G5",
+          "A5"
+        ],
+        "changes": 54,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "E4",
+          "B4",
+          "A4",
+          "F4",
+          "D4",
+          "C4",
+          "B3",
+          "G4",
+          "D5",
+          "C5",
+          "F5",
+          "G5",
+          "E5",
+          "A5",
+          "D6",
+          "E6",
+          "C6",
+          "F6",
+          "B5",
+          "G6"
+        ],
+        "changes": 113,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Guinea-Bissau",
+      "minMean": 29.413,
+      "maxMean": 54.932,
+      "before": {
+        "distinctNotes": [
+          "A4",
+          "D5",
+          "C5",
+          "E5",
+          "G5",
+          "A5"
+        ],
+        "changes": 51,
+        "comparableTransitions": 117,
+        "reversedChanges": 0,
+        "missing": 4
+      },
+      "after": {
+        "distinctNotes": [
+          "G3",
+          "G4",
+          "A4",
+          "A3",
+          "D4",
+          "C4",
+          "B3",
+          "E5",
+          "F5",
+          "B4",
+          "D5",
+          "G5",
+          "A5",
+          "D6",
+          "C6",
+          "B5",
+          "F6",
+          "E6",
+          "G6",
+          "C5",
+          "E4",
+          "F4",
+          "A6"
+        ],
+        "changes": 103,
+        "comparableTransitions": 117,
+        "reversedChanges": 0,
+        "missing": 4
+      }
+    },
+    {
+      "region": "country:Liberia",
+      "minMean": 29.413,
+      "maxMean": 37.355,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "A4",
+          "D5"
+        ],
+        "changes": 19,
+        "comparableTransitions": 119,
+        "reversedChanges": 0,
+        "missing": 2
+      },
+      "after": {
+        "distinctNotes": [
+          "A3",
+          "C4",
+          "B3",
+          "G3",
+          "E4",
+          "D4",
+          "G4",
+          "F4"
+        ],
+        "changes": 67,
+        "comparableTransitions": 119,
+        "reversedChanges": 0,
+        "missing": 2
+      }
+    },
+    {
+      "region": "country:Sierra Leone",
+      "minMean": 29.336,
+      "maxMean": 39.503,
+      "before": {
+        "distinctNotes": [
+          "A4",
+          "C5",
+          "D5"
+        ],
+        "changes": 22,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "G3",
+          "A3",
+          "B3",
+          "C4",
+          "D4",
+          "E4",
+          "G4",
+          "F4",
+          "A4",
+          "B4"
+        ],
+        "changes": 87,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Burkina Faso",
+      "minMean": 36.187,
+      "maxMean": 57.99,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "A5",
+          "E5",
+          "D5",
+          "C6"
+        ],
+        "changes": 71,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "F6",
+          "G6",
+          "C6",
+          "F5",
+          "B4",
+          "G4",
+          "D6",
+          "B5",
+          "D5",
+          "A6",
+          "G5",
+          "C5",
+          "B6",
+          "A4",
+          "E6",
+          "A5",
+          "E5",
+          "F4"
+        ],
+        "changes": 108,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Central African Republic",
+      "minMean": 34.275,
+      "maxMean": 56.986,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "D5",
+          "C5",
+          "G5",
+          "A5"
+        ],
+        "changes": 53,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "F5",
+          "B5",
+          "C5",
+          "G4",
+          "D4",
+          "E4",
+          "C6",
+          "A5",
+          "E5",
+          "B4",
+          "A4",
+          "G5",
+          "F4",
+          "D5",
+          "D6",
+          "F6",
+          "E6",
+          "G6",
+          "A6",
+          "B6"
+        ],
+        "changes": 110,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Republic of the Congo",
+      "minMean": 29.093,
+      "maxMean": 34.745,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "A4"
+        ],
+        "changes": 16,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B3",
+          "A3",
+          "G3",
+          "C4",
+          "D4",
+          "E4"
+        ],
+        "changes": 54,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Gabon",
+      "minMean": 27.659,
+      "maxMean": 32.205,
+      "before": {
+        "distinctNotes": [
+          "A4",
+          "C5"
+        ],
+        "changes": 22,
+        "comparableTransitions": 109,
+        "reversedChanges": 0,
+        "missing": 10
+      },
+      "after": {
+        "distinctNotes": [
+          "G3",
+          "A3",
+          "B3"
+        ],
+        "changes": 28,
+        "comparableTransitions": 109,
+        "reversedChanges": 0,
+        "missing": 10
+      }
+    },
+    {
+      "region": "country:Equatorial Guinea",
+      "minMean": 28.431,
+      "maxMean": 37.831,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "A4",
+          "D5"
+        ],
+        "changes": 27,
+        "comparableTransitions": 115,
+        "reversedChanges": 0,
+        "missing": 5
+      },
+      "after": {
+        "distinctNotes": [
+          "B3",
+          "C4",
+          "A3",
+          "G3",
+          "F4",
+          "D4",
+          "E4",
+          "A4",
+          "G4"
+        ],
+        "changes": 73,
+        "comparableTransitions": 115,
+        "reversedChanges": 0,
+        "missing": 5
+      }
+    },
+    {
+      "region": "country:Zambia",
+      "minMean": 41.804,
+      "maxMean": 53.748,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "E5",
+          "A5"
+        ],
+        "changes": 46,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "F6",
+          "E6",
+          "C6",
+          "B5",
+          "G5",
+          "D6",
+          "E5",
+          "G6",
+          "A5",
+          "F5"
+        ],
+        "changes": 94,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Malawi",
+      "minMean": 36.151,
+      "maxMean": 53.169,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "E5",
+          "D5",
+          "A5"
+        ],
+        "changes": 47,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "C6",
+          "E6",
+          "B5",
+          "E5",
+          "C5",
+          "B4",
+          "F6",
+          "G5",
+          "A4",
+          "F5",
+          "A5",
+          "F4",
+          "D5",
+          "G4",
+          "D6",
+          "G6"
+        ],
+        "changes": 113,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Mozambique",
+      "minMean": 31.623,
+      "maxMean": 46.63,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "C5",
+          "E5",
+          "G5"
+        ],
+        "changes": 48,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "G4",
+          "C5",
+          "B4",
+          "F4",
+          "D4",
+          "C4",
+          "B3",
+          "A4",
+          "E4",
+          "D5",
+          "E5",
+          "F5",
+          "A5",
+          "G5",
+          "C6",
+          "B5"
+        ],
+        "changes": 104,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Eswatini",
+      "minMean": 28.221,
+      "maxMean": 59.642,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "D5",
+          "C5",
+          "A4",
+          "G5",
+          "A5",
+          "C6"
+        ],
+        "changes": 66,
+        "comparableTransitions": 112,
+        "reversedChanges": 0,
+        "missing": 7
+      },
+      "after": {
+        "distinctNotes": [
+          "F5",
+          "G5",
+          "E5",
+          "E4",
+          "A3",
+          "G3",
+          "B4",
+          "F6",
+          "G6",
+          "E6",
+          "C4",
+          "A6",
+          "C7",
+          "A5",
+          "F4",
+          "A4",
+          "C5",
+          "B6",
+          "C6",
+          "D4",
+          "B5",
+          "G4",
+          "B3",
+          "D6"
+        ],
+        "changes": 98,
+        "comparableTransitions": 112,
+        "reversedChanges": 0,
+        "missing": 7
+      }
+    },
+    {
+      "region": "country:Angola",
+      "minMean": 37.358,
+      "maxMean": 48.762,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "E5",
+          "D5"
+        ],
+        "changes": 43,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "D6",
+          "B5",
+          "G5",
+          "E5",
+          "D5",
+          "C6",
+          "B4",
+          "A5",
+          "F5",
+          "C5",
+          "E6",
+          "A4",
+          "G4"
+        ],
+        "changes": 105,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Burundi",
+      "minMean": 29.363,
+      "maxMean": 44.103,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "C5",
+          "E5",
+          "A4"
+        ],
+        "changes": 31,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B4",
+          "A4",
+          "F4",
+          "E4",
+          "D4",
+          "G4",
+          "C4",
+          "A3",
+          "B3",
+          "C5",
+          "E5",
+          "F5",
+          "G5",
+          "D5",
+          "G3"
+        ],
+        "changes": 94,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Israel",
+      "minMean": 29.507,
+      "maxMean": 57.194,
+      "before": {
+        "distinctNotes": [
+          "A5",
+          "G5",
+          "E5",
+          "D5",
+          "C5",
+          "A4"
+        ],
+        "changes": 79,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "A6",
+          "G6",
+          "C6",
+          "A5",
+          "D5",
+          "A4",
+          "B6",
+          "F6",
+          "F5",
+          "G4",
+          "C4",
+          "F4",
+          "C5",
+          "B5",
+          "D6",
+          "G5",
+          "E6",
+          "B3",
+          "D4",
+          "E5",
+          "B4",
+          "E4",
+          "A3",
+          "G3"
+        ],
+        "changes": 108,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Lebanon",
+      "minMean": 30.29,
+      "maxMean": 56.194,
+      "before": {
+        "distinctNotes": [
+          "A5",
+          "G5",
+          "D5",
+          "C5",
+          "E5"
+        ],
+        "changes": 73,
+        "comparableTransitions": 121,
+        "reversedChanges": 0,
+        "missing": 1
+      },
+      "after": {
+        "distinctNotes": [
+          "A6",
+          "G6",
+          "D6",
+          "G4",
+          "D4",
+          "C4",
+          "E6",
+          "F6",
+          "G3",
+          "D5",
+          "A5",
+          "F5",
+          "A4",
+          "B3",
+          "G5",
+          "B5",
+          "E5",
+          "C5",
+          "C6",
+          "B4",
+          "F4",
+          "A3"
+        ],
+        "changes": 107,
+        "comparableTransitions": 121,
+        "reversedChanges": 0,
+        "missing": 1
+      }
+    },
+    {
+      "region": "country:Madagascar",
+      "minMean": 29.588,
+      "maxMean": 39.682,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "A4"
+        ],
+        "changes": 24,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "E4",
+          "C4",
+          "B3",
+          "G4",
+          "F4",
+          "B4",
+          "C5",
+          "A3",
+          "G3",
+          "A4",
+          "D4"
+        ],
+        "changes": 83,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Palestine",
+      "minMean": 28.712,
+      "maxMean": 56.212,
+      "before": {
+        "distinctNotes": [
+          "A5",
+          "D5",
+          "C5",
+          "G5",
+          "E5",
+          "A4"
+        ],
+        "changes": 21,
+        "comparableTransitions": 28,
+        "reversedChanges": 0,
+        "missing": 75
+      },
+      "after": {
+        "distinctNotes": [
+          "A6",
+          "G6",
+          "C5",
+          "B3",
+          "A3",
+          "D6",
+          "G4",
+          "A4",
+          "D4",
+          "G3",
+          "D5",
+          "F5",
+          "E6",
+          "B5",
+          "F6",
+          "E5",
+          "A5"
+        ],
+        "changes": 27,
+        "comparableTransitions": 28,
+        "reversedChanges": 0,
+        "missing": 75
+      }
+    },
+    {
+      "region": "country:The Gambia",
+      "minMean": 39.515,
+      "maxMean": 59.79,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "C6",
+          "A5",
+          "E5",
+          "D5"
+        ],
+        "changes": 15,
+        "comparableTransitions": 20,
+        "reversedChanges": 0,
+        "missing": 79
+      },
+      "after": {
+        "distinctNotes": [
+          "E6",
+          "D6",
+          "B6",
+          "A6",
+          "C6",
+          "G6",
+          "C7",
+          "F6",
+          "A5",
+          "B5",
+          "C5",
+          "F5"
+        ],
+        "changes": 18,
+        "comparableTransitions": 20,
+        "reversedChanges": 0,
+        "missing": 79
+      }
+    },
+    {
+      "region": "country:Tunisia",
+      "minMean": 35.782,
+      "maxMean": 54.327,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "E5",
+          "A5",
+          "D5"
+        ],
+        "changes": 27,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "D6",
+          "E6",
+          "C6",
+          "B5",
+          "A5",
+          "F6",
+          "G6",
+          "A6",
+          "F5",
+          "E5",
+          "G5",
+          "D5",
+          "C5",
+          "B4",
+          "A4",
+          "F4",
+          "G4"
+        ],
+        "changes": 80,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Algeria",
+      "minMean": 34.834,
+      "maxMean": 46.362,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "G5",
+          "D5",
+          "C5"
+        ],
+        "changes": 13,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B5",
+          "A5",
+          "G5",
+          "F5",
+          "E5",
+          "D5",
+          "C5",
+          "B4",
+          "A4",
+          "G4",
+          "F4",
+          "E4"
+        ],
+        "changes": 70,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Jordan",
+      "minMean": 39.913,
+      "maxMean": 55.461,
+      "before": {
+        "distinctNotes": [
+          "A5",
+          "G5",
+          "E5",
+          "D5"
+        ],
+        "changes": 45,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "A6",
+          "G6",
+          "F6",
+          "E6",
+          "D6",
+          "C6",
+          "B5",
+          "A5",
+          "G5",
+          "F5",
+          "E5",
+          "D5",
+          "C5"
+        ],
+        "changes": 93,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:United Arab Emirates",
+      "minMean": 37.269,
+      "maxMean": 59.535,
+      "before": {
+        "distinctNotes": [
+          "A5",
+          "G5",
+          "E5",
+          "D5",
+          "C6"
+        ],
+        "changes": 48,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "G6",
+          "E6",
+          "A5",
+          "E5",
+          "D5",
+          "C5",
+          "F6",
+          "A6",
+          "G5",
+          "B5",
+          "F5",
+          "D6",
+          "A4",
+          "C6",
+          "B4",
+          "G4",
+          "B6",
+          "C7"
+        ],
+        "changes": 91,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Qatar",
+      "minMean": 27.168,
+      "maxMean": 59.298,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "A4",
+          "C5",
+          "G5",
+          "A5",
+          "E5",
+          "C6"
+        ],
+        "changes": 72,
+        "comparableTransitions": 117,
+        "reversedChanges": 0,
+        "missing": 4
+      },
+      "after": {
+        "distinctNotes": [
+          "B4",
+          "G3",
+          "B3",
+          "C6",
+          "G6",
+          "A4",
+          "C4",
+          "D6",
+          "D4",
+          "A3",
+          "G4",
+          "F6",
+          "A6",
+          "B6",
+          "E6",
+          "E5",
+          "D5",
+          "G5",
+          "C7",
+          "B5",
+          "C5",
+          "F5",
+          "F4"
+        ],
+        "changes": 97,
+        "comparableTransitions": 117,
+        "reversedChanges": 0,
+        "missing": 4
+      }
+    },
+    {
+      "region": "country:Kuwait",
+      "minMean": 29.736,
+      "maxMean": 57.004,
+      "before": {
+        "distinctNotes": [
+          "A5",
+          "E5",
+          "D5",
+          "C5",
+          "G5"
+        ],
+        "changes": 65,
+        "comparableTransitions": 121,
+        "reversedChanges": 0,
+        "missing": 1
+      },
+      "after": {
+        "distinctNotes": [
+          "A6",
+          "E5",
+          "F4",
+          "C4",
+          "A3",
+          "D5",
+          "B6",
+          "G6",
+          "E6",
+          "D6",
+          "F5",
+          "C5",
+          "F6",
+          "B4",
+          "A4",
+          "G4",
+          "B3",
+          "G5",
+          "B5",
+          "E4",
+          "A5",
+          "G3",
+          "D4",
+          "C6"
+        ],
+        "changes": 102,
+        "comparableTransitions": 121,
+        "reversedChanges": 0,
+        "missing": 1
+      }
+    },
+    {
+      "region": "country:Iraq",
+      "minMean": 36.733,
+      "maxMean": 52.986,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "E5",
+          "D5",
+          "A5"
+        ],
+        "changes": 46,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "D6",
+          "E6",
+          "C6",
+          "G5",
+          "D5",
+          "C5",
+          "F6",
+          "B5",
+          "F5",
+          "B4",
+          "A5",
+          "E5",
+          "G4",
+          "A4",
+          "G6"
+        ],
+        "changes": 109,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Oman",
+      "minMean": 35.711,
+      "maxMean": 54.265,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "E5",
+          "D5",
+          "A5"
+        ],
+        "changes": 30,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "F6",
+          "D6",
+          "B5",
+          "A5",
+          "E6",
+          "C6",
+          "G5",
+          "F5",
+          "E5",
+          "D5",
+          "C5",
+          "B4",
+          "A4",
+          "G4",
+          "F4",
+          "A6",
+          "G6"
+        ],
+        "changes": 94,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Vanuatu",
+      "minMean": null,
+      "maxMean": null,
+      "before": {
+        "distinctNotes": [],
+        "changes": 0,
+        "comparableTransitions": 0,
+        "reversedChanges": 0,
+        "missing": 124
+      },
+      "after": {
+        "distinctNotes": [],
+        "changes": 0,
+        "comparableTransitions": 0,
+        "reversedChanges": 0,
+        "missing": 124
+      }
+    },
+    {
+      "region": "country:Cambodia",
+      "minMean": 30.123,
+      "maxMean": 51.622,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "C5",
+          "G5",
+          "E5"
+        ],
+        "changes": 32,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "F4",
+          "D4",
+          "C4",
+          "B3",
+          "A3",
+          "E4",
+          "B4",
+          "A4",
+          "C5",
+          "G4",
+          "G3",
+          "C6",
+          "D6",
+          "B5",
+          "A5",
+          "G5",
+          "G6",
+          "F6",
+          "E5",
+          "D5",
+          "F5"
+        ],
+        "changes": 94,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Thailand",
+      "minMean": 31.081,
+      "maxMean": 50.702,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "D5",
+          "G5",
+          "C5"
+        ],
+        "changes": 40,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "G5",
+          "D5",
+          "B4",
+          "A4",
+          "G4",
+          "F4",
+          "E5",
+          "A5",
+          "B5",
+          "C6",
+          "D6",
+          "E6",
+          "C5",
+          "F5",
+          "E4",
+          "D4",
+          "C4",
+          "B3",
+          "A3",
+          "F6"
+        ],
+        "changes": 108,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Laos",
+      "minMean": 29.485,
+      "maxMean": 47.221,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "C5",
+          "A4",
+          "E5",
+          "G5"
+        ],
+        "changes": 22,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "A4",
+          "F4",
+          "D4",
+          "G4",
+          "E4",
+          "C4",
+          "B3",
+          "A3",
+          "G3",
+          "B4",
+          "D5",
+          "F5",
+          "B5",
+          "A5",
+          "G5",
+          "C6",
+          "C5",
+          "E5"
+        ],
+        "changes": 60,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Myanmar",
+      "minMean": 32.706,
+      "maxMean": 42.611,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "D5",
+          "C5"
+        ],
+        "changes": 25,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "E5",
+          "D5",
+          "B4",
+          "A4",
+          "C5",
+          "G4",
+          "F4",
+          "E4",
+          "D4",
+          "C4",
+          "F5"
+        ],
+        "changes": 90,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Vietnam",
+      "minMean": 31.181,
+      "maxMean": 50.949,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "D5",
+          "C5",
+          "G5"
+        ],
+        "changes": 39,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "A5",
+          "C5",
+          "A4",
+          "E5",
+          "G5",
+          "B4",
+          "F5",
+          "F4",
+          "D4",
+          "C4",
+          "E4",
+          "B3",
+          "G4",
+          "D5",
+          "A3",
+          "B5",
+          "E6",
+          "F6",
+          "C6"
+        ],
+        "changes": 98,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:North Korea",
+      "minMean": 32.934,
+      "maxMean": 51.405,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "E5",
+          "D5",
+          "C5"
+        ],
+        "changes": 22,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "C6",
+          "F5",
+          "D5",
+          "C5",
+          "B4",
+          "D6",
+          "B5",
+          "A5",
+          "G5",
+          "E5",
+          "A4",
+          "G4",
+          "F6",
+          "E6",
+          "C4",
+          "E4",
+          "G6"
+        ],
+        "changes": 89,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:South Korea",
+      "minMean": 30.339,
+      "maxMean": 50.69,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "D5",
+          "G5",
+          "C5"
+        ],
+        "changes": 48,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "G5",
+          "C5",
+          "G4",
+          "A4",
+          "C6",
+          "D5",
+          "F4",
+          "D4",
+          "E4",
+          "A5",
+          "B3",
+          "G3",
+          "A3",
+          "C4",
+          "B4",
+          "E5",
+          "F5",
+          "F6"
+        ],
+        "changes": 101,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Mongolia",
+      "minMean": 40.046,
+      "maxMean": 48.218,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "E5",
+          "D5"
+        ],
+        "changes": 11,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "C6",
+          "B5",
+          "A5",
+          "G5",
+          "F5",
+          "E5",
+          "D5",
+          "D6",
+          "C5"
+        ],
+        "changes": 58,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:India",
+      "minMean": 36.855,
+      "maxMean": 58.214,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "E5",
+          "D5",
+          "A5",
+          "C6"
+        ],
+        "changes": 54,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "F6",
+          "E6",
+          "G5",
+          "C5",
+          "A4",
+          "G4",
+          "F5",
+          "G6",
+          "B5",
+          "E5",
+          "C6",
+          "D5",
+          "A5",
+          "A6",
+          "D6",
+          "B6"
+        ],
+        "changes": 103,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Bangladesh",
+      "minMean": 29.931,
+      "maxMean": 59.559,
+      "before": {
+        "distinctNotes": [
+          "A5",
+          "G5",
+          "E5",
+          "D5",
+          "C6",
+          "C5"
+        ],
+        "changes": 77,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "A6",
+          "E6",
+          "A5",
+          "B4",
+          "G4",
+          "F4",
+          "G6",
+          "B6",
+          "B5",
+          "D4",
+          "C4",
+          "G5",
+          "E4",
+          "F6",
+          "A4",
+          "D6",
+          "C5",
+          "G3",
+          "C7",
+          "D5",
+          "E5",
+          "F5"
+        ],
+        "changes": 104,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Bhutan",
+      "minMean": 41.779,
+      "maxMean": 55.473,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "G5",
+          "A5"
+        ],
+        "changes": 34,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "G5",
+          "E5",
+          "F5",
+          "A5",
+          "D6",
+          "F6",
+          "E6",
+          "C6",
+          "B5",
+          "G6",
+          "A6"
+        ],
+        "changes": 79,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Nepal",
+      "minMean": 40.788,
+      "maxMean": 57.926,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "E5",
+          "A5",
+          "C6"
+        ],
+        "changes": 38,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "D6",
+          "A5",
+          "G5",
+          "F5",
+          "E5",
+          "D5",
+          "G6",
+          "F6",
+          "E6",
+          "C6",
+          "A6",
+          "B6"
+        ],
+        "changes": 75,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Pakistan",
+      "minMean": 40.077,
+      "maxMean": 58.394,
+      "before": {
+        "distinctNotes": [
+          "C6",
+          "A5",
+          "G5",
+          "E5",
+          "D5"
+        ],
+        "changes": 46,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B6",
+          "A6",
+          "G6",
+          "F6",
+          "E6",
+          "D6",
+          "C6",
+          "B5",
+          "A5",
+          "G5",
+          "E5",
+          "D5",
+          "C5"
+        ],
+        "changes": 85,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Afghanistan",
+      "minMean": 38.708,
+      "maxMean": 56.433,
+      "before": {
+        "distinctNotes": [
+          "A5",
+          "G5",
+          "E5",
+          "D5"
+        ],
+        "changes": 24,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "A6",
+          "G6",
+          "F6",
+          "B6",
+          "E6",
+          "D6",
+          "C6",
+          "B5",
+          "A5",
+          "F5",
+          "D5",
+          "C5",
+          "B4",
+          "G5",
+          "E5"
+        ],
+        "changes": 72,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Tajikistan",
+      "minMean": 41.28,
+      "maxMean": 58.54,
+      "before": {
+        "distinctNotes": [
+          "A5",
+          "G5",
+          "E5",
+          "C6"
+        ],
+        "changes": 12,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B6",
+          "A6",
+          "G6",
+          "F6",
+          "E6",
+          "D6",
+          "B5",
+          "A5",
+          "G5",
+          "F5",
+          "D5"
+        ],
+        "changes": 44,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Kyrgyzstan",
+      "minMean": 40.711,
+      "maxMean": 56.523,
+      "before": {
+        "distinctNotes": [
+          "A5",
+          "G5",
+          "E5",
+          "D5"
+        ],
+        "changes": 16,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "A6",
+          "G6",
+          "B6",
+          "F6",
+          "E6",
+          "D6",
+          "C6",
+          "B5",
+          "A5",
+          "G5",
+          "E5",
+          "D5",
+          "F5"
+        ],
+        "changes": 58,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Turkmenistan",
+      "minMean": 31.401,
+      "maxMean": 49.897,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "E5",
+          "D5",
+          "C5"
+        ],
+        "changes": 39,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "D6",
+          "B5",
+          "G5",
+          "F5",
+          "D5",
+          "C5",
+          "E6",
+          "E5",
+          "A5",
+          "F6",
+          "C6",
+          "A4",
+          "G4",
+          "F4",
+          "B4",
+          "E4",
+          "D4",
+          "C4",
+          "B3",
+          "A3"
+        ],
+        "changes": 109,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Iran",
+      "minMean": 40.776,
+      "maxMean": 54.645,
+      "before": {
+        "distinctNotes": [
+          "A5",
+          "G5",
+          "E5"
+        ],
+        "changes": 33,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "A6",
+          "G6",
+          "E6",
+          "D6",
+          "F6",
+          "C6",
+          "B5",
+          "A5",
+          "G5",
+          "F5",
+          "E5",
+          "D5"
+        ],
+        "changes": 88,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Syria",
+      "minMean": 38.858,
+      "maxMean": 54.356,
+      "before": {
+        "distinctNotes": [
+          "A5",
+          "G5",
+          "E5",
+          "D5"
+        ],
+        "changes": 35,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "G6",
+          "A6",
+          "F6",
+          "E6",
+          "D6",
+          "C6",
+          "B5",
+          "A5",
+          "F5",
+          "E5",
+          "D5",
+          "C5",
+          "G5",
+          "B4"
+        ],
+        "changes": 93,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Armenia",
+      "minMean": 38.702,
+      "maxMean": 57.934,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "A5",
+          "C6",
+          "E5",
+          "D5"
+        ],
+        "changes": 26,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "E6",
+          "D6",
+          "A6",
+          "B6",
+          "G6",
+          "F6",
+          "C6",
+          "B5",
+          "G5",
+          "E5",
+          "C5",
+          "F5",
+          "A5",
+          "D5",
+          "B4"
+        ],
+        "changes": 75,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Sweden",
+      "minMean": 36.454,
+      "maxMean": 46.068,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "E5"
+        ],
+        "changes": 1,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B4",
+          "A4",
+          "G4",
+          "F4",
+          "C5",
+          "D5",
+          "E5",
+          "F5",
+          "A5",
+          "B5",
+          "G5"
+        ],
+        "changes": 34,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Belarus",
+      "minMean": 29.226,
+      "maxMean": 44.81,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "A4",
+          "D5",
+          "E5"
+        ],
+        "changes": 21,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "C4",
+          "E4",
+          "D4",
+          "B3",
+          "A3",
+          "G3",
+          "F4",
+          "G4",
+          "B4",
+          "D5",
+          "E5",
+          "C5",
+          "A4",
+          "F5",
+          "A5",
+          "G5"
+        ],
+        "changes": 79,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Ukraine",
+      "minMean": 29.493,
+      "maxMean": 44.323,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "A4",
+          "E5"
+        ],
+        "changes": 23,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "E4",
+          "F4",
+          "D4",
+          "C4",
+          "B3",
+          "A3",
+          "G3",
+          "A4",
+          "B4",
+          "G4",
+          "D5",
+          "E5",
+          "C5",
+          "F5",
+          "G5"
+        ],
+        "changes": 82,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Poland",
+      "minMean": 29.413,
+      "maxMean": 41.374,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "E5",
+          "A4"
+        ],
+        "changes": 32,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "C4",
+          "F4",
+          "E4",
+          "D4",
+          "B3",
+          "A3",
+          "G3",
+          "C5",
+          "A4",
+          "D5",
+          "B4",
+          "G4"
+        ],
+        "changes": 90,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Austria",
+      "minMean": 30.987,
+      "maxMean": 49.581,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "G5",
+          "D5",
+          "C5"
+        ],
+        "changes": 38,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "G5",
+          "C6",
+          "A5",
+          "E5",
+          "B4",
+          "D5",
+          "C5",
+          "A4",
+          "G4",
+          "E4",
+          "D4",
+          "C4",
+          "B3",
+          "F4",
+          "A3",
+          "F5",
+          "B5",
+          "D6",
+          "F6",
+          "E6"
+        ],
+        "changes": 96,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Hungary",
+      "minMean": 29.413,
+      "maxMean": 46.333,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "A4",
+          "E5",
+          "G5"
+        ],
+        "changes": 28,
+        "comparableTransitions": 116,
+        "reversedChanges": 0,
+        "missing": 5
+      },
+      "after": {
+        "distinctNotes": [
+          "A3",
+          "E4",
+          "C4",
+          "B3",
+          "G4",
+          "C5",
+          "B4",
+          "F4",
+          "D4",
+          "G3",
+          "A4",
+          "F5",
+          "E5",
+          "D5",
+          "A5",
+          "G5",
+          "B5"
+        ],
+        "changes": 92,
+        "comparableTransitions": 116,
+        "reversedChanges": 0,
+        "missing": 5
+      }
+    },
+    {
+      "region": "country:Moldova",
+      "minMean": 29.133,
+      "maxMean": 46.273,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "A4",
+          "D5",
+          "E5",
+          "G5"
+        ],
+        "changes": 34,
+        "comparableTransitions": 101,
+        "reversedChanges": 0,
+        "missing": 19
+      },
+      "after": {
+        "distinctNotes": [
+          "G3",
+          "C4",
+          "B3",
+          "A3",
+          "D4",
+          "E4",
+          "F4",
+          "B4",
+          "C5",
+          "D5",
+          "E5",
+          "F5",
+          "G5",
+          "A4",
+          "B5",
+          "A5",
+          "G4"
+        ],
+        "changes": 80,
+        "comparableTransitions": 101,
+        "reversedChanges": 0,
+        "missing": 19
+      }
+    },
+    {
+      "region": "country:Romania",
+      "minMean": 29.24,
+      "maxMean": 45.612,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "A4",
+          "E5"
+        ],
+        "changes": 20,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "D4",
+          "E4",
+          "B3",
+          "A3",
+          "G3",
+          "C4",
+          "F4",
+          "A4",
+          "C5",
+          "D5",
+          "G5",
+          "E5",
+          "B4",
+          "B5",
+          "F5",
+          "A5",
+          "G4"
+        ],
+        "changes": 77,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Lithuania",
+      "minMean": 30.052,
+      "maxMean": 46.732,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "C5",
+          "E5",
+          "G5"
+        ],
+        "changes": 19,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "F4",
+          "B4",
+          "A4",
+          "G4",
+          "E4",
+          "D4",
+          "C4",
+          "B3",
+          "A3",
+          "C5",
+          "D5",
+          "F5",
+          "G5",
+          "A5",
+          "B5",
+          "E5",
+          "C6",
+          "G3"
+        ],
+        "changes": 83,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Latvia",
+      "minMean": 31.849,
+      "maxMean": 47.908,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "C5",
+          "E5",
+          "G5"
+        ],
+        "changes": 25,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "F4",
+          "G4",
+          "A4",
+          "E4",
+          "D4",
+          "C4",
+          "B4",
+          "D5",
+          "E5",
+          "C5",
+          "G5",
+          "B5",
+          "C6",
+          "D6",
+          "A5",
+          "F5",
+          "B3"
+        ],
+        "changes": 80,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Estonia",
+      "minMean": 29.834,
+      "maxMean": 48.328,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "C5",
+          "E5",
+          "G5"
+        ],
+        "changes": 25,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "G4",
+          "A4",
+          "B4",
+          "D4",
+          "C4",
+          "B3",
+          "G3",
+          "A3",
+          "E4",
+          "F4",
+          "D5",
+          "F5",
+          "E5",
+          "A5",
+          "C6",
+          "D6",
+          "B5",
+          "G5",
+          "C5"
+        ],
+        "changes": 81,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Germany",
+      "minMean": 29.744,
+      "maxMean": 44.64,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "E5"
+        ],
+        "changes": 21,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "D4",
+          "A4",
+          "G4",
+          "B3",
+          "F4",
+          "C5",
+          "B4",
+          "C4",
+          "A3",
+          "E4",
+          "G3",
+          "A5",
+          "F5",
+          "E5",
+          "D5"
+        ],
+        "changes": 91,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Bulgaria",
+      "minMean": 29.459,
+      "maxMean": 46.507,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "A4",
+          "D5",
+          "E5",
+          "G5"
+        ],
+        "changes": 20,
+        "comparableTransitions": 119,
+        "reversedChanges": 0,
+        "missing": 3
+      },
+      "after": {
+        "distinctNotes": [
+          "B3",
+          "C4",
+          "A3",
+          "G3",
+          "D4",
+          "E4",
+          "A4",
+          "E5",
+          "C5",
+          "B4",
+          "G5",
+          "B5",
+          "A5",
+          "F5",
+          "C6",
+          "G4",
+          "D5",
+          "F4"
+        ],
+        "changes": 77,
+        "comparableTransitions": 119,
+        "reversedChanges": 0,
+        "missing": 3
+      }
+    },
+    {
+      "region": "country:Greece",
+      "minMean": 29.764,
+      "maxMean": 49.773,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "E5",
+          "G5",
+          "C5"
+        ],
+        "changes": 17,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "A4",
+          "G4",
+          "F4",
+          "B4",
+          "E5",
+          "G5",
+          "C6",
+          "D6",
+          "A5",
+          "F5",
+          "B3",
+          "G3",
+          "E4",
+          "D4",
+          "C4",
+          "E6",
+          "B5",
+          "F6"
+        ],
+        "changes": 80,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Turkey",
+      "minMean": 37.868,
+      "maxMean": 50.972,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "E5",
+          "D5"
+        ],
+        "changes": 21,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "D6",
+          "C6",
+          "B5",
+          "A5",
+          "E6",
+          "F6",
+          "G5",
+          "F5",
+          "E5",
+          "D5",
+          "B4",
+          "A4",
+          "C5"
+        ],
+        "changes": 85,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Albania",
+      "minMean": 28.431,
+      "maxMean": 48.801,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "E5",
+          "C5",
+          "A4",
+          "G5"
+        ],
+        "changes": 32,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B4",
+          "F5",
+          "C5",
+          "E4",
+          "D4",
+          "A4",
+          "A3",
+          "G3",
+          "D5",
+          "F4",
+          "C4",
+          "B3",
+          "G5",
+          "E5",
+          "A5",
+          "G4",
+          "B5",
+          "C6",
+          "D6",
+          "E6"
+        ],
+        "changes": 94,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Croatia",
+      "minMean": 29.226,
+      "maxMean": 47.684,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "A4",
+          "E5",
+          "G5"
+        ],
+        "changes": 32,
+        "comparableTransitions": 111,
+        "reversedChanges": 0,
+        "missing": 11
+      },
+      "after": {
+        "distinctNotes": [
+          "A3",
+          "E4",
+          "D4",
+          "C4",
+          "B3",
+          "F4",
+          "B4",
+          "A4",
+          "G3",
+          "G4",
+          "C5",
+          "F5",
+          "G5",
+          "E5",
+          "D5",
+          "A5",
+          "C6",
+          "D6"
+        ],
+        "changes": 84,
+        "comparableTransitions": 111,
+        "reversedChanges": 0,
+        "missing": 11
+      }
+    },
+    {
+      "region": "country:Switzerland",
+      "minMean": 28.945,
+      "maxMean": 50.423,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "G5",
+          "D5",
+          "C5",
+          "A4"
+        ],
+        "changes": 42,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "F5",
+          "E6",
+          "B5",
+          "E5",
+          "F6",
+          "D5",
+          "G5",
+          "G4",
+          "E4",
+          "D4",
+          "C5",
+          "C4",
+          "B3",
+          "F4",
+          "G3",
+          "A4",
+          "A3",
+          "B4",
+          "C6",
+          "A5",
+          "D6"
+        ],
+        "changes": 101,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Luxembourg",
+      "minMean": null,
+      "maxMean": null,
+      "before": {
+        "distinctNotes": [],
+        "changes": 0,
+        "comparableTransitions": 0,
+        "reversedChanges": 0,
+        "missing": 124
+      },
+      "after": {
+        "distinctNotes": [],
+        "changes": 0,
+        "comparableTransitions": 0,
+        "reversedChanges": 0,
+        "missing": 124
+      }
+    },
+    {
+      "region": "country:Belgium",
+      "minMean": 28.431,
+      "maxMean": 44.847,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "A4",
+          "E5"
+        ],
+        "changes": 32,
+        "comparableTransitions": 81,
+        "reversedChanges": 0,
+        "missing": 35
+      },
+      "after": {
+        "distinctNotes": [
+          "E4",
+          "D5",
+          "G4",
+          "D4",
+          "A3",
+          "G3",
+          "F4",
+          "B3",
+          "A4",
+          "C4",
+          "E5",
+          "C5",
+          "B4",
+          "A5"
+        ],
+        "changes": 63,
+        "comparableTransitions": 81,
+        "reversedChanges": 0,
+        "missing": 35
+      }
+    },
+    {
+      "region": "country:Netherlands",
+      "minMean": 28.431,
+      "maxMean": 48.159,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "A4",
+          "D5",
+          "E5",
+          "G5"
+        ],
+        "changes": 29,
+        "comparableTransitions": 75,
+        "reversedChanges": 0,
+        "missing": 40
+      },
+      "after": {
+        "distinctNotes": [
+          "D4",
+          "A3",
+          "G3",
+          "B3",
+          "E4",
+          "G4",
+          "F4",
+          "A4",
+          "C5",
+          "B4",
+          "D5",
+          "C4",
+          "B5",
+          "C6",
+          "A5",
+          "G5",
+          "D6",
+          "F5"
+        ],
+        "changes": 60,
+        "comparableTransitions": 75,
+        "reversedChanges": 0,
+        "missing": 40
+      }
+    },
+    {
+      "region": "country:Portugal",
+      "minMean": 36.69,
+      "maxMean": 58.822,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "A5",
+          "C6",
+          "E5",
+          "D5"
+        ],
+        "changes": 37,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "F6",
+          "A6",
+          "B6",
+          "G6",
+          "C7",
+          "C6",
+          "B5",
+          "D6",
+          "A5",
+          "G5",
+          "E6",
+          "F5",
+          "C5",
+          "G4",
+          "B4",
+          "D5",
+          "E5"
+        ],
+        "changes": 88,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Spain",
+      "minMean": 38.599,
+      "maxMean": 55.871,
+      "before": {
+        "distinctNotes": [
+          "A5",
+          "G5",
+          "E5",
+          "D5"
+        ],
+        "changes": 28,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "G6",
+          "A6",
+          "F6",
+          "E6",
+          "D6",
+          "C6",
+          "B5",
+          "G5",
+          "A5",
+          "F5",
+          "E5",
+          "D5",
+          "C5",
+          "B4"
+        ],
+        "changes": 89,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Ireland",
+      "minMean": 31.551,
+      "maxMean": 48.752,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "D5",
+          "C5",
+          "G5"
+        ],
+        "changes": 27,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "D5",
+          "B4",
+          "A4",
+          "G4",
+          "F4",
+          "E4",
+          "C5",
+          "F5",
+          "E5",
+          "D4",
+          "B3",
+          "C4",
+          "A5",
+          "C6",
+          "G5",
+          "B5",
+          "D6",
+          "E6"
+        ],
+        "changes": 77,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:New Caledonia",
+      "minMean": 30.816,
+      "maxMean": 44.286,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "C5",
+          "E5"
+        ],
+        "changes": 4,
+        "comparableTransitions": 12,
+        "reversedChanges": 0,
+        "missing": 106
+      },
+      "after": {
+        "distinctNotes": [
+          "B4",
+          "E4",
+          "E5",
+          "G5",
+          "D5",
+          "D4",
+          "B3",
+          "A3"
+        ],
+        "changes": 9,
+        "comparableTransitions": 12,
+        "reversedChanges": 0,
+        "missing": 106
+      }
+    },
+    {
+      "region": "country:Solomon Islands",
+      "minMean": null,
+      "maxMean": null,
+      "before": {
+        "distinctNotes": [],
+        "changes": 0,
+        "comparableTransitions": 0,
+        "reversedChanges": 0,
+        "missing": 124
+      },
+      "after": {
+        "distinctNotes": [],
+        "changes": 0,
+        "comparableTransitions": 0,
+        "reversedChanges": 0,
+        "missing": 124
+      }
+    },
+    {
+      "region": "country:New Zealand",
+      "minMean": 28.799,
+      "maxMean": 32.805,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "A4"
+        ],
+        "changes": 33,
+        "comparableTransitions": 114,
+        "reversedChanges": 0,
+        "missing": 7
+      },
+      "after": {
+        "distinctNotes": [
+          "G3",
+          "A3",
+          "B3",
+          "C4"
+        ],
+        "changes": 24,
+        "comparableTransitions": 114,
+        "reversedChanges": 0,
+        "missing": 7
+      }
+    },
+    {
+      "region": "country:Australia",
+      "minMean": 32.275,
+      "maxMean": 43.021,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "C5",
+          "E5"
+        ],
+        "changes": 30,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B4",
+          "A4",
+          "F4",
+          "E4",
+          "D4",
+          "G4",
+          "C4",
+          "B3",
+          "D5",
+          "C5",
+          "E5",
+          "F5"
+        ],
+        "changes": 99,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Sri Lanka",
+      "minMean": 27.168,
+      "maxMean": 48.256,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "D5",
+          "C5",
+          "G5",
+          "A4"
+        ],
+        "changes": 45,
+        "comparableTransitions": 96,
+        "reversedChanges": 0,
+        "missing": 19
+      },
+      "after": {
+        "distinctNotes": [
+          "G5",
+          "D5",
+          "G4",
+          "F4",
+          "E4",
+          "E5",
+          "D6",
+          "B3",
+          "A3",
+          "A5",
+          "D4",
+          "C4",
+          "B4",
+          "B5",
+          "C6",
+          "A4",
+          "G3",
+          "C5"
+        ],
+        "changes": 75,
+        "comparableTransitions": 96,
+        "reversedChanges": 0,
+        "missing": 19
+      }
+    },
+    {
+      "region": "country:People's Republic of China",
+      "minMean": 41.244,
+      "maxMean": 49.074,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "E5"
+        ],
+        "changes": 27,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "E6",
+          "C6",
+          "A5",
+          "G5",
+          "F5",
+          "D6",
+          "B5",
+          "E5",
+          "D5"
+        ],
+        "changes": 94,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Taiwan",
+      "minMean": 34.019,
+      "maxMean": 57.91,
+      "before": {
+        "distinctNotes": [
+          "A5",
+          "G5",
+          "E5",
+          "C6",
+          "D5",
+          "C5"
+        ],
+        "changes": 60,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "A6",
+          "B5",
+          "E5",
+          "F6",
+          "G6",
+          "E6",
+          "B6",
+          "C6",
+          "A5",
+          "G5",
+          "F5",
+          "D6",
+          "B4",
+          "E4",
+          "D4"
+        ],
+        "changes": 97,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Italy",
+      "minMean": 34.556,
+      "maxMean": 47.5,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "G5",
+          "D5",
+          "C5"
+        ],
+        "changes": 26,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "A5",
+          "C6",
+          "G5",
+          "E5",
+          "D5",
+          "D6",
+          "F5",
+          "B5",
+          "C5",
+          "B4",
+          "A4",
+          "G4",
+          "E4",
+          "F4"
+        ],
+        "changes": 81,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Denmark",
+      "minMean": 29.974,
+      "maxMean": 51.004,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "D5",
+          "C5",
+          "G5"
+        ],
+        "changes": 23,
+        "comparableTransitions": 109,
+        "reversedChanges": 0,
+        "missing": 13
+      },
+      "after": {
+        "distinctNotes": [
+          "D5",
+          "E5",
+          "F5",
+          "G5",
+          "A5",
+          "C5",
+          "B4",
+          "A4",
+          "E4",
+          "F4",
+          "G4",
+          "D4",
+          "C4",
+          "G3",
+          "A3",
+          "C6",
+          "D6",
+          "F6",
+          "B5"
+        ],
+        "changes": 78,
+        "comparableTransitions": 109,
+        "reversedChanges": 0,
+        "missing": 13
+      }
+    },
+    {
+      "region": "country:United Kingdom",
+      "minMean": 33.518,
+      "maxMean": 45.411,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "E5"
+        ],
+        "changes": 20,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "E4",
+          "A4",
+          "G4",
+          "D4",
+          "F4",
+          "B4",
+          "C5",
+          "D5",
+          "F5",
+          "E5",
+          "G5",
+          "A5"
+        ],
+        "changes": 61,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Iceland",
+      "minMean": 42.913,
+      "maxMean": 48.656,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "G5"
+        ],
+        "changes": 13,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "F5",
+          "G5",
+          "A5",
+          "B5",
+          "C6",
+          "D6",
+          "E6"
+        ],
+        "changes": 57,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Azerbaijan",
+      "minMean": 34.772,
+      "maxMean": 52.231,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "G5",
+          "D5",
+          "C5",
+          "A5"
+        ],
+        "changes": 29,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B5",
+          "A5",
+          "F5",
+          "E5",
+          "G5",
+          "C6",
+          "D6",
+          "D5",
+          "C5",
+          "E6",
+          "G4",
+          "E4",
+          "F4",
+          "A4",
+          "B4",
+          "F6",
+          "G6"
+        ],
+        "changes": 95,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Georgia",
+      "minMean": 40.167,
+      "maxMean": 54.148,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "E5",
+          "A5",
+          "D5"
+        ],
+        "changes": 21,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "C6",
+          "A5",
+          "G5",
+          "F5",
+          "E6",
+          "D6",
+          "F6",
+          "G6",
+          "B5",
+          "C5",
+          "E5",
+          "D5",
+          "A6"
+        ],
+        "changes": 70,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Philippines",
+      "minMean": 27.659,
+      "maxMean": 49.095,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "A4",
+          "D5",
+          "E5",
+          "G5"
+        ],
+        "changes": 21,
+        "comparableTransitions": 111,
+        "reversedChanges": 0,
+        "missing": 9
+      },
+      "after": {
+        "distinctNotes": [
+          "E4",
+          "C4",
+          "B3",
+          "A3",
+          "D4",
+          "G3",
+          "G4",
+          "A4",
+          "F5",
+          "B5",
+          "A5",
+          "E5",
+          "C5",
+          "B4",
+          "F4",
+          "C6",
+          "D6",
+          "G5",
+          "E6",
+          "D5"
+        ],
+        "changes": 75,
+        "comparableTransitions": 111,
+        "reversedChanges": 0,
+        "missing": 9
+      }
+    },
+    {
+      "region": "country:Malaysia",
+      "minMean": 28.431,
+      "maxMean": 52.72,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "E5",
+          "A4",
+          "A5",
+          "G5"
+        ],
+        "changes": 29,
+        "comparableTransitions": 118,
+        "reversedChanges": 0,
+        "missing": 3
+      },
+      "after": {
+        "distinctNotes": [
+          "E4",
+          "G4",
+          "D4",
+          "E5",
+          "G5",
+          "F5",
+          "B4",
+          "A4",
+          "F4",
+          "A5",
+          "C5",
+          "A3",
+          "C4",
+          "B3",
+          "G3",
+          "D5",
+          "G6",
+          "F6"
+        ],
+        "changes": 86,
+        "comparableTransitions": 118,
+        "reversedChanges": 0,
+        "missing": 3
+      }
+    },
+    {
+      "region": "country:Brunei",
+      "minMean": null,
+      "maxMean": null,
+      "before": {
+        "distinctNotes": [],
+        "changes": 0,
+        "comparableTransitions": 0,
+        "reversedChanges": 0,
+        "missing": 124
+      },
+      "after": {
+        "distinctNotes": [],
+        "changes": 0,
+        "comparableTransitions": 0,
+        "reversedChanges": 0,
+        "missing": 124
+      }
+    },
+    {
+      "region": "country:Slovenia",
+      "minMean": 26.537,
+      "maxMean": 50.144,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "G5",
+          "D5",
+          "C5",
+          "A4"
+        ],
+        "changes": 40,
+        "comparableTransitions": 116,
+        "reversedChanges": 0,
+        "missing": 4
+      },
+      "after": {
+        "distinctNotes": [
+          "E5",
+          "D6",
+          "C6",
+          "F5",
+          "C5",
+          "B4",
+          "G4",
+          "F4",
+          "A5",
+          "D5",
+          "A4",
+          "E4",
+          "D4",
+          "C4",
+          "G3",
+          "A3",
+          "B3",
+          "G5",
+          "F3",
+          "F6",
+          "E6"
+        ],
+        "changes": 82,
+        "comparableTransitions": 116,
+        "reversedChanges": 0,
+        "missing": 4
+      }
+    },
+    {
+      "region": "country:Finland",
+      "minMean": 33.234,
+      "maxMean": 47.5,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "E5",
+          "G5"
+        ],
+        "changes": 12,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "E4",
+          "D4",
+          "C4",
+          "F4",
+          "G4",
+          "A4",
+          "B4",
+          "C5",
+          "E5",
+          "F5",
+          "D5",
+          "A5",
+          "B5",
+          "D6",
+          "C6",
+          "G5"
+        ],
+        "changes": 51,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Slovakia",
+      "minMean": 28.758,
+      "maxMean": 47.87,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "A4",
+          "E5",
+          "G5"
+        ],
+        "changes": 40,
+        "comparableTransitions": 119,
+        "reversedChanges": 0,
+        "missing": 2
+      },
+      "after": {
+        "distinctNotes": [
+          "D4",
+          "C5",
+          "A4",
+          "F4",
+          "E4",
+          "C4",
+          "B4",
+          "A3",
+          "B3",
+          "G3",
+          "D5",
+          "F5",
+          "G4",
+          "E5",
+          "A5",
+          "D6",
+          "G5",
+          "B5",
+          "C6"
+        ],
+        "changes": 93,
+        "comparableTransitions": 119,
+        "reversedChanges": 0,
+        "missing": 2
+      }
+    },
+    {
+      "region": "country:Czech Republic",
+      "minMean": 28.982,
+      "maxMean": 46.637,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "C5",
+          "A4",
+          "E5",
+          "G5"
+        ],
+        "changes": 42,
+        "comparableTransitions": 120,
+        "reversedChanges": 0,
+        "missing": 2
+      },
+      "after": {
+        "distinctNotes": [
+          "F4",
+          "A4",
+          "C4",
+          "A3",
+          "E4",
+          "G4",
+          "G3",
+          "D4",
+          "B3",
+          "B4",
+          "C5",
+          "D5",
+          "F5",
+          "C6",
+          "B5",
+          "E5",
+          "G5"
+        ],
+        "changes": 91,
+        "comparableTransitions": 120,
+        "reversedChanges": 0,
+        "missing": 2
+      }
+    },
+    {
+      "region": "country:Eritrea",
+      "minMean": 31.82,
+      "maxMean": 47.54,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "E5",
+          "D5",
+          "C5"
+        ],
+        "changes": 37,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "D6",
+          "C6",
+          "G5",
+          "C5",
+          "B4",
+          "A5",
+          "E5",
+          "D5",
+          "B5",
+          "F5",
+          "A4",
+          "F4",
+          "E4",
+          "G4",
+          "D4",
+          "C4",
+          "B3"
+        ],
+        "changes": 89,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Japan",
+      "minMean": 43.11,
+      "maxMean": 54.652,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "A5",
+          "E5"
+        ],
+        "changes": 20,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "E6",
+          "F6",
+          "G6",
+          "A6",
+          "D6",
+          "C6",
+          "B5",
+          "A5",
+          "G5",
+          "F5"
+        ],
+        "changes": 77,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Paraguay",
+      "minMean": 31.916,
+      "maxMean": 51.685,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "E5",
+          "G5"
+        ],
+        "changes": 38,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B3",
+          "A4",
+          "B4",
+          "G4",
+          "E4",
+          "C4",
+          "C5",
+          "F4",
+          "D4",
+          "E5",
+          "D5",
+          "F5",
+          "G5",
+          "A5",
+          "D6",
+          "B5",
+          "C6",
+          "E6",
+          "F6",
+          "G6"
+        ],
+        "changes": 91,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Yemen",
+      "minMean": 30.633,
+      "maxMean": 46.795,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "D5",
+          "G5",
+          "C5"
+        ],
+        "changes": 29,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "A5",
+          "G5",
+          "F5",
+          "E5",
+          "C5",
+          "D5",
+          "B5",
+          "C6",
+          "A4",
+          "F4",
+          "E4",
+          "D4",
+          "B3",
+          "C4",
+          "G4",
+          "A3",
+          "B4"
+        ],
+        "changes": 88,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Saudi Arabia",
+      "minMean": 37.873,
+      "maxMean": 46.758,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "D5",
+          "G5"
+        ],
+        "changes": 18,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B5",
+          "A5",
+          "G5",
+          "F5",
+          "E5",
+          "D5",
+          "C5",
+          "B4",
+          "A4",
+          "C6"
+        ],
+        "changes": 99,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Antarctica",
+      "minMean": 26.246,
+      "maxMean": 28.335,
+      "before": {
+        "distinctNotes": [
+          "A4"
+        ],
+        "changes": 0,
+        "comparableTransitions": 52,
+        "reversedChanges": 0,
+        "missing": 68
+      },
+      "after": {
+        "distinctNotes": [
+          "G3",
+          "F3"
+        ],
+        "changes": 1,
+        "comparableTransitions": 52,
+        "reversedChanges": 0,
+        "missing": 68
+      }
+    },
+    {
+      "region": "continent:Antarctica",
+      "minMean": 26.246,
+      "maxMean": 28.335,
+      "before": {
+        "distinctNotes": [
+          "A4"
+        ],
+        "changes": 0,
+        "comparableTransitions": 52,
+        "reversedChanges": 0,
+        "missing": 68
+      },
+      "after": {
+        "distinctNotes": [
+          "G3",
+          "F3"
+        ],
+        "changes": 1,
+        "comparableTransitions": 52,
+        "reversedChanges": 0,
+        "missing": 68
+      }
+    },
+    {
+      "region": "country:Turkish Republic of Northern Cyprus",
+      "minMean": 43.479,
+      "maxMean": 58.667,
+      "before": {
+        "distinctNotes": [
+          "A5",
+          "C6",
+          "G5",
+          "E5"
+        ],
+        "changes": 24,
+        "comparableTransitions": 72,
+        "reversedChanges": 0,
+        "missing": 32
+      },
+      "after": {
+        "distinctNotes": [
+          "B6",
+          "A6",
+          "G6",
+          "E6",
+          "B5",
+          "A5",
+          "G5",
+          "C6",
+          "F6",
+          "D6"
+        ],
+        "changes": 34,
+        "comparableTransitions": 72,
+        "reversedChanges": 0,
+        "missing": 32
+      }
+    },
+    {
+      "region": "country:Cyprus",
+      "minMean": 40.638,
+      "maxMean": 56.913,
+      "before": {
+        "distinctNotes": [
+          "A5",
+          "G5",
+          "E5",
+          "D5"
+        ],
+        "changes": 32,
+        "comparableTransitions": 119,
+        "reversedChanges": 0,
+        "missing": 2
+      },
+      "after": {
+        "distinctNotes": [
+          "B6",
+          "A6",
+          "G6",
+          "F6",
+          "B5",
+          "D6",
+          "C6",
+          "E6",
+          "G5",
+          "F5",
+          "D5",
+          "A5",
+          "E5"
+        ],
+        "changes": 70,
+        "comparableTransitions": 119,
+        "reversedChanges": 0,
+        "missing": 2
+      }
+    },
+    {
+      "region": "country:Morocco",
+      "minMean": 30.722,
+      "maxMean": 44.389,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "E5",
+          "C5"
+        ],
+        "changes": 17,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B4",
+          "C5",
+          "A4",
+          "G4",
+          "F4",
+          "D5",
+          "E5",
+          "E4",
+          "C4",
+          "D4",
+          "B3",
+          "A3",
+          "F5",
+          "G5"
+        ],
+        "changes": 78,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Egypt",
+      "minMean": 38.944,
+      "maxMean": 53.633,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "E5",
+          "D5",
+          "A5"
+        ],
+        "changes": 30,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "D6",
+          "C6",
+          "B5",
+          "E6",
+          "A5",
+          "G5",
+          "F5",
+          "E5",
+          "D5",
+          "C5",
+          "B4",
+          "F6",
+          "G6"
+        ],
+        "changes": 84,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Libya",
+      "minMean": 37.488,
+      "maxMean": 45.654,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "D5"
+        ],
+        "changes": 20,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "F5",
+          "E5",
+          "D5",
+          "C5",
+          "B4",
+          "A4",
+          "G5",
+          "A5",
+          "B5"
+        ],
+        "changes": 62,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Ethiopia",
+      "minMean": 33.545,
+      "maxMean": 45.11,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "D5",
+          "C5"
+        ],
+        "changes": 27,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "G5",
+          "A5",
+          "E5",
+          "C5",
+          "B4",
+          "A4",
+          "D5",
+          "F5",
+          "G4",
+          "F4",
+          "E4",
+          "D4"
+        ],
+        "changes": 97,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Djibouti",
+      "minMean": 28.396,
+      "maxMean": 47.176,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "E5",
+          "D5",
+          "C5",
+          "A4"
+        ],
+        "changes": 31,
+        "comparableTransitions": 104,
+        "reversedChanges": 0,
+        "missing": 16
+      },
+      "after": {
+        "distinctNotes": [
+          "C6",
+          "G5",
+          "D5",
+          "A4",
+          "B4",
+          "A5",
+          "F5",
+          "C5",
+          "G4",
+          "B5",
+          "E5",
+          "D4",
+          "E4",
+          "F4",
+          "B3",
+          "A3",
+          "C4",
+          "G3"
+        ],
+        "changes": 82,
+        "comparableTransitions": 104,
+        "reversedChanges": 0,
+        "missing": 16
+      }
+    },
+    {
+      "region": "country:Somaliland",
+      "minMean": 28.648,
+      "maxMean": 48.008,
+      "before": {
+        "distinctNotes": [
+          "G5",
+          "E5",
+          "D5",
+          "C5",
+          "A4"
+        ],
+        "changes": 35,
+        "comparableTransitions": 112,
+        "reversedChanges": 0,
+        "missing": 9
+      },
+      "after": {
+        "distinctNotes": [
+          "C6",
+          "G5",
+          "C5",
+          "B4",
+          "D5",
+          "A5",
+          "B5",
+          "F5",
+          "G4",
+          "A4",
+          "E5",
+          "D6",
+          "F4",
+          "E4",
+          "C4",
+          "D4",
+          "B3",
+          "G3",
+          "A3"
+        ],
+        "changes": 75,
+        "comparableTransitions": 112,
+        "reversedChanges": 0,
+        "missing": 9
+      }
+    },
+    {
+      "region": "country:Uganda",
+      "minMean": 29.364,
+      "maxMean": 39.413,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "D5",
+          "A4"
+        ],
+        "changes": 28,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "D4",
+          "E4",
+          "C4",
+          "B3",
+          "F4",
+          "G4",
+          "A4",
+          "B4",
+          "A3",
+          "G3"
+        ],
+        "changes": 91,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Rwanda",
+      "minMean": 27.782,
+      "maxMean": 43.046,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "C5",
+          "A4",
+          "E5"
+        ],
+        "changes": 49,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "G4",
+          "E4",
+          "C4",
+          "A3",
+          "G3",
+          "F4",
+          "B3",
+          "B4",
+          "A4",
+          "D4",
+          "C5",
+          "D5",
+          "E5",
+          "F5"
+        ],
+        "changes": 100,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    },
+    {
+      "region": "country:Bosnia and Herzegovina",
+      "minMean": 28.22,
+      "maxMean": 48.196,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "A4",
+          "E5",
+          "D5",
+          "G5"
+        ],
+        "changes": 23,
+        "comparableTransitions": 106,
+        "reversedChanges": 0,
+        "missing": 13
+      },
+      "after": {
+        "distinctNotes": [
+          "B3",
+          "A3",
+          "G3",
+          "C4",
+          "E4",
+          "D5",
+          "B4",
+          "A4",
+          "F4",
+          "D4",
+          "C5",
+          "B5",
+          "A5",
+          "G5",
+          "E5",
+          "G4",
+          "F5",
+          "C6",
+          "D6"
+        ],
+        "changes": 72,
+        "comparableTransitions": 106,
+        "reversedChanges": 0,
+        "missing": 13
+      }
+    },
+    {
+      "region": "country:North Macedonia",
+      "minMean": 28.431,
+      "maxMean": 49.504,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "C5",
+          "A4",
+          "E5",
+          "G5"
+        ],
+        "changes": 29,
+        "comparableTransitions": 102,
+        "reversedChanges": 0,
+        "missing": 16
+      },
+      "after": {
+        "distinctNotes": [
+          "C5",
+          "F4",
+          "B3",
+          "A3",
+          "G3",
+          "G4",
+          "D4",
+          "A4",
+          "G5",
+          "F5",
+          "E5",
+          "B5",
+          "E6",
+          "D6",
+          "D5",
+          "B4",
+          "C6",
+          "A5"
+        ],
+        "changes": 58,
+        "comparableTransitions": 102,
+        "reversedChanges": 0,
+        "missing": 16
+      }
+    },
+    {
+      "region": "country:Serbia",
+      "minMean": 28.799,
+      "maxMean": 45.546,
+      "before": {
+        "distinctNotes": [
+          "C5",
+          "A4",
+          "D5",
+          "E5"
+        ],
+        "changes": 22,
+        "comparableTransitions": 112,
+        "reversedChanges": 0,
+        "missing": 8
+      },
+      "after": {
+        "distinctNotes": [
+          "B3",
+          "G3",
+          "D4",
+          "C4",
+          "A3",
+          "E4",
+          "A4",
+          "F5",
+          "E5",
+          "D5",
+          "B4",
+          "F4",
+          "B5",
+          "G5",
+          "C5",
+          "A5",
+          "G4"
+        ],
+        "changes": 74,
+        "comparableTransitions": 112,
+        "reversedChanges": 0,
+        "missing": 8
+      }
+    },
+    {
+      "region": "country:Montenegro",
+      "minMean": 29.179,
+      "maxMean": 54.414,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "D5",
+          "C5",
+          "A4",
+          "G5",
+          "A5"
+        ],
+        "changes": 35,
+        "comparableTransitions": 117,
+        "reversedChanges": 0,
+        "missing": 4
+      },
+      "after": {
+        "distinctNotes": [
+          "E5",
+          "B4",
+          "D4",
+          "A3",
+          "G3",
+          "B3",
+          "E4",
+          "G4",
+          "C4",
+          "D5",
+          "C5",
+          "F4",
+          "C6",
+          "A5",
+          "F5",
+          "G6",
+          "A6",
+          "E6",
+          "B5",
+          "G5",
+          "D6",
+          "F6"
+        ],
+        "changes": 81,
+        "comparableTransitions": 117,
+        "reversedChanges": 0,
+        "missing": 4
+      }
+    },
+    {
+      "region": "country:Kosovo",
+      "minMean": 28.01,
+      "maxMean": 51.231,
+      "before": {
+        "distinctNotes": [
+          "D5",
+          "C5",
+          "A4",
+          "E5",
+          "G5"
+        ],
+        "changes": 28,
+        "comparableTransitions": 86,
+        "reversedChanges": 0,
+        "missing": 29
+      },
+      "after": {
+        "distinctNotes": [
+          "B4",
+          "A4",
+          "D4",
+          "A3",
+          "G3",
+          "B3",
+          "C4",
+          "C5",
+          "A5",
+          "F5",
+          "D5",
+          "D6",
+          "F6",
+          "C6",
+          "G5",
+          "E5",
+          "B5",
+          "G4",
+          "F4",
+          "E6",
+          "G6"
+        ],
+        "changes": 68,
+        "comparableTransitions": 86,
+        "reversedChanges": 0,
+        "missing": 29
+      }
+    },
+    {
+      "region": "country:Trinidad and Tobago",
+      "minMean": null,
+      "maxMean": null,
+      "before": {
+        "distinctNotes": [],
+        "changes": 0,
+        "comparableTransitions": 0,
+        "reversedChanges": 0,
+        "missing": 124
+      },
+      "after": {
+        "distinctNotes": [],
+        "changes": 0,
+        "comparableTransitions": 0,
+        "reversedChanges": 0,
+        "missing": 124
+      }
+    },
+    {
+      "region": "country:South Sudan",
+      "minMean": 37.07,
+      "maxMean": 56.428,
+      "before": {
+        "distinctNotes": [
+          "E5",
+          "G5",
+          "D5",
+          "A5"
+        ],
+        "changes": 51,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      },
+      "after": {
+        "distinctNotes": [
+          "B5",
+          "E6",
+          "C6",
+          "A5",
+          "E5",
+          "A4",
+          "D5",
+          "G5",
+          "F5",
+          "C5",
+          "F6",
+          "D6",
+          "B4",
+          "G6",
+          "A6",
+          "G4",
+          "B6"
+        ],
+        "changes": 108,
+        "comparableTransitions": 123,
+        "reversedChanges": 0,
+        "missing": 0
+      }
+    }
+  ]
+}

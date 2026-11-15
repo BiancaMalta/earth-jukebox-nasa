@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 
@@ -11,6 +12,7 @@ from PIL import Image
 from skimage.draw import polygon as raster_polygon
 
 from features import WIND_SONIFICATION, PM25_SONIFICATION, visible_wind_signal, visible_pm25_signal, AREA_STATISTICS, area_weights, analysis_mask, decode_pixels, summarize_values
+from fetch_native_rain import verify_label
 
 COLUMNS = ["mean", "p90", "norm", "coverage"]
 
@@ -62,10 +64,36 @@ def regional_groups(geojson: dict) -> dict:
     return groups
 
 
-def generate_regions(track_id: str, data_dir: Path, geojson_path: Path, update_features: bool = False) -> dict:
+def generate_regions(track_id: str, data_dir: Path, geojson_path: Path, update_features: bool = False,
+                     analysis_frames_dir: Path | None = None, analysis_manifest: Path | None = None) -> dict:
     directory = data_dir / track_id
     source = json.loads((directory / "features.json").read_text(encoding="utf-8"))
     colorbar = json.loads((directory / "colorbar.json").read_text(encoding="utf-8"))
+    native_entries = None
+    analysis_source = None
+    if bool(analysis_frames_dir) != bool(analysis_manifest):
+        raise ValueError("Native analysis requires both the frame directory and verified manifest.")
+    if source.get("analysisSource") and not analysis_manifest:
+        raise ValueError("This dataset uses native analysis frames; provide --analysis-frames-dir and --analysis-manifest.")
+    if analysis_manifest:
+        manifest_bytes = analysis_manifest.read_bytes()
+        manifest = json.loads(manifest_bytes)
+        if (manifest.get("track"), manifest.get("svsId"), manifest.get("width"), manifest.get("height"), manifest.get("format")) != (track_id, source["svsId"], 2048, 1024, "PNG") or manifest.get("pixelFilter") != colorbar.get("pixelFilter"):
+            raise ValueError("Native source identity, dimensions or filters changed.")
+        native_entries = manifest["frames"]
+        if len(native_entries) != len(source["frames"]):
+            raise ValueError("Native source frame count differs from the display timeline.")
+        for expected, entry in zip(source["frames"], native_entries):
+            if (entry["file"], entry["date"]) != (expected["file"], expected["date"]) or not entry.get("verifiedLabel"):
+                raise ValueError("Native source timestamps are not verified against the display timeline.")
+            verify_label(entry["verifiedLabel"], expected["date"])
+            if Path(entry["nativeFile"]).name != entry["nativeFile"] or not entry["nativeFile"].endswith(".png"):
+                raise ValueError("Unsafe native image basename.")
+            if hashlib.sha256((analysis_frames_dir / entry["nativeFile"]).read_bytes()).hexdigest() != entry["sha256"]:
+                raise ValueError("Native image hash differs from the verified source manifest.")
+        analysis_source = {"width": 2048, "height": 1024, "format": "PNG", "manifestSha256": hashlib.sha256(manifest_bytes).hexdigest(), "dateLabelsVerified": True}
+    def image_path(index):
+        return analysis_frames_dir / native_entries[index]["nativeFile"] if native_entries is not None else directory / "frames" / source["frames"][index]["file"]
     if source.get("mock") is not False:
         raise ValueError("Pixel-derived regional data requires a non-mock source.")
     if source["track"] != track_id or source["unit"] != colorbar["unit"]:
@@ -88,8 +116,10 @@ def generate_regions(track_id: str, data_dir: Path, geojson_path: Path, update_f
     if not frames:
         raise ValueError("No source frames.")
     groups = regional_groups(json.loads(geojson_path.read_text(encoding="utf-8")))
-    with Image.open(directory / "frames" / frames[0]["file"]) as image:
+    with Image.open(image_path(0)) as image:
         width, height = image.size
+    if analysis_source and (width, height) != (analysis_source["width"], analysis_source["height"]):
+        raise ValueError("Native image dimensions differ from manifest.")
     included = analysis_mask(width, height)
     weights = area_weights(width, height)[included]
     updated_frames = []
@@ -100,7 +130,7 @@ def generate_regions(track_id: str, data_dir: Path, geojson_path: Path, update_f
                for key, group in groups.items()}
     cache = {}
     for index, frame in enumerate(frames):
-        with Image.open(directory / "frames" / frame["file"]) as image:
+        with Image.open(image_path(index)) as image:
             if image.size != (width, height):
                 raise ValueError("Frame dimensions changed within a track.")
             pixels = np.asarray(image.convert("RGB"))[included]
@@ -124,6 +154,8 @@ def generate_regions(track_id: str, data_dir: Path, geojson_path: Path, update_f
             print(f"{track_id}: {index + 1}/{len(frames)} frames, {len(regions)} regions", flush=True)
     if update_features:
         source = {**source, "statistics": dict(AREA_STATISTICS), "frames": updated_frames, **({"sonification": dict(sonification)} if sonification else {})}
+        if analysis_source:
+            source["analysisSource"] = analysis_source
         temporary = directory / "features.json.tmp"
         temporary.write_text(json.dumps(source, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
         temporary.replace(directory / "features.json")
@@ -133,6 +165,7 @@ def generate_regions(track_id: str, data_dir: Path, geojson_path: Path, update_f
         "mock": False, "unit": source["unit"], "vmin": vmin, "vmax": vmax,
         "method": "image-derived; cosine-latitude area-weighted mean; pixel-center boundaries; shared pipeline filters",
         "statistics": dict(AREA_STATISTICS),
+        **({"analysisSource": analysis_source} if analysis_source else {}),
         **({"sonification": dict(sonification)} if sonification else {}),
         "frames": frames, "columns": columns, "regions": regions,
     }
@@ -144,10 +177,12 @@ def main() -> None:
     parser.add_argument("--data-dir", type=Path, default=Path("public/data"))
     parser.add_argument("--geojson", type=Path, default=Path("public/data/world-countries.geojson"))
     parser.add_argument("--update-features", action="store_true", help="Recompute full-frame and regional statistics together, preserving frame dates.")
+    parser.add_argument("--analysis-frames-dir", type=Path, help="Original analysis PNGs, separate from display previews.")
+    parser.add_argument("--analysis-manifest", type=Path, help="Verified source dates, hashes and unchanged filters.")
     args = parser.parse_args()
     tracks = args.track or json.loads(Path("public/tracks/index.json").read_text())["tracks"]
     for track in tracks:
-        result = generate_regions(track, args.data_dir, args.geojson, args.update_features)
+        result = generate_regions(track, args.data_dir, args.geojson, args.update_features, args.analysis_frames_dir, args.analysis_manifest)
         target = args.data_dir / track / "regions.json"
         temporary = target.with_suffix(".json.tmp")
         temporary.write_text(json.dumps(result, ensure_ascii=False, separators=(",", ":"), allow_nan=False) + "\n", encoding="utf-8")

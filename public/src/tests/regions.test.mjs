@@ -77,3 +77,15 @@ test('regional tables cannot silently mix area-weighted and legacy pixel means',
  data.schemaVersion=2;assert.doesNotThrow(()=>validateRegionalFeatures(data,track,weighted));
  assert.throws(()=>validateRegionalFeatures(data,track,source));
 });
+
+test('native analysis tables must match the source resolution and verified manifest',()=>{
+ const statistics={mean:'area_weighted',weighting:'cos_latitude',p90:'unweighted_pixel_percentile',coverage:'accepted_pixel_fraction'};
+ const analysisSource={width:2048,height:1024,format:'PNG',manifestSha256:'a'.repeat(64),dateLabelsVerified:true};
+ const nativeSource={...source,statistics,analysisSource};
+ const data=fixture();data.schemaVersion=2;data.statistics=statistics;data.analysisSource={...analysisSource};
+ assert.doesNotThrow(()=>validateRegionalFeatures(data,track,nativeSource));
+ data.analysisSource.manifestSha256='b'.repeat(64);
+ assert.throws(()=>validateRegionalFeatures(data,track,nativeSource));
+ data.analysisSource={...analysisSource,width:1024};
+ assert.throws(()=>validateRegionalFeatures(data,track,nativeSource));
+});

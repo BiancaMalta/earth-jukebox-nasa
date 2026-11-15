@@ -40,3 +40,32 @@ python pipeline/evaluate_pollutants.py --baseline-dir docs/estudo-cientifico/dad
 
 Essas verificações não substituem testes perceptivos com participantes. Não foi
 realizado novo teste de audição ou de acessibilidade com usuários nesta etapa.
+
+## Estados regionais e precipitação nativa
+
+A [recuperação de precipitação](estudo-cientifico/precipitacao-recuperacao.md)
+adiciona testes para espera/erro separados de ausência científica, silêncio por
+zero verdadeiro, datas e fuso EDT/EST, hashes dos originais e coerência de
+`analysisSource` entre tabela geral e regional. A suíte Python passou com 29
+testes. Os 7 arquivos de testes JavaScript passaram após regenerar a faixa.
+
+O teste `pipeline/test_regional_availability_browser.mjs` usa um Firefox BiDi
+exclusivo e servidor local para simular HTTP 503, repetir o pedido, verificar
+ausência real de pixels, atrasar uma resposta durante a troca de faixa e
+verificar timeout. Os dados anteriores e a comparação completa de 124 horários
+foram preservados para contabilizar tanto recuperações quanto perdas. O arquivo
+de legenda/filtros permanece byte a byte igual ao baseline.
+
+## Sensibilidade de CO e PM2.5
+
+`co-pm25-sensitivity.test.mjs` verifica as âncoras fixas e a monotonicidade de
+CO, a duplicação dos intervalos de PM2.5 em cents com brilho preservado, e
+todas as séries regionais publicadas, incluindo ausência de dados. Os testes
+do motor percorrem o instrumento de PM2.5 nos extremos C3/C7 e aceitam as
+notas C2/C6 de CO. As legendas comparam as novas referências.
+
+O gerador da revisão mantém congeladas as curvas históricas e aceita
+`--verify-implemented` para confrontar as curvas adotadas com o player em
+todos os frames globais e regionais. O JSON histórico é reproduzido sem
+alterar os dados publicados. Os 9 arquivos de testes JavaScript passaram.
+Não houve novo teste perceptivo com participantes.

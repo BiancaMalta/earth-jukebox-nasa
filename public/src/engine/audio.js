@@ -1,5 +1,5 @@
 // AI-assisted: OpenAI Codex
-import { PENTATONIC_NOTES, CO_NOTES, OZONE_NOTES, mapFrameSound, mapWindSpeed, mapWindActivity, mapPrecipitation, mapHumidity, mapPm25, mapCarbonMonoxide, mapOzone } from "./mapping.js";
+import { PENTATONIC_NOTES, CO_NOTES, OZONE_NOTES, PM25_PITCH_RANGE, mapFrameSound, mapWindSpeed, mapWindActivity, mapPrecipitation, mapHumidity, mapPm25, mapCarbonMonoxide, mapOzone } from "./mapping.js";
 import { createTemperatureSound } from "./temperatureSound.js";
 import { createWindSound } from "./windSound.js";
 import { createPrecipitationSound } from "./precipitationSound.js";
@@ -74,7 +74,7 @@ export function createAudioEngine(loadTone = () => import("tone")) {
     if (parameters.kind === "precipitation" && (!Number.isFinite(parameters.rate) || parameters.rate < 0 || parameters.rate > 5)) return false;
     if (parameters.kind === "humidity" && (!Number.isFinite(parameters.bandwidth) || parameters.bandwidth < 160 || parameters.bandwidth > 1600)) return false;
     if (parameters.kind === "pm25" && (
-      !Number.isFinite(parameters.frequency) || parameters.frequency < 261.6 || parameters.frequency > 1046.6
+      !Number.isFinite(parameters.frequency) || parameters.frequency < PM25_PITCH_RANGE.min || parameters.frequency > PM25_PITCH_RANGE.max
       || !Number.isFinite(parameters.brightness) || parameters.brightness < 0 || parameters.brightness > 1
     )) return false;
     instruments[parameters.kind].update(parameters, duration);

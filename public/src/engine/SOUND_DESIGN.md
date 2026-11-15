@@ -37,8 +37,10 @@ AI-assisted: OpenAI Codex. Front-end engineering notes; the data contract remain
   area in the denominator. This limits extreme pixel influence and retains
   detected extent; unknown pixels are not measured zero concentration.
   The fixed curve `brightness = visualSignal + 0.3 * sin(π * visualSignal)`
-  controls cutoff `1400 + 4800 * brightness` Hz and continuous C4–C6 pitch
-  `261.625565 * 4 ** brightness` Hz. Both strictly increase with the index.
+  controls cutoff `1400 + 4800 * brightness` Hz and continuous C3–C7 pitch
+  `130.8127825 * 16 ** brightness` Hz. Both strictly increase with the index.
+  Pitch intervals in cents are twice those of the historical C4–C6 curve;
+  the index, filter and gain curves retain their previous definitions.
   One metallic FM voice glides between frames at fixed loudness. Mean/p90/norm
   remain separate diagnostics; the concentration mean now uses cosine-latitude
   weights. Missing index or zero pixel coverage means silence, without fallback
@@ -47,21 +49,28 @@ AI-assisted: OpenAI Codex. Front-end engineering notes; the data contract remain
   checks regional ordering, three-hour directions and nominal pitch separation.
   It does not establish exact concentrations or individual auditory perception.
 - Carbon monoxide (SVS 5153, ppbv): use the supplied linear-legend `norm` to
-  select one of 11 C major pentatonic notes from C3 to C5. A filtered,
+  select one of 29 natural C-major notes from C2 to C6. Fixed scale-index
+  anchors are 40→0, 60→3, 200→24, 500→28; round to the nearest step.
+  Steps span about 6.67 ppbv through 200 and 75 ppbv above it. A filtered,
   brass-like single voice follows the frame; rising concentration means higher
   pitch, not a health-risk rating. The image-derived global mean changes very
   little in this interval, while the regional estimates vary more. Regional
   tables currently use equal weights per accepted pixel.
 - Ozone (SVS 5152, ppbv): use the supplied linear-legend `norm` to select the
-  same pentatonic steps one octave higher, C4 to C6. One short plucked-string
+  29 natural notes of C major, C3 to C7, with fixed concentration-to-step
+  anchors 5→0, 30→4, 50→24, 60→28. The 30–50 ppbv band has 1 ppbv per
+  diatonic step; the lower and upper bands use 6.25 and 2.5 ppbv per step.
+  Round to the nearest step. The supplied norm is unchanged; the same musical
+  transfer applies to every region/time. The legend compares 40 ppbv (C5)
+  with 41 ppbv (D5). One short plucked-string
   note follows each frame; rising concentration means higher pitch, not a
   health-risk rating. Around 43–46% of analyzed pixels are used in these frames;
   that is image-pixel coverage, not accuracy or geographic area. Regional tables
   currently use equal weights per accepted pixel.
 - The four climate datasets are image-derived (`mock: false`), not raw
   numerical GEOS-FP grids. `mean` and `norm` are consumed exactly as supplied.
-  Small normalized changes may stay on one pentatonic step;
-  that is preserved rather than artificially stretching the melody.
+  Temperature retains its original pentatonic scale; small normalized changes
+  can stay on one step. All musical curves are fixed across regions and times.
 
 ## Expressive layer
 
@@ -106,10 +115,12 @@ about 8 dB above the previous setting; the shared limiter still caps the mixed
 output at -6 dBFS. The timbre suggests a fine metallic shimmer, not literal
 particles, wind, ocean or health risk.
 CO uses a bright trumpet-like pulse through a low-pass filter with a quick,
-soft attack and mild portamento. The supplied norm still selects its C3–C5
-pentatonic note. It is a synthesized timbre, not a trumpet sample. Ozone uses
+soft attack and mild portamento. The supplied norm selects its C2–C6
+note on the fixed C-major curve above. The legend compares 100 ppbv (E3)
+with 107 ppbv (F3). It is a synthesized timbre, not a trumpet sample. Ozone uses
 one soft harp-like `PluckSynth` voice, with a gentle attack, resonant decay and
-light reverb. Its supplied norm still selects its C4–C6 pentatonic note. These
+light reverb. Its supplied norm selects a note on the fixed C3–C7 C-major curve, with
+more sensitivity in the central concentration band. These
 are distinct sound identities; neither instrument owns a clock or adds notes.
 Ozone's initial channel calibration is 2.8 (up from 0.75) to keep its pluck
 present in the mix; the shared limiter remains active.

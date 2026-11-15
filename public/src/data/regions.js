@@ -13,6 +13,9 @@ export function validateRegionalFeatures(data, track, source) {
     if ((data.statistics?.[field] ?? null) !== (source.statistics?.[field] ?? null)) invalid();
   }
   if ((data.sonification?.input ?? null) !== (source.sonification?.input ?? null) || (data.sonification?.unit ?? null) !== (source.sonification?.unit ?? null)) invalid();
+  for (const field of ["width", "height", "format", "manifestSha256", "dateLabelsVerified"]) {
+    if ((data.analysisSource?.[field] ?? null) !== (source.analysisSource?.[field] ?? null)) invalid();
+  }
   if (!Array.isArray(data.columns) || data.columns.join(",") !== columns.join(",") || !Array.isArray(data.frames) || data.frames.length !== source.frames.length) invalid();
   data.frames.forEach((frame, index) => {
     const expected = source.frames[index];

@@ -24,7 +24,7 @@ test('temperature regional inclusion is visible and mean, norm and coverage reta
  const reading=describeReading(frame,{id:'clima-temperatura',unit:'°C'});
  assert.equal(reading.coverageDetail,'86.6% of analyzed image pixels used');
  assert.equal(reading.normalized,'0.654 / 1.000');assert.equal(reading.mean,'12.3 °C');
- assert.equal(describeReading({...frame,coverage:0},{id:'clima-temperatura',unit:'°C'}).mean,'Unavailable');
+ assert.equal(describeReading({...frame,coverage:0},{id:'clima-temperatura',unit:'°C'}).mean,'No recognized pixels');
 });
 
 test('oceanic territory labels do not imply an ocean average and leave other region names intact',()=>{

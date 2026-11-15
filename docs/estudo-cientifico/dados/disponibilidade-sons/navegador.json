@@ -1,0 +1,39 @@
+{
+  "browser": "Firefox headless, local HTTP server",
+  "scope": "Data labels and selection flow; not an auditory test or reproduction of the earlier user incident",
+  "snapshots": [
+    {
+      "label": "north-america-loading",
+      "measure": "Unavailable",
+      "note": "Unavailable",
+      "status": "Loading Python-calculated values for North America country group…",
+      "current": "North America country group: no regional value is available for this frame. Regional audio is silent.",
+      "ozoneCombined": "Unavailable"
+    },
+    {
+      "label": "north-america-ready",
+      "measure": "43.44 ppbv",
+      "note": "E5",
+      "status": "North America country group: Python-calculated regional values are ready. Playback now uses this region.",
+      "current": "North America country group, 2026-10-30T06:00: 43.44 ppbv. 82.8% of analyzed image pixels used within this region; playback sounds this regional value.",
+      "ozoneCombined": "Unavailable"
+    },
+    {
+      "label": "north-america-combined-ready",
+      "measure": "43.44 ppbv",
+      "note": "E5",
+      "status": "North America country group: Python-calculated regional values are ready. Playback now uses this region.",
+      "current": "North America country group, 2026-10-30T06:00: 43.44 ppbv. 82.8% of analyzed image pixels used within this region; playback sounds this regional value.",
+      "ozoneCombined": "43.44 ppbv · E5 · 82.8% of analyzed image pixels used"
+    },
+    {
+      "label": "oceanic-island-territories-no-accepted-pixels",
+      "measure": "Unavailable",
+      "note": "Unavailable",
+      "status": "Oceanic island territories (land only): Python-calculated regional values are ready. Playback now uses this region.",
+      "current": "Oceanic island territories (land only): no regional value is available for this frame. Regional audio is silent.",
+      "ozoneCombined": "Unavailable · Unavailable · 0.0% of analyzed image pixels used · silent"
+    }
+  ],
+  "console_errors": []
+}

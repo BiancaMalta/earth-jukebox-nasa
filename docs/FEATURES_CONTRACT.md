@@ -57,6 +57,11 @@ at its labeled 40, 100, 130, 200, and 500 ppbv ticks; confidently matched pixels
 use saturation ≥ 18 and color distance ≤ 34. Coverage is the matched share of
 analyzed image pixels, not geographic area.
 
+Musical sensitivity does not change these fields: CO uses 29 C-major notes
+C2–C6 on fixed 40/60/200/500 ppbv anchors; PM2.5 keeps its declared input
+and brightness curve, with continuous C3–C7 pitch. Every region and time uses
+the same transfer. See [CO and PM2.5 variability](estudo-cientifico/co-pm25-variabilidade.md).
+
 ## Regras
 
 - **Dados** é dono do arquivo: gera com `pipeline/features.py` e substitui o mock (mantendo os mesmos campos).
@@ -223,3 +228,24 @@ a posição logarítmica dessa média, não o índice visual. O front usa soment
 O instrumento e a curva de altura/brilho permanecem fixos entre todas as regiões
 e instantes. A [avaliação qualitativa](estudo-cientifico/pm25-qualitativo.md)
 documenta a escolha e as verificações em 29 instantes, incluindo erros restantes.
+
+## Fonte de análise original e estados de carregamento
+
+A precipitação pode usar PNGs originais 2048×1024 para análise, mantendo
+`frames[].file` como a prévia de exibição. `analysisSource` nos JSONs geral e
+regional identifica `width`, `height`, `format: PNG`, `manifestSha256` e
+`dateLabelsVerified: true`. Os campos devem coincidir; uma tabela de prévia
+não pode ser misturada silenciosamente com valores de análise nativa.
+`analysis-source.json` registra as URLs, datas verificadas por OCR e hashes
+dos originais. O gerador exige os originais e manifesto para regenerar essa
+faixa; não volta a analisar as prévias por omissão de um argumento.
+
+`mean`, `p90`, `norm` e `coverage` mantêm suas definições, agora sobre os
+pixels da fonte declarada. Os filtros não mudam. Fonte sem pixels aceitos
+continua com estatísticas nulas e cobertura zero, nunca chuva zero inferida.
+
+O estado transitório `frame.availability` é anexado apenas pela interface
+regional, com `loading`, `error`, `missing` ou `ready`; não é uma grandeza
+científica publicada. Os três primeiros estados impedem mapeamento sonoro.
+`ready` com cobertura zero é apresentado como `No recognized pixels`.
+Uma quantidade válida igual a zero permanece distinta desse estado.

@@ -34,6 +34,25 @@ The precipitation visualization overlays the color field on clouds and the
 basemap. Its `mean` and `p90` therefore describe accepted color-matched
 pixels, not a global-area average; `coverage` records the matched share.
 
+The published precipitation statistics now use the original lossless
+2048×1024 PNGs; the 1024×512 WebPs remain display previews. Regenerating this
+track requires its verified source manifest and original files:
+
+```bash
+python pipeline/fetch_native_rain.py --output raw/5149/native --manifest raw/5149/analysis-source.json --tessdata-dir /path/to/tessdata
+# Copy the successfully verified manifest to public/data/clima-chuva/analysis-source.json.
+python pipeline/regions.py --update-features --track clima-chuva --analysis-frames-dir raw/5149/native --analysis-manifest public/data/clima-chuva/analysis-source.json
+```
+
+Acquisition needs Tesseract and English tessdata_fast in addition to the normal
+pipeline requirements. Every source timestamp, including EDT/EST, is verified;
+the generator rechecks labels, hashes and unchanged filters. Native datasets
+refuse to regenerate from previews when the arguments are omitted. Select other
+tracks explicitly when their original analysis inputs are not available.
+See [rain recovery](../docs/estudo-cientifico/precipitacao-recuperacao.md) for
+comparisons, gains, losses and reproduction. Missing color is still unknown
+precipitation; neither a zero amount nor an accumulation interval is inferred.
+
 For near-surface specific humidity (SVS 5150), calibrate the 0–22 g/kg colorbar
 and calculate features on the 3-hour frames:
 
@@ -199,6 +218,18 @@ the exact SVS source run and PM2.5 recipe remain unconfirmed.
 
 
 ## Qualitative PM2.5 sonification
+
+For an inventory of unavailable sound mappings across all tracks, countries,
+groups and timestamps, using the actual frontend validators and mappings:
+
+```bash
+node pipeline/audit_sound_availability.mjs --output-dir /tmp/sound-availability
+```
+
+The [availability audit](../docs/estudo-cientifico/disponibilidade-sons.md)
+separates published pixel-data gaps from loading states and runtime silence.
+The script does not modify production data. Its Git revision query spawns a
+read-only Git subprocess, which can require permission in restricted sandboxes.
 
 PM2.5 now exports `visualSignal`: area-weighted per-pixel log-legend positions
 summed over accepted pixels and divided by all analyzed area weights. Its source

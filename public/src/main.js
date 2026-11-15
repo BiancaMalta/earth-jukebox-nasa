@@ -39,7 +39,7 @@ const narrate = el("narrate-dates");
 const interval = el("narration-interval");
 let player, removeKeyboard, regions, lastNarratedIndex = null, trackContext = null;
 function showTrackMethods(context) {
-  byId("pixel-filter-method").textContent = describePixelFilters(context.colorbar);
+  byId("pixel-filter-method").textContent = describePixelFilters(context.colorbar) + (context.data.analysisSource ? " Values use the original 2048×1024 PNGs; the map shows a smaller preview." : "");
   byId("mean-weighting-method").textContent = describeMeanWeighting(context.data);
   byId("normalization-range").textContent = describeNormalizationRange(context.data);
 }
@@ -81,14 +81,16 @@ function updateNoteStatus(frame = player?.currentFrame, track = player?.currentT
   if (combined.enabled) {
     element.textContent = !combined.ready ? "Combined datasets are loading."
       : !audio.enabled || audio.muted ? "Sound is off."
+          : audio.volume === 0 ? "Sound volume is zero."
           : legend.active ? "Selected instrument legend is playing alone."
             : player?.isPlaying ? "Combined experiment follows supplied timestamps." : "Combined experiment ready; playback is paused.";
     return;
   }
   const parameters = mapFrameSound(frame, track);
-  element.textContent = !parameters ? "No sound for this frame."
+  element.textContent = !parameters ? describeReading(frame, track).availability.detail ?? "No sound for this frame."
     : parameters.kind === "precipitation" && parameters.rate === 0 ? "Zero precipitation amount; silent."
     : !audio.enabled || audio.muted ? "Sound is off."
+        : audio.volume === 0 ? "Sound volume is zero."
         : legend.active ? "Sound legend is playing."
           : player?.isPlaying ? "Music follows playback." : "Ready; playback is paused.";
 }

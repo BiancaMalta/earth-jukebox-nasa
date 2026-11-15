@@ -1,7 +1,18 @@
 // AI-assisted: OpenAI Codex
 export const PENTATONIC_NOTES = Object.freeze(["C3", "D3", "E3", "G3", "A3", "C4", "D4", "E4", "G4", "A4", "C5"]);
-export const CO_NOTES = PENTATONIC_NOTES;
-export const OZONE_NOTES = Object.freeze(["C4", "D4", "E4", "G4", "A4", "C5", "D5", "E5", "G5", "A5", "C6"]);
+export const CO_NOTES = Object.freeze([
+  "C2", "D2", "E2", "F2", "G2", "A2", "B2",
+  "C3", "D3", "E3", "F3", "G3", "A3", "B3",
+  "C4", "D4", "E4", "F4", "G4", "A4", "B4",
+  "C5", "D5", "E5", "F5", "G5", "A5", "B5", "C6",
+]);
+export const PM25_PITCH_RANGE = Object.freeze({ min: 130.8127825, max: 2093.00452 });
+export const OZONE_NOTES = Object.freeze([
+  "C3", "D3", "E3", "F3", "G3", "A3", "B3",
+  "C4", "D4", "E4", "F4", "G4", "A4", "B4",
+  "C5", "D5", "E5", "F5", "G5", "A5", "B5",
+  "C6", "D6", "E6", "F6", "G6", "A6", "B6", "C7",
+]);
 
 // Eleven pitches: round(norm * 10) selects the nearest scale step.
 // Reject invalid input rather than silently turning missing values into cold notes.
@@ -10,19 +21,25 @@ export function mapValue(norm) {
   return PENTATONIC_NOTES[Math.round(norm * (PENTATONIC_NOTES.length - 1))];
 }
 
-function mapNotePosition(position, notes) {
-  if (typeof position !== "number" || !Number.isFinite(position) || position < 0 || position > 1) return null;
-  return notes[Math.round(position * (notes.length - 1))];
-}
-
-// CO uses the supplied concentration position and a lower brass-like register.
+// Fixed C-major anchors: 40→0, 60→3, 200→24, 500→28.
+// About 6.67 ppbv/step through 200, then 75 ppbv/step; never rescale per region.
 export function mapCarbonMonoxide(position) {
-  return mapNotePosition(position, CO_NOTES);
+  if (typeof position !== "number" || !Number.isFinite(position) || position < 0 || position > 1) return null;
+  const ppbv = 40 + 460 * position;
+  const step = ppbv <= 200 ? 24 * (ppbv - 40) / 160 : 24 + 4 * (ppbv - 200) / 300;
+  return CO_NOTES[Math.round(step)];
 }
 
-// Ozone uses the same fixed pentatonic intervals one octave higher.
+// Fixed C-major curve shared by every region/time. Legend 5..60 ppbv remains
+// unchanged. Scale-index anchors: 5→0, 30→4, 50→24, 60→28.
+// The central band has one diatonic step per ppbv; endpoints remain represented.
 export function mapOzone(position) {
-  return mapNotePosition(position, OZONE_NOTES);
+  if (typeof position !== "number" || !Number.isFinite(position) || position < 0 || position > 1) return null;
+  const ppbv = 5 + 55 * position;
+  const step = ppbv < 30 ? 4 * (ppbv - 5) / 25
+    : ppbv <= 50 ? 4 + ppbv - 30
+      : 24 + 4 * (ppbv - 50) / 10;
+  return OZONE_NOTES[Math.round(step)];
 }
 
 // Fixed visual-signal transfer: both intensity and detected color extent count.
@@ -60,7 +77,7 @@ export function mapPm25(position) {
   const boundedBrightness = Math.min(1, Math.max(0, brightness));
   return {
     brightness: boundedBrightness,
-    frequency: 261.625565 * Math.pow(4, boundedBrightness),
+    frequency: PM25_PITCH_RANGE.min * Math.pow(16, boundedBrightness),
   };
 }
 
@@ -80,6 +97,7 @@ export function soundKind(track) {
 }
 
 export function mapFrameSound(frame, track) {
+  if (["loading", "error", "missing"].includes(frame?.availability?.state)) return null;
   if (frame?.coverage === 0) return null;
   const kind = soundKind(track);
   if (kind === "temperature") {

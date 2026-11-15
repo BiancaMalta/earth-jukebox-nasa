@@ -1,6 +1,7 @@
 // AI-assisted: OpenAI Codex
 import { describeDate, isFiniteNumber } from "../data/features.js";
 import { mapFrameSound, soundKind } from "../engine/mapping.js";
+import { describeAvailability } from "../data/availability.js";
 
 // Presentation only: preserve the provided speed, normalization and timestamps.
 export function describePixelCoverage(value) {
@@ -19,6 +20,7 @@ export function describePixelFilters(colorbar) {
 }
 
 export function describeReading(frame, track) {
+  const availability = describeAvailability(frame);
   const date = describeDate(frame?.date);
   const [dateLabel, timeLabel] = date ? date.split(" at ") : ["Unavailable", "No valid timestamp supplied"];
   const visualIndex = track?.sonification?.input === "visualSignal";
@@ -35,13 +37,13 @@ export function describeReading(frame, track) {
   const unitDescription = unit === "°C" ? "degrees Celsius" : unit === "m/s" ? "meters per second" : unit === "g/kg" ? "grams per kilogram" : unit === "mm" ? "millimeters" : unit;
   const validMean = isFiniteNumber(frame?.mean) && frame.coverage !== 0 && (!nonTemperature || frame.mean >= 0);
   const meanNumber = validMean ? frame.mean.toFixed(nonTemperature ? 2 : 1) : null;
-  const mean = visualIndex ? isFiniteNumber(frame?.visualSignal) ? `${frame.visualSignal.toFixed(4)} / 1` : "Unavailable" : meanNumber === null ? "Unavailable" : `${meanNumber} ${unit}`;
+  const mean = availability.label ?? (visualIndex ? isFiniteNumber(frame?.visualSignal) ? `${frame.visualSignal.toFixed(4)} / 1` : "Unavailable" : meanNumber === null ? "Unavailable" : `${meanNumber} ${unit}`);
   const coverageDetail = describePixelCoverage(frame?.coverage);
   const validNorm = isFiniteNumber(frame?.norm) && frame.norm >= 0 && frame.norm <= 1;
   const melodic = kind === "temperature" || kind === "carbonMonoxide" || kind === "ozone";
   const soundLabel = visualOnly ? "Sound mapping" : wind ? "Wind pulse rate" : kind === "precipitation" ? "Drum stroke rate" : kind === "humidity" ? "Pad spectral width" : kind === "pm25" ? "Tone / filter brightness" : "Mapped musical note";
-  const soundValue = visualOnly ? "Not implemented" : !sound ? "Unavailable" : kind === "humidity" ? `${Math.round(sound.bandwidth)} Hz` : melodic ? sound.note : kind === "pm25" ? `${sound.frequency.toFixed(0)} Hz · ${sound.brightness.toFixed(2)} / 1` : `${sound.rate.toFixed(2)} Hz`;
-  const soundSummary = !sound ? visualOnly ? "Visual-only experience; no sound mapping assigned." : "Sound data unavailable or no valid pixels; no note or texture."
+  const soundValue = availability.label ?? (visualOnly ? "Not implemented" : !sound ? "Unavailable" : kind === "humidity" ? `${Math.round(sound.bandwidth)} Hz` : melodic ? sound.note : kind === "pm25" ? `${sound.frequency.toFixed(0)} Hz · ${sound.brightness.toFixed(2)} / 1` : `${sound.rate.toFixed(2)} Hz`);
+  const soundSummary = availability.detail ?? (!sound ? visualOnly ? "Visual-only experience; no sound mapping assigned." : "Sound data unavailable or no valid pixels; no note or texture."
     : kind === "temperature" ? `Mapped note ${sound.note}.`
       : kind === "carbonMonoxide" ? `Brass-like mapped note ${sound.note}; higher image-derived concentration means higher pitch, not higher health risk.`
         : kind === "ozone" ? `Plucked mapped note ${sound.note}; higher image-derived concentration means higher pitch, not higher health risk.`
@@ -49,13 +51,13 @@ export function describeReading(frame, track) {
         : kind === "precipitation" ? `Musical density ${sound.rate.toFixed(2)} drum strokes per second; fixed G3 carrier, not measured rainfall intensity.`
           : kind === "humidity" ? `Nominal pad bandwidth ${Math.round(sound.bandwidth)} hertz; fixed C3 string ensemble, not rainfall.`
             : kind === "pm25" ? `Sustained metallic tone at ${sound.frequency.toFixed(0)} Hz; brightness ${sound.brightness.toFixed(2)} / 1. It glides with the frame, adds no beat and is not a health-risk reading.`
-              : `Mapped musical value ${sound.rate.toFixed(2)}.`;
+              : `Mapped musical value ${sound.rate.toFixed(2)}.`);
   return {
-    date, dateLabel, timeLabel, mean, measure: visualPm25 ? "Visible PM2.5 signal (index)" : visualWind ? "Visible wind signal (index)" : kind === "precipitation" ? "Estimated precipitation · image-derived" : measure, sound, soundLabel, soundValue,
+    availability, date, dateLabel, timeLabel, mean, measure: visualPm25 ? "Visible PM2.5 signal (index)" : visualWind ? "Visible wind signal (index)" : kind === "precipitation" ? "Estimated precipitation · image-derived" : measure, sound, soundLabel, soundValue,
     note: melodic && sound ? sound.note : null,
     measureDetail: visualIndex ? `Accepted-pixel mean: ${meanNumber ?? "unavailable"} ${unit}; supplied normalized mean: ${isFiniteNumber(frame?.norm) ? frame.norm.toFixed(3) : "unavailable"}. These are diagnostics, not a complete regional physical mean.` : `${quantity} (${unit}). ${weightingDetail}`, coverageDetail,
     normalized: visualIndex ? isFiniteNumber(frame?.visualSignal) ? `${frame.visualSignal.toFixed(4)} / 1` : "Unavailable" : validNorm ? `${frame.norm.toFixed(3)} / 1.000` : "Unavailable",
-    summary: visualIndex ? `${date ?? "Date unavailable"}. Visible ${visualPm25 ? "PM2.5" : "wind"} signal index ${isFiniteNumber(frame?.visualSignal) ? frame.visualSignal.toFixed(4) : "unavailable"}. ${coverageDetail}. ${soundSummary}` : `${date ?? "Date unavailable"}. ${measure}: ${meanNumber === null ? "unavailable" : `${meanNumber} ${unitDescription}`}. ${coverageDetail ? `${coverageDetail}. ` : ""}${soundSummary}`,
+    summary: availability.detail ? `${date ?? "Date unavailable"}. ${availability.detail}` : visualIndex ? `${date ?? "Date unavailable"}. Visible ${visualPm25 ? "PM2.5" : "wind"} signal index ${isFiniteNumber(frame?.visualSignal) ? frame.visualSignal.toFixed(4) : "unavailable"}. ${coverageDetail}. ${soundSummary}` : `${date ?? "Date unavailable"}. ${measure}: ${meanNumber === null ? "unavailable" : `${meanNumber} ${unitDescription}`}. ${coverageDetail ? `${coverageDetail}. ` : ""}${soundSummary}`,
 
   };
 }

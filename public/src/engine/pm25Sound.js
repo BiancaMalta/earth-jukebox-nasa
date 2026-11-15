@@ -1,4 +1,5 @@
 // A sustained metallic FM tone glides with PM2.5; it has no per-frame beat.
+import { PM25_PITCH_RANGE } from "./mapping.js";
 export function createPm25Sound(tone, destination) {
   const synth = new tone.FMSynth({
     harmonicity: 2.4,
@@ -23,7 +24,7 @@ export function createPm25Sound(tone, destination) {
   return {
     ready: reverb.ready,
     update({ frequency, brightness }, duration) {
-      if (!Number.isFinite(frequency) || frequency < 261.6 || frequency > 1046.6
+      if (!Number.isFinite(frequency) || frequency < PM25_PITCH_RANGE.min || frequency > PM25_PITCH_RANGE.max
         || !Number.isFinite(brightness) || brightness < 0 || brightness > 1) return;
       const now = tone.now();
       filter.frequency.rampTo(1400 + 4800 * brightness, 0.24);
