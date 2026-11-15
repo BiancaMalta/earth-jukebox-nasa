@@ -60,7 +60,15 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
   const methodsChooser = makeVariableControl("combined-methods-variable", "Variable for these methods");
   const variableSelect = guideChooser.select;
   const guideHeading = document.getElementById("guide-heading");
-  if (guideHeading) guideHeading.after(guideChooser.control); else soundGuide?.prepend(guideChooser.control);
+
+  if (guideHeading) {
+    guideHeading.parentNode?.insertBefore(
+      guideChooser.control,
+      guideHeading
+    );
+  } else {
+    soundGuide?.prepend(guideChooser.control);
+  }
   const methodsSummary = document.querySelector(".explanation-details > summary");
   if (methodsSummary) methodsSummary.after(methodsChooser.control);
   let datasets = null, pending, generation = 0, destroyed = false, controller, legendActive = false;
@@ -68,18 +76,38 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
     const individualTab = document.getElementById("individual-preview-tab");
     const combinedTab = document.getElementById("combined-preview-tab");
     const mapPanel = document.getElementById("frame-map-panel");
+
     if (individualTab && combinedTab && mapPanel) {
       individualTab.setAttribute("aria-selected", String(!combined));
       individualTab.tabIndex = combined ? -1 : 0;
       combinedTab.setAttribute("aria-selected", String(combined));
       combinedTab.tabIndex = combined ? 0 : -1;
-      mapPanel.setAttribute("aria-labelledby", combined ? combinedTab.id : individualTab.id);
+      mapPanel.setAttribute(
+        "aria-labelledby",
+        combined ? combinedTab.id : individualTab.id
+      );
     }
+
     const title = document.getElementById("track-title");
-    if (title) title.textContent = combined ? "Combination preview" : title.dataset.singleTitle ?? title.textContent;
+
+    if (title) {
+      title.textContent = combined
+        ? "Combination preview"
+        : title.dataset.singleTitle ?? title.textContent;
+    }
+
     const modeLabel = document.getElementById("mode-active");
-    if (modeLabel) modeLabel.textContent = combined ? "Active mode: Combination preview" : "Active mode: Single visualization";
-    variableControls.forEach(({ control }) => { control.hidden = !combined; });
+
+    if (modeLabel) {
+      modeLabel.textContent = combined
+        ? "Active mode: Combination preview"
+        : "Active mode: Single visualization";
+    }
+
+    variableControls.forEach(({ control }) => {
+      control.hidden = !combined;
+    });
+
     document.querySelector(".track-toolbar")?.toggleAttribute("hidden", combined);
     document.getElementById("time-series-panel")?.toggleAttribute("hidden", combined);
     document.getElementById("frame-readings")?.toggleAttribute("hidden", combined);
