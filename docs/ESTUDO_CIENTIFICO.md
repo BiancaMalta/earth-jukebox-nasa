@@ -1,121 +1,121 @@
-# Estudo científico e validação qualitativa do Earth Jukebox
+# Scientific study and qualitative validation of Earth Jukebox
 
-## O que queremos preservar
+## What we aim to preserve
 
-O objetivo do projeto é tornar os padrões das visualizações NASA perceptíveis por som. Não estamos reconstruindo medições exatas a partir de um vídeo. O requisito útil é preservar contrastes e tendências: onde há mais ou menos sinal e quando ele cresce ou diminui. Mesmo assim, não podemos chamar uma seleção incompleta de pixels de média física de todo um país, nem confundir falta de cor com vento zero.
+The goal is to make patterns in NASA visualizations perceptible through sound. We are not reconstructing exact measurements from a video. The useful requirement is to preserve contrasts and trends: where there is more or less signal, and when it rises or falls. Even so, an incomplete selection of pixels cannot be called a physical mean for an entire country, and missing color cannot be confused with zero wind.
 
-Este documento reúne a pesquisa, as comparações e a mudança implementada no vento. O relatório inicial foi preservado como histórico; os dados atualmente publicados na aplicação já incorporam médias ponderadas por latitude e um índice visual para a sonificação do vento.
+This document brings together the research, comparisons, and implemented change to wind sonification. The initial report is preserved as historical material; the data currently published in the app include latitude-weighted means and a visual index for wind sonification.
 
-A [auditoria inicial de PM2.5, CO e ozônio, de 15/11/2026](estudo-cientifico/validacao-poluentes.md) encontrou as três tabelas químicas ainda sem ponderação e acrescentou comparações com GEOS-CF em cinco instantes. CO e O3 preservaram bem a ordenação nas amostras; PM2.5 apresentou discrepâncias e inversões importantes. Depois, a [avaliação qualitativa de PM2.5](estudo-cientifico/pm25-qualitativo.md) ampliou a comparação para 29 instantes e adotou um índice de intensidade logarítmica × extensão, preservando melhor mais/menos e aumentou/diminuiu. PM2.5 também recebeu ponderação por latitude; CO e O3 permanecem no método anterior. Consulte os relatórios para métricas, snapshots, reprodução e limites; esses resultados não validam a série completa nem equivalem a observações independentes.
+The [initial PM2.5, CO, and ozone audit, dated 2026-11-15](estudo-cientifico/validacao-poluentes.md), found the three chemical tables still unweighted and added comparisons with GEOS-CF at five timestamps. CO and O3 retained good ordering in the sampled data; PM2.5 showed important discrepancies and ranking reversals. The later [qualitative PM2.5 evaluation](estudo-cientifico/pm25-qualitativo.md) expanded the comparison to 29 timestamps and adopted a log-intensity × extent index that better preserves more/less and rising/falling patterns. PM2.5 also received latitude weighting; CO and O3 retain the earlier method. See the reports for metrics, snapshots, reproduction steps, and limitations. These results do not validate the full time series or amount to independent observations.
 
-## Comparação com campos numéricos NASA
+## Comparison with NASA numerical fields
 
-Foi arquivado um recorte pequeno do GEOS-FP, não o dataset completo: um instante na grade subamostrada de aproximadamente 1,25°, com temperatura a 2 m, umidade específica a 2 m, componentes do vento a 10 m e fluxo de precipitação. Os nomes, unidades, índices consultados e origem estão no [metadado da amostra](estudo-cientifico/dados/geos-amostra-metadata.json).
+A small subset of GEOS-FP was archived, not the complete dataset: one timestamp on an approximately 1.25° subsampled grid, with 2 m temperature, 2 m specific humidity, 10 m wind components, and precipitation flux. Variable names, units, queried indices, and source are in the [sample metadata](estudo-cientifico/dados/geos-amostra-metadata.json).
 
-A imagem do primeiro frame tem o rótulo 30/10/2026 06:00. O pipeline o interpreta como Eastern, aproximadamente 10:00 UTC. A referência é a média horária centrada em 10:30 UTC (janela 10–11 UTC). São momentos próximos, mas isso não comprova equivalência temporal exata. A grade é grosseira, as bordas diferem e a própria NASA SVS 5147 menciona tanto 2 m quanto 3 m na descrição da temperatura. Trata-se de comparação exploratória entre uma visualização e campos da mesma família de modelo, não de validação por observações independentes.
+The first image frame is labeled 2026-10-30 06:00. The pipeline interprets this as Eastern Time, approximately 10:00 UTC. The reference is the hourly mean centered at 10:30 UTC (10:00–11:00 UTC window). These are close in time, but this does not prove exact temporal equivalence. The grid is coarse, the boundaries differ, and NASA SVS 5147 itself mentions both 2 m and 3 m in its temperature description. This is an exploratory comparison between a visualization and fields from the same model family, not validation against independent observations.
 
-Unidades numéricas confirmadas no File Specification for GEOS FP: T2M em K, QV2M em kg/kg, U10M/V10M em m/s e PRECTOT em kg/m²/s. Foram usadas as conversões T−273,15, Q×1000 e sqrt(U²+V²). A última expressão é a velocidade do vetor médio horário, não necessariamente a média de velocidades instantâneas.
+Numerical units were confirmed in the GEOS-FP File Specification: T2M in K, QV2M in kg/kg, U10M/V10M in m/s, and PRECTOT in kg/m²/s. We used the conversions T−273.15, Q×1000, and sqrt(U²+V²). The last expression is the speed of the hourly mean vector, not necessarily the mean of instantaneous speeds.
 
-### Resultados e ponderação
+### Results and area weighting
 
-![Estimativas antes/depois e referência](estudo-cientifico/graficos/comparacao-ponderada.png)
+![Weighted estimates before and after, with reference](estudo-cientifico/graficos/comparacao-ponderada.png)
 
-- Temperatura e umidade apresentaram ordem de grandeza e contrastes regionais plausíveis no recorte. Existem desvios: por exemplo, umidade antártica abaixo da referência. A ponderação corrige a agregação espacial, mas não garante reduzir toda diferença de conversão.
-- A média do vento somente nos pixels aceitos ficou sistematicamente elevada, pois muitos ventos fracos são transparentes e ficam fora da amostra. Essa média continua disponível como diagnóstico; deixou de ser o principal controle sonoro da faixa de vento.
-- Na precipitação, o JSON da imagem usa mm sem intervalo confirmado, enquanto a referência numérica foi convertida para mm/h. Não calculamos erro ou razão entre grandezas temporais diferentes. As cores aceitas representam só parte da imagem.
-- Cada pixel agora recebe peso cos(latitude) para a média. Isso evita que o mapa equiretangular dê peso exagerado aos polos. P90 permanece um percentil de pixels sem ponderação e inclusão continua uma contagem de pixels, não confiança ou área geográfica.
-- Os grupos seguem atribuições de países inteiros: Europa inclui toda a Rússia e Ásia a exclui. Não usamos uma fronteira física arbitrária entre continentes. Territórios insulares não representam médias dos oceanos.
+- Temperature and humidity showed plausible orders of magnitude and regional contrasts in the subset. Differences remain; for example, Antarctic humidity was below the reference. Weighting corrects spatial aggregation but does not guarantee that every conversion discrepancy is reduced.
+- The wind mean over accepted pixels alone was systematically high because many weak winds are transparent and excluded from the sample. This mean remains available as a diagnostic; it is no longer the main sound control for the wind track.
+- For precipitation, the image JSON uses mm without a confirmed interval, while the numerical reference was converted to mm/h. We did not calculate error or ratios between quantities with different time bases. Accepted colors represent only part of the image.
+- Each pixel now receives a cos(latitude) weight for the mean. This prevents the equirectangular map from over-weighting the poles. P90 remains an unweighted pixel percentile, and inclusion remains a pixel count, not confidence or geographic area.
+- Groups use whole-country assignments: Europe includes all of Russia and Asia excludes it. We do not use an arbitrary physical border between the continents. Island territories do not represent ocean averages.
 
-Arquivos: [CSV ponderado](estudo-cientifico/dados/comparacao-ponderada.csv), [comparação antes/depois da média](AREA_WEIGHTING_COMPARISON.json), [relatório inicial histórico](estudo-cientifico/relatorio-inicial.md), [CSV inicial](estudo-cientifico/dados/comparacao-inicial.csv).
+Files: [weighted CSV](estudo-cientifico/dados/comparacao-ponderada.csv), [before/after mean comparison](AREA_WEIGHTING_COMPARISON.json), [historical initial report](estudo-cientifico/relatorio-inicial.md), [initial CSV](estudo-cientifico/dados/comparacao-inicial.csv).
 
-## Vento: melhorar a relação mais/menos e aumentou/diminuiu
+## Wind: improving more/less and rising/falling comparisons
 
-### Problema da média condicional
+### Problem with the conditional mean
 
-Um país com poucos pixels fortes podia superar outro com vento espalhado porque o cálculo ignorava a extensão do sinal. Isso era inadequado para a experiência comparativa, mesmo que a média dos pixels aceitos estivesse matematicamente correta.
+A country with a few strong pixels could rank above another with widespread wind because the calculation ignored signal extent. That was unsuitable for comparative listening, even though the mean of accepted pixels was mathematically correct.
 
-### Índice adotado
+### Adopted index
 
-Para cada pixel aceito, o Python calcula sua posição na escala fixa da legenda: p=(valor−mínimo)/(máximo−mínimo), limitado a 0–1. Depois calcula:
+For each accepted pixel, Python calculates its position on the fixed legend scale: p=(value−minimum)/(maximum−minimum), clipped to 0–1. It then calculates:
 
 ```text
-visualSignal = Σ(peso de área × p dos pixels aceitos)
-               ÷ Σ(pesos de área de todos os pixels analisáveis)
+visualSignal = Σ(area weight × p for accepted pixels)
+               ÷ Σ(area weights for all analyzable pixels)
 ```
 
-O índice combina intensidade e extensão das cores detectadas. Os pixels não reconhecidos não contribuem sinal visual; isso NÃO os transforma em vento físico zero. Se nenhum pixel for aceito, o resultado é null, não zero. O índice não é m/s, nem uma porcentagem da área com vento, nem uma probabilidade de confiança.
+The index combines intensity and extent of detected colors. Unrecognized pixels do not contribute visible signal; this does NOT make them physically zero wind. If no pixel is accepted, the result is null, not zero. The index is not m/s, a percentage of area with wind, or a confidence probability.
 
-A média em m/s, p90, norm e cobertura preservam suas definições anteriores. O novo campo é visualSignal; norm não foi repurposeado nem recalculado pelo front. A flauta usa uma curva fixa e monotônica: taxa = 0,3 + 3,7 × (1 − exp(−visualSignal/0,04)) Hz. O mesmo valor produz o mesmo ritmo em qualquer país, grupo ou instante. A constante expressiva 0,04 não adapta a escala à faixa observada de cada região.
+The m/s mean, p90, norm, and coverage retain their previous definitions. The new field is `visualSignal`; `norm` was neither repurposed nor recalculated by the front end. The flute uses a fixed monotonic curve: rate = 0.3 + 3.7 × (1 − exp(−visualSignal/0.04)) Hz. The same value produces the same rhythm for any country, group, or timestamp. The expressive constant 0.04 does not adapt the scale to the observed range of each region.
 
-### Comparação em três instantes
+### Comparison at three timestamps
 
-Foram consultadas mais duas amostras do GEOS-FP próximas aos frames 63 e 100, sempre com a hipótese do centro horário 30 minutos após o rótulo Eastern. Os dados e as URLs estão arquivados em dados/vento-frame-63* e dados/vento-frame-100*. Nenhum dado numérico foi inserido na experiência sonora: eles servem como referência de avaliação.
+Two additional GEOS-FP samples near frames 63 and 100 were queried, using the same assumption that the hourly center is 30 minutes after the Eastern label. Data and URLs are archived in `dados/vento-frame-63*` and `dados/vento-frame-100*`. No numerical reference data were inserted into the sound experience; they serve only for evaluation.
 
-Para limitar problemas de resolução nas bordas, a comparação inclui países com pelo menos 8 pontos na grade de referência e 100 pixels analisáveis na imagem. Os mesmos critérios valem para todos os candidatos e instantes. Entre esses países, os sem sinal aceito são relatados separadamente, e não recebem velocidade zero.
+To limit edge-resolution issues, the comparison includes countries with at least 8 points on the reference grid and 100 analyzable image pixels. The same criteria apply to every candidate and timestamp. Countries with no accepted signal are reported separately and are not assigned zero speed.
 
-| Frame | Países com sinal | Países sem sinal aceito | Spearman da média anterior | Spearman do índice visual |
+| Frame | Countries with signal | Countries with no accepted signal | Previous mean Spearman | Visual index Spearman |
 |---|---:|---:|---:|---:|
 | 1 | 82 | 16 | 0.302 | 0.876 |
 | 63 | 77 | 21 | 0.369 | 0.899 |
 | 100 | 76 | 22 | 0.401 | 0.788 |
 
-Spearman mede a concordância de ordenação: 1 é ordenação igual e 0 indica ausência de correlação monotônica. 0,88 não significa 88% de precisão. Nas três amostras, nenhum dos países excluídos por ausência de sinal aceito tinha média de referência igual ou superior a 3 m/s; isso não garante detectar todos os eventos fortes ou localizados em outras datas.
+Spearman measures ranking agreement: 1 means identical ranking; 0 means no monotonic correlation. A value of 0.88 does not mean 88% accuracy. In these three samples, none of the countries excluded for having no accepted signal had a reference mean at or above 3 m/s; this does not guarantee detection of every strong or localized event on other dates.
 
-![Ordenação e tendências](estudo-cientifico/graficos/vento-ordenacao-tendencias.png)
+![Ranking and trends](estudo-cientifico/graficos/vento-ordenacao-tendencias.png)
 
-Para tendências, comparamos os pares de instantes disponíveis para os mesmos países. Somente pares em que o país tem algum sinal aceito nos dois instantes entram nessa métrica; transições de indisponível para disponível não foram contabilizadas. São pares sobrepostos e dependentes, não ensaios independentes. A tabela mostra uma análise de sensibilidade: mudanças muito pequenas na referência podem ser pouco confiáveis diante da diferença de horário e resolução.
+For trends, we compared pairs of available timestamps for the same countries. Only pairs where a country had some accepted signal at both timestamps count; transitions from unavailable to available were not counted. These pairs overlap and are dependent, not independent trials. The table shows a sensitivity analysis: very small reference changes may be unreliable given differences in time and resolution.
 
-| Mudança absoluta mínima na referência | Média anterior: direção coincidente | Índice visual: direção coincidente |
+| Minimum absolute reference change | Previous mean: matching direction | Visual index: matching direction |
 |---|---:|---:|
 | >0 m/s | 130/209 (62.2%) | 170/209 (81.3%) |
 | >0.25 m/s | 101/169 (59.8%) | 150/169 (88.8%) |
 | >0.5 m/s | 77/117 (65.8%) | 105/117 (89.7%) |
 | >1 m/s | 36/56 (64.3%) | 53/56 (94.6%) |
 
-**Limites:** os três instantes orientaram a adoção do índice; ainda não há um conjunto de avaliação independente. A melhora nas amostras não garante cada ordenação individual nem cada frame. As cores transparentes e a ambiguidade com o mapa-base permanecem. O índice é adequado à proposta qualitativa observada, não à recuperação de um campo físico completo.
+**Limitations:** The three timestamps informed the choice of index; there is still no independent evaluation set. Improvement in these samples does not guarantee every individual ranking or frame. Transparent colors and ambiguity with the basemap remain. The index suits the observed qualitative goal; it does not recover a complete physical field.
 
-Os resultados detalhados, países ausentes e parâmetros estão em [validacao-vento-qualitativo.json](estudo-cientifico/dados/validacao-vento-qualitativo.json).
+Detailed results, missing countries, and parameters are in [validacao-vento-qualitativo.json](estudo-cientifico/dados/validacao-vento-qualitativo.json).
 
-## Precipitação: nome e interpretação
+## Precipitation: naming and interpretation
 
-Nome adotado: **estimativa de precipitação derivada da imagem (mm)**. É uma estimativa da camada de precipitação total (chuva e neve), não uma medida da quantidade de nuvens. O valor médio só usa os pixels aceitos, e o intervalo de acumulação não está confirmado. Não o rotulamos mm/h, mm/dia, chuva média de todo o continente ou intensidade real da chuva. Os três horários entre frames não provam um acumulado de três horas. A percussão é uma codificação dessa estimativa, não uma reprodução literal de chuva.
+We use the name **image-derived precipitation estimate (mm)**. It estimates the total precipitation layer (rain and snow), not cloud amount. The mean uses accepted pixels only, and the accumulation interval is unconfirmed. We do not label it mm/h, mm/day, precipitation averaged over an entire continent, or actual rainfall intensity. The three hours between frames do not prove a three-hour accumulation. The percussion encodes this estimate; it is not a literal recording of rain.
 
-Não mudamos o extrator de precipitação para forçar proximidade com o GEOS-FP: comparar mm com mm/h exigiria comprovar o período de acumulação. Também não preenchemos pixels transparentes/ocultos com zero.
+We did not change the precipitation extractor to force agreement with GEOS-FP: comparing mm with mm/h would require confirming the accumulation period. We also do not fill transparent/hidden pixels with zero.
 
-## Como reproduzir
+## Reproduction
 
-Na raiz do projeto, com as dependências de pipeline/requirements.txt instaladas:
+From the repository root, with dependencies from `pipeline/requirements.txt` installed:
 
 ```bash
 python pipeline/compare_reference.py --output docs/estudo-cientifico/dados/comparacao-ponderada.csv
 python pipeline/evaluate_wind_signal.py --output docs/estudo-cientifico/dados/validacao-vento-qualitativo.json
 ```
 
-Esses comandos usam snapshots locais e não escrevem nos JSONs de produção. Para recriar os gráficos, em um ambiente com NumPy e Matplotlib:
+These commands use local snapshots and do not write to production JSON files. To recreate the charts, in an environment with NumPy and Matplotlib:
 
 ```bash
 python docs/estudo-cientifico/gerar_graficos.py
 ```
 
-Para regenerar a experiência de vento a partir das mesmas imagens (altera arquivos de produção):
+To regenerate wind data from the same images (this changes production files):
 
 ```bash
 python pipeline/regions.py --update-features --track clima-vento
 ```
 
-Os arquivos de vento e PM2.5 usam schemaVersion 3 na tabela regional e declaram sonification.input=visualSignal; cada variável tem sua própria fórmula de índice. As demais tabelas meteorológicas permanecem na versão 2; CO e O3 permanecem na versão 1. O player valida o formato, as datas e os valores fonte, e não deriva os índices em JavaScript.
+Wind and PM2.5 use `schemaVersion: 3` in the regional table and declare `sonification.input=visualSignal`; each variable has its own index formula. Other weather tables remain at version 2; CO and O3 remain at version 1. The player validates formats, dates, and source values; JavaScript does not derive the indexes.
 
-## Fontes e atribuição
+## Sources and attribution
 
-- [NASA SVS 5147 — temperatura](https://svs.gsfc.nasa.gov/5147/)
-- [NASA SVS 5148 — vento a 10 m](https://svs.gsfc.nasa.gov/5148/)
-- [NASA SVS 5149 — precipitação e nuvens](https://svs.gsfc.nasa.gov/5149/)
-- [NASA SVS 5150 — umidade específica](https://svs.gsfc.nasa.gov/5150/)
-- [GMAO — File Specification for GEOS FP](https://gmao.gsfc.nasa.gov/pubs/docs/Lucchesi1203.pdf)
-- [GEOS-FP OPeNDAP — campos de nível único](https://opendap.nccs.nasa.gov/dods/GEOS-5/fp/0.25_deg/assim/tavg1_2d_slv_Nx.info)
-- [GEOS-FP OPeNDAP — fluxos de superfície](https://opendap.nccs.nasa.gov/dods/GEOS-5/fp/0.25_deg/assim/tavg1_2d_flx_Nx.info)
-- [Xarray — ponderação por latitude](https://docs.xarray.dev/en/stable/examples/area_weighted_temperature.html)
-- [ONU M49 — agrupamentos estatísticos](https://unstats.un.org/unsd/methodology/m49/)
-- A consulta a Berkeley Earth serviu apenas como contexto histórico e espacial: não utilizamos suas climatologias para dizer que uma imagem de 2026 está correta.
+- [NASA SVS 5147 — temperature](https://svs.gsfc.nasa.gov/5147/)
+- [NASA SVS 5148 — 10 m wind](https://svs.gsfc.nasa.gov/5148/)
+- [NASA SVS 5149 — precipitation and clouds](https://svs.gsfc.nasa.gov/5149/)
+- [NASA SVS 5150 — specific humidity](https://svs.gsfc.nasa.gov/5150/)
+- [GMAO — File Specification for GEOS-FP](https://gmao.gsfc.nasa.gov/pubs/docs/Lucchesi1203.pdf)
+- [GEOS-FP OPeNDAP — single-level fields](https://opendap.nccs.nasa.gov/dods/GEOS-5/fp/0.25_deg/assim/tavg1_2d_slv_Nx.info)
+- [GEOS-FP OPeNDAP — surface fluxes](https://opendap.nccs.nasa.gov/dods/GEOS-5/fp/0.25_deg/assim/tavg1_2d_flx_Nx.info)
+- [Xarray — area weighting by latitude](https://docs.xarray.dev/en/stable/examples/area_weighted_temperature.html)
+- [UN M49 — statistical groupings](https://unstats.un.org/unsd/methodology/m49/)
+- Berkeley Earth was consulted only as historical and spatial context; its climatologies were not used to determine whether a 2026 image is correct.
 
-Pesquisa e implementação assistidas por OpenAI Codex. Dados de referência: NASA GMAO; visualizações: NASA Scientific Visualization Studio.
+Research and implementation assisted by OpenAI Codex. Reference data: NASA GMAO; visualizations: NASA Scientific Visualization Studio.

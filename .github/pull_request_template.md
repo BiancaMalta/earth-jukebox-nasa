@@ -1,13 +1,13 @@
-## O que muda
+## What changed
 
 Closes #
 
-## Área
-- [ ] dados  - [ ] front  - [ ] som  - [ ] narr
+## Area
+- [ ] data  - [ ] front end  - [ ] sound  - [ ] narrative
 
 ## Checklist
-- [ ] Só mexi nos arquivos da minha área (ver CONTRIBUTING.md)
-- [ ] Testei localmente (`python -m http.server 8000 -d public`)
-- [ ] Dados, libs ou sons novos estão no CREDITS.md
-- [ ] Código/áudio gerado por IA está marcado (`AI-assisted`)
-- [ ] Decisão de time registrada no DECISIONS.md (se houver)
+- [ ] I only changed files in my area (see CONTRIBUTING.md)
+- [ ] I tested locally (`python -m http.server 8000 -d public`)
+- [ ] New datasets, libraries, or sounds are listed in CREDITS.md
+- [ ] AI-generated code/audio is marked (`AI-assisted`)
+- [ ] Team decision recorded in DECISIONS.md (if applicable)

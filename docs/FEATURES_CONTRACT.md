@@ -1,9 +1,8 @@
-# Contrato do `features.json`
+# `features.json` contract
 
-É o **único ponto de contato** entre Dados (Python) e Front/Som (JavaScript).
-Enquanto ninguém mudar este formato, os dois trabalham em paralelo sem conflito.
+This is the **only point of contact** between Data (Python) and Front end/Sound (JavaScript). As long as this format remains stable, the two sides can work in parallel without conflicts.
 
-Arquivo: `public/data/<faixa>/features.json` (no MVP: `public/data/clima-temperatura/features.json`)
+File: `public/data/<track>/features.json` (in the MVP: `public/data/clima-temperatura/features.json`)
 
 ```json
 {
@@ -19,130 +18,119 @@ Arquivo: `public/data/<faixa>/features.json` (no MVP: `public/data/clima-tempera
 }
 ```
 
-| Campo | Tipo | O que é |
+| Field | Type | Description |
 |---|---|---|
-| `mock` | bool | `true` = valores falsos de exemplo. O pipeline real grava `false`. |
-| `track` | string | ID da faixa (igual a `public/tracks/<id>.json`) |
-| `svsId` | number | ID da visualização no SVS |
-| `unit` | string | Unidade dos valores (`°C`) |
-| `vmin`, `vmax` | number | Faixa da legenda de cores |
-| `frames[].file` | string | Nome do arquivo em `frames/` |
-| `frames[].date` | string | Data/hora do frame (`YYYY-MM-DDTHH:MM`), usada na fala |
-| `frames[].mean` | number | Média em `unit` dos pixels decodificados aceitos; ponderada por cos(latitude) quando `statistics.mean` é `area_weighted` |
-| `frames[].p90` | number | Percentil 90 não ponderado dos pixels aceitos, em `unit` |
-| `frames[].norm` | number | `mean` normalizado de 0 a 1 entre `vmin` e `vmax`; logarítmico no PM2.5. Temperatura, CO e O3 usam `norm`; vento e PM2.5 usam o índice `visualSignal` quando declarado; precipitação e umidade usam `mean`. |
-| `frames[].coverage` | number | Opcional: fração dos pixels analisáveis usados no cálculo, após os filtros; não é precisão nem área geográfica |
+| `mock` | bool | `true` = illustrative fake values. The real pipeline writes `false`. |
+| `track` | string | Track ID (same as `public/tracks/<id>.json`) |
+| `svsId` | number | SVS visualization ID |
+| `unit` | string | Value unit (`°C`) |
+| `vmin`, `vmax` | number | Colorbar range |
+| `frames[].file` | string | Filename in `frames/` |
+| `frames[].date` | string | Frame date/time (`YYYY-MM-DDTHH:MM`), used in speech |
+| `frames[].mean` | number | Mean of accepted decoded pixels in `unit`; weighted by cos(latitude) when `statistics.mean` is `area_weighted` |
+| `frames[].p90` | number | Unweighted 90th percentile of accepted pixels, in `unit` |
+| `frames[].norm` | number | `mean` normalized to 0–1 between `vmin` and `vmax`; logarithmic for PM2.5. Temperature, CO, and O3 use `norm`; wind and PM2.5 use `visualSignal` when declared; precipitation and humidity use `mean`. |
+| `frames[].coverage` | number | Optional: fraction of analyzable pixels used after filters; this is not accuracy or geographic area |
 
-Para vento (SVS 5148), `mean` e `p90` usam apenas pixels coloridos que
-passam nos filtros de correspondência com a legenda. A escala deixa os ventos baixos
-transparentes e seu extremo alto se confunde com o mapa-base; portanto, esses
-valores não são uma média global completa. `coverage` informa a proporção
-efetivamente usada em cada quadro.
+For wind (SVS 5148), `mean` and `p90` use only colored pixels that pass the legend-matching filters. The scale becomes transparent at low wind speeds and its high end is difficult to distinguish from the basemap; therefore these values are not a complete global mean. `coverage` reports the proportion actually used in each frame.
 
-Para precipitação (SVS 5149), a unidade da legenda é milímetros e os pixels
-coloridos são sobrepostos a nuvens e ao mapa-base. `mean` e `p90` usam apenas
-pixels que passam nos filtros de correspondência com a legenda; não representam uma média
-global da precipitação. `coverage` informa a proporção efetivamente usada em
-cada quadro.
+For precipitation (SVS 5149), the legend unit is millimeters, and colored pixels are overlaid on clouds and the basemap. `mean` and `p90` use only pixels that pass the legend-matching filters; they do not represent a global precipitation mean. `coverage` reports the proportion actually used in each frame.
 
-For PM2.5 (SVS 5151), the NASA legend spans 0.4–409.6 µg/m³ on a
-logarithmic scale. The norm is logarithmic across these limits; mean and p90
-remain in µg/m³ and are estimates decoded from the rendered GEOS-CF image,
-not the raw numerical model grid. Coverage is the share of analyzed image
-pixels confidently matched to the legend.
+For PM2.5 (SVS 5151), the NASA legend spans 0.4–409.6 µg/m³ on a logarithmic scale. `norm` is logarithmic across these limits; `mean` and `p90` remain in µg/m³ and are estimates decoded from the rendered GEOS-CF image, not the raw numerical model grid. Coverage is the share of analyzed image pixels confidently matched to the legend.
 
-For carbon monoxide (SVS 5153), mean and p90 are image-derived estimates in
-ppbv, not values from the raw GEOS-CF model grid. The NASA legend is calibrated
-at its labeled 40, 100, 130, 200, and 500 ppbv ticks; confidently matched pixels
-use saturation ≥ 18 and color distance ≤ 34. Coverage is the matched share of
-analyzed image pixels, not geographic area.
+For carbon monoxide (SVS 5153), `mean` and `p90` are image-derived estimates in ppbv, not values from the raw GEOS-CF model grid. The NASA legend is calibrated at its labeled 40, 100, 130, 200, and 500 ppbv ticks; confidently matched pixels use saturation ≥ 18 and color distance ≤ 34. Coverage is the matched share of analyzed image pixels, not geographic area.
 
-## Regras
+## Rules
 
-- **Dados** é dono do arquivo: gera com `pipeline/features.py` e substitui o mock (mantendo os mesmos campos).
-- **Front/Som** só lê. Não edita o arquivo; se precisar de campo novo, combina e atualiza este documento primeiro.
-- O número de frames é `frames.length` (o player não precisa mais descobrir um a um).
-- Campos novos podem ser adicionados; os existentes não mudam de nome nem de significado.
+- **Data** owns the file: generate it with `pipeline/features.py` and replace the mock while keeping the same fields.
+- **Front end/Sound** only read it. Do not edit this file; if a new field is needed, agree on it and update this document first.
+- The number of frames is `frames.length` (the player no longer needs to discover frames one by one).
+- New fields may be added; existing fields must not change their names or meanings.
 
-## Dados regionais pré-calculados (`regions.json`, versão 2)
+## Precomputed regional data (`regions.json`, version 2)
 
-Gerados por `python pipeline/regions.py` em `public/data/<faixa>/regions.json`.
-O front só lê esses valores: não decodifica cores, calcula médias ou normaliza
-valores regionais. `features.json` continua sendo o contrato do quadro completo.
+Generated by `python pipeline/regions.py` at `public/data/<track>/regions.json`.
+The front end only reads these values; it does not decode colors, calculate
+means, or normalize regional values. `features.json` remains the contract for
+the full frame.
 
-O documento regional contém:
+The regional document contains:
 
-- `schemaVersion: 2`, `track`, `svsId`, `mock: false`, `unit`, `vmin`, `vmax`.
-- `frames`: cópia dos registros de `features.json`, com nomes, datas e valores
-  originais. O consumidor compara todos esses campos para rejeitar tabelas
-  desatualizadas. O gerador verifica também que as estatísticas do quadro
-  completo coincidem com os frames e a calibração atuais antes de publicar.
-- `columns: ["mean", "p90", "norm", "coverage"]` define a ordem das linhas.
-- `regions`: objeto indexado por `country:<NAME_EN>` ou `continent:<CONTINENT>`
-  do arquivo `public/data/world-countries.geojson` (fallback do nome: ADMIN/NAME).
-  Cada entrada contém `kind`, `name` e `values`, com uma linha por frame, na
-  mesma ordem de `frames`.
+- `schemaVersion: 2`, `track`, `svsId`, `mock: false`, `unit`, `vmin`, and `vmax`.
+- `frames`: copies of the `features.json` records, with original names, dates,
+  and values. The consumer compares all these fields to reject stale tables.
+  Before publishing, the generator also checks that full-frame statistics
+  match the current frames and calibration.
+- `columns: ["mean", "p90", "norm", "coverage"]` defines the order of values
+  in each row.
+- `regions`: object indexed by `country:<NAME_EN>` or
+  `continent:<CONTINENT>` from `public/data/world-countries.geojson` (name
+  fallback: ADMIN/NAME). Each entry has `kind`, `name`, and `values`, with one
+  row per frame in the same order as `frames`.
 
-Exemplo de entrada: `"country:Brazil": {"kind":"country","name":"Brazil",
-"values":[[24.1,29.2,0.801,0.95], ...]}`. Números meramente ilustrativos.
+Example entry: `"country:Brazil": {"kind":"country","name":"Brazil",
+"values":[[24.1,29.2,0.801,0.95], ...]}`. Numbers are illustrative only.
 
-### Método e limitações
+### Method and limitations
 
-Média, percentil, normalização e filtros usam as mesmas funções Python do
-quadro completo em `features.py`. A normalização mantém os limites fixos da
-legenda da faixa, compartilhados por todas as regiões; não se adapta à amplitude
-de cada país. Média, p90 e norm são arredondados para três casas decimais; coverage usa seis casas, preservando pequenas frações positivas. Os JSONs legados podem conter coverage com três casas; devem ser regenerados com --update-features antes de produzir novas tabelas ponderadas.
+Means, percentiles, normalization, and filters use the same Python functions
+as full-frame processing in `features.py`. Normalization keeps the track's
+fixed legend bounds, shared by all regions; it does not adapt to each
+country's range. `mean`, `p90`, and `norm` are rounded to three decimal places;
+`coverage` uses six decimals to preserve small positive fractions. Legacy JSON
+files may have three-decimal `coverage`; regenerate them with
+`--update-features` before producing new weighted tables.
 
-Os contornos são rasterizados na resolução nativa de cada frame e na projeção
-equiretangular: o centro do pixel determina sua inclusão. Buracos e múltiplos
-polígonos são preservados; grupos continentais são a união dos países inteiros do GeoJSON, sem
-adicionar áreas oceânicas. O arquivo de origem já divide os polígonos na linha
-de mudança de data. Logos e timestamps são excluídos com a mesma máscara do
-quadro completo. Não há redimensionamento nem mistura de pixels na borda.
+Boundaries are rasterized at each frame's native resolution and equirectangular
+projection: the pixel center determines inclusion. Holes and multipolygons are
+preserved; continent groups are unions of whole countries in the GeoJSON, with
+no ocean areas added. The source file already splits polygons at the
+international date line. Logos and timestamps are excluded with the same mask
+as full-frame processing. There is no resizing or pixel mixing at the border.
 
-`coverage` é a fração dos pixels analisáveis **dentro da região** que passaram
-nos filtros da faixa. Sem filtro, todos os pixels analisáveis são usados, como
-no cálculo geral atual. Essa fração não é uma porcentagem da área da Terra.
-Sem pixels válidos (inclusive regiões menores que um pixel), a linha é
-`[null,null,null,0]`. Ausência não é zero medido e não produz som.
+`coverage` is the fraction of analyzable pixels **inside the region** that
+passed the track's filters. Without a filter, all analyzable pixels are used,
+as in current full-frame calculations. This fraction is not a percentage of
+Earth's area. If there are no valid pixels (including regions smaller than a
+pixel), the row is `[null,null,null,0]`. Missing data is not measured zero and
+produces no sound.
 
-As médias continuam sendo estimativas extraídas de imagens. Agora usam pesos
-proporcionais a cos(latitude) dos centros dos pixels, para representar sua área
-relativa numa esfera. A ponderação incide somente nos pixels aceitos, não nas
-áreas rejeitadas ou sem dados. Padronizar os dois caminhos não
-remove limitações da legenda, filtros e resolução da imagem. O gerador copia os
-timestamps existentes; não determina novos fusos ou instantes científicos.
+Means remain estimates extracted from images. They now use weights
+proportional to cos(latitude) at pixel centers, representing relative area on a
+sphere. Weighting applies only to accepted pixels, not rejected or missing
+areas. Standardizing the two paths does not remove limitations from the
+legend, filters, or image resolution. The generator copies existing
+timestamps; it does not determine new time zones or scientific instants.
 
-Após alterar frames, legenda, filtros, limites geográficos ou `features.json`,
-regenere as tabelas antes de publicar. O navegador detecta incompatibilidade com
-os registros fonte, mas não calcula hashes de todas as imagens ou calibrações.
-Falhas no carregamento/validação mantêm o áudio regional silencioso e exibem
-uma mensagem; limpar a seleção retorna aos valores originais do quadro completo.
+After changing frames, legend, filters, geographic boundaries, or
+`features.json`, regenerate the tables before publishing. The browser detects
+incompatibility with source records, but it does not hash every image or
+calibration. Load or validation failures keep regional audio silent and show a
+message; clearing the selection restores the original full-frame values.
 
+### Interpreting indicators in the interface
 
-### Interpretação dos indicadores na interface
+The label is “analyzed image pixels used,” not “confidently matched.” No
+statistical confidence probability is estimated. `p90` is the percentile of
+decoded values, not a confidence interval. `norm` positions the mean on the
+fixed legend scale, not in the distribution of countries, and the front end
+does not recalculate it.
 
-O rótulo é “analyzed image pixels used”, não “confidently matched”. Não há
-probabilidade de confiança estatística estimada. `p90` é o percentil dos valores
-decodificados, não um intervalo de confiança. `norm` posiciona a média na escala
-fixa da legenda, não na distribuição de países, e não é recalculado no front.
+The filter configured in `colorbar.json` accepts colors by RGB Euclidean
+distance (`maxColorDistance`), saturation (`minSaturation`, 0–255), and,
+when configured, a maximum decoded value (`maxValue`). Current temperature
+has no `pixelFilter`: every analyzable pixel is assigned its nearest legend
+color, with no acceptance test. Therefore, 100% inclusion does not demonstrate
+quality or scientific certainty.
 
-O filtro configurado em `colorbar.json` aceita cores por distância euclidiana
-RGB (`maxColorDistance`), saturação (`minSaturation`, em 0–255) e, quando
-configurado, teto do valor decodificado (`maxValue`). A temperatura atual não
-tem `pixelFilter`: todos os pixels analisáveis recebem a cor mais próxima da
-legenda, sem teste de aceitação. Portanto, inclusão de 100% não demonstra
-qualidade nem certeza científica.
+In the interface, positive fractions below 0.1% appear as `<0.1%`, never zero;
+values below 100% but above 99.9% appear as `>99.9%`. The percentage is
+calculated over analyzable pixels after the logo and timestamp mask, and within
+the selected region when applicable. It does not measure Earth's area.
 
-Na interface, frações positivas abaixo de 0,1% aparecem como `<0.1%`, nunca
-como zero; valores menores que 100% mas superiores a 99,9% usam `>99.9%`.
-A porcentagem é calculada sobre os pixels analisáveis após a máscara de logos e
-timestamps, dentro da região quando selecionada. Não mede área da Terra.
+## Area-weighted mean method and compatibility (version 2)
 
-
-## Método de média por área e compatibilidade (versão 2)
-
-`features.json` e `regions.json` compartilham o metadado:
+`features.json` and `regions.json` share this metadata:
 
 ```json
 "statistics": {
@@ -153,73 +141,82 @@ timestamps, dentro da região quando selecionada. Não mede área da Terra.
 }
 ```
 
-Para cada pixel de centro de latitude φ, peso w = cos(φ). A média é
-Σ(w × valor) / Σ(w), somente sobre os pixels aceitos e fora das máscaras.
-Em uma grade equiretangular regular do globo completo, esses pesos são
-proporcionais à área das células na aproximação esférica. P90 permanece o
-percentil não ponderado dos valores dos pixels; coverage continua uma razão de
-contagens, não uma razão de áreas. Norm usa a nova média, os mesmos limites da
-legenda e o mesmo arredondamento de três casas. Filtros e timestamps não mudam.
+For each pixel with center latitude φ, weight w = cos(φ). The mean is
+Σ(w × value) / Σ(w), using only accepted pixels outside masks. On a regular
+equirectangular grid of the full globe, these weights are proportional to cell
+areas under the spherical approximation. P90 remains the unweighted percentile
+of pixel values; coverage remains a count fraction, not an area fraction.
+`norm` uses the new mean, the same legend bounds, and the same three-decimal
+rounding. Filters and timestamps do not change.
 
-O front aceita dados legados sem statistics como médias de pixels com pesos
-iguais. Tabelas regionais ponderadas exigem schemaVersion 2 e o mesmo statistics
-no arquivo geral. O modo combinado recusa misturar métodos entre experiências.
+The front end accepts legacy data without `statistics` as equally weighted
+pixel means. Weighted regional tables require `schemaVersion: 2` and matching
+`statistics` in the full-frame file. Combined mode refuses to mix methods
+between experiences.
 
-`python pipeline/regions.py --update-features` recalcula os arquivos geral e
-regional na mesma passagem, preservando file/date do features.json existente.
-Sem essa opção, o gerador exige fonte já ponderada e verifica sua consistência.
-O comando pode ser usado com `--track` para selecionar uma faixa.
+`python pipeline/regions.py --update-features` recalculates the full-frame and
+regional files in the same pass, preserving existing `file` and `date` values
+from `features.json`. Without this option, the generator requires already
+weighted source data and checks its consistency. Use `--track` to select a
+track.
 
-Os identificadores continent: continuam estáveis por compatibilidade, mas são
-apresentados como grupos de países. Não representam um recorte físico rigoroso
-dos continentes. O grupo Europa inclui toda a Rússia e Ásia a exclui. Territórios
-insulares aparecem como terra, não como médias dos oceanos. Não foram criadas
-novas fronteiras nem atribuições geográficas silenciosas.
+The `continent:` identifiers remain stable for compatibility but are shown as
+country groups. They are not physically rigorous continent boundaries. The
+Europe group includes all of Russia, while Asia excludes it. Island territories
+are represented as land, not ocean averages. No new borders or silent
+geographic assignments were introduced.
 
-## Vento qualitativo: `visualSignal` e tabela regional versão 3
+## Qualitative wind: `visualSignal` and regional table version 3
 
-A faixa clima-vento declara `sonification: {"input":"visualSignal",
-"quantity":"visible wind color signal","unit":"1"}` nos arquivos geral e
-regional. Cada frame geral recebe `visualSignal` (número 0–1 ou null). A tabela
-regional de vento passa a `schemaVersion: 3` e suas colunas são
-`["mean","p90","norm","coverage","visualSignal"]`. PM2.5 também usa versão 3,
-com seu próprio índice abaixo. As outras faixas meteorológicas mantêm versão 2;
-CO e O3 permanecem na versão 1. Documentos legados continuam aceitos somente
-com o método e formato correspondentes.
+The `clima-vento` track declares
+`sonification: {"input":"visualSignal","quantity":"visible wind color signal","unit":"1"}`
+in the full-frame and regional files. Each full-frame record has
+`visualSignal` (a number from 0 to 1 or null). The wind regional table uses
+`schemaVersion: 3` and columns
+`["mean","p90","norm","coverage","visualSignal"]`. PM2.5 also uses
+version 3, with its own index below. Other weather tracks remain at version 2;
+CO and O3 remain at version 1. Legacy documents are accepted only with their
+corresponding method and format.
 
-O Python calcula, usando os mesmos filtros, máscara e pesos por latitude:
+Python calculates the index using the same filters, mask, and latitude weights:
 
-`visualSignal = sum(weight * clip((decoded - vmin)/(vmax-vmin),0,1), accepted)
-/ sum(weight, analyzed)`.
+```text
+visualSignal = sum(weight * clip((decoded - vmin)/(vmax-vmin),0,1), accepted)
+               / sum(weight, analyzed)
+```
 
-O denominador inclui todos os pixels analisáveis da região, capturando a
-extensão do sinal visível. Pixels rejeitados não contribuem sinal visual, o que
-não significa que seu vento físico seja zero. Sem nenhum pixel aceito, o índice
-é null. O índice não é m/s, percentual de área com vento nem confiança
-estatística. Média, p90, norm, cobertura e timestamps mantêm os significados
-anteriores. O front não deriva visualSignal deles.
+The denominator includes all analyzable pixels in the region, capturing the
+extent of the visible signal. Rejected pixels add no visual signal; this does
+not mean their physical wind is zero. With no accepted pixels, the index is
+null. The index is not m/s, a percentage of area with wind, or statistical
+confidence. Mean, p90, norm, coverage, and timestamps keep their previous
+meanings. The front end does not derive `visualSignal` from them.
 
-A flauta usa `0.3 + 3.7 * (1-exp(-visualSignal/0.04))` Hz, uma curva fixa
-compartilhada por países, grupos e instantes. A legenda usa referências de
-índice 0.01/0.10, não velocidades fictícias. O caminho antigo de velocidade só
-permanece para dados sem a declaração visualSignal; o player nunca o usa como
-fallback para um índice ausente em uma fonte que declara o novo modo.
+The flute uses `0.3 + 3.7 * (1-exp(-visualSignal/0.04))` Hz, a fixed curve
+shared across countries, groups, and timestamps. The sound guide uses index
+references 0.01/0.10, not fictitious speeds. The old speed-based path remains
+only for data without the `visualSignal` declaration; the player never uses it
+as a fallback when an index is missing from a source that declares the new
+mode.
 
-A avaliação exploratória em três instantes, os países sem sinal e as limitações
-estão em [ESTUDO_CIENTIFICO.md](ESTUDO_CIENTIFICO.md). Essa avaliação orientou a
-mudança; não constitui garantia de ordenação correta em todos os casos.
+The exploratory evaluation at three timestamps, countries without signal,
+and limitations are documented in [ESTUDO_CIENTIFICO.md](ESTUDO_CIENTIFICO.md).
+It informed the change but does not guarantee correct ranking in every case.
 
-## PM2.5: índice visual logarítmico para sonificação
+## PM2.5: logarithmic visual index for sonification
 
-`ar-pm25` declara `sonification={"input":"visualSignal","quantity":"visible PM2.5 log-color signal","unit":"1"}`.
-Usa schema regional 3 com as mesmas cinco colunas do vento. O índice é
+`ar-pm25` declares
+`sonification={"input":"visualSignal","quantity":"visible PM2.5 log-color signal","unit":"1"}`.
+It uses regional schema version 3 with the same five columns as wind. The
+index is
 `sum(weight * clip(log(decoded/0.4)/log(409.6/0.4),0,1), accepted) / sum(weight, analyzed)`.
-É calculado no Python, aplicando o logaritmo a cada pixel antes de agregar.
-Sem pixels aceitos retorna null. Rejeição não equivale a concentração zero.
+Python calculates it by applying the logarithm to each pixel before
+aggregation. With no accepted pixels it returns null. Rejection does not mean
+zero concentration.
 
-`mean` usa ponderação cos(latitude) e permanece em µg/m³; `norm` continua sendo
-a posição logarítmica dessa média, não o índice visual. O front usa somente
-`visualSignal` no novo modo, sem fallback para a média/norm se o índice faltar.
-O instrumento e a curva de altura/brilho permanecem fixos entre todas as regiões
-e instantes. A [avaliação qualitativa](estudo-cientifico/pm25-qualitativo.md)
-documenta a escolha e as verificações em 29 instantes, incluindo erros restantes.
+`mean` uses cos(latitude) weighting and remains in µg/m³; `norm` remains the
+logarithmic position of that mean, not the visual index. In the new mode, the
+front end uses only `visualSignal`; it does not fall back to `mean` or `norm`
+if the index is missing. The instrument and pitch/brightness curve remain
+fixed across all regions and timestamps. The [qualitative evaluation](estudo-cientifico/pm25-qualitativo.md)
+documents the choice and checks at 29 timestamps, including remaining errors.

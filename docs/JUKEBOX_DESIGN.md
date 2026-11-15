@@ -1,69 +1,74 @@
-# Earth Jukebox: gabinete retrô
+# Earth Jukebox: retro cabinet
 
-O checkpoint de acessibilidade e UX é `99ee962`, na branch
-`feat/accessible-player-navigation`. A aparência retrô começa depois desse
-commit, na branch `feat/earth-retro-jukebox`.
+The accessibility and UX checkpoint is `99ee962` on branch
+`feat/accessible-player-navigation`. The retro appearance starts after that
+commit on branch `feat/earth-retro-jukebox`.
 
-A direção visual proposta pelo usuário transforma as sete variáveis em uma
-coleção de discos. O gabinete usa madeira escura, arco verde e dourado, letreiro
-em tipografia serifada e um visor central para as imagens NASA. As ilustrações
-dos discos, o acabamento e a grade do alto-falante são CSS; não há nova fonte,
-biblioteca ou serviço externo. `public/jukebox.css` concentra a nova aparência.
+The visual direction proposed by the user turns the seven variables into a
+record collection. The cabinet uses dark wood, green and gold trim, a serif
+marquee, and a central display for NASA images. The record illustrations,
+finish, and speaker grille are CSS; no new font, library, or external service
+was added. `public/jukebox.css` contains the new appearance.
 
-## Interação preservada
+## Preserved interaction
 
-- One variable e Combine variables continuam alcançáveis por Tab.
-- A coleção usa radios nativos: Tab entra na seleção; setas mudam de disco.
-  Cada opção tem nome acessível com variável e instrumento. O seletor anterior
-  permanece interno para integrar o fluxo existente, sem duplicar controles
-  visíveis. O guia aponta para o disco selecionado.
-- Play, progresso, seleção de região e tabela mantêm sua ordem. Os discos não
-  iniciam reprodução automática.
-- A legenda mantém voz e exemplos musicais separados. As regras de dados,
-  notas, ausência e seleção regional não foram alteradas nesta etapa visual.
-- Há foco visível, indicação de seleção além da cor, layout móvel, tratamento
-  de cores forçadas e respeito a `prefers-reduced-motion`.
+- **One variable** and **Combine variables** remain reachable with Tab.
+- The collection uses native radio buttons: Tab enters the selection and the
+  arrow keys change the record. Each option has an accessible name containing
+  the variable and instrument. The previous selector remains internal to
+  integrate with the existing flow without duplicating visible controls. The
+  guide points to the selected record.
+- Play, progress, region selection, and the table keep their order. Records do
+  not start playback automatically.
+- The guide keeps speech and musical examples separate. Data rules, notes,
+  missing values, and regional selection were not changed in this visual
+  update.
+- Focus remains visible; selection is indicated by more than color; the layout
+  adapts to mobile; forced colors are handled; and `prefers-reduced-motion` is
+  respected.
 
-## Verificação
+## Verification
 
-As sete suítes JavaScript passaram. Uma inspeção com Firefox em viewport
-1360×1100 e 390×844 não encontrou transbordamento horizontal. A seleção por
-seta mudou Temperature para Wind e manteve o seletor interno e o título
-sincronizados. Foram inspecionadas capturas desktop e móvel. Isso não equivale
-a um novo teste com usuários cegos, leitores de tela ou validação completa WCAG.
+All seven JavaScript suites passed. A Firefox inspection at 1360×1100 and
+390×844 found no horizontal overflow. Arrow-key selection changed Temperature
+to Wind and kept the internal selector and heading synchronized. Desktop and
+mobile screenshots were inspected. This does not count as a new test with
+blind users, screen-reader users, or a full WCAG evaluation.
 
-Design e implementação assistidos por OpenAI Codex, a partir da proposta do usuário.
+Design and implementation were assisted by OpenAI Codex, based on the user's
+proposal.
 
-## Nomes na interface
+## Interface labels
 
-Os controles usam o mesmo vocabulário nos rótulos, estados e guia falado:
+Controls use the same terms in labels, states, and the spoken guide:
 
-| Antes | Agora | Motivo |
+| Before | Now | Reason |
 |---|---|---|
-| Single visualization | One variable | Explicita que se explora uma variável, seu mapa e som. |
-| Combination preview | Combine variables | Explicita que se combinam variáveis para comparar mapas e ouvir sons juntos. |
-| Country group | Region | Encurta o seletor sem repetir o termo em cada opção. |
-| Europe country group (includes all Russia) | Europe | Mantém a explicação de limites em About these boundaries. |
-| Oceanic island territories (land only) | Oceanic island territories | Mantém o caráter insular; a nota de limites explica que só cobre terra. |
-| Play sound legend | Hear sound examples | Descreve a ação sem depender do termo técnico legend. |
-| Frame position | Timeline | Identifica a navegação temporal. |
-| View values by time | Values over time | Nome curto para a tabela recolhida. |
-| Read current frame row | Read this frame | Ação explícita de leitura, sem terminologia de tabela. |
+| Single visualization | One variable | Makes clear that the user explores one variable, its map, and its sound. |
+| Combination preview | Combine variables | Makes clear that variables are combined to compare maps and hear sounds together. |
+| Country group | Region | Shortens the selector without repeating the term in every option. |
+| Europe country group (includes all Russia) | Europe | Keeps the boundary explanation in About these boundaries. |
+| Oceanic island territories (land only) | Oceanic island territories | Keeps the island meaning; the boundary note explains that only land is included. |
+| Play sound legend | Hear sound examples | Describes the action without relying on the technical term “legend.” |
+| Frame position | Timeline | Identifies time navigation. |
+| View values by time | Values over time | Short name for the collapsed table. |
+| Read current frame row | Read this frame | Explicit reading action without table terminology. |
 
-As chaves de região e de variável, os nomes científicos nas leituras e a
-definição dos grupos permanecem iguais. O site continua em inglês; esta etapa
-não adiciona tradução parcial. As ressalvas científicas ficam nos textos de
-método e limites, em vez de serem repetidas no nome de cada opção.
+Region and variable keys, scientific names in readings, and group definitions
+remain unchanged. The site remains in English; this visual update does not add
+a partial translation. Scientific caveats stay in method and limitation text
+instead of being repeated in every option name.
 
-One record / Mix records foram reconsiderados por dependerem da metáfora
-visual para explicar uma função. As abas agora usam termos funcionais e
-descrições curtas, visíveis e associadas a cada aba para a navegação falada.
+**One record / Mix records** were reconsidered because those labels relied on
+the visual metaphor to explain a function. The tabs now use functional terms
+and short descriptions that are visible and associated with each tab for
+spoken navigation.
 
-## Métodos e velocidade
+## Methods and speed
 
-About the values and methods fica aberto por padrão, abaixo do guia sonoro
-na coluna lateral. A explicação detalhada dos cálculos continua recolhível.
-Playback speed, junto à linha do tempo, oferece 0,25×, 0,5×, 1×, 1,5× e 2×.
-O controle ajusta o intervalo do relógio do player, inclusive durante reprodução,
-sem mudar timestamps, valores ou mapeamentos sonoros. Os tempos da legenda
-sonora continuam independentes dessa velocidade.
+**About the values and methods** is open by default below the sound guide in
+the sidebar. The detailed calculations remain collapsible. Playback speed
+beside the timeline offers 0.25×, 0.5×, 1×, 1.5×, and 2×. It changes the
+player clock interval, including during playback, without changing
+timestamps, values, or sound mappings. Sound-guide timings remain independent
+of playback speed.

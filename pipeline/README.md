@@ -1,4 +1,4 @@
-# Pipeline (Dados)
+# Pipeline (Data)
 
 Order: `download.py` → `extract_frames.py` → `calibrate_colorbar.py` → (mask.png) → `features.py`
 

@@ -1,81 +1,93 @@
-# Média ponderada e agrupamentos de países
+# Area-weighted means and country groups
 
-O método atual é versionado por statistics.mean=area_weighted e
-statistics.weighting=cos_latitude. A média usa os pixels aceitos após os mesmos
-filtros de antes: sum(value * cos(latitude)) / sum(cos(latitude)). Cada latitude
-é o centro de uma linha da imagem equiretangular. O filtro de cores, as unidades,
-os nomes de frames e os timestamps são preservados. Norm usa essa nova média
-com os mesmos limites de legenda. P90 é mantido como percentil de pixels sem
-ponderação; coverage é mantida como razão de contagens de pixels.
+The current method is versioned as `statistics.mean=area_weighted` and
+`statistics.weighting=cos_latitude`. The mean uses the accepted pixels after
+the same filters as before:
 
-Isso corrige o peso exagerado dos polos, mas não recupera regiões rejeitadas
-pelo filtro. As médias de vento continuam condicionadas à parte colorida do
-campo, e a precipitação continua sem um intervalo de acumulação confirmado.
+```text
+sum(value * cos(latitude)) / sum(cos(latitude))
+```
 
-## Regiões
+Each latitude is the center of a row in the equirectangular image. Color
+filters, units, frame names, and timestamps are preserved. `norm` uses the
+new mean with the same colorbar bounds. `p90` remains an unweighted pixel
+percentile; `coverage` remains the fraction of accepted pixels.
 
-Os contornos permanecem os mesmos. A interface passa a chamar continent: de
-Country group. A Europa inclui a Rússia inteira; a Ásia exclui a Rússia.
-Os identificadores antigos são mantidos para compatibilidade. Não se atribuiu
-um limite físico arbitrário entre Europa e Ásia. O grupo de territórios
-insulares não é uma média dos oceanos.
+This corrects the excessive weight given to the poles, but it does not restore
+regions rejected by the filter. Wind means remain conditional on the colored
+part of the field, and precipitation still has no confirmed accumulation
+interval.
 
-## Preservação e geração
+## Regions
 
-Os oito arquivos JSON anteriores à mudança foram copiados para
-/tmp/earth-jukebox-before-area-weighting. Essa pasta é temporária; o Git também
-preserva a versão publicada anterior. O relatório de comparação é gerado
-separadamente para revisão.
+The outlines remain unchanged. The interface now labels `continent:` groups as
+**Region**. Europe includes all of Russia; Asia excludes Russia. Existing IDs
+are preserved for compatibility. No arbitrary physical boundary between
+Europe and Asia was introduced. The island-territory group is not an ocean
+average.
 
-Comando executado: python pipeline/regions.py --update-features
-Esse comando atualiza os arquivos gerais e regionais na mesma passagem pelos
-frames, preservando as datas já existentes. A tabela regional usa schemaVersion
-2. O front compara o método e os valores fonte para rejeitar tabelas antigas;
-o mixer também rejeita fontes com métodos de média diferentes.
+## Preservation and generation
 
-## Vento: disponibilidade temporal verificada
+The eight JSON files from before the change were copied to
+`/tmp/earth-jukebox-before-area-weighting`. That directory is temporary; Git
+also preserves the previously published version. The comparison report is
+generated separately for review.
 
-A consulta ao endpoint de assimilação tavg1_2d_slv_Nx retornou o eixo temporal
-2017-12-01 00:30 UTC até 2026-11-14 14:30 UTC. Interpretando os timestamps dos
-frames como America/New_York e escolhendo a média horária centrada 30 minutos
-após o instante estampado, 122 de 124 instantes estão dentro da faixa publicada.
-Os frames 123 e 124 (14/11 11:00 e 14:00 EST) corresponderiam a centros de
-16:30 e 19:30 UTC, além do último horário então disponível.
+Command run: `python pipeline/regions.py --update-features`
 
-Essa cobertura do eixo temporal não comprova valores válidos em todas as
-células/horários nem equivalência entre um frame instantâneo e uma média horária.
-O último frame de vento foi inspecionado e sua imagem mostra 14 Nov 2026
-14:00:00 EST. A extração numérica anterior confirmou U10M/V10M no começo do
-período. Uma tentativa adicional de consultar os dois extremos recebeu erro
-HTML com HTTP 200; outra tentativa com sintaxe corrigida expirou por timeout.
-Portanto, não foi implementada substituição do vento nem declarada uma
-validação completa dos 124 horários.
+This command updates the global and regional files in the same pass through
+the frames, preserving existing dates. The regional table uses
+`schemaVersion: 2`. The front end compares the method and source values to
+reject old tables; the mixer also rejects sources with different mean methods.
 
-Para migração futura: confirmar se as imagens finais representam previsão,
-consultar a coleção/ciclo correspondente sem misturar previsão e assimilação
-silenciosamente, ou escolher um período comum comprovado. Extração por cores
-não pode reconstruir univocamente ventos transparentes sobre um mapa-base
-arbitrário. Se ela permanecer, o som deve continuar identificado como uma
-estimativa da parcela colorida, não uma média completa do território.
+## Wind: temporal coverage checked
 
-## Precipitação
+The query to the `tavg1_2d_slv_Nx` assimilation endpoint returned the time axis
+from 2017-12-01 00:30 UTC through 2026-11-14 14:30 UTC. Interpreting frame
+timestamps as `America/New_York` and choosing the hourly mean centered 30
+minutes after each printed time puts 122 of 124 timestamps within the
+published range. Frames 123 and 124 (Nov. 14 at 11:00 and 14:00 EST) would
+correspond to centers at 16:30 and 19:30 UTC, after the last time then
+available.
 
-A NASA SVS 5149 representa precipitação total (chuva e neve) sobre nuvens.
-Da imagem, o pipeline extrai valores aproximados da escala de 0–20 mm nos
-pixels aceitos. O intervalo de acumulação não está explícito na legenda/JSON;
-por isso, o número não deve ser interpretado como mm/h, mm/dia ou acumulado
-por frame. Os 3 h entre frames não estabelecem que cada imagem acumule 3 h.
-A média é apenas dos pixels aceitos, não necessariamente toda a região. Pixels
-sem cor podem estar transparentes/ocultos e não podem ser convertidos em zero
-sem suporte no renderizador/dado original.
+Coverage of the time axis does not prove that valid values exist for every
+cell/time or that an instantaneous frame equals an hourly mean. The last wind
+frame was inspected; its image shows Nov. 14, 2026 at 14:00 EST. The earlier
+numerical extraction confirmed U10M/V10M at the start of the period. An
+additional query for both endpoints returned an HTML error with HTTP 200; a
+second attempt with corrected syntax timed out. Therefore, wind replacement
+was not implemented and a complete validation of all 124 timestamps was not
+claimed.
 
-Referências:
+For future migration: confirm whether the final images represent forecasts,
+query the matching collection/cycle without silently mixing forecast and
+assimilation data, or choose a verified common period. Color extraction cannot
+uniquely reconstruct transparent winds over an arbitrary basemap. If it is
+retained, the sound must continue to be labeled as an estimate of the colored
+portion, not a full-region mean.
+
+## Precipitation
+
+NASA SVS 5149 shows total precipitation (rain and snow) over clouds. The image
+pipeline extracts approximate values on a 0–20 mm scale from accepted pixels.
+The accumulation interval is not specified in the legend or JSON, so the
+number must not be interpreted as mm/hour, mm/day, or an accumulation per
+frame. Three hours between frames do not establish that each image represents
+a three-hour accumulation. The mean uses accepted pixels only, not
+necessarily the whole region. Uncolored pixels may be transparent or hidden
+and cannot be converted to zero without support from the renderer or source
+data.
+
+References:
 - https://docs.xarray.dev/en/stable/examples/area_weighted_temperature.html
 - https://svs.gsfc.nasa.gov/5148/
 - https://svs.gsfc.nasa.gov/5149/
 - https://opendap.nccs.nasa.gov/dods/GEOS-5/fp/0.25_deg/assim/tavg1_2d_slv_Nx.info
 - https://gmao.gsfc.nasa.gov/pubs/docs/Lucchesi1203.pdf
 
-## Atualização qualitativa posterior
+## Later qualitative update
 
-O vento passou a usar visualSignal para a sonificação, preservando as médias condicionais como diagnóstico. Consulte [ESTUDO_CIENTIFICO.md](ESTUDO_CIENTIFICO.md) para os três instantes de avaliação, gráficos e limites. Isso não representa migração para vento numérico nem recuperação de ventos transparentes.
+Wind sonification now uses `visualSignal`, while conditional means remain as
+diagnostics. See [ESTUDO_CIENTIFICO.md](ESTUDO_CIENTIFICO.md) for the three
+evaluation timestamps, charts, and limitations. This is not a migration to
+numerical wind data and does not recover transparent winds.

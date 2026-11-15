@@ -1,35 +1,35 @@
-# User tests (Owner: Narr.)
+# Test record
 
-## Eyes-closed test (5 min/person) — target ≥ 70 % correct
-| # | Task 1 (warmer year?) | Task 2 (ice up/down?) | Task 3 (more fire?) | Extra questions | Comment |
-|---|---|---|---|---|---|
+## Tests with participants
 
-## Test with blind / low-vision user
-- Date, screen reader, consent to quote:
-- 3 problems found:
-- 3 changes made:
+No participant testing is documented in this repository. The planned eyes-closed comparison and testing with blind or low-vision participants have no recorded results here, so their completion cannot be confirmed. The earlier empty response table and interview prompts have been removed so they cannot be mistaken for results. Do not describe accessibility or sound comprehension as user-validated.
 
-## Verificação automatizada e científica — 15/11/2026
+Automated code checks and scientific comparisons below are separate evidence; they do not replace participant testing.
 
-A auditoria inicial de PM2.5, CO e O3 e a avaliação qualitativa ampliada estão
-documentadas em [validação de poluentes](estudo-cientifico/validacao-poluentes.md)
-e [PM2.5 qualitativo](estudo-cientifico/pm25-qualitativo.md). Incluem snapshots,
-URLs, unidades, hashes, critérios de seleção, alternativas e inversões restantes.
+## Automated and scientific verification — 2026-11-15
 
-Verificações realizadas:
+The initial PM2.5, CO, and O3 audit and the expanded qualitative evaluation
+are documented in the [pollutant audit](estudo-cientifico/validacao-poluentes.md)
+and [qualitative PM2.5 study](estudo-cientifico/pm25-qualitativo.md). They
+include snapshots, URLs, units, hashes, selection criteria, alternatives, and
+remaining ranking reversals.
 
-- 27 testes Python do pipeline e 63 testes JavaScript passaram.
-- A reprodução offline gerou CSV e métricas idênticos para a avaliação de PM2.5;
-  a auditoria inicial também foi reproduzida com o baseline arquivado.
-- O avaliador confrontou o índice publicado com o índice recalculado nas 29
-  amostras; testes JavaScript verificaram a leitura e o mapeamento de todas as
-  185 séries regionais de PM2.5 ao longo dos 124 frames.
-- A fórmula de separação musical usada na pesquisa coincidiu com o mapeamento
-  JavaScript real em 1.001 posições da escala. A curva de altura e brilho foi
-  testada como estritamente crescente, com a mesma escala entre regiões.
-- Datas e nomes dos 124 frames foram preservados; `git diff --check` passou.
+Checks performed:
 
-Comandos, a partir da raiz e com as dependências instaladas:
+- All 27 Python pipeline tests and 63 JavaScript tests passed.
+- Offline reproduction generated identical CSV files and metrics for the
+  PM2.5 evaluation; the initial audit was also reproduced with the archived
+  baseline.
+- The evaluator compared the published index with the recalculated index for
+  all 29 samples. JavaScript tests checked reading and mapping all 185 PM2.5
+  regional series across the 124 frames.
+- The musical interval formula used in the study matched the actual JavaScript
+  mapping at 1,001 points on the scale. The pitch and brightness curve was
+  verified to be strictly increasing, with the same scale across regions.
+- The dates and filenames of all 124 frames were preserved; `git diff --check`
+  passed.
+
+Commands, from the repository root with dependencies installed:
 
 ```bash
 python -m unittest discover -s pipeline -p 'test_*.py'
@@ -38,5 +38,5 @@ python pipeline/evaluate_pm25_signal.py --output-dir /tmp/pm25-qualitativo
 python pipeline/evaluate_pollutants.py --baseline-dir docs/estudo-cientifico/dados/poluentes/baseline --output-dir /tmp/auditoria-inicial
 ```
 
-Essas verificações não substituem testes perceptivos com participantes. Não foi
-realizado novo teste de audição ou de acessibilidade com usuários nesta etapa.
+These checks do not replace perceptual tests with participants. No new
+listening or accessibility tests with users were conducted in this stage.
