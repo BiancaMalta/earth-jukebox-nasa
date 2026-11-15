@@ -68,6 +68,9 @@ export function initPlayer(index, hooks = {}) {
   let frames = [], frameIndex = -1, frameDirectory, activeTrack, playing = false, timer;
   let requestId = 0, trackRequestId = 0, imageController, trackController, currentObjectURL;
   let destroyed = false;
+  let combinedVisualRequest = 0, combinedSelectionKey = null, combinedFrameKey = null;
+  let combinedVisualPromise = Promise.resolve();
+  const combinedTiles = new Map();
   let regionalTable = null, currentTableRow = null;
   const timeSeriesBody = find("time-series-body");
   const timeSeriesScope = find("time-series-scope");
@@ -117,55 +120,105 @@ export function initPlayer(index, hooks = {}) {
     currentTableRow?.setAttribute("aria-current", "true");
   }
 
-  function setCombinedFrames(entries) {
-    if (!Array.isArray(entries)) {
-      combinedGrid.replaceChildren();
-      combinedGrid.hidden = true;
-      combinedGrid.className = "combined-frame-grid";
-      root.querySelector(".frame-map").classList.remove("frame-map--combined-multiple");
-      image.hidden = !image.getAttribute("src");
-      return;
-    }
-    const selected = entries.filter((entry) => entry?.track);
-    if (!selected.length) {
-      combinedGrid.replaceChildren();
-      combinedGrid.hidden = true;
-      combinedGrid.className = "combined-frame-grid";
-      root.querySelector(".frame-map").classList.remove("frame-map--combined-multiple");
-      image.hidden = !image.getAttribute("src");
-      return;
-    }
-    const multiple = selected.length > 1;
+  function clearCombinedFrames() {
+    ++combinedVisualRequest;
+    combinedSelectionKey = combinedFrameKey = null;
+    combinedVisualPromise = Promise.resolve();
+    combinedTiles.clear();
     combinedGrid.replaceChildren();
-    combinedGrid.className = "combined-frame-grid" + (multiple ? " combined-frame-grid--multiple" : " combined-frame-grid--single");
-    root.querySelector(".frame-map").classList.toggle("frame-map--combined-multiple", multiple);
-    for (const { track, frame } of selected) {
-      const title = track.title?.en ?? track.title?.pt ?? localizedText(track.quantity, track.id ?? "Dataset");
-      const tile = document.createElement("figure");
-      tile.className = "combined-frame";
-      if (frame?.file && track.frames) {
-        const directory = new URL(track.frames.endsWith("/") ? track.frames : `${track.frames}/`, document.baseURI);
-        const tileImage = document.createElement("img");
-        tileImage.src = new URL(encodeURIComponent(frame.file), directory).href;
-        const model = track.model ?? "NASA GEOS-FP";
-        tileImage.alt = `${localizedText(track.quantity, title)} visualization from ${model}; ${frame.date ?? "time unavailable"}.`;
-        tileImage.loading = "eager";
-        tile.append(tileImage);
-      } else {
-        const missing = document.createElement("p");
-        missing.className = "combined-frame-missing";
-        missing.textContent = `No frame available for ${frame?.date ?? "this time"}.`;
-        tile.append(missing);
-      }
-      const caption = document.createElement("figcaption");
-      caption.textContent = title;
-      tile.append(caption);
-      combinedGrid.append(tile);
-    }
-    combinedGrid.hidden = false;
-    image.hidden = true;
+    combinedGrid.hidden = true;
+    combinedGrid.className = "combined-frame-grid";
+    combinedGrid.removeAttribute("aria-busy");
+    root.querySelector(".frame-map").classList.remove("frame-map--combined-multiple");
+    image.hidden = !image.getAttribute("src");
+    return combinedVisualPromise;
   }
 
+  function preloadCombinedImage(source) {
+    const prepared = new Image();
+    prepared.src = source;
+    if (typeof prepared.decode === "function") return prepared.decode().then(() => prepared);
+    return new Promise((resolve, reject) => {
+      if (prepared.complete) return prepared.naturalWidth ? resolve(prepared) : reject(new Error("Image decode failed."));
+      prepared.onload = () => resolve(prepared);
+      prepared.onerror = () => reject(new Error("Image download failed."));
+    });
+  }
+
+  function setCombinedFrames(entries) {
+    if (!Array.isArray(entries)) return clearCombinedFrames();
+    const selected = entries.filter((entry) => entry?.track);
+    if (!selected.length) return clearCombinedFrames();
+
+    const multiple = selected.length > 1;
+    const selectionKey = selected.map(({ track }) => track.id).join("|");
+    if (selectionKey !== combinedSelectionKey) {
+      ++combinedVisualRequest;
+      combinedFrameKey = null;
+      combinedSelectionKey = selectionKey;
+      combinedTiles.clear();
+      combinedGrid.replaceChildren();
+      for (const { track } of selected) {
+        const title = track.title?.en ?? track.title?.pt ?? localizedText(track.quantity, track.id ?? "Dataset");
+        const tile = document.createElement("figure");
+        tile.className = "combined-frame";
+        const media = document.createElement("div");
+        media.className = "combined-frame-media";
+        const placeholder = document.createElement("p");
+        placeholder.className = "combined-frame-missing";
+        placeholder.textContent = "Preparing aligned maps…";
+        media.append(placeholder);
+        const caption = document.createElement("figcaption");
+        caption.textContent = title;
+        tile.append(media, caption);
+        combinedGrid.append(tile);
+        combinedTiles.set(track.id, { media, placeholder, title });
+      }
+    }
+
+    combinedGrid.className = "combined-frame-grid" + (multiple ? " combined-frame-grid--multiple" : " combined-frame-grid--single");
+    root.querySelector(".frame-map").classList.toggle("frame-map--combined-multiple", multiple);
+    combinedGrid.hidden = false;
+    image.hidden = true;
+
+    const frameKey = selected.map(({ track, frame }) => `${track.id}:${frame?.file ?? "missing"}`).join("|");
+    if (frameKey === combinedFrameKey) return combinedVisualPromise;
+    combinedFrameKey = frameKey;
+    const request = ++combinedVisualRequest;
+    combinedGrid.setAttribute("aria-busy", "true");
+
+    const pending = Promise.all(selected.map(async ({ track, frame }) => {
+      const tile = combinedTiles.get(track.id);
+      if (!frame?.file || !track.frames) return { track, frame, tile, image: null, error: null };
+      const directory = new URL(track.frames.endsWith("/") ? track.frames : `${track.frames}/`, document.baseURI);
+      const source = new URL(encodeURIComponent(frame.file), directory).href;
+      try {
+        const prepared = await preloadCombinedImage(source);
+        return { track, frame, tile, image: prepared, error: null };
+      } catch (error) {
+        return { track, frame, tile, image: null, error };
+      }
+    })).then((prepared) => {
+      if (request !== combinedVisualRequest || destroyed) return;
+      for (const { track, frame, tile, image: preparedImage, error } of prepared) {
+        if (preparedImage) {
+          const model = track.model ?? "NASA GEOS-FP";
+          preparedImage.alt = `${localizedText(track.quantity, tile.title)} visualization from ${model}; ${frame.date ?? "time unavailable"}.`;
+          preparedImage.className = "combined-frame-image";
+          tile.media.replaceChildren(preparedImage);
+        } else {
+          tile.placeholder.textContent = error
+            ? `Could not load the map for ${frame?.date ?? "this time"}.`
+            : `No frame available for ${frame?.date ?? "this time"}.`;
+          tile.media.replaceChildren(tile.placeholder);
+        }
+      }
+    }).finally(() => {
+      if (request === combinedVisualRequest) combinedGrid.removeAttribute("aria-busy");
+    });
+    combinedVisualPromise = pending;
+    return pending;
+  }
   function updateControls() {
     slider.disabled = !frames.length;
     slider.max = String(Math.max(0, frames.length - 1));
@@ -233,8 +286,10 @@ export function initPlayer(index, hooks = {}) {
       frameIndex = nextIndex;
       description.textContent = `${model} visualization. Pause to inspect the readings and their data limitations below.`;
       updateControls();
-      // Image decoding completes before the frame event; audio has no frame clock.
-      hooks.onFrame?.(frame, frameIndex, frames.length, reason === "playback" && !playing ? "paused" : reason, activeTrack);
+      // The primary image and the synchronized combined map frames are ready before playback advances.
+      const frameUpdate = hooks.onFrame?.(frame, frameIndex, frames.length, reason === "playback" && !playing ? "paused" : reason, activeTrack, () => id === requestId && !destroyed);
+      if (frameUpdate && typeof frameUpdate.then === "function") await frameUpdate;
+      if (id !== requestId || destroyed) return false;
       return true;
     } catch (error) {
       if (id !== requestId || destroyed || error.name === "AbortError") return false;

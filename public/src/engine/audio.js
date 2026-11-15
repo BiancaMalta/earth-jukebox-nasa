@@ -1,9 +1,10 @@
 // AI-assisted: OpenAI Codex
-import { PENTATONIC_NOTES, mapFrameSound, mapWindSpeed, mapWindActivity, mapPrecipitation, mapHumidity } from "./mapping.js";
+import { PENTATONIC_NOTES, mapFrameSound, mapWindSpeed, mapWindActivity, mapPrecipitation, mapHumidity, mapPm25 } from "./mapping.js";
 import { createTemperatureSound } from "./temperatureSound.js";
 import { createWindSound } from "./windSound.js";
 import { createPrecipitationSound } from "./precipitationSound.js";
 import { createHumiditySound } from "./humiditySound.js";
+import { createPm25Sound } from "./pm25Sound.js";
 
 // Shared context/master/limiter. Instrument resources are allocated once after
 // explicit interaction. No audio module owns a frame timer or dataset position.
@@ -12,7 +13,7 @@ export function createAudioEngine(loadTone = () => import("tone")) {
   let enabled = false, muted = false, level = 25, disposed = false, ambience = true, ducking = false;
   let combined = false;
   const instruments = {}, channels = {};
-  const calibration = { temperature: 0.65, wind: 1.2, precipitation: 1.5, humidity: 2 };
+  const calibration = { temperature: 0.65, wind: 1.2, precipitation: 1.5, humidity: 2, pm25: 1.2 };
   const layerGain = Object.fromEntries(Object.keys(calibration).map((kind) => [kind, 1]));
   const layerMuted = Object.fromEntries(Object.keys(calibration).map((kind) => [kind, false]));
   const decibels = () => level === 0 ? -Infinity : -30 + 20 * Math.log10(level / 25);
@@ -48,6 +49,7 @@ export function createAudioEngine(loadTone = () => import("tone")) {
           instruments.wind = createWindSound(tone, channels.wind);
           instruments.precipitation = createPrecipitationSound(tone, channels.precipitation);
           instruments.humidity = createHumiditySound(tone, channels.humidity);
+          instruments.pm25 = createPm25Sound(tone, channels.pm25);
           await Promise.all(Object.values(instruments).map((instrument) => instrument.ready));
           if (disposed) return;
         }
@@ -65,6 +67,7 @@ export function createAudioEngine(loadTone = () => import("tone")) {
     if (parameters.kind === "wind" && (!Number.isFinite(parameters.rate) || parameters.rate < 0.3 || parameters.rate > 4)) return false;
     if (parameters.kind === "precipitation" && (!Number.isFinite(parameters.rate) || parameters.rate < 0 || parameters.rate > 5)) return false;
     if (parameters.kind === "humidity" && (!Number.isFinite(parameters.bandwidth) || parameters.bandwidth < 160 || parameters.bandwidth > 1600)) return false;
+    if (parameters.kind === "pm25" && (!Number.isFinite(parameters.waveRate) || parameters.waveRate < 0.07 || parameters.waveRate > 0.18 || !Number.isFinite(parameters.airRate) || parameters.airRate < 0.22 || parameters.airRate > 0.42 || !Number.isFinite(parameters.openness) || parameters.openness < 0 || parameters.openness > 1)) return false;
     instruments[parameters.kind].update(parameters, duration);
     return true;
   }
@@ -106,6 +109,10 @@ export function createAudioEngine(loadTone = () => import("tone")) {
     playHumidity(value, duration) {
       const bandwidth = mapHumidity(value);
       return playMapped(bandwidth === null ? null : { kind: "humidity", bandwidth }, duration);
+    },
+    playPm25(position, duration) {
+      const texture = mapPm25(position);
+      return playMapped(texture === null ? null : { kind: "pm25", ...texture }, duration);
     },
     get enabled() { return enabled; }, get muted() { return muted; }, get volume() { return level; },
     setVolume(value) {

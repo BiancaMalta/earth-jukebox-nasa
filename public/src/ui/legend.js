@@ -21,6 +21,7 @@ export function createLegend({ audio, speech, enableAudio, onBeforeStart, onStat
         wind: { play: (high) => audio.playWind(high ? 25 : 5, 1.8), low: "Example 5 m/s — slower musical pulse.", high: "Example 25 m/s — faster musical pulse.", meaning: "Higher wind speed means faster musical pulses" },
         precipitation: { play: (high) => audio.playPrecipitation(high ? 10 : 0.5, 1.8), low: "Example 0.5 mm — slower dry drum strokes.", high: "Example 10 mm — faster dry drum strokes.", meaning: "Higher precipitation amount means faster drum strokes, not millimeters per hour" },
         humidity: { play: (high) => audio.playHumidity(high ? 22 : 0, 1.8), low: "Example 0 g/kg — dark, thin string pad.", high: "Example 22 g/kg — bright, rich string pad.", meaning: "Higher specific humidity means richer string harmonics, not rainfall" },
+        pm25: { play: (high) => audio.playPm25(high ? 1 : 0, 1.8), low: "Example 0.4 µg/m³ — smooth, slow wave swells.", high: "Example 409.6 µg/m³ — brighter, quicker air-and-wave swells.", meaning: "Higher log-scaled PM2.5 position makes the synthetic texture brighter and quicker; this is not measured wind or ocean activity" },
       };
       const example = examples[getKind()];
       if (!example) throw new Error("No sound mapping is available for this experience.");

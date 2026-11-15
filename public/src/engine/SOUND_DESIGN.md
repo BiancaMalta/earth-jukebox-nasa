@@ -31,7 +31,12 @@ AI-assisted: OpenAI Codex. Front-end engineering notes; the data contract remain
   rain events, relative-humidity percentages or data-driven pitch changes.
   Missing, negative, nonfinite values or zero coverage mean silence. Zero
   specific humidity is a valid thin-pad reference, not a missing value.
-- All four current datasets are image-derived (`mock: false`), not raw
+- PM2.5 (SVS 5151, µg/m³): use the supplied `norm` on the logarithmic
+  0.4–409.6 µg/m³ legend. It controls two slow pink-noise swells and filter
+  openness; the transfer is fixed and loudness does not change. The sound is a
+  synthetic wave-and-air metaphor, not measured wind, ocean waves, particle
+  motion or health risk. Missing values or zero pixel coverage mean silence.
+- The four climate datasets are image-derived (`mock: false`), not raw
   numerical GEOS-FP grids. `mean` and `norm` are consumed exactly as supplied.
   Small normalized changes may stay on one pentatonic step;
   that is preserved rather than artificially stretching the melody.
@@ -69,7 +74,13 @@ pitch and detuning do not change. Gain compensation
 This replaces the earlier near-sine pad whose constant fundamental masked the
 noise bandwidth difference. The sound is synthesized and string-like, not a
 recording of a real bowed instrument.
-All four instruments use smooth ramps/envelopes and are allocated once per audio
+PM2.5 uses two persistent filtered pink-noise streams: a low-pass rolling swell
+and a band-pass airy current. Cubed, slow sine gates keep both layers rounded;
+the supplied log-scale position changes their rates (0.07–0.18 and 0.22–0.42 Hz)
+and filter openness, not amplitude. A gentle 8% reverb joins the layers. This
+is a soft, wave-like synthetic texture, distinct from the wind flute, and does
+not claim to encode actual wind or ocean conditions.
+All five instruments use smooth ramps/envelopes and are allocated once per audio
 initialization, behind a silent gate until explicitly played.
 
 The visual player owns time. No instrument has a JavaScript frame timer.
@@ -81,8 +92,8 @@ envelopes; pause, missing data, mute and switching experiences stop the old soun
 
 `audio.js` owns one context, calibrated independent layer gains, a speech-ducking
 gain, master volume and a shared -6 dB limiter. Initial master volume is -30 dB;
-calibration balances the four sound identities independently of their data values.
-`setInstrumentGain`, `setInstrumentMuted` and `updateInstrument` control the four
+calibration balances the five sound identities independently of their data values.
+`setInstrumentGain`, `setInstrumentMuted` and `updateInstrument` control the five
 real instruments independently. Current `playFrame` deliberately selects only one.
 Own browser speech ducks instrument gain to 35%; it does not route through Tone
 or guarantee a bound on device/speech loudness.
@@ -99,11 +110,11 @@ dataset dates have no offsets. The newly integrated temperature, wind, rainfall
 and humidity values are image-derived and no longer mock; matching timestamp
 strings are not by themselves proof of scientific temporal equivalence. Model-field comparison and area weighting remain data-team work.
 
-## Four-layer listening experiment
+## Five-layer listening experiment
 
-The optional Combined Earth panel enables all four instruments after explicit
-user selection. `combinedFrames` joins by the exact supplied timestamp label,
-not array index. All four current datasets share 124 labels, from
+The optional Combined Earth panel enables the four climate instruments and the
+PM2.5 texture after explicit user selection. `combinedFrames` joins by the exact
+supplied timestamp label, not array index. These five sound datasets share 124 labels, from
 2026-10-30T06:00 through 2026-11-14T14:00. These labels omit timezone offsets;
 this is an experimental label-aligned mix, not a confirmation of physical UTC
 alignment, accumulation intervals or common scientific provenance.
@@ -121,7 +132,7 @@ adds a 0.5 shared mix gain before speech ducking, master gain and the existing
 single limiter; individual mode restores mix and instrument gains to 1 and
 clears instrument mutes. Controls update existing instruments; there are no new
 voices per frame or independent advancing transports. Disabling sound, pausing
-and page suspension release every layer. This explicit four-layer experiment
+and page suspension release every layer. This explicit five-layer experiment
 extends the earlier planned three-layer first combination.
 
 

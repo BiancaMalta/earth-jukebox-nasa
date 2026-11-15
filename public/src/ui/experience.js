@@ -19,6 +19,20 @@ export function describeExperience(track) {
       exampleSpeech: "This experience is visual only. Its dedicated sound mapping is not implemented yet.",
     };
   }
+  if (kind === "pm25") return {
+    kind, name: "PM2.5", instrument: "Airy wave-and-wind texture",
+    character: "Layered pink noise · slow rolling swells · no melody or beat",
+    heading: "PM2.5 shapes an airy wave texture",
+    mapping: "The supplied log-scaled position opens the filtered air texture and quickens the slow swells. This is an artistic sound code, not measured wind, ocean waves, particle motion or a health assessment.",
+    low: "Smoother, slower swells", lowDetail: "0.4 µg/m³ reference",
+    high: "Brighter, quicker swells", highDetail: "409.6 µg/m³ reference",
+    scale: "The supplied 0–1 log-scale position controls filter openness and two gentle noise swells. Loudness stays fixed; the sound does not imply actual wind or wave speed.",
+    readings: "PM2.5 is an image-derived near-surface concentration estimate in µg/m³. The sound uses the supplied logarithmic legend position. The filtered noise is a metaphor, not measured wind or ocean activity.",
+    normalization: "The provided norm follows the logarithmic 0.4–409.6 µg/m³ legend. It controls a slow swell rate of 0.07–0.18 Hz, an airy pulse of 0.22–0.42 Hz, and filter openness. The front end does not recompute the position or vary loudness. Missing values or zero pixel coverage produce silence.",
+    caveat: "Image-derived PM2.5 estimate, not a direct numerical GEOS-CF grid or health assessment. The wave-and-air texture is synthetic; it does not represent actual wind or ocean waves.",
+    legend: "A five-second comparison of 0.4 and 409.6 µg/m³ reference values, not the current frame. Higher legend position makes the synthetic swells brighter and quicker. The legend pauses the player.",
+    exampleSpeech: "Lower PM2.5 legend position means smoother, slower swells. Higher position means a brighter, quicker air-and-wave texture. This is not a measurement of wind or ocean waves.",
+  };
   if (kind === "precipitation") return {
     kind, name: "Precipitation", instrument: "Dry tamborim-style percussion",
     character: "Fixed G3 · bright drum skin · dry snare-like attack",

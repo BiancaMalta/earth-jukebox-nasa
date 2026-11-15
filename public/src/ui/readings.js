@@ -36,13 +36,14 @@ export function describeReading(frame, track) {
   const mean = visualWind ? isFiniteNumber(frame?.visualSignal) ? `${frame.visualSignal.toFixed(4)} / 1` : "Unavailable" : meanNumber === null ? "Unavailable" : `${meanNumber} ${unit}`;
   const coverageDetail = describePixelCoverage(frame?.coverage);
   const validNorm = isFiniteNumber(frame?.norm) && frame.norm >= 0 && frame.norm <= 1;
-  const soundLabel = visualOnly ? "Sound mapping" : wind ? "Wind pulse rate" : kind === "precipitation" ? "Drum stroke rate" : kind === "humidity" ? "Pad spectral width" : "Mapped musical note";
-  const soundValue = visualOnly ? "Not implemented" : !sound ? "Unavailable" : kind === "humidity" ? `${Math.round(sound.bandwidth)} Hz` : kind === "temperature" ? sound.note : `${sound.rate.toFixed(2)} Hz`;
+  const soundLabel = visualOnly ? "Sound mapping" : wind ? "Wind pulse rate" : kind === "precipitation" ? "Drum stroke rate" : kind === "humidity" ? "Pad spectral width" : kind === "pm25" ? "Wave-texture position" : "Mapped musical note";
+  const soundValue = visualOnly ? "Not implemented" : !sound ? "Unavailable" : kind === "humidity" ? `${Math.round(sound.bandwidth)} Hz` : kind === "temperature" ? sound.note : kind === "pm25" ? `${sound.openness.toFixed(2)} / 1` : `${sound.rate.toFixed(2)} Hz`;
   const soundSummary = !sound ? visualOnly ? "Visual-only experience; no sound mapping assigned." : "Sound data unavailable or no valid pixels; no note or texture."
     : kind === "temperature" ? `Mapped note ${sound.note}.`
       : wind ? `Wind rhythm ${sound.rate.toFixed(2)} pulses per second; fixed C5 pitch, not measured gusts.`
         : kind === "precipitation" ? `Musical density ${sound.rate.toFixed(2)} drum strokes per second; fixed G3 carrier, not measured rainfall intensity.`
-          : `Nominal pad bandwidth ${Math.round(sound.bandwidth)} hertz; fixed C3 string ensemble, not rainfall.`;
+          : kind === "humidity" ? `Nominal pad bandwidth ${Math.round(sound.bandwidth)} hertz; fixed C3 string ensemble, not rainfall.`
+            : `Synthetic wave-and-air texture position ${sound.openness.toFixed(2)} / 1; not measured wind or ocean waves.`;
   return {
     date, dateLabel, timeLabel, mean, measure: visualWind ? "Visible wind signal (index)" : kind === "precipitation" ? "Estimated precipitation · image-derived" : measure, sound, soundLabel, soundValue,
     note: sound?.kind === "temperature" ? sound.note : null,
@@ -68,10 +69,10 @@ export function renderReading(root, frame, track) {
   find("coverage-detail").hidden = !reading.coverageDetail;
   find("sound-label").textContent = reading.soundLabel;
   find("current-note").textContent = reading.soundValue;
-  find("normalized-label").textContent = visualWind ? "Visible wind signal index" : wind ? "Supplied normalized speed" : kind === "temperature" ? "Normalized temperature" : "Supplied normalized value";
+  find("normalized-label").textContent = visualWind ? "Visible wind signal index" : wind ? "Supplied normalized speed" : kind === "temperature" ? "Normalized temperature" : kind === "pm25" ? "Log-scaled PM2.5 position" : "Supplied normalized value";
   find("normalized-value").textContent = reading.normalized;
-  find("scale-low").textContent = visualWind ? "Less detected color signal" : wind ? "Lower speed" : kind === "temperature" ? "Lower · C3" : "Lower value";
-  find("scale-high").textContent = visualWind ? "More detected color signal" : wind ? "Higher speed" : kind === "temperature" ? "Higher · C5" : "Higher value";
+  find("scale-low").textContent = visualWind ? "Less detected color signal" : wind ? "Lower speed" : kind === "temperature" ? "Lower · C3" : kind === "pm25" ? "Lower · smoother swell" : "Lower value";
+  find("scale-high").textContent = visualWind ? "More detected color signal" : wind ? "Higher speed" : kind === "temperature" ? "Higher · C5" : kind === "pm25" ? "Higher · brighter swell" : "Higher value";
   const meter = find("temperature-position");
   meter.hidden = reading.normalized === "Unavailable";
   if (!meter.hidden) {

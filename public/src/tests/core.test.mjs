@@ -3,7 +3,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { validateFeatures, describeDate } from "../data/features.js";
-import { mapValue, PENTATONIC_NOTES, mapWindSpeed, mapFrameSound, soundKind, mapPrecipitation, mapHumidity } from "../engine/mapping.js";
+import { mapValue, PENTATONIC_NOTES, mapWindSpeed, mapFrameSound, soundKind, mapPrecipitation, mapHumidity, mapPm25 } from "../engine/mapping.js";
 import { createAudioEngine } from "../engine/audio.js";
 import { createSpeechEngine } from "../engine/speech.js";
 import { initKeyboard } from "../ui/a11y.js";
@@ -113,7 +113,7 @@ test("the ozone track loads ppbv data without assigning a sound mapping", async 
   assert.equal(describeReading(result.frames[0], track).soundLabel, "Sound mapping");
 });
 
-test("the PM2.5 track uses its logarithmic concentration range without assigning sound", async () => {
+test("the PM2.5 track uses its logarithmic concentration range for the wave-and-air texture", async () => {
   const [index, track, data] = await Promise.all([
     readFile(new URL("../../tracks/index.json", import.meta.url)).then(JSON.parse),
     readFile(new URL("../../tracks/ar-pm25.json", import.meta.url)).then(JSON.parse),
@@ -132,8 +132,10 @@ test("the PM2.5 track uses its logarithmic concentration range without assigning
   assert.ok(result.frames.every((frame) => frame.coverage > 0 && frame.coverage < 1));
   const firstFrame = result.frames[0];
   assert.equal(firstFrame.norm, Number(((Math.log(firstFrame.mean) - Math.log(0.4)) / (Math.log(409.6) - Math.log(0.4))).toFixed(3)));
-  assert.equal(soundKind(track), null);
-  assert.equal(mapFrameSound(firstFrame, track), null);
+  assert.equal(soundKind(track), "pm25");
+  assert.deepEqual(mapFrameSound(firstFrame, track), { kind: "pm25", ...mapPm25(firstFrame.norm) });
+  assert.equal(describeExperience(track).kind, "pm25");
+  assert.equal(describeReading(firstFrame, track).soundLabel, "Wave-texture position");
 });
 
 test("the carbon monoxide track loads calibrated ppbv data without assigning sound", async () => {
@@ -606,7 +608,42 @@ test("specific humidity maps to monotonic nominal bandwidth without generating r
   assert.equal(mapFrameSound({ mean: 7.9, norm: 0.01 }, { id: "clima-umidade", unit: "g/kg" }).bandwidth, mapHumidity(7.9));
 });
 
-test("the four instruments share resources, silence zero precipitation and dispose completely", async () => {
+test("PM2.5 maps its supplied log position to bounded, monotonic wave and air rates", () => {
+  assert.deepEqual(mapPm25(0), { waveRate: 0.07, airRate: 0.22, openness: 0 });
+  assert.deepEqual(mapPm25(1), { waveRate: 0.18, airRate: 0.42, openness: 1 });
+  let previousWave = 0, previousAir = 0;
+  for (let i = 0; i <= 10000; i++) {
+    const mapped = mapPm25(i / 10000);
+    assert.ok(mapped.waveRate >= previousWave && mapped.waveRate <= 0.18);
+    assert.ok(mapped.airRate >= previousAir && mapped.airRate <= 0.42);
+    assert.equal(mapped.openness, i / 10000);
+    previousWave = mapped.waveRate;
+    previousAir = mapped.airRate;
+  }
+  for (const value of [null, undefined, "0.5", false, NaN, Infinity, -Infinity, -0.01, 1.01]) {
+    assert.equal(mapPm25(value), null);
+  }
+});
+
+test("PM2.5 uses persistent wave-and-air noise that follows its supplied log position", async () => {
+  const fake = fakeTone(), engine = createAudioEngine(async () => fake.module);
+  const track = { id: "ar-pm25", svsId: 5151, unit: "µg/m³" };
+  await engine.enable();
+  const count = fake.calls.created.length, sources = fake.calls.noiseStarts;
+  assert.equal(engine.playFrame({ norm: 0 }, track), true);
+  assert.deepEqual(fake.calls.rates.slice(-2), [0.07, 0.22]);
+  assert.equal(engine.playFrame({ norm: 1 }, track), true);
+  assert.deepEqual(fake.calls.rates.slice(-2), [0.18, 0.42]);
+  assert.equal(fake.calls.created.length, count, "Frame updates reuse the same filtered noise sources");
+  assert.equal(fake.calls.noiseStarts, sources);
+  const releases = fake.calls.windReleases;
+  assert.equal(engine.playFrame({ norm: null }, track), false);
+  assert.ok(fake.calls.windReleases > releases);
+  engine.dispose();
+  assert.equal(fake.calls.disposals, count);
+});
+
+test("the five instruments share resources, silence zero precipitation and dispose completely", async () => {
   const fake = fakeTone(), engine = createAudioEngine(async () => fake.module);
   assert.equal(engine.playPrecipitation(1), false); assert.equal(engine.playHumidity(8), false);
   await engine.enable(); const allocated = fake.calls.created.length;
@@ -624,7 +661,7 @@ test("the four instruments share resources, silence zero precipitation and dispo
 test("new legends compare stated amount and specific-humidity references", async () => {
   const originalWindow = globalThis.window;
   try {
-    for (const [kind, method, expected] of [["precipitation", "playPrecipitation", [0.5, 10]], ["humidity", "playHumidity", [0, 22]]]) {
+    for (const [kind, method, expected] of [["precipitation", "playPrecipitation", [0.5, 10]], ["humidity", "playHumidity", [0, 22]], ["pm25", "playPm25", [0, 1]]]) {
       const tasks = [], values = [], steps = [];
       globalThis.window = { setTimeout(fn, delay) { tasks.push({ fn, delay }); return tasks.length; }, clearTimeout() {} };
       const legend = createLegend({ audio: { stop() {}, [method](value) { values.push(value); return true; } }, speech: { cancel() {}, speak() {} }, enableAudio: async () => {}, getKind: () => kind, onBeforeStart() {}, onState() {}, onStep(text) { steps.push(text); }, onError() { assert.fail("Unexpected error"); } });
@@ -652,7 +689,7 @@ test("humidity reference extremes reveal harmonics with fixed pitch and no new v
 });
 
 
-test("combined audio updates four persistent instruments and stops missing layers", async () => {
+test("combined audio updates five persistent instruments and stops missing layers", async () => {
   const fake=fakeTone(),engine=createAudioEngine(async()=>fake.module);
   engine.setCombinedMode(true);
   await engine.enable();
@@ -662,6 +699,7 @@ test("combined audio updates four persistent instruments and stops missing layer
     {frame:{mean:10},track:windTrack},
     {frame:{mean:1},track:{id:'clima-chuva',svsId:5149,unit:'mm'}},
     {frame:{mean:8},track:{id:'clima-umidade',svsId:5150,unit:'g/kg'}},
+    {frame:{norm:.4},track:{id:'ar-pm25',svsId:5151,unit:'µg/m³'}},
   ];
   assert.equal(engine.playLayers(layers),true);
   const envelopes=fake.calls.created.filter(n=>n instanceof fake.module.AmplitudeEnvelope);

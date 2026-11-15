@@ -35,12 +35,21 @@ export function mapHumidity(specificHumidity) {
   if (typeof specificHumidity !== "number" || !Number.isFinite(specificHumidity) || specificHumidity < 0) return null;
   return 160 + 1440 * (1 - Math.exp(-specificHumidity / 12));
 }
+export function mapPm25(position) {
+  if (typeof position !== "number" || !Number.isFinite(position) || position < 0 || position > 1) return null;
+  return {
+    waveRate: 0.07 * (1 - position) + 0.18 * position,
+    airRate: 0.22 * (1 - position) + 0.42 * position,
+    openness: position,
+  };
+}
 
 const identities = [
   ["clima-temperatura", 5147, "°C", "temperature"],
   ["clima-vento", 5148, "m/s", "wind"],
   ["clima-chuva", 5149, "mm", "precipitation"],
   ["clima-umidade", 5150, "g/kg", "humidity"],
+  ["ar-pm25", 5151, "µg/m³", "pm25"],
 ];
 export function soundKind(track) {
   if (!track) return "temperature";
@@ -54,6 +63,10 @@ export function mapFrameSound(frame, track) {
   if (kind === "temperature") {
     const note = mapValue(frame?.norm);
     return note ? { kind, note } : null;
+  }
+  if (kind === "pm25") {
+    const texture = mapPm25(frame?.norm);
+    return texture ? { kind, ...texture } : null;
   }
   if (kind === "wind") {
     const rate = track?.sonification?.input === "visualSignal" ? mapWindActivity(frame?.visualSignal) : mapWindSpeed(frame?.mean);

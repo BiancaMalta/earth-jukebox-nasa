@@ -39,7 +39,7 @@ function playFrameSound(frame, track, duration) {
 }
 
 
-function updateNoteStatus(frame = player?.currentFrame, track = player?.currentTrack) {
+function updateNoteStatus(frame = player?.currentFrame, track = player?.currentTrack, updateVisuals = true) {
   if (frame && regions) {
     const regional = regions.getFrame(frame, player?.currentIndex);
     frame = regional.frame;
@@ -47,7 +47,7 @@ function updateNoteStatus(frame = player?.currentFrame, track = player?.currentT
   }
   const element = document.getElementById("note-status");
   if (!element) return;
-  combined.render(frame);
+  if (updateVisuals) combined.render(frame);
   if (combined.enabled) {
     element.textContent = !combined.ready ? "Combined datasets are loading."
       : !audio.enabled || audio.muted ? "Sound is off."
@@ -185,7 +185,7 @@ interval.addEventListener("input", () => {
 function onFrame(frame, index, total, reason, track) {
   const parameters = mapFrameSound(frame, track);
   if ((!parameters && !combined.enabled) || reason === "paused") audio.stop();
-  updateNoteStatus(frame, track);
+  updateNoteStatus(frame, track, false);
   if (reason === "manual" || reason === "initial") announce((reason === "initial" ? "First frame loaded. " : "") + "Frame " + (index + 1) + " of " + total + ". " + (document.getElementById("demo-data").hidden ? "" : "Demo data. ") + describeReading(frame, track).summary);
   if (reason === "initial" || reason === "paused" || legend.active) return;
   try { if (parameters || combined.enabled) playFrameSound(frame, track, reason === "playback" && index < total - 1 ? undefined : 0.9); }
@@ -218,11 +218,16 @@ try {
     onPlaybackState: () => updateNoteStatus(),
     onTrackLoading: () => { legendButton.disabled = true; audio.stop(); },
     onTrack: (track) => { renderExperience(track); legendButton.disabled = !soundKind(track); updateNoteStatus(null, track); },
-    onFrame: (frame, index, total, reason, track) => {
-      regions?.setFrame(index);
+    onFrame: (frame, index, total, reason, track, isCurrent = () => true) => {
       const regional = regions?.getFrame(frame, index) ?? { frame, track };
-      renderReading(document.getElementById("player"), regional.frame, regional.track);
-      onFrame(regional.frame, index, total, reason, regional.track);
+      const applyFrame = () => {
+        if (!isCurrent()) return;
+        regions?.setFrame(index);
+        renderReading(document.getElementById("player"), regional.frame, regional.track);
+        const currentReason = reason === "playback" && !player?.isPlaying ? "paused" : reason;
+        onFrame(regional.frame, index, total, currentReason, regional.track);
+      };
+      return combined.enabled ? combined.render(regional.frame).then(applyFrame) : applyFrame();
     },
   });
   removeKeyboard = initKeyboard(player);

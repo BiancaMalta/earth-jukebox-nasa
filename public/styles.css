@@ -180,8 +180,9 @@ button, dt, h1 { overflow-wrap: anywhere; }
 .combined-frame-grid[hidden] { display: none; }
 .combined-frame-grid--single { display: block; }
 .combined-frame { min-width: 0; margin: 0; }
-.combined-frame img { display: block; width: 100%; height: auto; aspect-ratio: 2 / 1; object-fit: contain; border-radius: 8px; background: #0b141d; }
+.combined-frame-media { width: 100%; aspect-ratio: 2 / 1; overflow: hidden; border-radius: 8px; background: #0b141d; }
+.combined-frame-image { display: block; width: 100%; height: 100%; object-fit: contain; background: #0b141d; }
 .combined-frame figcaption { overflow-wrap: anywhere; }
-.combined-frame-missing { display: grid; place-items: center; min-height: 100px; padding: 12px; border-radius: 8px; background: #0b141d; color: var(--muted); text-align: center; font-size: .8rem; }
+.combined-frame-missing { display: grid; place-items: center; width: 100%; height: 100%; margin: 0; padding: 12px; color: var(--muted); text-align: center; font-size: .8rem; }
 .frame-map--combined-multiple #region-overlay { display: none; }
 @media (max-width: 600px) { .combined-frame-grid--multiple { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

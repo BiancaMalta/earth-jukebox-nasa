@@ -11,7 +11,7 @@ const LAYERS = [
   ["clima-vento", "wind", "Wind · flute", "wind"],
   ["clima-chuva", "precipitation", "Precipitation · percussion", "precipitation"],
   ["clima-umidade", "humidity", "Humidity · strings", "humidity"],
-  ["ar-pm25", "pm25", "PM2.5 · map only", null],
+  ["ar-pm25", "pm25", "PM2.5 · wave and air", "pm25"],
   ["ar-co", "carbon-monoxide", "Carbon monoxide (CO) · map only", null],
   ["clima-ozonio", "ozone", "Ozone (O₃) · map only", null],
 ];
@@ -44,23 +44,24 @@ export function initCombined({ audio, getFrame, getRegion, onChange, onVisuals =
       if ((instrument && soundKind(activeTrack) !== instrument) || (!instrument && soundKind(activeTrack) !== null)) throw new Error(`Unexpected instrument for ${id}.`);
       const regional = validateRegionalFeatures(await fetchJSON(new URL("../regions.json", directory), controller.signal), activeTrack, data);
       return { track: activeTrack, layerKey: key, instrument, timeline: indexTimeline(data.frames), regional, mock: data.mock, statistics: data.statistics, sonification: data.sonification };
-    })).then((result) => { const soundLayers = result.filter((entry) => entry.instrument); if (soundLayers.some((entry) => JSON.stringify(entry.statistics) !== JSON.stringify(soundLayers[0].statistics))) throw new Error("Sound datasets have different mean methods. Finish regenerating the four sound tracks before combining."); if (!destroyed) datasets = result; return result; }).finally(() => { pending = null; });
+    })).then((result) => {     const soundLayers = result.filter((entry) => entry.instrument && entry.statistics?.mean); if (soundLayers.some((entry) => JSON.stringify(entry.statistics) !== JSON.stringify(soundLayers[0].statistics))) throw new Error("Sound datasets have different mean methods. Finish regenerating all sound tracks before combining."); if (!destroyed) datasets = result; return result; }).finally(() => { pending = null; });
     return pending;
   }
   function entries(frame = getFrame()) {
     return datasets && frame ? combinedFrames(datasets, frame.date, getRegion()) : [];
   }
   function render(frame = getFrame()) {
-    if (!toggle.checked) { onVisuals(null); return; }
+    if (!toggle.checked) return onVisuals(null);
     const region = getRegion();
     scope.textContent = `${region ? regionDisplayName(region) : "Full-frame values"} · ${frame?.date ?? "No frame selected"}. The image and main reading show the selected visual experience.`;
     const aligned = entries(frame);
-    onVisuals(aligned.filter(({ track }) => document.getElementById(`layer-${layerKey(track)}`)?.checked));
+    const visualUpdate = onVisuals(aligned.filter(({ track }) => document.getElementById(`layer-${layerKey(track)}`)?.checked));
     for (const { track, frame: value } of aligned) {
       const reading = describeReading(value, track), key = layerKey(track), visualOnly = soundKind(track) === null;
       const qualifier = visualOnly ? " · map only" : !mapFrameSound(value, track) ? " · silent" : "";
       document.getElementById(`reading-${key}`).textContent = `${reading.mean} · ${reading.soundValue} · ${reading.coverageDetail}${qualifier}`;
     }
+    return visualUpdate;
   }
   toggle.addEventListener("change", async () => {
     const id = ++generation;
