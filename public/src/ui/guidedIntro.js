@@ -1,13 +1,15 @@
 const COPY = {
   steps: [
-    ["1. Choose a record", "Choose one of seven records, such as temperature, wind, precipitation, humidity, or air quality. Use arrow keys within the record collection to change your selection. Each variable turns its changing data into a distinct sound."],
-    ["2. Focus on a place, or keep the whole planet", "Below playback, Where do you want to listen lets you choose Whole map, Region, or Country. Pick a place from the menus or try a suggested group. The highlighted place determines both readings and sound. Back to whole map clears the selection."],
-    ["3. Move through time", "Play and Pause move through frames in order. Previous and Next move one frame at a time; the Timeline slider jumps to a point in the sequence. Use Tab and Shift plus Tab to reach controls, then Enter or Space to activate them. With focus outside controls, Space plays or pauses and the left and right arrows change frames."],
-    ["4. Listen to a frame's readings", "Pause, then use your screen reader to explore the current date and time, data value and unit, and its sound description. Open Values over time for a table of mean, ninetieth percentile, and pixel coverage. Automatic playback does not announce every frame; selecting frames manually announces their readings."],
-    ["5. Learn how values become sound", "Beside the player, From data to music explains how values map to notes or sound textures. Hear sound examples gives a short comparison. Below the sound guide, About the values and methods explains image-derived estimates, pixel coverage, and calculation limits."],
-    ["6. Combine variables", "Above the player, activate Combine variables. Choose the records to include with the checkboxes. Their sounds play together and their maps appear in the display. Playback and place controls still apply. Activate One variable to return to an individual variable."],
+    ["1. Keyboard guide", "Use Tab and Shift plus Tab to move between controls. Enter or Space activates a button or opens a section. Arrow keys change a menu, radio selection or focused slider. With focus outside controls, Space plays or pauses and left or right moves one frame. Press Escape to turn off spoken navigation. Pause playback to inspect readings; automatic playback does not read every frame."],
+    ["2. Choose a record", "Choose one of seven records, such as temperature, wind, precipitation, humidity, or air quality. Use arrow keys within the record collection to change your selection. Each variable turns its changing data into a distinct sound."],
+    ["3. Focus on a place, or keep the whole planet", "Before playback, open Where do you want to listen to choose Whole map, Region, or Country. Menus offer all places; suggestions are shortcuts that start playback. The highlighted place determines both readings and sound. Back to whole map clears the selection."],
+    ["4. Move through time", "Play and Pause move through frames in order. Previous and Next move one frame at a time; the Timeline slider jumps to a point in the sequence. Open Rhythm and time control to adjust playback speed or enable a day or week metronome."],
+    ["5. Listen to a frame's readings", "Pause, then use your screen reader to explore the current date and time, data value and unit, and its sound description. Open Values over time for a table of mean, ninetieth percentile, and pixel coverage. Automatic playback does not announce every frame; selecting frames manually announces their readings."],
+    ["6. Learn how values become sound", "Beside the player, From data to music explains how values map to notes or sound textures. Hear sound examples gives a short comparison. With spoken navigation, Read sound explanation reads the mapping on request. Below the sound guide, About the values and methods explains image-derived estimates, pixel coverage, and calculation limits."],
+    ["7. Combine variables", "Above the player, activate Combine variables. Choose the records to include with the checkboxes. Each map card has its record switch and readings. Muted maps stay visible in gray. Playback and place controls still apply. Activate One variable to return to an individual variable."],
   ],
   actions: [
+    [],
     [["experience", "Go to the record collection"]],
     [["region", "Open the place controls"]],
     [["playback", "Go to playback controls"]],
@@ -42,7 +44,7 @@ export function initGuidedIntro() {
       button.dataset.introAction = action;
       return button;
     }));
-    progress.textContent = `Step ${index + 1} of ${COPY.steps.length}. Use Next step to continue; the complete introduction takes about one minute.`;
+    progress.textContent = `Step ${index + 1} of ${COPY.steps.length}. Use Next step to continue; move at your own pace.`;
     content.hidden = false;
     start.hidden = true;
     previous.disabled = index === 0;
@@ -59,7 +61,7 @@ export function initGuidedIntro() {
     start.hidden = false;
     previous.hidden = next.hidden = stop.hidden = true;
     previous.disabled = true;
-    progress.textContent = "Six short steps. Use the buttons to move at your own pace.";
+    progress.textContent = "Seven short steps. Use the buttons to move at your own pace.";
     status.textContent = "Introduction ended.";
     start.focus();
   }
@@ -83,15 +85,16 @@ export function initGuidedIntro() {
     };
     const combined = document.getElementById("combine-sounds");
     if (action === "experience") {
-      focus(combined.checked ? document.querySelector("#combined-layers input[type=checkbox]") : document.querySelector('input[name="earth-record"]:checked'));
+      focus(combined.checked ? document.querySelector("input[id^=layer-]") : document.querySelector('input[name="earth-record"]:checked'));
     } else if (action === "region") {
       const section = document.getElementById("region-options");
       if (section.hidden) { status.textContent = "Place controls are unavailable for this visualization."; return; }
+      document.getElementById("regional-explorer").open = true;
       focus(document.querySelector('input[name="region-scope"]:checked'));
     } else if (action === "playback") {
       focus(document.getElementById("play-pause"));
     } else if (action === "readings") {
-      focus(combined.checked ? document.getElementById("combined-layers") : document.getElementById("frame-readings"));
+      focus(combined.checked ? document.getElementById("frame-map-panel") : document.getElementById("frame-readings"));
     } else if (action === "table") {
       const panel = document.getElementById("time-series-panel");
       if (panel.hidden) { status.textContent = "The time-series table is unavailable in combined mode."; return; }
@@ -108,7 +111,7 @@ export function initGuidedIntro() {
         combined.checked = true;
         combined.dispatchEvent(new Event("change", { bubbles: true }));
       }
-      focus(document.querySelector("#combined-layers input[type=checkbox]"));
+      focus(document.querySelector("input[id^=layer-]"));
     }
   });
 }

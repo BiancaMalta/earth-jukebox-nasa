@@ -55,3 +55,20 @@ test('table scrolling keeps arrow keys and Space instead of controlling playback
   });
   assert.equal(toggles + steps + prevented, 0);
 });
+
+test('concise narrator descriptions replace long auto speech while preserving accessible descriptions', () => {
+  const control = element('input', { 'aria-label': 'Precipitation', 'aria-describedby': 'full-reading', 'data-spoken-description': '0.75 millimeters. Three strokes per second. Toggle to mute.' }, { type: 'checkbox', checked: true });
+  const doc = { getElementById: () => ({ textContent: 'Very long diagnostic reading with coverage and technical detail' }) };
+  const spoken = describeNavigationTarget(control, doc);
+  assert.match(spoken, /Precipitation\. Selected\. 0.75 millimeters/);
+  assert.doesNotMatch(spoken, /diagnostic|coverage/);
+  assert.equal(control.getAttribute('aria-describedby'), 'full-reading');
+});
+test('guided explanations keep the important described content when explicitly focused', () => {
+  const heading = element('h2', { 'aria-describedby': 'mapping' }, { textContent: 'From data to music' });
+  assert.match(describeNavigationTarget(heading, { getElementById: () => ({ textContent: 'More precipitation means faster, higher drum strokes.' }) }), /faster, higher drum strokes/);
+});
+test('tuning disclosure uses a short label while retaining its state and purpose', () => {
+ const summary = element('summary', { 'data-spoken-label': 'Rhythm and time control', 'data-spoken-description': 'Playback speed and optional metronome.' }, { textContent: 'EARTH JUKEBOX Rhythm and time control decorative symbol', parentElement: { open: false } });
+ assert.equal(describeNavigationTarget(summary), 'Rhythm and time control. Collapsed. Press Enter or Space to toggle. Playback speed and optional metronome.');
+});

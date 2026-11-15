@@ -3,6 +3,11 @@ const OFF_HELP = "Spoken navigation is off. Turn it on to hear focused controls.
 const ON_HELP = "Spoken navigation is on. Use Tab and Shift plus Tab to move between controls. Sections announce their name and whether they are expanded. Press Escape to turn the voice off.";
 
 function textOf(element) {
+  if (element?.cloneNode) {
+    const copy = element.cloneNode(true);
+    copy.querySelectorAll('[aria-hidden="true"], [hidden], script, style').forEach(node => node.remove());
+    return (copy.textContent || "").replace(/\s+/g, " ").trim();
+  }
   return (element?.innerText || element?.textContent || "").replace(/\s+/g, " ").trim();
 }
 
@@ -22,7 +27,7 @@ function labelOf(element, doc) {
 }
 
 export function describeNavigationTarget(element, doc = element.ownerDocument ?? globalThis.document) {
-  const parts = [labelOf(element, doc)];
+  const parts = [element.getAttribute("data-spoken-label") || labelOf(element, doc)];
   const tag = element.tagName.toLowerCase();
   if (tag === "summary") {
     // Never collect text from the parent details: it may contain 124 table rows.
@@ -49,7 +54,9 @@ export function describeNavigationTarget(element, doc = element.ownerDocument ??
   if (element.id === "frame-readings") parts.push(textOf(element));
   if (element.matches("figure")) parts.push(textOf(element.querySelector("figcaption")));
   const describedBy = element.getAttribute("aria-describedby");
-  if (describedBy && tag !== "summary" && element.id !== "frame-readings") {
+  const conciseDescription = element.getAttribute("data-spoken-description");
+  if (conciseDescription) parts.push(conciseDescription);
+  if (!conciseDescription && describedBy && tag !== "summary" && element.id !== "frame-readings") {
     parts.push(...describedBy.split(/\s+/).map(id => textOf(doc.getElementById(id))).filter(Boolean));
   }
   if (element.hasAttribute("aria-pressed")) parts.push(element.getAttribute("aria-pressed") === "true" ? "On" : "Off");
@@ -111,7 +118,7 @@ export function initPageNarration() {
   }
 
   function speak(message, initial = false) {
-    if (!requested || !message) return;
+    if (!requested || suspended || !message) return;
     cancel();
     const selected = voice();
     if (!selected) {
@@ -159,6 +166,7 @@ export function initPageNarration() {
 
   toggle.addEventListener("click", () => {
     if (requested) { stop(); return; }
+    if (suspended) { status.textContent = "Stop the sound examples before enabling spoken navigation."; return; }
     if (!synthesis || !window.SpeechSynthesisUtterance) {
       status.textContent = "Spoken navigation is not available in this browser. Your screen reader can still read the page.";
       return;
@@ -207,6 +215,12 @@ export function initPageNarration() {
   }, true);
   document.addEventListener("click", event => {
     if (!enabled || suspended || !(event.target instanceof Element)) return;
+    const readButton = event.target.closest("[data-spoken-read]");
+    if (readButton) {
+      const ids = readButton.getAttribute("data-spoken-read").split(/\s+/);
+      speak(ids.map(id => textOf(document.getElementById(id))).filter(Boolean).join(". "));
+      return;
+    }
     if (event.target.closest("#read-current-row")) {
       speak(describeCurrentTableRow());
       return;
@@ -217,5 +231,5 @@ export function initPageNarration() {
     }, 0);
   });
   window.addEventListener("pagehide", () => stop());
-  return { refresh: render, setSuspended(value) { suspended = Boolean(value); if (suspended) cancel(); } };
+  return { refresh: render, get enabled() { return enabled; }, setSuspended(value) { suspended = Boolean(value); if (suspended) cancel(); } };
 }

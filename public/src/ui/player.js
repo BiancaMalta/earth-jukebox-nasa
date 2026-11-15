@@ -29,7 +29,7 @@ export function initPlayer(index, hooks = {}) {
     <div class="track-toolbar"><label class="sr-only" for="track-select">Experience</label><select id="track-select" hidden></select><fieldset class="record-collection"><legend>Choose your record <span>Seven ways to hear our planet</span></legend><div id="record-sleeves" class="record-sleeves"></div></fieldset><span id="demo-data" class="badge" hidden>Demo data</span></div>
     <section id="region-options" class="region-options" aria-labelledby="regional-heading" hidden>
       <details id="regional-explorer" class="regional-explorer" hidden open>
-      <summary class="region-intro"><span><span class="eyebrow">A different place. A different sound.</span><span id="regional-heading">Where do you want to listen?</span></span><span class="region-badge" id="region-summary-place">Whole map</span><span class="region-chevron" aria-hidden="true">⌄</span></summary>
+      <summary class="region-intro" data-spoken-description="Choose a place or play a suggested one. The selection stays visible above Play."><span><span class="eyebrow">A different place. A different sound.</span><span id="regional-heading">Where do you want to listen?</span></span><span class="region-badge" id="region-summary-place">Whole map</span><span class="region-chevron" aria-hidden="true">⌄</span></summary>
       <p id="region-help" class="control-help">Keep the same moment. Change the place. The highlighted area shapes both your readings and your sound.</p>
       <fieldset class="region-scopes"><legend class="sr-only">Listening area</legend>
         <label class="region-scope"><input type="radio" name="region-scope" value="world" checked><span><strong>Whole map</strong><small>The big picture</small></span></label>
@@ -57,7 +57,7 @@ export function initPlayer(index, hooks = {}) {
     <div class="frame-progress"><label for="frame-position">Timeline</label><span id="frame-count">0 / 0</span><input id="frame-position" type="range" min="0" max="0" value="0" aria-describedby="frame-position-help" disabled></div>
     <p id="frame-position-help" class="control-help">Use the arrow keys on this slider to select a frame. Selecting a frame pauses playback.</p>
     <details class="jukebox-tuning">
-      <summary class="tuning-plaque"><span class="tuning-brand" aria-hidden="true">EARTH JUKEBOX</span><span>Rhythm &amp; time control</span><span class="tuning-chevron" aria-hidden="true">⌄</span></summary>
+      <summary class="tuning-plaque" data-spoken-label="Rhythm and time control" data-spoken-description="Playback speed and optional day or week metronome."><span class="tuning-brand" aria-hidden="true">EARTH JUKEBOX</span><span>Rhythm &amp; time control</span><span class="tuning-chevron" aria-hidden="true">⌄</span></summary>
       <div class="tuning-controls">
         <div class="tuning-card speed-control">
           <div class="tuning-heading"><span class="tuning-number" aria-hidden="true">01</span><label for="playback-speed">Playback speed</label></div>
@@ -65,6 +65,7 @@ export function initPlayer(index, hooks = {}) {
           <p id="playback-speed-help" class="control-help">Set the pace of your listening journey. Values and sound mappings stay the same.</p>
         </div>
         <div id="metronome-slot"></div>
+
       </div>
     </details>
     <p id="demo-notice" class="demo-notice" hidden><strong>Demonstration values.</strong> Dataset values and dates are simulated, not scientific measurements.</p>

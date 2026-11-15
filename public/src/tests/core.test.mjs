@@ -726,7 +726,7 @@ test("PM2.5 sustains one metallic voice and glides pitch and brightness with sup
   const filter = fake.calls.created.find(node => node instanceof fake.module.Filter && node.options.frequency === 3100);
   assert.ok(synth && filter);
   assert.equal(synth.volume.value, -3);
-  assert.ok(fake.calls.created.some(node => node instanceof fake.module.Gain && node.gain.value === 2.5), "PM2.5 keeps its raised independent channel calibration");
+  assert.ok(fake.calls.created.some(node => node instanceof fake.module.Gain && node.gain.value === 3.5), "PM2.5 keeps its raised independent channel calibration");
   const initialAttacks = fake.calls.pmAttacks;
   assert.equal(engine.playFrame({ norm: 0 }, track), true);
   const darkCutoff = fake.calls.pm25Cutoffs.at(-1);
@@ -766,7 +766,7 @@ test("the seven instruments share resources, silence zero precipitation and disp
 test("new legends compare stated amount, humidity and pollutant reference endpoints", async () => {
   const originalWindow = globalThis.window;
   try {
-    for (const [kind, method, expected] of [["precipitation", "playPrecipitation", [0.5, 10]], ["humidity", "playHumidity", [0, 22]], ["pm25", "playPm25", [0, 1]], ["carbonMonoxide", "playCarbonMonoxide", [0, 1]], ["ozone", "playOzone", [0, 1]]]) {
+    for (const [kind, method, expected] of [["precipitation", "playPrecipitation", [0.5, 1]], ["humidity", "playHumidity", [0, 22]], ["pm25", "playPm25", [0, 1]], ["carbonMonoxide", "playCarbonMonoxide", [0, 1]], ["ozone", "playOzone", [0, 1]]]) {
       const tasks = [], values = [], steps = [];
       globalThis.window = { setTimeout(fn, delay) { tasks.push({ fn, delay }); return tasks.length; }, clearTimeout() {} };
       const legend = createLegend({ audio: { stop() {}, [method](value) { values.push(value); return true; } }, speech: { cancel() {}, speak() {} }, enableAudio: async () => {}, getKind: () => kind, onBeforeStart() {}, onState() {}, onStep(text) { steps.push(text); }, onError() { assert.fail("Unexpected error"); } });
@@ -838,12 +838,70 @@ test("precipitation keeps rate mapping, schedules discrete strikes and stops at 
   engine.playPrecipitation(.5);
   assert.equal(fake.calls.rates.at(-1), mapPrecipitation(.5));
   clock.callback(1.03);
-  assert.equal(fake.calls.notes.at(-1), 'G3');
-  engine.playPrecipitation(10);
-  assert.equal(fake.calls.rates.at(-1), mapPrecipitation(10));
+  assert.equal(fake.calls.notes.at(-1), 'E3');
+  engine.playPrecipitation(1);
+  assert.equal(fake.calls.rates.at(-1), mapPrecipitation(1));
+  clock.callback(1.03);
+  assert.equal(fake.calls.notes.at(-1), "G4", "Amount changes the next drum stroke as well as its rate");
   assert.equal(fake.calls.created.length, count);
   engine.playPrecipitation(0);
   assert.equal(clock.state, 'stopped');
   engine.dispose();
   assert.equal(fake.calls.disposals, count);
+});
+
+test("ozone plays low and high valid concentrations without a threshold", async () => {
+  const fake = fakeTone(), engine = createAudioEngine(async () => fake.module);
+  await engine.enable();
+  const track = { id: "clima-ozonio", unit: "ppbv" };
+  for (const mean of [5, 35, 40, 41, 42, 50, 60]) {
+    const before = fake.calls.plucks;
+    assert.equal(engine.playFrame({ mean, norm: (mean - 5) / 55, coverage: .5 }, track), true);
+    assert.equal(fake.calls.plucks, before + 1);
+  }
+  assert.equal(engine.playFrame({ mean: null, norm: null, coverage: 0 }, track), false);
+  engine.dispose();
+});
+
+test("sound examples skip speech when spoken navigation is off", async () => {
+  const originalWindow = globalThis.window;
+  const tasks = [], events = [];
+  globalThis.window = { setTimeout(fn) { tasks.push(fn); return tasks.length; }, clearTimeout() {} };
+  try {
+    const legend = createLegend({
+      audio: { stop() { events.push('stop'); }, playNote(note) { events.push(note); return true; } },
+      speech: { cancel() {}, speak() { assert.fail('Voice is off'); } },
+      shouldNarrate: () => false,
+      enableAudio: async () => {}, onBeforeStart() {}, onState() {}, onError: assert.fail,
+    });
+    await legend.toggle();
+    assert.deepEqual(events, ['stop', 'C3']);
+    tasks[0]();
+    assert.deepEqual(events, ['stop', 'C3', 'stop', 'C5']);
+    tasks[1]();
+    assert.equal(legend.active, false);
+  } finally { globalThis.window = originalWindow; }
+});
+
+test("each example stops audio before speech and waits for speech completion", async () => {
+  const originalWindow = globalThis.window;
+  const tasks = [], events = [], finishes = [];
+  globalThis.window = { setTimeout(fn) { tasks.push(fn); return tasks.length; }, clearTimeout() {} };
+  try {
+    const legend = createLegend({
+      audio: { stop() { events.push('stop'); }, playNote(note) { events.push(note); return true; } },
+      speech: { cancel() {}, speak(text, interrupt, done) { events.push('speech'); finishes.push(done); return true; } },
+      shouldNarrate: () => true,
+      enableAudio: async () => {}, onBeforeStart() {}, onState() {}, onError: assert.fail,
+    });
+    await legend.toggle();
+    assert.deepEqual(events, ['stop', 'speech']);
+    finishes[0]();
+    assert.deepEqual(events, ['stop', 'speech', 'C3']);
+    tasks[0]();
+    assert.deepEqual(events.slice(-2), ['stop', 'speech']);
+    finishes[1]();
+    assert.equal(events.at(-1), 'C5');
+    legend.cancel();
+  } finally { globalThis.window = originalWindow; }
 });

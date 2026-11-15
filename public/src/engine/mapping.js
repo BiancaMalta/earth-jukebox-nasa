@@ -41,12 +41,26 @@ export function mapWindSpeed(speed) {
   return 0.3 + 3.7 * (1 - Math.exp(-speed / 12));
 }
 
-// Fixed physical scales; do not stretch each dataset's observed variation.
-// Precipitation amount (mm), not a rate: zero is silent; positive amounts map
-// to 0.5..5 coded plucks/s. Humidity is specific humidity (g/kg), not %RH.
+// Fixed, shared perceptual scale for image-derived precipitation amounts (mm).
+// Anchor pairs [mm, strokes/s] allocate more resolution to sub-millimeter means.
+// This is a musical calibration, not a new physical unit or regional normalization.
+export const PRECIPITATION_RATE_ANCHORS = Object.freeze([
+  [0, 0.5], [0.25, 0.8], [0.5, 1.5], [0.75, 3], [1, 4], [2, 4.7],
+].map(pair => Object.freeze(pair)));
 export function mapPrecipitation(amount) {
   if (typeof amount !== "number" || !Number.isFinite(amount) || amount < 0) return null;
-  return amount === 0 ? 0 : 0.5 + 4.5 * (1 - Math.exp(-amount / 5));
+  if (amount === 0) return 0;
+  for (let index = 1; index < PRECIPITATION_RATE_ANCHORS.length; index++) {
+    const [high, fast] = PRECIPITATION_RATE_ANCHORS[index];
+    const [low, slow] = PRECIPITATION_RATE_ANCHORS[index - 1];
+    if (amount <= high) return slow + (fast - slow) * (amount - low) / (high - low);
+  }
+  return 4.7 + 0.3 * (1 - Math.exp(-(amount - 2) / 5));
+}
+// A redundant pitched-drum cue makes short comparisons distinguishable too.
+export function precipitationNote(rate) {
+  if (typeof rate !== "number" || !Number.isFinite(rate) || rate <= 0 || rate > 5) return null;
+  return mapValue(Math.max(0, Math.min(1, (rate - 0.5) / 4.5)));
 }
 export function mapHumidity(specificHumidity) {
   if (typeof specificHumidity !== "number" || !Number.isFinite(specificHumidity) || specificHumidity < 0) return null;
@@ -104,7 +118,7 @@ export function mapFrameSound(frame, track) {
   }
   if (kind === "precipitation") {
     const rate = mapPrecipitation(frame?.mean);
-    return rate === null ? null : { kind, rate };
+    return rate === null ? null : { kind, rate, drumNote: precipitationNote(rate) };
   }
   if (kind === "humidity") {
     const bandwidth = mapHumidity(frame?.mean);
