@@ -114,8 +114,8 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
     document.getElementById("time-series-panel")?.toggleAttribute("hidden", combined);
     document.getElementById("frame-readings")?.toggleAttribute("hidden", combined);
   }
-  controls.innerHTML = LAYERS.map(([, key, name, instrument]) => `<div class="combined-layer">
-    <label class="checkbox-label"><input id="layer-${key}" type="checkbox" aria-describedby="reading-${key}" ${instrument || key !== "carbon-monoxide" && key !== "ozone" ? "checked" : ""}> ${name}</label>
+  controls.innerHTML = LAYERS.map(([, key, name, instrument]) => `<div class="combined-layer" data-layer-key="${key}">
+    <label class="checkbox-label"><input id="layer-${key}" type="checkbox" aria-describedby="reading-${key}" ${instrument || key !== "carbon-monoxide" && key !== "ozone" ? "checked" : ""}> ${name}</label><span id="layer-state-${key}" class="layer-state">On</span>
     ${instrument ? "" : `<span class="control-help">Visual layer only; a dedicated sound mapping is not available yet.</span>`}
     <span id="reading-${key}" class="control-help">Unavailable</span></div>`).join("");
   function layerKey(track) { return LAYERS.find(([id]) => id === track?.id)?.[1] ?? null; }
@@ -161,7 +161,13 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
   function render(frame = getFrame()) {
     if (!toggle.checked) return onVisuals(null);
     const aligned = entries(frame);
-    const visualUpdate = onVisuals(aligned.filter(({ track }) => document.getElementById(`layer-${layerKey(track)}`)?.checked));
+    const visualUpdate = onVisuals(aligned.map(entry => ({ ...entry, layerKey: layerKey(entry.track) })));
+    for (const [, key] of LAYERS) {
+      const checked = document.getElementById(`layer-${key}`).checked;
+      const card = document.querySelector(`[data-layer-key="${key}"]`);
+      card?.closest(".combined-frame")?.classList.toggle("combined-frame--off", !checked);
+      document.getElementById(`layer-state-${key}`).textContent = checked ? "On" : "Off · muted";
+    }
     for (const { track, frame: value } of aligned) {
       const reading = describeReading(value, track), key = layerKey(track), visualOnly = soundKind(track) === null;
       const qualifier = visualOnly ? " · map only" : !mapFrameSound(value, track) ? " · silent" : "";

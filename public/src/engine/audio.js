@@ -11,11 +11,11 @@ import { createOzoneSound } from "./ozoneSound.js";
 // Shared context/master/limiter. Instrument resources are allocated once after
 // explicit interaction. No audio module owns a frame timer or dataset position.
 export function createAudioEngine(loadTone = () => import("tone")) {
-  let tone, volume, limiter, duck, mix, pending;
+  let tone, volume, limiter, duck, mix, pending, timeClick;
   let enabled = false, muted = false, level = 25, disposed = false, ambience = true, ducking = false;
   let combined = false;
   const instruments = {}, channels = {};
-  const calibration = { temperature: 0.65, wind: 1.2, precipitation: 1.5, humidity: 2, pm25: 2.5, carbonMonoxide: 0.8, ozone: 2.8 };
+  const calibration = { temperature: 0.65, wind: 1.2, precipitation: 6, humidity: 2, pm25: 2.5, carbonMonoxide: 0.8, ozone: 2.8 };
   const layerGain = Object.fromEntries(Object.keys(calibration).map((kind) => [kind, 1]));
   const layerMuted = Object.fromEntries(Object.keys(calibration).map((kind) => [kind, false]));
   const decibels = () => level === 0 ? -Infinity : -30 + 20 * Math.log10(level / 25);
@@ -23,6 +23,7 @@ export function createAudioEngine(loadTone = () => import("tone")) {
   function releaseNodes() {
     for (const kind of Object.keys(instruments)) { instruments[kind].dispose(); delete instruments[kind]; }
     for (const kind of Object.keys(channels)) { channels[kind].dispose(); delete channels[kind]; }
+    timeClick?.dispose(); timeClick = undefined;
     mix?.dispose(); duck?.dispose(); volume?.dispose(); limiter?.dispose();
     mix = duck = volume = limiter = undefined;
   }
@@ -41,6 +42,7 @@ export function createAudioEngine(loadTone = () => import("tone")) {
           volume.mute = muted;
           duck = new tone.Gain(ducking ? 0.35 : 1);
           duck.chain(volume, limiter);
+          timeClick = new tone.Synth({ oscillator: { type: "sine" }, envelope: { attack: 0.002, decay: 0.035, sustain: 0, release: 0.015 } }).connect(duck);
           mix = new tone.Gain(combined ? 0.5 : 1).connect(duck);
           for (const kind of Object.keys(calibration)) {
             channels[kind] = new tone.Gain(layerMuted[kind] ? 0 : calibration[kind] * layerGain[kind]);
@@ -87,6 +89,11 @@ export function createAudioEngine(loadTone = () => import("tone")) {
   }
   return {
     enable, stop, updateInstrument,
+    playTimePulse() {
+      if (!enabled || muted || level === 0 || disposed || tone.getContext().state !== "running") return false;
+      timeClick.triggerAttackRelease("A6", 0.025, tone.now(), 0.64);
+      return true;
+    },
     setCombinedMode(value) { combined = Boolean(value); mix?.gain.rampTo(combined ? 0.5 : 1, 0.08); },
     playLayers(entries, duration) {
       const parameters = new Map(entries.map(({ frame, track }) => {

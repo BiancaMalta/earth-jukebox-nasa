@@ -73,18 +73,26 @@ with quiet gaps; only its frequency follows the explicitly declared wind input m
 an expressive reference, not a second wind-speed mapping or a competing melody.
 A 2600 Hz lowpass and 12% reverb soften the presentation. No geographic stereo
 direction is implied. The LFO never advances dataset frames.
-Precipitation uses a fixed G3 custom body with partials [.45, 1, .75, .35, .15]
-and a white-noise stick-like stroke filtered around 2300 Hz. The harmonic body
-has fixed gain .4 and the stroke .6; neither gain varies with precipitation.
-A nonnegative sine LFO raised to the thirty-second power gives short, rounded drum
-windows; no new note or noise source is created for each stroke. An 8 ms gate
-attack, 3200 Hz lowpass, 350 ms reverb and 2.5% wet level give a present, fairly dry
-tamborim/snare-like sound. The channel calibration is 1.5 (about +3.5 dB), retaining the
-shared master/limiter and the combined mix headroom. Presence comes from both
-midrange harmonics and the filtered strike rather than only sub-bass volume.
-These are synthesized percussion strokes, not recorded rainfall, literal
-raindrops or inferred weather events. The amount-to-rate curve is unchanged
-from the earlier glass-like and soft-drum versions.
+Precipitation uses discrete G3 membrane strikes scheduled by a Tone.Clock at the
+unchanged amount-to-rate mapping (0.5–5 strokes/s for positive amounts). The body
+has a fixed 0.7-octave pitch drop over 18 ms, a 3 ms attack and 90 ms decay.
+A separate bandpassed white-noise stick attack lasts about 20 ms at low fixed
+velocity. Body velocity .55 and stick velocity .09 remain constant. Zero and
+missing values stop the clock and release both voices. Finite legend examples
+schedule a clock stop; subsequent examples and playback reset that stop.
+The precipitation channel gain is 6 (four times the previous 1.5, about +12 dB).
+All nodes are reused and disposed with the shared audio engine. These settings
+replace the continuous noise and LFO gate that could sound like sweeping.
+
+The optional Time pulse replaces recurring spoken dates. An A6 click at fixed velocity .64 (four times the previous .16, about +12 dB)
+marks the first observed frame of a new calendar day or Monday-based week.
+It uses supplied date labels, preserving their calendar without adding a timezone.
+It follows frame playback, including playback speed; manual navigation and initial
+loading establish a baseline silently. Skipped days produce one marker, not a
+burst of reconstructed events. The default is off. It shares master volume,
+mute, limiter and speech ducking, with a separate bus from the combined mix.
+It never encodes precipitation amount. Exact dates remain in the UI/table.
+
 Humidity uses a three-oscillator C3 sawtooth ensemble with fixed 8-cent spread,
 quiet filtered pink noise, a 220 ms onset and 14% reverb. The existing mapped
 bandwidth b also opens the string lowpass with cutoff
@@ -180,3 +188,17 @@ and temperature/CO/ozone use supplied normalized means. PM2.5 aggregates logarit
 pixel positions before the regional average, instead of taking the logarithm
 of the concentration mean. No region or period receives its own min/max stretch.
 Mean, p90, norm and pixel inclusion retain their diagnostic definitions separately.
+
+## Suggested places
+
+The place selector appears immediately after record selection, before the map
+and transport. Suggestions rank the active record's regional sonification over
+its supplied frames, using the same mapping functions as playback. A candidate
+needs at least 80% available frames and two audible parameter changes. The
+score combines the 10th–90th percentile span and average adjacent movement of
+mapped pitch, rhythm or bandwidth. Missing frames break adjacency. Scores do
+not alter data filters, mappings or playback ranges and do not claim accuracy.
+Whole-map mode offers countries and regions; Region offers regions; Country
+offers countries, restricted to the selected region when present. This ranking
+is for the active record, including when a combined preview is visible, rather
+than a claim about the complete mix. No static preferred-country list is used.
