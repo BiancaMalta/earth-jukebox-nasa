@@ -11,24 +11,51 @@ import { createLegend } from "./ui/legend.js";
 import { initRegionalExplorer } from "./ui/regions.js";
 import { initCombined } from "./ui/combined.js";
 
+// Elements from the removed sound panel may not exist; look them up through an inert fallback.
+const inert = () => ({ textContent: "", checked: false, value: "", disabled: false, hidden: false, setAttribute() {}, removeAttribute() {}, addEventListener() {}, setCustomValidity() {} });
+const el = (id) => document.getElementById(id) ?? inert();
+// Local copies keep this file independent of other modules being updated at the same time.
+function describeNormalizationRange(data) {
+  if (!data) return "Normalization limits are unavailable.";
+  if (data.sonification?.input === "visualSignal") return `Pixel color legend: ${data.vmin} to ${data.vmax} ${data.unit}. The visible signal index is dimensionless (0–1), not a physical concentration or speed.`;
+  if (data.vmin === null || data.vmin === undefined) return "Normalization limits are unavailable.";
+  return `The supplied range is ${data.vmin} to ${data.vmax} ${data.unit}${data.mock ? " (demo values)" : ""}.`;
+}
+function describeMeanWeighting(data) {
+  return data?.statistics?.mean === "area_weighted"
+    ? "Mean = sum(decoded value × cosine latitude) ÷ sum(cosine latitude), using accepted pixels only. P90 remains an unweighted pixel percentile. Pixel inclusion remains a pixel-count ratio, not an area percentage."
+    : "This dataset uses equal weights per decoded pixel. Its mean has not been area-weighted.";
+}
+
 const audio = createAudioEngine();
-const speech = createSpeechEngine(window, (message) => { document.getElementById("speech-status").textContent = message; }, (speaking) => audio.setDucking(speaking));
-const enable = document.getElementById("enable-sound");
-const soundStatus = document.getElementById("sound-status");
-const legendButton = document.getElementById("sound-legend");
-const combinedLegendButton = document.getElementById("combined-sound-legend");
+const speech = createSpeechEngine(window, (message) => { el("speech-status").textContent = message; }, (speaking) => audio.setDucking(speaking));
+const enable = el("enable-sound");
+const soundStatus = el("sound-status");
+const legendButton = el("sound-legend");
+const combinedLegendButton = el("combined-sound-legend");
 const legendButtons = [legendButton, combinedLegendButton];
-const combinedLegendStatus = document.getElementById("combined-legend-status");
-const narrate = document.getElementById("narrate-dates");
-const interval = document.getElementById("narration-interval");
-let player, removeKeyboard, regions, lastNarratedIndex = null;
+const combinedLegendStatus = el("combined-legend-status");
+const narrate = el("narrate-dates");
+const interval = el("narration-interval");
+let player, removeKeyboard, regions, lastNarratedIndex = null, trackContext = null;
+function showTrackMethods(context) {
+  byId("pixel-filter-method").textContent = describePixelFilters(context.colorbar);
+  byId("mean-weighting-method").textContent = describeMeanWeighting(context.data);
+  byId("normalization-range").textContent = describeNormalizationRange(context.data);
+}
+const byId = (id) => document.getElementById(id) ?? { textContent: "" };
 const combined = initCombined({
   audio,
   getFrame: () => player?.currentFrame,
+  restoreSingle: () => {
+    if (player?.currentTrack) renderExperience(player.currentTrack);
+    if (trackContext) showTrackMethods(trackContext);
+  },
   getRegion: () => regions?.selectionKey() ?? null,
   onVisuals: (entries) => player?.setCombinedFrames(entries),
   onChange: () => {
     legend.cancel();
+    if (player?.currentTrack || combined.enabled) legendButton.disabled = combined.enabled ? !combined.ready : !soundKind(player.currentTrack);
     updateNoteStatus();
     const current = player?.currentFrame;
     if (!current) return;
@@ -54,7 +81,6 @@ function updateNoteStatus(frame = player?.currentFrame, track = player?.currentT
   if (combined.enabled) {
     element.textContent = !combined.ready ? "Combined datasets are loading."
       : !audio.enabled || audio.muted ? "Sound is off."
-        : audio.volume === 0 ? "Music volume is zero."
           : legend.active ? "Selected instrument legend is playing alone."
             : player?.isPlaying ? "Combined experiment follows supplied timestamps." : "Combined experiment ready; playback is paused.";
     return;
@@ -63,7 +89,6 @@ function updateNoteStatus(frame = player?.currentFrame, track = player?.currentT
   element.textContent = !parameters ? "No sound for this frame."
     : parameters.kind === "precipitation" && parameters.rate === 0 ? "Zero precipitation amount; silent."
     : !audio.enabled || audio.muted ? "Sound is off."
-      : audio.volume === 0 ? "Music volume is zero."
         : legend.active ? "Sound legend is playing."
           : player?.isPlaying ? "Music follows playback." : "Ready; playback is paused.";
 }
@@ -111,7 +136,7 @@ function releaseSound() {
 
 const legend = createLegend({
   audio, speech, enableAudio,
-  getKind: () => player?.currentTrack?.sonification?.input === "visualSignal" ? (soundKind(player?.currentTrack) === "pm25" ? "pm25Visual" : "windVisual") : soundKind(player?.currentTrack),
+  getKind: () => combined.enabled ? combined.legendKind : player?.currentTrack?.sonification?.input === "visualSignal" ? (soundKind(player?.currentTrack) === "pm25" ? "pm25Visual" : "windVisual") : soundKind(player?.currentTrack),
   onBeforeStart: () => { player?.pause("Playback paused for the sound legend."); releaseSound(); },
   onState: (active) => {
     combined.setLegendMode(active);
@@ -120,19 +145,19 @@ const legend = createLegend({
       button.setAttribute("aria-pressed", String(active));
     });
     const message = active ? "Preparing the sound legend…" : "Legend stopped. Play to hear it again.";
-    document.getElementById("legend-status").textContent = message;
+    el("legend-status").textContent = message;
     combinedLegendStatus.textContent = message;
     combinedLegendStatus.hidden = !active || !combined.enabled;
     updateNoteStatus();
   },
   onStep: (message) => {
-    document.getElementById("legend-status").textContent = message;
+    el("legend-status").textContent = message;
     combinedLegendStatus.textContent = message;
     combinedLegendStatus.hidden = !combined.enabled;
   },
   onError: (message) => {
     const error = `Could not play the legend. ${message || "Try enabling sound again."}`;
-    document.getElementById("legend-status").textContent = error;
+    el("legend-status").textContent = error;
     combinedLegendStatus.textContent = error;
     combinedLegendStatus.hidden = !combined.enabled;
   },
@@ -159,27 +184,19 @@ enable.addEventListener("click", async () => {
     }
   } catch { /* enableAudio provides the visible error and leaves the player usable. */ }
 });
-document.getElementById("temperature-ambience").addEventListener("change", (event) => { audio.setAmbience(event.target.checked); });
-document.getElementById("volume").addEventListener("input", (event) => {
-  const value = Number(event.target.value);
-  audio.setVolume(value);
-  document.getElementById("volume-value").textContent = `${value}%`;
-  event.target.setAttribute("aria-valuetext", `${value} percent`);
-  updateNoteStatus();
-});
 if (!speech.supported) {
   narrate.disabled = interval.disabled = true;
-  document.getElementById("speech-support").textContent = "Speech synthesis is unavailable in this browser. The legend's low and high notes and all date text remain available.";
+  el("speech-support").textContent = "Speech synthesis is unavailable in this browser. The legend's low and high notes and all date text remain available.";
 }
 speech.refreshVoices();
 function speakCurrentDate() {
   if (audio.muted) {
-    document.getElementById("speech-status").textContent = "Enable sound to hear spoken dates.";
+    el("speech-status").textContent = "Enable sound to hear spoken dates.";
     return;
   }
   const date = describeDate(player?.currentFrame?.date);
   if (!date) {
-    document.getElementById("speech-status").textContent = "No valid date is available for the current frame.";
+    el("speech-status").textContent = "No valid date is available for the current frame.";
     return;
   }
   if (speech.speak(date, true)) lastNarratedIndex = player.currentIndex;
@@ -188,9 +205,9 @@ narrate.addEventListener("change", () => {
   if (!narrate.checked) speech.cancel();
   else { legend.cancel(); speakCurrentDate(); }
 });
-document.getElementById("test-voice").addEventListener("click", () => {
+el("test-voice").addEventListener("click", () => {
   legend.cancel();
-  if (audio.muted) document.getElementById("speech-status").textContent = "Enable sound before testing the voice.";
+  if (audio.muted) el("speech-status").textContent = "Enable sound before testing the voice.";
   else speech.speak(describeExperience(player?.currentTrack).exampleSpeech, true);
 });
 interval.addEventListener("input", () => {
@@ -217,10 +234,8 @@ function onFrame(frame, index, total, reason, track) {
 try {
   player = initPlayer(await fetchJSON("tracks/index.json"), {
     onTrackData: (context) => {
-      document.getElementById("pixel-filter-method").textContent = describePixelFilters(context.colorbar);
-      document.getElementById("mean-weighting-method").textContent = context.data.statistics?.mean === "area_weighted"
-        ? "Mean = sum(decoded value × cosine latitude) ÷ sum(cosine latitude), using accepted pixels only. P90 remains an unweighted pixel percentile. Pixel inclusion remains a pixel-count ratio, not an area percentage."
-        : "This dataset uses equal weights per decoded pixel. Its mean has not been area-weighted.";
+      trackContext = context;
+      showTrackMethods(context);
       regions ??= initRegionalExplorer({ onSelection: () => { audio.stop(); updateRegionalReading(); }, onValueChange: () => {
         updateRegionalReading();
         if (player?.isPlaying && !legend.active) {
@@ -231,10 +246,20 @@ try {
       void regions.configure(context);
     },
     onPause: () => { releaseSound(); updateNoteStatus(); },
-    onInteraction: () => { legend.cancel(); speech.cancel(); lastNarratedIndex = null; },
+    onInteraction: () => {
+      legend.cancel(); speech.cancel(); lastNarratedIndex = null;
+      if ((!audio.enabled || audio.muted) && navigator.userActivation?.isActive) {
+        void enableAudio().then(() => {
+          const current = player?.currentFrame;
+          if (!current) return;
+          const regional = regions?.getFrame(current, player.currentIndex) ?? { frame: current, track: player.currentTrack };
+          playFrameSound(regional.frame, regional.track, player.isPlaying ? undefined : 0.9);
+        }).catch(() => { /* enableAudio reports the problem; the visual player keeps working. */ });
+      }
+    },
     onPlaybackState: () => updateNoteStatus(),
-    onTrackLoading: () => { legendButtons.forEach((button) => { button.disabled = true; }); audio.stop(); },
-    onTrack: (track) => { renderExperience(track); legendButtons.forEach((button) => { button.disabled = !soundKind(track); }); updateNoteStatus(null, track); },
+    onTrackLoading: () => { legendButton.disabled = true; audio.stop(); },
+    onTrack: (track) => { renderExperience(track); legendButton.disabled = !soundKind(track); combinedLegendButton.disabled = false; updateNoteStatus(null, track); },
     onFrame: (frame, index, total, reason, track, isCurrent = () => true) => {
       const regional = regions?.getFrame(frame, index) ?? { frame, track };
       const applyFrame = () => {

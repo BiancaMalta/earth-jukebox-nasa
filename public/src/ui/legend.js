@@ -28,7 +28,7 @@ export function createLegend({ audio, speech, enableAudio, onBeforeStart, onStat
       };
       const example = examples[getKind()];
       if (!example) throw new Error("No sound mapping is available for this experience.");
-      if (!example.play(false)) throw new Error("Enable sound and raise Music volume to hear the legend.");
+      if (!example.play(false)) throw new Error("Enable sound to hear the legend.");
       onStep(example.low, 1); speech.speak(example.low, true);
       const later = (delay, action) => timers.push(window.setTimeout(() => {
         if (!active || id !== generation) return;

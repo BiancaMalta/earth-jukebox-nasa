@@ -4,7 +4,21 @@ import { validateRegionalFeatures } from "../data/regions.js";
 import { indexTimeline, combinedFrames } from "../data/combined.js";
 import { soundKind, mapFrameSound } from "../engine/mapping.js";
 import { describeReading } from "./readings.js";
-import { describeExperience } from "./experience.js";
+import { renderExperience } from "./experience.js";
+import { describePixelFilters } from "./readings.js";
+
+// Local copies keep this file independent of other modules being updated at the same time.
+function describeNormalizationRange(data) {
+  if (!data) return "Normalization limits are unavailable.";
+  if (data.sonification?.input === "visualSignal") return `Pixel color legend: ${data.vmin} to ${data.vmax} ${data.unit}. The visible signal index is dimensionless (0–1), not a physical concentration or speed.`;
+  if (data.vmin === null || data.vmin === undefined) return "Normalization limits are unavailable.";
+  return `The supplied range is ${data.vmin} to ${data.vmax} ${data.unit}${data.mock ? " (demo values)" : ""}.`;
+}
+function describeMeanWeighting(data) {
+  return data?.statistics?.mean === "area_weighted"
+    ? "Mean = sum(decoded value × cosine latitude) ÷ sum(cosine latitude), using accepted pixels only. P90 remains an unweighted pixel percentile. Pixel inclusion remains a pixel-count ratio, not an area percentage."
+    : "This dataset uses equal weights per decoded pixel. Its mean has not been area-weighted.";
+}
 
 const LAYERS = [
   ["clima-temperatura", "temperature", "Temperature · organ", "temperature"],
@@ -16,7 +30,7 @@ const LAYERS = [
   ["clima-ozonio", "ozone", "Ozone (O₃) · plucked strings", "ozone"],
 ];
 
-export function initCombined({ audio, getFrame, getRegion, onChange, onVisuals = () => {} }) {
+export function initCombined({ audio, getFrame, restoreSingle = () => {}, getRegion, onChange, onVisuals = () => {} }) {
   const toggle = document.getElementById("combine-sounds"), status = document.getElementById("combined-status");
   const controls = document.getElementById("combined-layers");
   const combinedGuide = document.getElementById("combined-sound-guide");
@@ -25,53 +39,70 @@ export function initCombined({ audio, getFrame, getRegion, onChange, onVisuals =
   const soundGuide = document.querySelector(".guide-panel");
   const soundSettings = document.querySelector(".sound-settings");
   const listeningSidebar = document.querySelector(".listening-sidebar");
+  const COMBINED_GAIN = 0.65;
+  // Variable chooser: placed right after the guide title; the full single-visualization explanation follows its choice.
+  const variableControls = [];
+  function makeVariableControl(id, labelText) {
+    const select = document.createElement("select");
+    select.id = id;
+    for (const [, key, name] of LAYERS) select.add(new Option(name.split(" · ")[0], key));
+    const label = document.createElement("label");
+    label.htmlFor = id;
+    label.textContent = labelText;
+    const control = document.createElement("div");
+    control.className = "combined-variable-control";
+    control.hidden = true;
+    control.append(label, select);
+    variableControls.push({ control, select });
+    return { control, select };
+  }
+  const guideChooser = makeVariableControl("combined-variable", "Variable to explain");
+  const methodsChooser = makeVariableControl("combined-methods-variable", "Variable for these methods");
+  const variableSelect = guideChooser.select;
+  const guideHeading = document.getElementById("guide-heading");
+  if (guideHeading) guideHeading.after(guideChooser.control); else soundGuide?.prepend(guideChooser.control);
+  const methodsSummary = document.querySelector(".explanation-details > summary");
+  if (methodsSummary) methodsSummary.after(methodsChooser.control);
   let datasets = null, pending, generation = 0, destroyed = false, controller, legendActive = false;
-  function syncPreviewTabs(combined) {
+  function syncMode(combined) {
     const individualTab = document.getElementById("individual-preview-tab");
     const combinedTab = document.getElementById("combined-preview-tab");
     const mapPanel = document.getElementById("frame-map-panel");
-    if (!individualTab || !combinedTab || !mapPanel) return;
-    individualTab.setAttribute("aria-selected", String(!combined));
-    individualTab.tabIndex = combined ? -1 : 0;
-    combinedTab.setAttribute("aria-selected", String(combined));
-    combinedTab.tabIndex = combined ? 0 : -1;
-    mapPanel.setAttribute("aria-labelledby", combined ? combinedTab.id : individualTab.id);
+    if (individualTab && combinedTab && mapPanel) {
+      individualTab.setAttribute("aria-selected", String(!combined));
+      individualTab.tabIndex = combined ? -1 : 0;
+      combinedTab.setAttribute("aria-selected", String(combined));
+      combinedTab.tabIndex = combined ? 0 : -1;
+      mapPanel.setAttribute("aria-labelledby", combined ? combinedTab.id : individualTab.id);
+    }
+    const title = document.getElementById("track-title");
+    if (title) title.textContent = combined ? "Combination preview" : title.dataset.singleTitle ?? title.textContent;
+    const modeLabel = document.getElementById("mode-active");
+    if (modeLabel) modeLabel.textContent = combined ? "Active mode: Combination preview" : "Active mode: Single visualization";
+    variableControls.forEach(({ control }) => { control.hidden = !combined; });
+    document.querySelector(".track-toolbar")?.toggleAttribute("hidden", combined);
+    document.getElementById("time-series-panel")?.toggleAttribute("hidden", combined);
+    document.getElementById("frame-readings")?.toggleAttribute("hidden", combined);
   }
   controls.innerHTML = LAYERS.map(([, key, name, instrument]) => `<div class="combined-layer">
     <label class="checkbox-label"><input id="layer-${key}" type="checkbox" ${instrument || key !== "carbon-monoxide" && key !== "ozone" ? "checked" : ""}> ${name}</label>
-    ${instrument ? `<label class="sr-only" for="gain-${key}">${name} volume</label><input id="gain-${key}" type="range" min="0" max="100" value="65" aria-label="${name} volume" aria-valuetext="65 percent">` : `<span class="control-help">Visual layer only; a dedicated sound mapping is not available yet.</span>`}
+    ${instrument ? "" : `<span class="control-help">Visual layer only; a dedicated sound mapping is not available yet.</span>`}
     <span id="reading-${key}" class="control-help">Unavailable</span></div>`).join("");
   function layerKey(track) { return LAYERS.find(([id]) => id === track?.id)?.[1] ?? null; }
-  function renderCombinedGuide(entries) {
-    const summaries = {
-      temperature: "warmer → higher pitch",
-      wind: "more visible signal → faster pulses",
-      precipitation: "larger amount → faster drum",
-      humidity: "higher → brighter strings",
-      pm25: "higher → brighter metallic tone",
-      carbonMonoxide: "higher → higher note",
-      ozone: "higher → higher pluck",
-    };
-    combinedGuideList.replaceChildren(...entries.map(({ track }) => {
-      const description = describeExperience(track);
-      const item = document.createElement("li");
-      const name = document.createElement("strong");
-      name.textContent = `${description.name}: `;
-      const mapping = document.createElement("span");
-      mapping.textContent = summaries[description.kind] ?? description.heading;
-      if (description.kind === "wind" && track.sonification?.input !== "visualSignal") {
-        mapping.textContent = "higher speed → faster pulses";
-      }
-      item.append(name, mapping);
-      return item;
-    }));
-    combinedGuideLoading.hidden = true;
+  function showVariableGuide() {
+    const entry = datasets?.find((item) => item.layerKey === variableSelect.value);
+    if (!entry) return;
+    renderExperience(entry.track);
+    const set = (id, text) => { const element = document.getElementById(id); if (element) element.textContent = text; };
+    set("normalization-range", describeNormalizationRange(entry.data));
+    set("mean-weighting-method", describeMeanWeighting(entry.data));
+    set("pixel-filter-method", describePixelFilters(entry.colorbar));
   }
   function applyControls() {
     for (const [, key, , instrument] of LAYERS) {
       if (!instrument) continue;
       audio.setInstrumentMuted(instrument, toggle.checked && !legendActive && !document.getElementById(`layer-${key}`).checked);
-      audio.setInstrumentGain(instrument, toggle.checked && !legendActive ? Number(document.getElementById(`gain-${key}`).value) / 100 : 1);
+      audio.setInstrumentGain(instrument, toggle.checked && !legendActive ? COMBINED_GAIN : 1);
     }
   }
   async function load() {
@@ -85,7 +116,12 @@ export function initCombined({ audio, getFrame, getRegion, onChange, onVisuals =
       const activeTrack = { ...track, unit: data.unit, statistics: data.statistics, sonification: data.sonification };
       if ((instrument && soundKind(activeTrack) !== instrument) || (!instrument && soundKind(activeTrack) !== null)) throw new Error(`Unexpected instrument for ${id}.`);
       const regional = validateRegionalFeatures(await fetchJSON(new URL("../regions.json", directory), controller.signal), activeTrack, data);
-      return { track: activeTrack, layerKey: key, instrument, timeline: indexTimeline(data.frames), regional, mock: data.mock, statistics: data.statistics, sonification: data.sonification };
+      let colorbar = null;
+      if (track.colorbar?.file) {
+        try { colorbar = await fetchJSON(new URL("../colorbar.json", directory), controller.signal); }
+        catch (error) { if (error.name === "AbortError") throw error; }
+      }
+      return { track: activeTrack, layerKey: key, instrument, timeline: indexTimeline(data.frames), regional, mock: data.mock, statistics: data.statistics, sonification: data.sonification, colorbar, data: { vmin: data.vmin, vmax: data.vmax, unit: data.unit, mock: data.mock, statistics: data.statistics, sonification: data.sonification } };
     })).then((result) => {     const soundLayers = result.filter((entry) => entry.instrument && entry.statistics?.mean); if (soundLayers.some((entry) => JSON.stringify(entry.statistics) !== JSON.stringify(soundLayers[0].statistics))) throw new Error("Sound datasets have different mean methods. Finish regenerating all sound tracks before combining."); if (!destroyed) datasets = result; return result; }).finally(() => { pending = null; });
     return pending;
   }
@@ -106,47 +142,53 @@ export function initCombined({ audio, getFrame, getRegion, onChange, onVisuals =
   toggle.addEventListener("change", async () => {
     const id = ++generation;
     audio.stop(); audio.setCombinedMode(toggle.checked); applyControls();
-    syncPreviewTabs(toggle.checked);
+    syncMode(toggle.checked);
     controls.hidden = !toggle.checked;
     listeningSidebar.classList.toggle("combined-active", toggle.checked);
     soundGuide.hidden = toggle.checked;
-    soundSettings.hidden = toggle.checked;
-    combinedGuide.hidden = true;
-    combinedGuideLoading.hidden = false;
-    const frameReadings = document.getElementById("frame-readings");
-    if (frameReadings) frameReadings.hidden = toggle.checked;
-    if (!toggle.checked) { status.textContent = "Individual experience mode."; onChange(); return; }
+    if (soundSettings) soundSettings.hidden = toggle.checked;
+    if (combinedGuide) combinedGuide.hidden = true;
+    if (!toggle.checked) {
+      restoreSingle();
+      status.textContent = "Single experience mode active."; onChange(); return;
+    }
     status.textContent = "Loading seven aligned datasets…"; render(); onChange();
     try {
       await load();
       if (destroyed || id !== generation || !toggle.checked) return;
-      renderCombinedGuide(datasets);
-      combinedGuide.hidden = false;
-      status.textContent = "Experimental mix: exact supplied timestamp labels. Time zones and scientific interval alignment are not confirmed. Missing layer values are silent.";
+      showVariableGuide();
+      soundGuide.hidden = false;
+      status.textContent = "Combined experience mode active.";
       render(); onChange();
     } catch (error) {
       if (destroyed || id !== generation) return;
       controller?.abort();
       toggle.checked = false; controls.hidden = true;
-      syncPreviewTabs(false);
+      syncMode(false);
       listeningSidebar.classList.remove("combined-active");
       soundGuide.hidden = false;
-      soundSettings.hidden = false;
-      combinedGuide.hidden = true;
-      if (frameReadings) frameReadings.hidden = false;
+      if (soundSettings) soundSettings.hidden = false;
+      restoreSingle();
       audio.stop(); audio.setCombinedMode(false); applyControls();
       status.textContent = `Combined sound unavailable: ${error.message} Individual playback remains available. Toggle to retry.`;
       onChange();
     }
   });
-  for (const [, key, , instrument] of LAYERS) {
+  for (const [, key] of LAYERS) {
     document.getElementById(`layer-${key}`).addEventListener("change", () => { applyControls(); onChange(); });
-    if (!instrument) continue;
-    document.getElementById(`gain-${key}`).addEventListener("input", (event) => {
-      event.target.setAttribute("aria-valuetext", `${event.target.value} percent`); applyControls(); onChange();
+  }
+  for (const { select } of variableControls) {
+    select.addEventListener("change", () => {
+      for (const other of variableControls) other.select.value = select.value;
+      showVariableGuide(); onChange();
     });
   }
   return {
+    get legendKind() {
+      const key = variableSelect.value;
+      const visual = datasets?.find((entry) => entry.layerKey === key)?.track.sonification?.input === "visualSignal";
+      return key === "carbon-monoxide" ? "carbonMonoxide" : visual && (key === "wind" || key === "pm25") ? `${key}Visual` : key;
+    },
     get enabled() { return toggle.checked; },
     get ready() { return datasets !== null; },
     render,

@@ -5,6 +5,8 @@ import { describeExperience } from "./experience.js";
 import { soundKind } from "../engine/mapping.js";
 const FRAME_INTERVAL_MS = 250;
 
+const byId = (id) => document.getElementById(id) ?? { textContent: "" };
+
 function localizedText(value, fallback) {
   if (typeof value === "string") return value;
   return value?.en ?? value?.pt ?? fallback;
@@ -13,13 +15,13 @@ function localizedText(value, fallback) {
 export function initPlayer(index, hooks = {}) {
   const root = document.getElementById("player");
   root.innerHTML = `
-    <div class="player-heading">
-      <div><p class="eyebrow">Explore the Earth</p><h2 id="track-title">Earth player</h2></div>
-      <span id="playback-state" class="playback-state">Paused</span>
-    </div>
     <div class="player-preview-tabs" role="tablist" aria-label="Visualization preview">
       <button id="individual-preview-tab" type="button" role="tab" aria-selected="true" aria-controls="frame-map-panel" tabindex="0">Single visualization</button>
       <button id="combined-preview-tab" type="button" role="tab" aria-selected="false" aria-controls="frame-map-panel" tabindex="-1">Combination preview</button>
+    </div>
+    <div class="player-heading">
+      <div><p class="eyebrow">Explore the Earth</p><h2 id="track-title">Earth player</h2></div>
+      <span id="playback-state" class="playback-state">Paused</span>
     </div>
     <div class="track-toolbar"><label for="track-select">Experience</label><select id="track-select"></select><span id="demo-data" class="badge" hidden>Demo data</span></div>
     <p id="demo-notice" class="demo-notice" hidden><strong>Demonstration values.</strong> Dataset values and dates are simulated, not scientific measurements.</p>
@@ -69,6 +71,8 @@ export function initPlayer(index, hooks = {}) {
   const find = (id) => root.querySelector(`#${id}`);
   const combineToggle = document.getElementById("combine-sounds");
   find("frame-readings").hidden = combineToggle.checked;
+  let singleTitle = "Earth player";
+  const setTitle = (text) => { singleTitle = text; const el = find("track-title"); el.dataset.singleTitle = text; el.textContent = combineToggle.checked ? "Combination preview" : text; };
   const individualTab = find("individual-preview-tab"), combinedTab = find("combined-preview-tab");
   const frameMapPanel = find("frame-map-panel"), tabList = root.querySelector("[role='tablist']");
   function syncPreviewTabs(combined) {
@@ -372,13 +376,13 @@ export function initPlayer(index, hooks = {}) {
     find("data-caveat").hidden = true;
     find("frame-readings").setAttribute("aria-describedby", "readings-help");
     renderReading(root, null);
-    document.getElementById("normalization-range").textContent = "Normalization limits are unavailable.";
+    byId("normalization-range").textContent = "Normalization limits are unavailable.";
     find("note-status").textContent = "No frame selected.";
     description.textContent = "Loading frame data…";
-    find("track-title").textContent = trackId;
+    setTitle(trackId);
     updateControls();
     status.textContent = "Loading track…";
-    document.getElementById("pixel-filter-method").textContent = "Loading color-filter settings…";
+    byId("pixel-filter-method").textContent = "Loading color-filter settings…";
     try {
       const signal = trackController.signal;
       const track = await fetchJSON(`tracks/${encodeURIComponent(trackId)}.json`, signal);
@@ -402,8 +406,8 @@ export function initPlayer(index, hooks = {}) {
       find("data-caveat").hidden = data.mock || !experience.caveat;
       hooks.onTrack?.(activeTrack);
       hooks.onTrackData?.({ track: activeTrack, data, frames, frameDirectory, colorbar });
-      document.getElementById("normalization-range").textContent = data.sonification?.input === "visualSignal" ? `Pixel color legend: ${data.vmin} to ${data.vmax} ${data.unit}. The visible signal index is dimensionless (0–1), not a physical concentration or speed.` : data.vmin === null ? "Normalization limits are unavailable." : `The supplied range is ${data.vmin} to ${data.vmax} ${data.unit}${data.mock ? " (demo values)" : ""}.`;
-      find("track-title").textContent = track.title?.en ?? trackId;
+      byId("normalization-range").textContent = data.sonification?.input === "visualSignal" ? `Pixel color legend: ${data.vmin} to ${data.vmax} ${data.unit}. The visible signal index is dimensionless (0–1), not a physical concentration or speed.` : data.vmin === null ? "Normalization limits are unavailable." : `The supplied range is ${data.vmin} to ${data.vmax} ${data.unit}${data.mock ? " (demo values)" : ""}.`;
+      setTitle(track.title?.en ?? trackId);
       select.selectedOptions[0].textContent = experience.name;
       find("demo-data").hidden = !data.mock;
       find("demo-notice").hidden = !data.mock;

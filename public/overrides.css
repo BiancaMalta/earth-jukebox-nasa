@@ -1,0 +1,43 @@
+/* Additions loaded after styles.css (see <link> in index.html). Safe to paste at the end of styles.css instead. */
+
+/* 1. With the "Sound" panel gone, the sidebar has a single row: make it fill the full height of the player,
+      and let the "Understand the sound" box stretch to the bottom of it (same behavior the combined mode already had). */
+@media (min-width: 961px) {
+  .listening-sidebar,
+  .listening-sidebar.combined-active { grid-template-rows: minmax(0, 1fr); align-content: stretch; align-self: stretch; }
+  .listening-sidebar .exploration-options { display: grid; grid-template-rows: auto minmax(0, 1fr); min-height: 0; padding-bottom: 0; }
+  .listening-sidebar .options-grid { grid-template-rows: max-content minmax(0, 1fr); min-height: 0; }
+  .listening-sidebar .guide-panel { display: flex; flex-direction: column; min-height: 0; }
+}
+
+/* 2. Single / Combined mode switch. */
+.mode-active { margin: 10px 0 14px; font-weight: 700; }
+.mode-switch { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; }
+.mode-side { font-weight: 600; color: var(--muted); }
+.mode-switch:has(input:not(:checked)) .mode-side--single,
+.mode-switch:has(input:checked) .mode-side--combined { color: var(--accent); }
+.switch { position: relative; display: inline-flex; cursor: pointer; }
+.switch input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.switch-track { display: inline-block; width: 52px; height: 28px; border-radius: 999px; background: #3a4a59; border: 2px solid #8faabb; transition: background .2s; }
+.switch-thumb { display: block; width: 20px; height: 20px; margin: 2px; border-radius: 50%; background: #fff; transition: transform .2s; }
+.switch input:checked + .switch-track { background: var(--accent); border-color: var(--accent); }
+.switch input:checked + .switch-track .switch-thumb { transform: translateX(24px); background: #0b2925; }
+.switch input:focus-visible + .switch-track { outline: 3px solid #ffd777; outline-offset: 4px; }
+#mode-single-help, #mode-combined-help { margin-top: 10px; }
+
+/* 3. Keep the "Listening mode" box the same height in both modes: the status text and an invisible copy of the
+      longest status message share one grid cell, so the cell is always as tall as the longest message. */
+.status-stack { display: grid; }
+.status-stack > * { grid-area: 1 / 1; }
+.status-sizer { visibility: hidden; pointer-events: none; }
+
+/* 4. Keep a breathing margin under the "Understand the sound" box equal to the panel's side padding. */
+@media (min-width: 961px) {
+  .listening-sidebar .exploration-options,
+  .listening-sidebar.combined-active .exploration-options { padding-bottom: 24px; }
+}
+
+/* 5. Variable choosers shown only in combined mode. */
+.combined-variable-control { display: grid; gap: 6px; margin: 14px 0; }
+.combined-variable-control label { color: var(--muted); font-size: .85rem; }
+.explanation-details > .combined-variable-control { margin: 16px 0 0; max-width: 28rem; }

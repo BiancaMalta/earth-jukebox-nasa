@@ -141,7 +141,7 @@ export function describeExperience(track) {
 
 export function renderExperience(track) {
   const experience = describeExperience(track);
-  const set = (id, text) => { document.getElementById(id).textContent = text; };
+  const set = (id, text) => { const element = document.getElementById(id); if (element) element.textContent = text; };
   set("guide-heading", experience.heading);
   set("mapping-help", experience.mapping);
   set("instrument-name", experience.instrument);
@@ -151,8 +151,6 @@ export function renderExperience(track) {
   set("scale-description", experience.scale);
   set("readings-help", experience.readings);
   set("sound-mapping-detail", experience.normalization);
-  set("legend-help", `${experience.legend} Disable sound or navigate to stop it.`);
-  const ambience = document.getElementById("temperature-ambience");
-  ambience.disabled = experience.kind !== "temperature";
+  set("legend-help", `${experience.legend} Press the button again or navigate to stop it.`);
   return experience;
 }
