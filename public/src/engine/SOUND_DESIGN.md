@@ -32,10 +32,31 @@ AI-assisted: OpenAI Codex. Front-end engineering notes; the data contract remain
   Missing, negative, nonfinite values or zero coverage mean silence. Zero
   specific humidity is a valid thin-pad reference, not a missing value.
 - PM2.5 (SVS 5151, µg/m³): use the supplied `norm` on the logarithmic
-  0.4–409.6 µg/m³ legend. It controls two slow pink-noise swells and filter
-  openness; the transfer is fixed and loudness does not change. The sound is a
-  synthetic wave-and-air metaphor, not measured wind, ocean waves, particle
-  motion or health risk. Missing values or zero pixel coverage mean silence.
+  0.4–409.6 µg/m³ legend. A fixed monotonic curve, `brightness = norm + 0.3 *
+  sin(π * norm)`, is shared across the full image and all regions. It controls
+  the low-pass cutoff `1400 + 4800 * brightness` Hz and a continuous C4–C6 tone
+  `261.625565 * 4 ** brightness` Hz. One metallic FM voice starts once during
+  playback and glides between frames; it does not strike on every frame. Gain
+  and loudness are fixed. This is a metallic shimmer metaphor, not measured
+  particle motion or a health risk. In the current 124-frame extraction the global mean is 1.494–2.017
+  µg/m³ (`norm` 0.190–0.233); continent-period means range from Antarctica at
+  0.47 / 0.022 to Asia at 8.17 / 0.431. The regional table uses equal pixel
+  weights. Its open-ocean row is not treated as a reliable signal: it has only
+  83 valid frames out of 124, with mean coverage 0.214 on those valid frames,
+  despite an extreme mean near 375 µg/m³. Missing values or zero pixel coverage
+  mean silence.
+- Carbon monoxide (SVS 5153, ppbv): use the supplied linear-legend `norm` to
+  select one of 11 C major pentatonic notes from C3 to C5. A filtered,
+  brass-like single voice follows the frame; rising concentration means higher
+  pitch, not a health-risk rating. The image-derived global mean changes very
+  little in this interval, while the regional estimates vary more. Regional
+  tables currently use equal weights per accepted pixel.
+- Ozone (SVS 5152, ppbv): use the supplied linear-legend `norm` to select the
+  same pentatonic steps one octave higher, C4 to C6. One short plucked-string
+  note follows each frame; rising concentration means higher pitch, not a
+  health-risk rating. Around 43–46% of analyzed pixels are used in these frames;
+  that is image-pixel coverage, not accuracy or geographic area. Regional tables
+  currently use equal weights per accepted pixel.
 - The four climate datasets are image-derived (`mock: false`), not raw
   numerical GEOS-FP grids. `mean` and `norm` are consumed exactly as supplied.
   Small normalized changes may stay on one pentatonic step;
@@ -74,15 +95,24 @@ pitch and detuning do not change. Gain compensation
 This replaces the earlier near-sine pad whose constant fundamental masked the
 noise bandwidth difference. The sound is synthesized and string-like, not a
 recording of a real bowed instrument.
-PM2.5 uses two persistent filtered pink-noise streams: a low-pass rolling swell
-and a band-pass airy current. Cubed, slow sine gates keep both layers rounded;
-the supplied log-scale position changes their rates (0.07–0.18 and 0.22–0.42 Hz)
-and filter openness, not amplitude. Fixed layer gains (0.50/0.30) and channel
-calibration 2.0 make the noise texture audible beside tonal instruments without
-letting concentration change loudness. A gentle 8% reverb joins the layers.
-This is a soft, wave-like synthetic texture, distinct from the wind flute, and
-does not claim to encode actual wind or ocean conditions.
-All five instruments use smooth ramps/envelopes and are allocated once per audio
+PM2.5 uses one persistent `FMSynth` through a low-pass filter and light reverb.
+During playback, the first valid frame starts a sustained metallic voice; later
+frames use portamento to move its pitch and ramp the filter without retriggering
+the envelope. Pause, missing data, mute and experience changes release it. The
+player remains the only clock. Manual frame selection and the sound legend use
+bounded notes. Its synth level is -3 dB and its channel calibration is 2.5,
+about 8 dB above the previous setting; the shared limiter still caps the mixed
+output at -6 dBFS. The timbre suggests a fine metallic shimmer, not literal
+particles, wind, ocean or health risk.
+CO uses a bright trumpet-like pulse through a low-pass filter with a quick,
+soft attack and mild portamento. The supplied norm still selects its C3–C5
+pentatonic note. It is a synthesized timbre, not a trumpet sample. Ozone uses
+one soft harp-like `PluckSynth` voice, with a gentle attack, resonant decay and
+light reverb. Its supplied norm still selects its C4–C6 pentatonic note. These
+are distinct sound identities; neither instrument owns a clock or adds notes.
+Ozone's initial channel calibration is 2.8 (up from 0.75) to keep its pluck
+present in the mix; the shared limiter remains active.
+All seven instruments use smooth ramps/envelopes and are allocated once per audio
 initialization, behind a silent gate until explicitly played.
 
 The visual player owns time. No instrument has a JavaScript frame timer.
@@ -96,8 +126,8 @@ pause, missing data, mute and switching experiences stop the old sound.
 
 `audio.js` owns one context, calibrated independent layer gains, a speech-ducking
 gain, master volume and a shared -6 dB limiter. Initial master volume is -30 dB;
-calibration balances the five sound identities independently of their data values.
-`setInstrumentGain`, `setInstrumentMuted` and `updateInstrument` control the five
+calibration balances the seven sound identities independently of their data values.
+`setInstrumentGain`, `setInstrumentMuted` and `updateInstrument` control the seven
 real instruments independently. Current `playFrame` deliberately selects only one.
 Own browser speech ducks instrument gain to 35%; it does not route through Tone
 or guarantee a bound on device/speech loudness.
@@ -114,11 +144,11 @@ dataset dates have no offsets. The newly integrated temperature, wind, rainfall
 and humidity values are image-derived and no longer mock; matching timestamp
 strings are not by themselves proof of scientific temporal equivalence. Model-field comparison and area weighting remain data-team work.
 
-## Five-layer listening experiment
+## Seven-layer listening experiment
 
-The optional Combined Earth panel enables the four climate instruments and the
-PM2.5 texture after explicit user selection. `combinedFrames` joins by the exact
-supplied timestamp label, not array index. These five sound datasets share 124 labels, from
+The optional Combined Earth panel enables the four climate instruments, PM2.5,
+CO and ozone after explicit user selection. `combinedFrames` joins by the exact
+supplied timestamp label, not array index. These seven sound datasets share 124 labels, from
 2026-10-30T06:00 through 2026-11-14T14:00. These labels omit timezone offsets;
 this is an experimental label-aligned mix, not a confirmation of physical UTC
 alignment, accumulation intervals or common scientific provenance.
@@ -136,7 +166,7 @@ adds a 0.5 shared mix gain before speech ducking, master gain and the existing
 single limiter; individual mode restores mix and instrument gains to 1 and
 clears instrument mutes. Controls update existing instruments; there are no new
 voices per frame or independent advancing transports. Disabling sound, pausing
-and page suspension release every layer. This explicit five-layer experiment
+and page suspension release every layer. This explicit seven-layer experiment
 extends the earlier planned three-layer first combination.
 
 

@@ -1,10 +1,12 @@
 // AI-assisted: OpenAI Codex
-import { PENTATONIC_NOTES, mapFrameSound, mapWindSpeed, mapWindActivity, mapPrecipitation, mapHumidity, mapPm25 } from "./mapping.js";
+import { PENTATONIC_NOTES, CO_NOTES, OZONE_NOTES, mapFrameSound, mapWindSpeed, mapWindActivity, mapPrecipitation, mapHumidity, mapPm25, mapCarbonMonoxide, mapOzone } from "./mapping.js";
 import { createTemperatureSound } from "./temperatureSound.js";
 import { createWindSound } from "./windSound.js";
 import { createPrecipitationSound } from "./precipitationSound.js";
 import { createHumiditySound } from "./humiditySound.js";
 import { createPm25Sound } from "./pm25Sound.js";
+import { createCarbonMonoxideSound } from "./carbonMonoxideSound.js";
+import { createOzoneSound } from "./ozoneSound.js";
 
 // Shared context/master/limiter. Instrument resources are allocated once after
 // explicit interaction. No audio module owns a frame timer or dataset position.
@@ -13,7 +15,7 @@ export function createAudioEngine(loadTone = () => import("tone")) {
   let enabled = false, muted = false, level = 25, disposed = false, ambience = true, ducking = false;
   let combined = false;
   const instruments = {}, channels = {};
-  const calibration = { temperature: 0.65, wind: 1.2, precipitation: 1.5, humidity: 2, pm25: 2 };
+  const calibration = { temperature: 0.65, wind: 1.2, precipitation: 1.5, humidity: 2, pm25: 2.5, carbonMonoxide: 0.8, ozone: 2.8 };
   const layerGain = Object.fromEntries(Object.keys(calibration).map((kind) => [kind, 1]));
   const layerMuted = Object.fromEntries(Object.keys(calibration).map((kind) => [kind, false]));
   const decibels = () => level === 0 ? -Infinity : -30 + 20 * Math.log10(level / 25);
@@ -50,6 +52,8 @@ export function createAudioEngine(loadTone = () => import("tone")) {
           instruments.precipitation = createPrecipitationSound(tone, channels.precipitation);
           instruments.humidity = createHumiditySound(tone, channels.humidity);
           instruments.pm25 = createPm25Sound(tone, channels.pm25);
+          instruments.carbonMonoxide = createCarbonMonoxideSound(tone, channels.carbonMonoxide);
+          instruments.ozone = createOzoneSound(tone, channels.ozone);
           await Promise.all(Object.values(instruments).map((instrument) => instrument.ready));
           if (disposed) return;
         }
@@ -64,13 +68,14 @@ export function createAudioEngine(loadTone = () => import("tone")) {
     if (!instruments[parameters.kind] || tone.getContext().state !== "running") return false;
     if (duration !== undefined && (!Number.isFinite(duration) || duration <= 0)) return false;
     if (parameters.kind === "temperature" && !PENTATONIC_NOTES.includes(parameters.note)) return false;
+    if (parameters.kind === "carbonMonoxide" && !CO_NOTES.includes(parameters.note)) return false;
+    if (parameters.kind === "ozone" && !OZONE_NOTES.includes(parameters.note)) return false;
     if (parameters.kind === "wind" && (!Number.isFinite(parameters.rate) || parameters.rate < 0.3 || parameters.rate > 4)) return false;
     if (parameters.kind === "precipitation" && (!Number.isFinite(parameters.rate) || parameters.rate < 0 || parameters.rate > 5)) return false;
     if (parameters.kind === "humidity" && (!Number.isFinite(parameters.bandwidth) || parameters.bandwidth < 160 || parameters.bandwidth > 1600)) return false;
     if (parameters.kind === "pm25" && (
-      !Number.isFinite(parameters.waveRate) || parameters.waveRate < 0.07 || parameters.waveRate > 0.18
-      || !Number.isFinite(parameters.airRate) || parameters.airRate < 0.22 || parameters.airRate > 0.42
-      || !Number.isFinite(parameters.openness) || parameters.openness < 0 || parameters.openness > 1
+      !Number.isFinite(parameters.frequency) || parameters.frequency < 261.6 || parameters.frequency > 1046.6
+      || !Number.isFinite(parameters.brightness) || parameters.brightness < 0 || parameters.brightness > 1
     )) return false;
     instruments[parameters.kind].update(parameters, duration);
     return true;
@@ -117,6 +122,14 @@ export function createAudioEngine(loadTone = () => import("tone")) {
     playPm25(position, duration) {
       const texture = mapPm25(position);
       return playMapped(texture === null ? null : { kind: "pm25", ...texture }, duration);
+    },
+    playCarbonMonoxide(position, duration) {
+      const note = mapCarbonMonoxide(position);
+      return playMapped(note === null ? null : { kind: "carbonMonoxide", note }, duration);
+    },
+    playOzone(position, duration) {
+      const note = mapOzone(position);
+      return playMapped(note === null ? null : { kind: "ozone", note }, duration);
     },
     get enabled() { return enabled; }, get muted() { return muted; }, get volume() { return level; },
     setVolume(value) {

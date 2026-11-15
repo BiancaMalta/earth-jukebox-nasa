@@ -3,6 +3,34 @@ import { soundKind } from "../engine/mapping.js";
 
 export function describeExperience(track) {
   const kind = soundKind(track);
+  if (kind === "carbonMonoxide") return {
+    kind, name: "Carbon monoxide (CO)", instrument: "Bright trumpet-like lead",
+    character: "Synthesized pulse · filtered single voice · lower register",
+    heading: "Carbon monoxide becomes a trumpet-like melody",
+    mapping: "The supplied normalized concentration selects one note from a fixed C major pentatonic scale. Lower values sound lower; higher values sound higher. This synthetic trumpet-like tone is a data cue, not a risk alarm.",
+    low: "Lower concentration", lowDetail: "Lower pitch · C3 · 40 ppbv reference",
+    high: "Higher concentration", highDetail: "Higher pitch · C5 · 500 ppbv reference",
+    scale: "Each frame uses the supplied 0–1 position on the fixed 40–500 ppbv legend. The selected note is not stretched to the values observed in the current frames or region.",
+    readings: "Carbon monoxide is an image-derived near-surface concentration estimate in ppbv, decoded from NASA SVS 5153 colors. It is not the raw numerical GEOS-CF grid. Global means change little in this interval; country and continent estimates vary more. Regional means currently use equal weights per accepted image pixel.",
+    normalization: "The supplied norm selects one of 11 C major pentatonic notes from C3 to C5. The front end does not recompute norm. Missing norm or zero pixel coverage means silence.",
+    caveat: "CO values are image-derived estimates, not a direct numerical GEOS-CF field. Coverage is the share of analyzed image pixels used, not accuracy or geographic area. The synthetic voice does not assess health risk.",
+    legend: "A five-second comparison of 40 and 500 ppbv legend endpoints, not the current measurements. Higher supplied concentration maps to higher pitch. The legend pauses the player.",
+    exampleSpeech: "Lower carbon monoxide concentration means a lower trumpet-like note. Higher concentration means a higher note. This sound is not a health-risk rating.",
+  };
+  if (kind === "ozone") return {
+    kind, name: "Ozone (O₃)", instrument: "Soft harp-like pluck",
+    character: "Gentle Karplus–Strong string · short pentatonic note per frame",
+    heading: "Ozone becomes a soft harp-like melody",
+    mapping: "The supplied normalized concentration selects one note from a fixed C major pentatonic scale. Ozone uses a higher register than the other melodic voices; higher values sound higher.",
+    low: "Lower concentration", lowDetail: "Lower plucked note · C4 · 5 ppbv reference",
+    high: "Higher concentration", highDetail: "Higher plucked note · C6 · 60 ppbv reference",
+    scale: "Each frame uses the supplied 0–1 position on the fixed 5–60 ppbv legend. The selected note is not stretched to the values observed in the current frames or region.",
+    readings: "Ozone is an image-derived near-surface concentration estimate in ppbv, decoded from NASA SVS 5152 colors. It is not the raw numerical GEOS-CF grid. The global mean changes little in this interval; regional estimates vary more. Regional means currently use equal weights per accepted image pixel.",
+    normalization: "The supplied norm selects one of 11 C major pentatonic notes from C4 to C6. The front end does not recompute norm. Missing norm or zero pixel coverage means silence.",
+    caveat: "Ozone values are image-derived estimates, not a direct numerical GEOS-CF field. About 43–46% of analyzed pixels are used in the current frames; this is image-pixel coverage, not accuracy or geographic area. The sound is not a health-risk rating.",
+    legend: "A five-second comparison of 5 and 60 ppbv legend endpoints, not the current measurements. Higher supplied concentration maps to higher pitch. The legend pauses the player.",
+    exampleSpeech: "Lower ozone concentration means a lower plucked note. Higher concentration means a higher note. This sound is not a health-risk rating.",
+  };
   if (track && kind === null) {
     const name = typeof track.title === "string" ? track.title : track.title?.en ?? track.id ?? "Dataset";
     return {
@@ -20,18 +48,18 @@ export function describeExperience(track) {
     };
   }
   if (kind === "pm25") return {
-    kind, name: "PM2.5", instrument: "Airy wave-and-wind texture",
-    character: "Layered pink noise · slow rolling swells · no melody or beat",
-    heading: "PM2.5 shapes an airy wave texture",
-    mapping: "The supplied log-scaled position opens the filtered air texture and quickens the slow swells. This is an artistic sound code, not measured wind, ocean waves, particle motion or a health assessment.",
-    low: "Smoother, slower swells", lowDetail: "0.4 µg/m³ reference",
-    high: "Brighter, quicker swells", highDetail: "409.6 µg/m³ reference",
-    scale: "The supplied 0–1 log-scale position controls filter openness and two gentle noise swells. Loudness stays fixed; the sound does not imply actual wind or wave speed.",
-    readings: "PM2.5 is an image-derived near-surface concentration estimate in µg/m³. The sound uses the supplied logarithmic legend position. The filtered noise is a metaphor, not measured wind or ocean activity.",
-    normalization: "The provided norm follows the logarithmic 0.4–409.6 µg/m³ legend. It controls a slow swell rate of 0.07–0.18 Hz, an airy pulse of 0.22–0.42 Hz, and filter openness. The front end does not recompute the position or vary loudness. Missing values or zero pixel coverage produce silence.",
-    caveat: "Image-derived PM2.5 estimate, not a direct numerical GEOS-CF grid or health assessment. The wave-and-air texture is synthetic; it does not represent actual wind or ocean waves.",
-    legend: "A five-second comparison of 0.4 and 409.6 µg/m³ reference values, not the current frame. Higher legend position makes the synthetic swells brighter and quicker. The legend pauses the player.",
-    exampleSpeech: "Lower PM2.5 legend position means smoother, slower swells. Higher position means a brighter, quicker air-and-wave texture. This is not a measurement of wind or ocean waves.",
+    kind, name: "PM2.5", instrument: "Soft metallic dust shimmer",
+    character: "Sustained metallic FM tone · gentle pitch glide · variable spectral brightness",
+    heading: "PM2.5 shapes a metallic shimmer",
+    mapping: "The supplied log-scaled position moves a soft metallic tone higher and brighter as PM2.5 concentration rises. The note glides with the player instead of striking on every frame. Loudness stays fixed. This is a sound code, not a health assessment or a literal sound of particles.",
+    low: "Lower, darker metallic tone", lowDetail: "C4 · 0.4 µg/m³ reference",
+    high: "Higher, brighter metallic tone", highDetail: "C6 · 409.6 µg/m³ reference",
+    scale: "The supplied 0–1 log-scale position controls a fixed, monotonic pitch-and-brightness curve. During playback one sustained voice glides between frames; it adds no beat and does not retrigger on each frame.",
+    readings: "PM2.5 is an image-derived near-surface concentration estimate in µg/m³. The sound uses the supplied logarithmic legend position. Its metallic shimmer is a metaphor, not a measurement of particle size, wind or health risk.",
+    normalization: "The provided norm follows the logarithmic 0.4–409.6 µg/m³ legend. A fixed curve, brightness = norm + 0.3 × sin(π × norm), sets a low-pass cutoff from 1400 to 6200 Hz and a continuous tone from C4 to C6. The curve is shared by the global image and every region; the front end does not recompute norm. Loudness stays fixed. Missing values or zero pixel coverage release the voice.",
+    caveat: "Image-derived PM2.5 estimate, not a direct numerical GEOS-CF grid or health assessment. A higher, brighter tone means a higher supplied concentration position, not a danger rating.",
+    legend: "A five-second comparison of 0.4 and 409.6 µg/m³ reference values, not the current frame. Higher log-scaled PM2.5 position means a higher, brighter metallic tone at the same loudness. The legend pauses the player.",
+    exampleSpeech: "Lower PM2.5 legend position means a lower, darker metallic tone. Higher position means a higher, brighter tone at the same loudness. This is not a health-risk rating.",
   };
   if (kind === "precipitation") return {
     kind, name: "Precipitation", instrument: "Dry tamborim-style percussion",
