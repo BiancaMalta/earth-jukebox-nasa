@@ -115,7 +115,7 @@ test("ozone keeps the supplied ppbv norm and maps it to the upper pentatonic plu
   assert.equal(describeReading(result.frames[0], track).soundValue, mapOzone(result.frames[0].norm));
 });
 
-test("the PM2.5 track uses its logarithmic concentration range for metallic brightness", async () => {
+test("the PM2.5 track retains log concentration diagnostics and supplies its visual sound index", async () => {
   const [index, track, data] = await Promise.all([
     readFile(new URL("../../tracks/index.json", import.meta.url)).then(JSON.parse),
     readFile(new URL("../../tracks/ar-pm25.json", import.meta.url)).then(JSON.parse),
@@ -135,9 +135,11 @@ test("the PM2.5 track uses its logarithmic concentration range for metallic brig
   const firstFrame = result.frames[0];
   assert.equal(firstFrame.norm, Number(((Math.log(firstFrame.mean) - Math.log(0.4)) / (Math.log(409.6) - Math.log(0.4))).toFixed(3)));
   assert.equal(soundKind(track), "pm25");
-  assert.deepEqual(mapFrameSound(firstFrame, track), { kind: "pm25", ...mapPm25(firstFrame.norm) });
-  assert.equal(mapFrameSound({ ...firstFrame, norm: null }, track), null);
-  assert.equal(mapFrameSound({ ...firstFrame, coverage: 0 }, track), null);
+  const activeTrack = { ...track, sonification: result.sonification };
+  assert.equal(result.sonification.input, "visualSignal");
+  assert.deepEqual(mapFrameSound(firstFrame, activeTrack), { kind: "pm25", ...mapPm25(firstFrame.visualSignal) });
+  assert.equal(mapFrameSound({ ...firstFrame, visualSignal: null }, activeTrack), null);
+  assert.equal(mapFrameSound({ ...firstFrame, coverage: 0 }, activeTrack), null);
   assert.equal(soundKind({ ...track, unit: "ppbv" }), null);
   assert.equal(describeExperience(track).kind, "pm25");
   assert.equal(describeReading(firstFrame, track).soundLabel, "Tone / filter brightness");

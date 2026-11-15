@@ -29,6 +29,7 @@ FRAME_INTERVAL = timedelta(hours=3)
 DST_END_UTC = datetime(2026, 11, 1, 6, tzinfo=timezone.utc)
 COLOR_MATCH_BATCH_SIZE = 4096
 WIND_SONIFICATION = {"input": "visualSignal", "quantity": "visible wind color signal", "unit": "1"}
+PM25_SONIFICATION = {"input": "visualSignal", "quantity": "visible PM2.5 log-color signal", "unit": "1"}
 AREA_STATISTICS = {
     "mean": "area_weighted", "weighting": "cos_latitude",
     "p90": "unweighted_pixel_percentile", "coverage": "accepted_pixel_fraction",
@@ -118,6 +119,24 @@ def visible_wind_signal(values: np.ndarray, weights: np.ndarray, vmin: float, vm
         return None
     normalized = np.clip((values[valid] - vmin) / (vmax - vmin), 0, 1)
     return round(float(np.sum(weights[valid] * normalized) / np.sum(weights)), 6)
+
+
+def visible_pm25_signal(values: np.ndarray, weights: np.ndarray, vmin: float, vmax: float) -> float | None:
+    """Area-weighted log-legend intensity × detected extent, not µg/m³.
+
+    Average the pixel log positions BEFORE aggregating the region. This limits
+    the influence of rare dark pixels mistaken for extreme concentrations.
+    Unmatched pixels add no visible signal; their physical concentration is unknown.
+    """
+    if not 0 < vmin < vmax or values.shape != weights.shape or np.any(~np.isfinite(weights)) or np.any(weights <= 0):
+        raise ValueError("Invalid PM2.5 visual signal scale or weights.")
+    valid = np.isfinite(values)
+    if not np.any(valid):
+        return None
+    if np.any(values[valid] <= 0):
+        raise ValueError("PM2.5 log-color values must be positive.")
+    position = np.clip(np.log(values[valid] / vmin) / np.log(vmax / vmin), 0, 1)
+    return round(float(np.sum(weights[valid] * position) / np.sum(weights)), 6)
 
 
 def frame_date(
@@ -249,6 +268,8 @@ def generate_features(
         }
         if track_id == "clima-vento":
             frame_feature["visualSignal"] = visible_wind_signal(values, weights, vmin, vmax)
+        elif track_id == "ar-pm25":
+            frame_feature["visualSignal"] = visible_pm25_signal(values, weights, vmin, vmax)
         if pixel_filter is None:
             del frame_feature["coverage"]
         frame_features.append(frame_feature)
@@ -264,6 +285,7 @@ def generate_features(
         "vmax": vmax,
         "statistics": dict(AREA_STATISTICS),
         **({"sonification": dict(WIND_SONIFICATION)} if track_id == "clima-vento" else {}),
+        **({"sonification": dict(PM25_SONIFICATION)} if track_id == "ar-pm25" else {}),
         "frames": frame_features,
     }
 

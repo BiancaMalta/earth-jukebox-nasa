@@ -1,0 +1,300 @@
+{
+  "scope": "Exploratory GEOS-CF comparison, not independent observations or full-series accuracy.",
+  "generated_utc": "2026-11-15T04:24:52.718666+00:00",
+  "samples": [
+    1,
+    32,
+    63,
+    100,
+    120
+  ],
+  "country_selection": {
+    "min_reference_points": 8,
+    "min_image_pixels": 100
+  },
+  "input_sha256": {
+    "ar-pm25": {
+      "regions.json": "76bdfd75fdff10ac052bb0c075be6c11b4c07fd797391c25f3dddbe3c9c3e153",
+      "colorbar.json": "986aee12d51f8069eecc38013052cd94d94567ec177ea50184d08590f4a1fbf0",
+      "features.json": "1f1d65f8bec21681b2b1365f8a4b2977cd9f3878e327477bf23c3bd30bd303b6",
+      "frames": {
+        "frame_000001.webp": "66c69e733b3da9fd8079eba70468ff12ec10a43ba231656c5a2e5742b6003287",
+        "frame_000032.webp": "25f017c7b4a085111e57f6fa30b002d7d831298865c13d28db7faa34fdf7d593",
+        "frame_000063.webp": "b1185205c84a97b9d2efe972d0f08188c3b7a6c150677722e0f2666b99422e9f",
+        "frame_000100.webp": "477cf46f3447b281e560ad5ec37cba4e43c37ac6366904d7df5e5e4b10a3c6d3",
+        "frame_000120.webp": "9b7838d0b4e91e645809ce4e5de237f20df72e136226816893b7ab20fdfa0341"
+      }
+    },
+    "ar-co": {
+      "regions.json": "f13ad9462943e596fec0e94b79fbc82edbb3287137d44cbe1e5df454d3d4527d",
+      "colorbar.json": "8eed696795f70f9e03a2d1d98d995978f1ac16c71b28e33de4e307b0146b6b29",
+      "features.json": "38e44849591c96e3b266afb319508c8316615cf582956a5d17b16f6af205de16",
+      "frames": {
+        "frame_000001.webp": "3b03f211667b39ab2856ec5c324e829c142b4e3f393c6da749cc4ce0cd83e9c6",
+        "frame_000032.webp": "099c9c1e4eb115b6ed6b737681c4618c087178212b21f76b452aed2667671918",
+        "frame_000063.webp": "59b1eb6104cdffc4d42516ee9815c94b17c53581f8f773aefea7c4c18bb89488",
+        "frame_000100.webp": "54c27251f0be935474b5e8f6574ec52ce5cb9c1daf242aa4f5448fb20211c11d",
+        "frame_000120.webp": "65d032caddf840f8e4956217a0fdb5dfd021e090e8fa0052e7465d1cfecf780b"
+      }
+    },
+    "clima-ozonio": {
+      "regions.json": "288bd0710a62ddbcde118f0fb2126d2a2df06cffcfaa19f12c713e5ad53e4aff",
+      "colorbar.json": "7ddc56017b12e266b6a143f1d33796a6940c7b8caab6c780a0c2fa7a9807b1d2",
+      "features.json": "4ef502d966d3f41c70def2a3981bf2290dec1b301de2e11590578f49f759fefc",
+      "frames": {
+        "frame_000001.webp": "4271eca8d16a9ffa31f4d0d24124c809951b0db383c0764ee5499f72b4d1b93e",
+        "frame_000032.webp": "647ed56eb5bf628745cf512c29b08baea540cfa62d0c0e9da56f1b04fb74fbe8",
+        "frame_000063.webp": "109ff968e4ca6deaf9a0e6993dcc613d8587e82c3caca8920a6edddbbe0b5399",
+        "frame_000100.webp": "e3c33682bc2c98c0ce82f8392642e1c297d6ddf5ad8499bb189894f9db8d1815",
+        "frame_000120.webp": "2114150a85fc2f04aadecc175311a68a8ac1943663b08d6d8d5a3cdc05712069"
+      }
+    }
+  },
+  "variables": {
+    "pm25_rh35": {
+      "unit": "µg/m³",
+      "per_frame": [
+        {
+          "frame": 1,
+          "countries": 98,
+          "missing_regions": [],
+          "spearman_published": 0.5656841930774184,
+          "spearman_area_weighted": 0.5634144941950537,
+          "published_mae": 11.469519272650983,
+          "published_bias": -8.934663335776975,
+          "weighted_mae": 11.480055011843602,
+          "weighted_bias": -8.890687651973904
+        },
+        {
+          "frame": 32,
+          "countries": 98,
+          "missing_regions": [],
+          "spearman_published": 0.53857531766221,
+          "spearman_area_weighted": 0.5275073478313537,
+          "published_mae": 10.986376924607004,
+          "published_bias": -9.72184546785695,
+          "weighted_mae": 10.937287409850311,
+          "weighted_bias": -9.71906505572075
+        },
+        {
+          "frame": 63,
+          "countries": 98,
+          "missing_regions": [],
+          "spearman_published": 0.5488399671021172,
+          "spearman_area_weighted": 0.5475776064877684,
+          "published_mae": 12.245434035965763,
+          "published_bias": -10.151736172717605,
+          "weighted_mae": 12.238760285781142,
+          "weighted_bias": -10.129451432792404
+        },
+        {
+          "frame": 100,
+          "countries": 98,
+          "missing_regions": [],
+          "spearman_published": 0.7191948944526263,
+          "spearman_area_weighted": 0.7103583701521844,
+          "published_mae": 12.751822749405985,
+          "published_bias": -11.449279527706349,
+          "weighted_mae": 12.76581789715414,
+          "weighted_bias": -11.398786279020205
+        },
+        {
+          "frame": 120,
+          "countries": 98,
+          "missing_regions": [],
+          "spearman_published": 0.6525723867331855,
+          "spearman_area_weighted": 0.6533991290986872,
+          "published_mae": 9.99914050900955,
+          "published_bias": -8.640917586087939,
+          "weighted_mae": 10.033816237906871,
+          "weighted_bias": -8.588143614203279
+        }
+      ],
+      "trends": [
+        {
+          "reference_change_strictly_above": 0,
+          "pairs": 392,
+          "published_direction_correct": 348,
+          "weighted_direction_correct": 350,
+          "missing_pairs": 0
+        },
+        {
+          "reference_change_strictly_above": 1,
+          "pairs": 318,
+          "published_direction_correct": 297,
+          "weighted_direction_correct": 296,
+          "missing_pairs": 0
+        }
+      ]
+    },
+    "co": {
+      "unit": "ppbv",
+      "per_frame": [
+        {
+          "frame": 1,
+          "countries": 98,
+          "missing_regions": [],
+          "spearman_published": 0.9841758634100312,
+          "spearman_area_weighted": 0.9831175206727489,
+          "published_mae": 16.131318198194357,
+          "published_bias": 14.694016410047894,
+          "weighted_mae": 16.216951617990524,
+          "weighted_bias": 14.971198531051378
+        },
+        {
+          "frame": 32,
+          "countries": 98,
+          "missing_regions": [],
+          "spearman_published": 0.9849409304490303,
+          "spearman_area_weighted": 0.9846859081026974,
+          "published_mae": 17.715932581485344,
+          "published_bias": 16.65691810077953,
+          "weighted_mae": 17.871147834943482,
+          "weighted_bias": 16.895153461570835
+        },
+        {
+          "frame": 63,
+          "countries": 98,
+          "missing_regions": [],
+          "spearman_published": 0.9830920184381156,
+          "spearman_area_weighted": 0.9826839826839826,
+          "published_mae": 18.834531448492722,
+          "published_bias": 18.074658125702573,
+          "weighted_mae": 19.12880636095584,
+          "weighted_bias": 18.39321908528486
+        },
+        {
+          "frame": 100,
+          "countries": 98,
+          "missing_regions": [],
+          "spearman_published": 0.9779660692768202,
+          "spearman_area_weighted": 0.9754540991654391,
+          "published_mae": 20.378502583400905,
+          "published_bias": 18.5391195951549,
+          "weighted_mae": 20.709246057912377,
+          "weighted_bias": 18.92827260677197
+        },
+        {
+          "frame": 120,
+          "countries": 98,
+          "missing_regions": [],
+          "spearman_published": 0.9694610740266115,
+          "spearman_area_weighted": 0.9694100695573449,
+          "published_mae": 19.888607295460858,
+          "published_bias": 18.646910976922612,
+          "weighted_mae": 20.10476217791676,
+          "weighted_bias": 18.976942841488857
+        }
+      ],
+      "trends": [
+        {
+          "reference_change_strictly_above": 0,
+          "pairs": 392,
+          "published_direction_correct": 363,
+          "weighted_direction_correct": 363,
+          "missing_pairs": 0
+        },
+        {
+          "reference_change_strictly_above": 5,
+          "pairs": 269,
+          "published_direction_correct": 260,
+          "weighted_direction_correct": 260,
+          "missing_pairs": 0
+        }
+      ]
+    },
+    "o3": {
+      "unit": "ppbv",
+      "per_frame": [
+        {
+          "frame": 1,
+          "countries": 96,
+          "missing_regions": [
+            "country:Papua New Guinea",
+            "country:Guyana"
+          ],
+          "spearman_published": 0.9677699403147043,
+          "spearman_area_weighted": 0.9677021161150299,
+          "published_mae": 2.7843477777159236,
+          "published_bias": 2.582168877337177,
+          "weighted_mae": 2.7864773533156217,
+          "weighted_bias": 2.5860141350007386
+        },
+        {
+          "frame": 32,
+          "countries": 96,
+          "missing_regions": [
+            "country:Guyana",
+            "country:Antarctica"
+          ],
+          "spearman_published": 0.9599837221920782,
+          "spearman_area_weighted": 0.9603092783505154,
+          "published_mae": 3.3358683942079224,
+          "published_bias": 3.1211264224759745,
+          "weighted_mae": 3.3175052236274616,
+          "weighted_bias": 3.1066566306434993
+        },
+        {
+          "frame": 63,
+          "countries": 94,
+          "missing_regions": [
+            "country:Kenya",
+            "country:Guyana",
+            "country:Gabon",
+            "country:Antarctica"
+          ],
+          "spearman_published": 0.8930896217895459,
+          "spearman_area_weighted": 0.8936675938301485,
+          "published_mae": 3.8486794206322092,
+          "published_bias": 3.73197524105363,
+          "weighted_mae": 3.8482294946420974,
+          "weighted_bias": 3.7305035770119592
+        },
+        {
+          "frame": 100,
+          "countries": 97,
+          "missing_regions": [
+            "country:Papua New Guinea"
+          ],
+          "spearman_published": 0.9308822417544572,
+          "spearman_area_weighted": 0.9317799284662318,
+          "published_mae": 3.6568172971519335,
+          "published_bias": 3.608351960629232,
+          "weighted_mae": 3.6538820723252914,
+          "weighted_bias": 3.6118549064461867
+        },
+        {
+          "frame": 120,
+          "countries": 95,
+          "missing_regions": [
+            "country:Papua New Guinea",
+            "country:Guyana",
+            "country:Antarctica"
+          ],
+          "spearman_published": 0.9330207166853303,
+          "spearman_area_weighted": 0.9323208286674133,
+          "published_mae": 3.025713056928192,
+          "published_bias": 2.5555761322746227,
+          "weighted_mae": 3.033460121312966,
+          "weighted_bias": 2.5667943525469012
+        }
+      ],
+      "trends": [
+        {
+          "reference_change_strictly_above": 0,
+          "pairs": 377,
+          "published_direction_correct": 327,
+          "weighted_direction_correct": 330,
+          "missing_pairs": 15
+        },
+        {
+          "reference_change_strictly_above": 2,
+          "pairs": 275,
+          "published_direction_correct": 257,
+          "weighted_direction_correct": 257,
+          "missing_pairs": 15
+        }
+      ]
+    }
+  }
+}

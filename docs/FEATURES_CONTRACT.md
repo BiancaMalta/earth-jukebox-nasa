@@ -30,7 +30,7 @@ Arquivo: `public/data/<faixa>/features.json` (no MVP: `public/data/clima-tempera
 | `frames[].date` | string | Data/hora do frame (`YYYY-MM-DDTHH:MM`), usada na fala |
 | `frames[].mean` | number | Média em `unit` dos pixels decodificados aceitos; ponderada por cos(latitude) quando `statistics.mean` é `area_weighted` |
 | `frames[].p90` | number | Percentil 90 não ponderado dos pixels aceitos, em `unit` |
-| `frames[].norm` | number | `mean` normalizado de 0 a 1 entre `vmin` e `vmax`. **Na temperatura, é o valor que vira nota. As outras variáveis usam `mean` na unidade física.** |
+| `frames[].norm` | number | `mean` normalizado de 0 a 1 entre `vmin` e `vmax`; logarítmico no PM2.5. Temperatura, CO e O3 usam `norm`; vento e PM2.5 usam o índice `visualSignal` quando declarado; precipitação e umidade usam `mean`. |
 | `frames[].coverage` | number | Opcional: fração dos pixels analisáveis usados no cálculo, após os filtros; não é precisão nem área geográfica |
 
 Para vento (SVS 5148), `mean` e `p90` usam apenas pixels coloridos que
@@ -182,9 +182,10 @@ A faixa clima-vento declara `sonification: {"input":"visualSignal",
 "quantity":"visible wind color signal","unit":"1"}` nos arquivos geral e
 regional. Cada frame geral recebe `visualSignal` (número 0–1 ou null). A tabela
 regional de vento passa a `schemaVersion: 3` e suas colunas são
-`["mean","p90","norm","coverage","visualSignal"]`. As outras faixas mantêm
-versão 2 e quatro colunas; documentos legados continuam aceitos somente com o
-método e formato correspondentes.
+`["mean","p90","norm","coverage","visualSignal"]`. PM2.5 também usa versão 3,
+com seu próprio índice abaixo. As outras faixas meteorológicas mantêm versão 2;
+CO e O3 permanecem na versão 1. Documentos legados continuam aceitos somente
+com o método e formato correspondentes.
 
 O Python calcula, usando os mesmos filtros, máscara e pesos por latitude:
 
@@ -207,3 +208,18 @@ fallback para um índice ausente em uma fonte que declara o novo modo.
 A avaliação exploratória em três instantes, os países sem sinal e as limitações
 estão em [ESTUDO_CIENTIFICO.md](ESTUDO_CIENTIFICO.md). Essa avaliação orientou a
 mudança; não constitui garantia de ordenação correta em todos os casos.
+
+## PM2.5: índice visual logarítmico para sonificação
+
+`ar-pm25` declara `sonification={"input":"visualSignal","quantity":"visible PM2.5 log-color signal","unit":"1"}`.
+Usa schema regional 3 com as mesmas cinco colunas do vento. O índice é
+`sum(weight * clip(log(decoded/0.4)/log(409.6/0.4),0,1), accepted) / sum(weight, analyzed)`.
+É calculado no Python, aplicando o logaritmo a cada pixel antes de agregar.
+Sem pixels aceitos retorna null. Rejeição não equivale a concentração zero.
+
+`mean` usa ponderação cos(latitude) e permanece em µg/m³; `norm` continua sendo
+a posição logarítmica dessa média, não o índice visual. O front usa somente
+`visualSignal` no novo modo, sem fallback para a média/norm se o índice faltar.
+O instrumento e a curva de altura/brilho permanecem fixos entre todas as regiões
+e instantes. A [avaliação qualitativa](estudo-cientifico/pm25-qualitativo.md)
+documenta a escolha e as verificações em 29 instantes, incluindo erros restantes.

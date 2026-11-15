@@ -367,7 +367,7 @@ export function initPlayer(index, hooks = {}) {
       find("data-caveat").hidden = data.mock || !experience.caveat;
       hooks.onTrack?.(activeTrack);
       hooks.onTrackData?.({ track: activeTrack, data, frames, frameDirectory, colorbar });
-      document.getElementById("normalization-range").textContent = data.sonification?.input === "visualSignal" ? `Pixel color legend: ${data.vmin} to ${data.vmax} ${data.unit}. The visible signal index is dimensionless (0–1), not wind speed.` : data.vmin === null ? "Normalization limits are unavailable." : `The supplied range is ${data.vmin} to ${data.vmax} ${data.unit}${data.mock ? " (demo values)" : ""}.`;
+      document.getElementById("normalization-range").textContent = data.sonification?.input === "visualSignal" ? `Pixel color legend: ${data.vmin} to ${data.vmax} ${data.unit}. The visible signal index is dimensionless (0–1), not a physical concentration or speed.` : data.vmin === null ? "Normalization limits are unavailable." : `The supplied range is ${data.vmin} to ${data.vmax} ${data.unit}${data.mock ? " (demo values)" : ""}.`;
       find("track-title").textContent = track.title?.en ?? trackId;
       select.selectedOptions[0].textContent = experience.name;
       find("demo-data").hidden = !data.mock;

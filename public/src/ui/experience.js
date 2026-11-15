@@ -47,6 +47,18 @@ export function describeExperience(track) {
       exampleSpeech: "This experience is visual only. Its dedicated sound mapping is not implemented yet.",
     };
   }
+  if (kind === "pm25" && track?.sonification?.input === "visualSignal") return {
+    ...describeExperience({ ...track, sonification: null }),
+    heading: "Visible PM2.5 patterns shape a metallic shimmer",
+    mapping: "More intense and extensive detected PM2.5 colors produce a higher, brighter metallic tone. A rising tone follows an increase in visible signal; a falling tone follows a decrease. Loudness stays fixed.",
+    lowDetail: "Visual index 0 reference · C4", highDetail: "Visual index 1 reference · C6",
+    scale: "The same 0–1 visual index and pitch curve apply to every country, group and frame. Regions are not stretched separately: their tones can be compared directly.",
+    readings: "The visual index combines log-scaled color intensity with its area-weighted extent. It supports comparisons of more versus less signal. The concentration mean in µg/m³ remains a separate diagnostic; the index is not a concentration or health rating.",
+    normalization: "Sound uses the supplied visual index directly. Higher indices always produce higher, brighter sustained tones on the same fixed curve. No detected pixels means unavailable and silent; it does not mean clean air. Mean and normalized mean remain separate diagnostics.",
+    caveat: "Image-derived qualitative PM2.5 signal. Comparisons with GEOS-CF improve regional ordering, but individual reversals and missing colors remain possible. Absolute concentrations are not validated.",
+    legend: "A five-second comparison of visual indices 0 and 1, not concentration measurements or the current frame. The higher index produces a higher, brighter metallic tone at the same loudness. The legend pauses playback.",
+    exampleSpeech: "Less visible PM2.5 signal means a lower, darker tone. More visible signal means a higher, brighter tone. This index is not a concentration or health-risk rating.",
+  };
   if (kind === "pm25") return {
     kind, name: "PM2.5", instrument: "Soft metallic dust shimmer",
     character: "Sustained metallic FM tone · gentle pitch glide · variable spectral brightness",

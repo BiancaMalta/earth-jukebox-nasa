@@ -21,7 +21,9 @@ export function describePixelFilters(colorbar) {
 export function describeReading(frame, track) {
   const date = describeDate(frame?.date);
   const [dateLabel, timeLabel] = date ? date.split(" at ") : ["Unavailable", "No valid timestamp supplied"];
-  const visualWind = track?.sonification?.input === "visualSignal";
+  const visualIndex = track?.sonification?.input === "visualSignal";
+  const visualWind = visualIndex && soundKind(track) === "wind";
+  const visualPm25 = visualIndex && soundKind(track) === "pm25";
   const kind = soundKind(track), sound = mapFrameSound(frame, track), wind = kind === "wind";
   const visualOnly = kind === null, nonTemperature = kind !== "temperature";
   const unit = track?.unit ?? track?.colorbar?.unit ?? "°C";
@@ -33,7 +35,7 @@ export function describeReading(frame, track) {
   const unitDescription = unit === "°C" ? "degrees Celsius" : unit === "m/s" ? "meters per second" : unit === "g/kg" ? "grams per kilogram" : unit === "mm" ? "millimeters" : unit;
   const validMean = isFiniteNumber(frame?.mean) && frame.coverage !== 0 && (!nonTemperature || frame.mean >= 0);
   const meanNumber = validMean ? frame.mean.toFixed(nonTemperature ? 2 : 1) : null;
-  const mean = visualWind ? isFiniteNumber(frame?.visualSignal) ? `${frame.visualSignal.toFixed(4)} / 1` : "Unavailable" : meanNumber === null ? "Unavailable" : `${meanNumber} ${unit}`;
+  const mean = visualIndex ? isFiniteNumber(frame?.visualSignal) ? `${frame.visualSignal.toFixed(4)} / 1` : "Unavailable" : meanNumber === null ? "Unavailable" : `${meanNumber} ${unit}`;
   const coverageDetail = describePixelCoverage(frame?.coverage);
   const validNorm = isFiniteNumber(frame?.norm) && frame.norm >= 0 && frame.norm <= 1;
   const melodic = kind === "temperature" || kind === "carbonMonoxide" || kind === "ozone";
@@ -49,11 +51,11 @@ export function describeReading(frame, track) {
             : kind === "pm25" ? `Sustained metallic tone at ${sound.frequency.toFixed(0)} Hz; brightness ${sound.brightness.toFixed(2)} / 1. It glides with the frame, adds no beat and is not a health-risk reading.`
               : `Mapped musical value ${sound.rate.toFixed(2)}.`;
   return {
-    date, dateLabel, timeLabel, mean, measure: visualWind ? "Visible wind signal (index)" : kind === "precipitation" ? "Estimated precipitation · image-derived" : measure, sound, soundLabel, soundValue,
+    date, dateLabel, timeLabel, mean, measure: visualPm25 ? "Visible PM2.5 signal (index)" : visualWind ? "Visible wind signal (index)" : kind === "precipitation" ? "Estimated precipitation · image-derived" : measure, sound, soundLabel, soundValue,
     note: melodic && sound ? sound.note : null,
-    measureDetail: visualWind ? `Accepted-pixel mean: ${meanNumber ?? "unavailable"} ${unit}; supplied normalized mean: ${isFiniteNumber(frame?.norm) ? frame.norm.toFixed(3) : "unavailable"}. These are diagnostics, not a complete regional wind mean.` : `${quantity} (${unit}). ${weightingDetail}`, coverageDetail,
-    normalized: visualWind ? isFiniteNumber(frame?.visualSignal) ? `${frame.visualSignal.toFixed(4)} / 1` : "Unavailable" : validNorm ? `${frame.norm.toFixed(3)} / 1.000` : "Unavailable",
-    summary: visualWind ? `${date ?? "Date unavailable"}. Visible wind signal index ${isFiniteNumber(frame?.visualSignal) ? frame.visualSignal.toFixed(4) : "unavailable"}. ${coverageDetail}. ${soundSummary}` : `${date ?? "Date unavailable"}. ${measure}: ${meanNumber === null ? "unavailable" : `${meanNumber} ${unitDescription}`}. ${coverageDetail ? `${coverageDetail}. ` : ""}${soundSummary}`,
+    measureDetail: visualIndex ? `Accepted-pixel mean: ${meanNumber ?? "unavailable"} ${unit}; supplied normalized mean: ${isFiniteNumber(frame?.norm) ? frame.norm.toFixed(3) : "unavailable"}. These are diagnostics, not a complete regional physical mean.` : `${quantity} (${unit}). ${weightingDetail}`, coverageDetail,
+    normalized: visualIndex ? isFiniteNumber(frame?.visualSignal) ? `${frame.visualSignal.toFixed(4)} / 1` : "Unavailable" : validNorm ? `${frame.norm.toFixed(3)} / 1.000` : "Unavailable",
+    summary: visualIndex ? `${date ?? "Date unavailable"}. Visible ${visualPm25 ? "PM2.5" : "wind"} signal index ${isFiniteNumber(frame?.visualSignal) ? frame.visualSignal.toFixed(4) : "unavailable"}. ${coverageDetail}. ${soundSummary}` : `${date ?? "Date unavailable"}. ${measure}: ${meanNumber === null ? "unavailable" : `${meanNumber} ${unitDescription}`}. ${coverageDetail ? `${coverageDetail}. ` : ""}${soundSummary}`,
 
   };
 }
