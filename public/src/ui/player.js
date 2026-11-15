@@ -21,7 +21,9 @@ export function initPlayer(index, hooks = {}) {
     <p id="demo-notice" class="demo-notice" hidden><strong>Demonstration values.</strong> Dataset values and dates are simulated, not scientific measurements.</p>
     <p id="data-caveat" class="data-caveat" hidden></p>
     <figure class="player-visualization"><div class="frame-map"><img id="frame-image" alt="Global map of near-surface air temperature from NASA GEOS-FP." hidden width="1024" height="512"><svg id="region-overlay" viewBox="0 0 1024 512" aria-hidden="true" hidden></svg><div id="combined-frame-grid" class="combined-frame-grid" role="group" aria-label="Selected combined map frames" hidden></div></div><figcaption id="frame-description">Select a visualization to begin.</figcaption></figure>
-    <section id="regional-explorer" class="regional-explorer" aria-labelledby="regional-heading" hidden>
+    <details id="region-options" class="region-options" hidden>
+      <summary>Explore a country or continent (optional)</summary>
+      <section id="regional-explorer" class="regional-explorer" aria-labelledby="regional-heading" hidden>
       <div><p class="eyebrow">Explore a place</p><h3 id="regional-heading">Focus the map and listen to a region</h3><p class="control-help">Choose a country group or country. The area stays highlighted as the video plays, and Python-calculated regional values determine the reading and sound. Groups follow whole-country assignments, not physical continental boundaries.</p></div>
       <div class="region-controls">
         <label for="region-level">Explore by</label><select id="region-level"><option value="continent">Country group</option><option value="country">Country</option></select>
@@ -31,7 +33,10 @@ export function initPlayer(index, hooks = {}) {
       <p class="control-help">The Europe group includes all of Russia, including its Asian territory; the Asia group excludes Russia. Oceans are not included in these land groups.</p>
       <p id="region-status" class="status-text" role="status" aria-live="polite">Choose a country group to focus and hear its regional values.</p>
       <p id="region-current" class="regional-reading">No region selected. Playback uses the full-frame value.</p>
-    </section>
+      </section>
+    </details>
+    <p id="readings-help" class="sr-only">Frame readings summarize image-derived pixels. Coverage is the share of analyzed image pixels used, not geographic area or accuracy. Choosing a region changes the reading and sound.</p>
+    <p id="normalization-help" class="sr-only">The normalized value is a position on the dataset legend. Its sound meaning depends on the selected variable.</p>
     <dl id="frame-readings" class="frame-readings" aria-describedby="readings-help">
       <div class="reading reading--date"><dt>Dataset time</dt><dd><time id="frame-date">Unavailable</time><span id="frame-time" class="reading-detail">No frame selected</span></dd></div>
       <div class="reading"><dt id="measure-label">Dataset measure</dt><dd><span id="frame-mean">Unavailable</span><span id="measure-detail" class="reading-detail">Value and unit for this dataset</span><span id="coverage-detail" class="reading-detail" hidden></span></dd></div>
@@ -61,6 +66,8 @@ export function initPlayer(index, hooks = {}) {
     <div class="frame-progress"><label for="frame-position">Frame position</label><span id="frame-count">0 / 0</span><input id="frame-position" type="range" min="0" max="0" value="0" aria-describedby="frame-position-help" disabled></div>
     <p id="frame-position-help" class="control-help">Use the arrow keys on this slider to select a frame. Selecting a frame pauses playback.</p>
     <p id="player-status" role="status" aria-atomic="true">Loading visualizations…</p>`;
+  const combinedLayers = document.getElementById("combined-layers");
+  root.querySelector("#frame-readings").after(combinedLayers);
   const find = (id) => root.querySelector(`#${id}`);
   const select = find("track-select"), image = find("frame-image"), slider = find("frame-position"), combinedGrid = find("combined-frame-grid");
   const playButton = find("play-pause"), previous = find("previous-frame"), next = find("next-frame");

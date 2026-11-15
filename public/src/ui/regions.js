@@ -145,6 +145,7 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
     }
     if (id !== requestId) return;
     root.hidden = !geojson || data.mock || data.vmin === null || data.vmax === null;
+    root.closest("details")?.toggleAttribute("hidden", root.hidden);
     status.textContent = root.hidden ? "Regional exploration is unavailable for this visualization." : "Choose a country group to focus and hear its regional values.";
     setGeometry([]);
     if (!root.hidden) {
