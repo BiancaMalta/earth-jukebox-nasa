@@ -8,7 +8,7 @@
   <title>Earth Jukebox — Hear our changing planet</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="overrides.css">
-  <link rel="stylesheet" href="jukebox.css?v=orion-nebula-3">
+  <link rel="stylesheet" href="jukebox.css?v=jukebox-controls-4">
   <script type="importmap">
     { "imports": { "tone": "https://cdn.jsdelivr.net/npm/tone@15.0.4/+esm" } }
   </script>
@@ -101,13 +101,12 @@
       <p class="control-help">Pause to explore the readings with a screen reader. Automatic playback does not announce every frame; manual frame selection announces its values.</p>
     </details>
 
-    <details class="panel speech-options">
-      <summary>Optional spoken dates</summary>
-      <p class="control-help">Browser speech is optional and depends on available voices. It is separate from screen-reader support.</p>
-      <div class="player-controls"><button id="test-voice" type="button" aria-describedby="speech-status">Test voice</button><label class="checkbox-label"><input id="narrate-dates" type="checkbox" aria-describedby="speech-support">Speak dates</label><label for="narration-interval">Every N frames</label><input id="narration-interval" type="number" min="1" max="1000" step="1" value="16" aria-describedby="speech-support"></div>
-      <p id="speech-support" class="control-help">Speak dates reads the current date immediately, then every N frames during playback, even without music.</p>
-      <p id="speech-status" class="status-text" role="status" aria-atomic="true">Checking English speech voices…</p>
-    </details>
+    <section id="metronome-controls" class="tuning-card metronome-control" aria-labelledby="metronome-heading">
+      <div class="tuning-heading"><span class="tuning-number" aria-hidden="true">02</span><h3 id="metronome-heading">Metronome</h3></div>
+      <label class="metronome-switch"><input id="time-pulse-enabled" type="checkbox" aria-describedby="time-pulse-help"><span class="switch-lamp" aria-hidden="true"></span><span>Mark the passing time</span></label>
+      <div class="metronome-settings"><label class="sr-only" for="time-pulse-period">Metronome interval</label><select id="time-pulse-period"><option value="day">One click per day</option><option value="week">One click per week</option></select><button id="preview-time-pulse" type="button" aria-label="Preview metronome click">Try click</button></div>
+      <p id="time-pulse-help" class="control-help">A high click marks each new day or week in the data. Weeks start Monday. Follows playback speed; starts at the next boundary.</p>
+    </section>
 
     <div id="live" class="sr-only" role="status" aria-atomic="true"></div>
     <noscript><p class="demo-notice">This player needs JavaScript to display frames and produce sound.</p></noscript>

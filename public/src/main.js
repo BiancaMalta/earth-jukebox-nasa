@@ -1,7 +1,8 @@
 // AI-assisted: OpenAI Codex
-import { fetchJSON, describeDate } from "./data/features.js";
+import { fetchJSON } from "./data/features.js";
 import { initPlayer } from "./ui/player.js";
 import { describeReading, renderReading, describePixelFilters } from "./ui/readings.js";
+import { createTimePulseTracker } from "./engine/timePulse.js";
 import { createAudioEngine } from "./engine/audio.js";
 import { mapFrameSound, soundKind } from "./engine/mapping.js";
 import { describeExperience, renderExperience } from "./ui/experience.js";
@@ -40,9 +41,10 @@ const legendButton = el("sound-legend");
 const combinedLegendButton = el("combined-sound-legend");
 const legendButtons = [legendButton, combinedLegendButton];
 const combinedLegendStatus = el("combined-legend-status");
-const narrate = el("narrate-dates");
-const interval = el("narration-interval");
-let player, removeKeyboard, regions, lastNarratedIndex = null, trackContext = null;
+const timePulse = createTimePulseTracker();
+const pulseEnabled = el("time-pulse-enabled");
+const pulsePeriod = el("time-pulse-period");
+let player, removeKeyboard, regions, trackContext = null;
 function showTrackMethods(context) {
   byId("pixel-filter-method").textContent = describePixelFilters(context.colorbar);
   byId("mean-weighting-method").textContent = describeMeanWeighting(context.data);
@@ -190,39 +192,24 @@ enable.addEventListener("click", async () => {
     }
   } catch { /* enableAudio provides the visible error and leaves the player usable. */ }
 });
-if (!speech.supported) {
-  narrate.disabled = interval.disabled = true;
-  el("speech-support").textContent = "Speech synthesis is unavailable in this browser. The legend's low and high notes and all date text remain available.";
-}
 speech.refreshVoices();
-function speakCurrentDate() {
-  if (audio.muted) {
-    el("speech-status").textContent = "Enable sound to hear spoken dates.";
-    return;
-  }
-  const date = describeDate(player?.currentFrame?.date);
-  if (!date) {
-    el("speech-status").textContent = "No valid date is available for the current frame.";
-    return;
-  }
-  if (speech.speak(date, true)) lastNarratedIndex = player.currentIndex;
-}
-narrate.addEventListener("change", () => {
-  if (!narrate.checked) speech.cancel();
-  else { legend.cancel(); speakCurrentDate(); }
+pulsePeriod.addEventListener("change", () => {
+  timePulse.reset();
+  timePulse.advance(player?.currentFrame?.date, pulsePeriod.value, false);
 });
-el("test-voice").addEventListener("click", () => {
+pulseEnabled.addEventListener("change", () => {
+  timePulse.reset();
+  timePulse.advance(player?.currentFrame?.date, pulsePeriod.value, false);
+});
+el("preview-time-pulse").addEventListener("click", async () => {
   legend.cancel();
-  if (audio.muted) el("speech-status").textContent = "Enable sound before testing the voice.";
-  else speech.speak(describeExperience(player?.currentTrack).exampleSpeech, true);
-});
-interval.addEventListener("input", () => {
-  speech.cancel();
-  const value = Number(interval.value);
-  interval.setCustomValidity(Number.isInteger(value) && value >= 1 && value <= 1000 ? "" : "Enter a whole number from 1 to 1000.");
+  try { await enableAudio(); audio.playTimePulse(); }
+  catch { soundStatus.textContent = "Could not play the time pulse. Try enabling sound again."; }
 });
 
 function onFrame(frame, index, total, reason, track) {
+  const boundary = timePulse.advance(frame.date, pulsePeriod.value, reason === "playback");
+  if (boundary && pulseEnabled.checked && !legend.active) audio.playTimePulse();
   const parameters = mapFrameSound(frame, track);
   if ((!parameters && !combined.enabled) || reason === "paused") audio.stop();
   updateNoteStatus(frame, track, false);
@@ -230,11 +217,7 @@ function onFrame(frame, index, total, reason, track) {
   if (reason === "initial" || reason === "paused" || legend.active) return;
   try { if (parameters || combined.enabled) playFrameSound(frame, track, reason === "playback" && index < total - 1 ? undefined : 0.9); }
   catch { soundStatus.textContent = "Audio playback failed. Try enabling sound again; the visual player still works."; }
-  const every = Number(interval.value);
-  if (reason === "playback" && narrate.checked && !audio.muted && Number.isInteger(every) && every >= 1 && every <= 1000 && (lastNarratedIndex === null || index - lastNarratedIndex >= every)) {
-    const date = describeDate(frame.date);
-    if (date && speech.speak(date)) lastNarratedIndex = index;
-  }
+
 }
 
 try {
@@ -242,7 +225,10 @@ try {
     onTrackData: (context) => {
       trackContext = context;
       showTrackMethods(context);
-      regions ??= initRegionalExplorer({ onSelection: () => { audio.stop(); updateRegionalReading(); }, onValueChange: () => {
+      regions ??= initRegionalExplorer({
+        onPreviewRequest: () => { legend.cancel(); player?.pause(); return enableAudio(); },
+        onPreviewReady: () => { if (!player?.isPlaying) void player?.toggle(); },
+        onSelection: () => { audio.stop(); updateRegionalReading(); }, onValueChange: () => {
         updateRegionalReading();
         if (player?.isPlaying && !legend.active) {
           const regional = regions.getFrame(player.currentFrame, player.currentIndex);
@@ -253,7 +239,7 @@ try {
     },
     onPause: () => { releaseSound(); updateNoteStatus(); },
     onInteraction: () => {
-      legend.cancel(); speech.cancel(); lastNarratedIndex = null;
+      legend.cancel(); speech.cancel(); timePulse.reset();
       if ((!audio.enabled || audio.muted) && navigator.userActivation?.isActive) {
         void enableAudio().then(() => {
           const current = player?.currentFrame;

@@ -1,3 +1,4 @@
+import { rankRegionSuggestions, filterRegionSuggestions } from "./regionSuggestions.js";
 // AI-assisted: OpenAI Codex
 import { describePixelCoverage } from "./readings.js";
 import { fetchJSON } from "../data/features.js";
@@ -52,20 +53,60 @@ function formatNumber(value, unit) {
   return value === null ? "No data" : `${value.toFixed(2)} ${unit}`;
 }
 
-export function initRegionalExplorer({ onSelection = () => {}, onValueChange = () => {} } = {}) {
+export function initRegionalExplorer({ onSelection = () => {}, onValueChange = () => {}, onPreviewRequest = () => Promise.resolve(), onPreviewReady = () => {} } = {}) {
   let root, level, continentSelect, countrySelect, countryLabel, status, currentText;
   let geojson, activeTrack, activeData, activeFrames, frameDirectory, regionalData;
   let selectedFeatures = [], series = [], seriesState = "idle", currentIndex = 0, requestId = 0, controller;
   let outline, maskCutout, geoPromise;
   let scope = "world";
+  let rankedSuggestions = [], suggestionVersion = 0;
+  function renderSuggestions() {
+    const container = document.getElementById("region-suggestions");
+    if (!container) return;
+    const countries = new Map(geojson?.features.map(feature => [feature.properties.NAME_EN || feature.properties.ADMIN || feature.properties.NAME, feature.properties.CONTINENT]) ?? []);
+    const choices = filterRegionSuggestions(rankedSuggestions, scope, continentSelect.value, countries);
+    container.replaceChildren();
+    for (const item of choices) {
+      const button = document.createElement("button"); button.type = "button";
+      button.className = "place-track";
+      const disc = document.createElement("span"); disc.className = "place-track-disc"; disc.setAttribute("aria-hidden", "true");
+      const label = document.createElement("span"); label.className = "place-track-label";
+      const name = document.createElement("strong"); name.textContent = regionDisplayName(item.key);
+      const type = document.createElement("small"); type.textContent = item.kind === "country" ? "Country" : "Region";
+      label.append(name, type);
+      button.append(disc, label);
+      button.addEventListener("click", async () => {
+        const audioReady = Promise.resolve(onPreviewRequest()).then(() => true, () => false);
+        let loading;
+        if (item.kind === "continent") {
+          level.value = "continent"; scope = "continent"; continentSelect.value = item.name; loading = changeLevel();
+        } else {
+          level.value = "country"; scope = "country";
+          continentSelect.value = countries.get(item.name) ?? ""; changeLevel();
+          const option = [...countrySelect.options].find(option => option.textContent === item.name);
+          countrySelect.value = option?.value ?? ""; loading = changeCountry();
+        }
+        const selectionRequest = requestId;
+        const [enabled] = await Promise.all([audioReady, loading]);
+        if (selectionRequest !== requestId || seriesState !== "ready" || !enabled) return;
+        root.querySelector("summary").focus();
+        onPreviewReady();
+      });
+      container.append(button);
+    }
+    document.getElementById("region-suggestions-heading").textContent = scope === "world" ? "Suggested listening · Regions & countries" : scope === "country" ? `Suggested listening · Countries${continentSelect.value ? " in " + regionDisplayName("continent:" + continentSelect.value) : ""}` : "Suggested listening · Regions";
+    document.getElementById("region-suggestions-help").textContent = rankedSuggestions.length ? (choices.length ? "Suggested for changing sounds in this record, with values available in at least 80% of frames. Same sound scale for every place." : "No places in this selection have enough available frames and sound changes to recommend.") : "No suggestions available for this record.";
+  }
 
   function syncAreaControls() {
+    renderSuggestions();
     if (continentSelect.options[0]) continentSelect.options[0].textContent = scope === "country" ? "All regions" : "Choose a region";
     document.querySelectorAll('input[name="region-scope"]').forEach(input => { input.checked = input.value === scope; });
     document.getElementById("region-group-field").hidden = scope === "world";
     document.getElementById("region-country-field").hidden = scope !== "country";
     document.getElementById("region-reset").hidden = scope === "world";
-    document.getElementById("region-selection-name").textContent = selectedFeatures.length ? selectedDisplayName() : scope === "world" ? "Whole map" : scope === "country" ? "Choose a country" : "Choose a region";
+    document.getElementById("region-summary-place").textContent = selectedFeatures.length ? selectedDisplayName() : scope === "world" ? "Whole map" : scope === "country" ? "Choose a country" : "Choose a region";
+    document.getElementById("region-selection-name").textContent = selectedFeatures.length ? selectedDisplayName() : "Whole map";
   }
 
   function selectedName() {
@@ -146,6 +187,7 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
   }
 
   async function configure({ track, data, frames, frameDirectory: directory }) {
+    const version = ++suggestionVersion; rankedSuggestions = [];
     const id = ++requestId; controller?.abort(); series = []; seriesState = "idle"; selectedFeatures = [];
     activeTrack = track; activeData = data; activeFrames = frames; frameDirectory = directory; regionalData = null; currentIndex = 0; root.hidden = true;
     if (!geojson && geoPromise) {
@@ -168,6 +210,18 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
       currentText.textContent = "No region selected. Playback uses the full-frame value.";
     }
     onSelection();
+    if (!root.hidden) {
+      document.getElementById("region-suggestions-help").textContent = "Finding places with varied sounds in this record…";
+      try {
+        const result = validateRegionalFeatures(await fetchJSON(new URL("../regions.json", directory)), track, data);
+        if (version !== suggestionVersion) return;
+        regionalData = result;
+        rankedSuggestions = rankRegionSuggestions(result, track);
+        renderSuggestions();
+      } catch {
+        if (version === suggestionVersion) document.getElementById("region-suggestions-help").textContent = "Suggestions could not load. You can still choose any region or country.";
+      }
+    }
   }
 
   function changeContinent() {
@@ -186,7 +240,7 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
     status.textContent = selectedFeatures.length ? "Preparing regional values…" : "Choose a place. Until then, playback uses the whole map.";
     currentText.textContent = selectedFeatures.length ? "Loading the selected region…" : "Playback uses the full-frame value.";
     onSelection();
-    if (selectedFeatures.length) void loadRegionalValues();
+    if (selectedFeatures.length) return loadRegionalValues();
   }
 
   function changeLevel() {
@@ -195,7 +249,7 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
     scope = level.value;
     countrySelect.hidden = countryLabel.hidden = !isCountry;
     // Reset the country selector and choose the appropriate continent geometry.
-    changeContinent();
+    return changeContinent();
   }
 
   function changeCountry() {
@@ -204,10 +258,13 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
     setGeometry(feature ? [feature] : []);
     currentText.textContent = "Choose a country to focus its map area.";
     onSelection();
-    if (feature) void loadRegionalValues();
+    if (feature) return loadRegionalValues();
   }
 
   function chooseScope(value) {
+    continentSelect.value = "";
+    countrySelect.replaceChildren(new Option("Choose a country", ""));
+    countrySelect.disabled = true;
     scope = value;
     if (value !== "world") {
       level.value = value;
@@ -246,11 +303,6 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
       chooseScope("world");
       document.querySelector('input[name="region-scope"][value="world"]').focus();
     });
-    document.querySelectorAll("[data-region-preset]").forEach(button => button.addEventListener("click", () => {
-      chooseScope("continent");
-      continentSelect.value = button.dataset.regionPreset;
-      changeContinent();
-    }));
     geoPromise = fetch(GEOJSON_URL).then((response) => {
       if (!response.ok) throw new Error(`World boundaries failed to load (HTTP ${response.status}).`);
       return response.json();
@@ -267,6 +319,6 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
     hasSelection: () => selectedFeatures.length > 0,
     selectionKey: () => selectedFeatures.length ? `${level.value}:${selectedName()}` : null,
     getTableData: () => selectedFeatures.length ? { name: selectedName(), values: series, state: seriesState } : null,
-    destroy() { ++requestId; controller?.abort(); },
+    destroy() { ++suggestionVersion; ++requestId; controller?.abort(); },
   };
 }

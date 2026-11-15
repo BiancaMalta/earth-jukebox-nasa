@@ -27,22 +27,9 @@ export function initPlayer(index, hooks = {}) {
       <span id="playback-state" class="playback-state">Paused</span>
     </div>
     <div class="track-toolbar"><label class="sr-only" for="track-select">Experience</label><select id="track-select" hidden></select><fieldset class="record-collection"><legend>Choose your record <span>Seven ways to hear our planet</span></legend><div id="record-sleeves" class="record-sleeves"></div></fieldset><span id="demo-data" class="badge" hidden>Demo data</span></div>
-    <p id="demo-notice" class="demo-notice" hidden><strong>Demonstration values.</strong> Dataset values and dates are simulated, not scientific measurements.</p>
-    <p id="data-caveat" class="data-caveat" hidden></p>
-    <figure id="frame-map-panel" class="player-visualization" role="tabpanel" aria-labelledby="individual-preview-tab" tabindex="0"><div class="frame-map"><img id="frame-image" alt="Global map of near-surface air temperature from NASA GEOS-FP." hidden width="1024" height="512"><svg id="region-overlay" viewBox="0 0 1024 512" aria-hidden="true" hidden></svg><div id="combined-frame-grid" class="combined-frame-grid" role="group" aria-label="Selected combined map frames" hidden></div></div><figcaption id="frame-description">Select a visualization to begin.</figcaption></figure>
-    <div id="transport-controls" class="player-controls transport" role="group" aria-label="Playback controls" tabindex="-1">
-      <button id="previous-frame" type="button" aria-label="Previous frame" disabled><span aria-hidden="true">←</span> Previous</button>
-      <button id="play-pause" class="primary-button" type="button" aria-pressed="false" disabled>Play</button>
-      <button id="next-frame" type="button" aria-label="Next frame" disabled>Next <span aria-hidden="true">→</span></button>
-    </div>
-    <div class="frame-progress"><label for="frame-position">Timeline</label><span id="frame-count">0 / 0</span><input id="frame-position" type="range" min="0" max="0" value="0" aria-describedby="frame-position-help" disabled></div>
-    <p id="frame-position-help" class="control-help">Use the arrow keys on this slider to select a frame. Selecting a frame pauses playback.</p>
-    <div class="playback-speed"><label for="playback-speed">Playback speed</label><select id="playback-speed" aria-describedby="playback-speed-help"><option value="0.25">0.25× · Slowest</option><option value="0.5">0.5× · Slower</option><option value="1" selected>1× · Normal</option><option value="1.5">1.5× · Faster</option><option value="2">2× · Fastest</option></select></div>
-    <p id="playback-speed-help" class="control-help">Changes the pace of playback. Dataset times and sound mappings stay the same.</p>
-    <p id="player-status" role="status" aria-atomic="true">Loading visualizations…</p>
     <section id="region-options" class="region-options" aria-labelledby="regional-heading" hidden>
-      <section id="regional-explorer" class="regional-explorer" aria-labelledby="regional-heading" hidden>
-      <div class="region-intro"><div><p class="eyebrow">A different place. A different sound.</p><h3 id="regional-heading">Where do you want to listen?</h3></div><span class="region-badge">Explore the map</span></div>
+      <details id="regional-explorer" class="regional-explorer" hidden open>
+      <summary class="region-intro"><span><span class="eyebrow">A different place. A different sound.</span><span id="regional-heading">Where do you want to listen?</span></span><span class="region-badge" id="region-summary-place">Whole map</span><span class="region-chevron" aria-hidden="true">⌄</span></summary>
       <p id="region-help" class="control-help">Keep the same moment. Change the place. The highlighted area shapes both your readings and your sound.</p>
       <fieldset class="region-scopes"><legend class="sr-only">Listening area</legend>
         <label class="region-scope"><input type="radio" name="region-scope" value="world" checked><span><strong>Whole map</strong><small>The big picture</small></span></label>
@@ -54,13 +41,36 @@ export function initPlayer(index, hooks = {}) {
         <div id="region-group-field" class="region-field" hidden><label for="region-continent">Region</label><select id="region-continent"><option value="">Choose a region</option></select></div>
         <div id="region-country-field" class="region-field" hidden><label for="region-country">Country</label><select id="region-country" disabled><option value="">Choose a country</option></select></div>
       </div>
-      <div class="region-discover"><span>Start exploring</span><button type="button" data-region-preset="South America">South America</button><button type="button" data-region-preset="Europe">Europe</button><button type="button" data-region-preset="Asia">Asia</button></div>
-      <div class="region-selection"><div><span class="region-selection-label">Listening to</span><strong id="region-selection-name">Whole map</strong></div><button id="region-reset" type="button" hidden>Back to whole map</button></div>
+      <div class="region-discover"><span id="region-suggestions-heading">Suggested listening</span><p class="region-suggestions-intro">A few places to try. Choose Region or Country above to browse every available place.</p><div id="region-suggestions" class="region-suggestion-buttons" aria-labelledby="region-suggestions-heading"></div></div>
+      <p id="region-suggestions-help" class="control-help">Finding places with varied sounds in this record…</p>
       <p id="region-status" class="status-text" role="status" aria-live="polite">Explore a place to hear its regional values.</p>
       <p id="region-current" class="regional-reading">Playback uses the full-frame value.</p>
       <details class="region-boundaries"><summary>About these boundaries</summary><p class="control-help">Groups follow whole-country assignments, not physical continental boundaries. Europe includes all of Russia; Asia excludes Russia. Oceanic island territories cover land only. Whole-map readings summarize accepted image pixels.</p></details>
-      </section>
+      </details>
     </section>
+    <div class="region-selection listening-now"><div><span class="region-selection-label">Listening to</span><strong id="region-selection-name">Whole map</strong></div><button id="region-reset" type="button" hidden>Back to whole map</button></div>
+    <div id="transport-controls" class="player-controls transport" role="group" aria-label="Playback controls" tabindex="-1">
+      <button id="previous-frame" type="button" aria-label="Previous frame" disabled><span aria-hidden="true">←</span> Previous</button>
+      <button id="play-pause" class="primary-button" type="button" aria-pressed="false" disabled>Play</button>
+      <button id="next-frame" type="button" aria-label="Next frame" disabled>Next <span aria-hidden="true">→</span></button>
+    </div>
+    <div class="frame-progress"><label for="frame-position">Timeline</label><span id="frame-count">0 / 0</span><input id="frame-position" type="range" min="0" max="0" value="0" aria-describedby="frame-position-help" disabled></div>
+    <p id="frame-position-help" class="control-help">Use the arrow keys on this slider to select a frame. Selecting a frame pauses playback.</p>
+    <details class="jukebox-tuning">
+      <summary class="tuning-plaque"><span class="tuning-brand" aria-hidden="true">EARTH JUKEBOX</span><span>Rhythm &amp; time control</span><span class="tuning-chevron" aria-hidden="true">⌄</span></summary>
+      <div class="tuning-controls">
+        <div class="tuning-card speed-control">
+          <div class="tuning-heading"><span class="tuning-number" aria-hidden="true">01</span><label for="playback-speed">Playback speed</label></div>
+          <div class="speed-selector"><span class="tuning-dial" aria-hidden="true"></span><select id="playback-speed" aria-describedby="playback-speed-help"><option value="0.25">0.25× · Slowest</option><option value="0.5">0.5× · Slower</option><option value="1" selected>1× · Normal</option><option value="1.5">1.5× · Faster</option><option value="2">2× · Fastest</option></select></div>
+          <p id="playback-speed-help" class="control-help">Set the pace of your listening journey. Values and sound mappings stay the same.</p>
+        </div>
+        <div id="metronome-slot"></div>
+      </div>
+    </details>
+    <p id="demo-notice" class="demo-notice" hidden><strong>Demonstration values.</strong> Dataset values and dates are simulated, not scientific measurements.</p>
+    <p id="data-caveat" class="data-caveat" hidden></p>
+    <figure id="frame-map-panel" class="player-visualization" role="tabpanel" aria-labelledby="individual-preview-tab" tabindex="0"><div class="frame-map"><img id="frame-image" alt="Global map of near-surface air temperature from NASA GEOS-FP." hidden width="1024" height="512"><svg id="region-overlay" viewBox="0 0 1024 512" aria-hidden="true" hidden></svg><div id="combined-frame-grid" class="combined-frame-grid" role="group" aria-label="Selected combined map frames" hidden></div></div><figcaption id="frame-description">Select a visualization to begin.</figcaption></figure>
+    <p id="player-status" role="status" aria-atomic="true">Loading visualizations…</p>
     <p id="readings-help" class="sr-only">Frame readings summarize image-derived pixels. Coverage is the share of analyzed image pixels used, not geographic area or accuracy. Choosing a region changes the reading and sound.</p>
     <dl id="frame-readings" class="frame-readings" role="group" aria-label="Current frame readings" tabindex="-1" aria-describedby="readings-help">
       <div class="reading reading--date"><dt>Dataset time</dt><dd><time id="frame-date">Unavailable</time><span id="frame-time" class="reading-detail">No frame selected</span></dd></div>
@@ -82,6 +92,12 @@ export function initPlayer(index, hooks = {}) {
       <a href="#play-pause">Back to playback</a>
     </details>
     `;
+  const metronome = document.getElementById("metronome-controls");
+  if (metronome) root.querySelector("#metronome-slot").replaceWith(metronome);
+  const speedSelect = root.querySelector("#playback-speed");
+  const syncDial = () => { root.querySelector(".speed-control").dataset.speed = speedSelect.value; };
+  speedSelect.addEventListener("change", syncDial);
+  syncDial();
   const combinedLayers = document.getElementById("combined-layers");
   root.querySelector("#frame-readings").after(combinedLayers);
   const find = (id) => root.querySelector(`#${id}`);
@@ -178,7 +194,11 @@ export function initPlayer(index, hooks = {}) {
     currentTableRow?.setAttribute("aria-current", "true");
   }
 
+  function restoreLayerControls() {
+    combinedGrid.querySelectorAll(".combined-layer").forEach(card => combinedLayers.append(card));
+  }
   function clearCombinedFrames() {
+    restoreLayerControls();
     ++combinedVisualRequest;
     combinedSelectionKey = combinedFrameKey = null;
     combinedVisualPromise = Promise.resolve();
@@ -214,9 +234,10 @@ export function initPlayer(index, hooks = {}) {
       ++combinedVisualRequest;
       combinedFrameKey = null;
       combinedSelectionKey = selectionKey;
+      restoreLayerControls();
       combinedTiles.clear();
       combinedGrid.replaceChildren();
-      for (const { track } of selected) {
+      for (const { track, layerKey } of selected) {
         const title = track.title?.en ?? track.title?.pt ?? localizedText(track.quantity, track.id ?? "Dataset");
         const tile = document.createElement("figure");
         tile.className = "combined-frame";
@@ -228,7 +249,9 @@ export function initPlayer(index, hooks = {}) {
         media.append(placeholder);
         const caption = document.createElement("figcaption");
         caption.textContent = title;
-        tile.append(media, caption);
+        const layerCard = [...combinedLayers.querySelectorAll("[data-layer-key]")].find(card => card.dataset.layerKey === layerKey);
+        if (layerCard) tile.append(layerCard, media);
+        else tile.append(media, caption);
         combinedGrid.append(tile);
         combinedTiles.set(track.id, { media, placeholder, title });
       }
