@@ -28,14 +28,28 @@ export function createLegend({ audio, speech, enableAudio, onBeforeStart, onStat
       };
       const example = examples[getKind()];
       if (!example) throw new Error("No sound mapping is available for this experience.");
-      if (!example.play(false)) throw new Error("Enable sound to hear the legend.");
-      onStep(example.low, 1); speech.speak(example.low, true);
       const later = (delay, action) => timers.push(window.setTimeout(() => {
         if (!active || id !== generation) return;
         try { action(); } catch (error) { cancel(); onError(error.message); }
       }, delay));
-      later(2500, () => { example.play(true); onStep(example.high, 2); speech.speak(example.high, true); });
-      later(5000, () => { cancel(); onStep(`Legend complete. ${example.meaning}. Examples are not current measurements.`, 0); });
+      const present = (high) => {
+        const text = high ? example.high : example.low;
+        onStep(text, high ? 2 : 1);
+        let played = false;
+        const play = () => {
+          if (played || !active || id !== generation) return;
+          played = true;
+          try {
+            if (!example.play(high)) throw new Error("Enable sound to hear the legend.");
+            later(2500, () => {
+              if (!high) present(true);
+              else { cancel(); onStep(`Legend complete. ${example.meaning}. Examples are not current measurements.`, 0); }
+            });
+          } catch (error) { cancel(); onError(error.message); }
+        };
+        if (!speech.speak(text, true, play)) play();
+      };
+      present(false);
     } catch (error) { if (id === generation) { cancel(); onError(error.message); } }
   }
   return { toggle, cancel, get active() { return active; } };

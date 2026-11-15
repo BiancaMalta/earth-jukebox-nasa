@@ -17,7 +17,7 @@ export function initPlayer(index, hooks = {}) {
   root.innerHTML = `
     <div class="player-preview-tabs" role="tablist" aria-label="Visualization preview">
       <button id="individual-preview-tab" type="button" role="tab" aria-selected="true" aria-controls="frame-map-panel" tabindex="0">Single visualization</button>
-      <button id="combined-preview-tab" type="button" role="tab" aria-selected="false" aria-controls="frame-map-panel" tabindex="-1">Combination preview</button>
+      <button id="combined-preview-tab" type="button" role="tab" aria-selected="false" aria-controls="frame-map-panel" tabindex="0">Combination preview</button>
     </div>
     <div class="player-heading">
       <div><p class="eyebrow">Explore the Earth</p><h2 id="track-title">Earth player</h2></div>
@@ -27,20 +27,35 @@ export function initPlayer(index, hooks = {}) {
     <p id="demo-notice" class="demo-notice" hidden><strong>Demonstration values.</strong> Dataset values and dates are simulated, not scientific measurements.</p>
     <p id="data-caveat" class="data-caveat" hidden></p>
     <figure id="frame-map-panel" class="player-visualization" role="tabpanel" aria-labelledby="individual-preview-tab" tabindex="0"><div class="frame-map"><img id="frame-image" alt="Global map of near-surface air temperature from NASA GEOS-FP." hidden width="1024" height="512"><svg id="region-overlay" viewBox="0 0 1024 512" aria-hidden="true" hidden></svg><div id="combined-frame-grid" class="combined-frame-grid" role="group" aria-label="Selected combined map frames" hidden></div></div><figcaption id="frame-description">Select a visualization to begin.</figcaption></figure>
-    <details id="region-options" class="region-options" hidden>
-      <summary aria-describedby="region-help">Explore a country or continent (optional)</summary>
+    <div id="transport-controls" class="player-controls transport" role="group" aria-label="Playback controls" tabindex="-1">
+      <button id="previous-frame" type="button" aria-label="Previous frame" disabled><span aria-hidden="true">←</span> Previous</button>
+      <button id="play-pause" class="primary-button" type="button" aria-pressed="false" disabled>Play</button>
+      <button id="next-frame" type="button" aria-label="Next frame" disabled>Next <span aria-hidden="true">→</span></button>
+    </div>
+    <div class="frame-progress"><label for="frame-position">Frame position</label><span id="frame-count">0 / 0</span><input id="frame-position" type="range" min="0" max="0" value="0" aria-describedby="frame-position-help" disabled></div>
+    <p id="frame-position-help" class="control-help">Use the arrow keys on this slider to select a frame. Selecting a frame pauses playback.</p>
+    <p id="player-status" role="status" aria-atomic="true">Loading visualizations…</p>
+    <section id="region-options" class="region-options" aria-labelledby="regional-heading" hidden>
       <section id="regional-explorer" class="regional-explorer" aria-labelledby="regional-heading" hidden>
-      <div><p class="eyebrow">Explore a place</p><h3 id="regional-heading">Focus the map and listen to a region</h3><p id="region-help" class="control-help">Choose a country group or country. The area stays highlighted as the video plays, and Python-calculated regional values determine the reading and sound. Groups follow whole-country assignments, not physical continental boundaries.</p></div>
+      <div class="region-intro"><div><p class="eyebrow">A different place. A different sound.</p><h3 id="regional-heading">Where do you want to listen?</h3></div><span class="region-badge">Explore the map</span></div>
+      <p id="region-help" class="control-help">Keep the same moment. Change the place. The highlighted area shapes both your readings and your sound.</p>
+      <fieldset class="region-scopes"><legend class="sr-only">Listening area</legend>
+        <label class="region-scope"><input type="radio" name="region-scope" value="world" checked><span><strong>Whole map</strong><small>The big picture</small></span></label>
+        <label class="region-scope"><input type="radio" name="region-scope" value="continent"><span><strong>Country group</strong><small>Compare larger regions</small></span></label>
+        <label class="region-scope"><input type="radio" name="region-scope" value="country"><span><strong>Country</strong><small>Listen a little closer</small></span></label>
+      </fieldset>
+      <select id="region-level" hidden aria-label="Regional level"><option value="continent">Country group</option><option value="country">Country</option></select>
       <div class="region-controls">
-        <label for="region-level">Explore by</label><select id="region-level" aria-describedby="region-help"><option value="continent">Country group</option><option value="country">Country</option></select>
-        <label for="region-continent">Country group</label><select id="region-continent"><option value="">Choose a country group</option></select>
-        <label for="region-country" hidden>Country</label><select id="region-country" hidden disabled><option value="">Choose a country</option></select>
+        <div id="region-group-field" class="region-field" hidden><label for="region-continent">Country group</label><select id="region-continent"><option value="">Choose a country group</option></select></div>
+        <div id="region-country-field" class="region-field" hidden><label for="region-country">Country</label><select id="region-country" disabled><option value="">Choose a country</option></select></div>
       </div>
-      <p class="control-help">The Europe group includes all of Russia, including its Asian territory; the Asia group excludes Russia. Oceans are not included in these land groups.</p>
-      <p id="region-status" class="status-text" role="status" aria-live="polite">Choose a country group to focus and hear its regional values.</p>
-      <p id="region-current" class="regional-reading">No region selected. Playback uses the full-frame value.</p>
+      <div class="region-discover"><span>Start exploring</span><button type="button" data-region-preset="South America">South America</button><button type="button" data-region-preset="Europe">Europe</button><button type="button" data-region-preset="Asia">Asia</button></div>
+      <div class="region-selection"><div><span class="region-selection-label">Listening to</span><strong id="region-selection-name">Whole map</strong></div><button id="region-reset" type="button" hidden>Back to whole map</button></div>
+      <p id="region-status" class="status-text" role="status" aria-live="polite">Explore a place to hear its regional values.</p>
+      <p id="region-current" class="regional-reading">Playback uses the full-frame value.</p>
+      <details class="region-boundaries"><summary>About these boundaries</summary><p class="control-help">Groups follow whole-country assignments, not physical continental boundaries. Europe includes all of Russia; Asia excludes Russia. Oceanic island territories cover land only. Whole-map readings summarize accepted image pixels.</p></details>
       </section>
-    </details>
+    </section>
     <p id="readings-help" class="sr-only">Frame readings summarize image-derived pixels. Coverage is the share of analyzed image pixels used, not geographic area or accuracy. Choosing a region changes the reading and sound.</p>
     <dl id="frame-readings" class="frame-readings" role="group" aria-label="Current frame readings" tabindex="-1" aria-describedby="readings-help">
       <div class="reading reading--date"><dt>Dataset time</dt><dd><time id="frame-date">Unavailable</time><span id="frame-time" class="reading-detail">No frame selected</span></dd></div>
@@ -50,22 +65,18 @@ export function initPlayer(index, hooks = {}) {
     <details id="time-series-panel" class="time-series-panel">
       <summary aria-describedby="time-series-scope">View values by time</summary>
       <p id="time-series-scope" class="control-help">Full-frame estimates for this experience.</p>
-      <div class="time-series-scroll" role="region" tabindex="0" aria-label="Time-series data table; scroll horizontally if needed">
+      <p id="time-series-help" class="control-help">Use your screen reader’s table commands to explore cells. With spoken navigation, use Read current frame row to hear only the highlighted frame.</p>
+      <button id="read-current-row" type="button" data-spoken-only hidden>Read current frame row</button>
+      <div class="time-series-scroll" role="region" tabindex="0" aria-label="Values by time" aria-describedby="time-series-help">
         <table class="time-series-table">
           <caption id="time-series-caption">Values by frame</caption>
           <thead><tr><th scope="col">Date and time</th><th scope="col">Mean</th><th scope="col">P90</th><th scope="col">Coverage</th></tr></thead>
           <tbody id="time-series-body"></tbody>
         </table>
       </div>
+      <a href="#play-pause">Back to playback</a>
     </details>
-    <div id="transport-controls" class="player-controls transport" role="group" aria-label="Playback controls" tabindex="-1">
-      <button id="previous-frame" type="button" aria-label="Previous frame" disabled><span aria-hidden="true">←</span> Previous</button>
-      <button id="play-pause" class="primary-button" type="button" aria-pressed="false" disabled>Play</button>
-      <button id="next-frame" type="button" aria-label="Next frame" disabled>Next <span aria-hidden="true">→</span></button>
-    </div>
-    <div class="frame-progress"><label for="frame-position">Frame position</label><span id="frame-count">0 / 0</span><input id="frame-position" type="range" min="0" max="0" value="0" aria-describedby="frame-position-help" disabled></div>
-    <p id="frame-position-help" class="control-help">Use the arrow keys on this slider to select a frame. Selecting a frame pauses playback.</p>
-    <p id="player-status" role="status" aria-atomic="true">Loading visualizations…</p>`;
+    `;
   const combinedLayers = document.getElementById("combined-layers");
   root.querySelector("#frame-readings").after(combinedLayers);
   const find = (id) => root.querySelector(`#${id}`);
@@ -77,9 +88,9 @@ export function initPlayer(index, hooks = {}) {
   const frameMapPanel = find("frame-map-panel"), tabList = root.querySelector("[role='tablist']");
   function syncPreviewTabs(combined) {
     individualTab.setAttribute("aria-selected", String(!combined));
-    individualTab.tabIndex = combined ? -1 : 0;
+    individualTab.tabIndex = 0;
     combinedTab.setAttribute("aria-selected", String(combined));
-    combinedTab.tabIndex = combined ? 0 : -1;
+    combinedTab.tabIndex = 0;
     frameMapPanel.setAttribute("aria-labelledby", combined ? combinedTab.id : individualTab.id);
   }
   function selectPreview(combined) {

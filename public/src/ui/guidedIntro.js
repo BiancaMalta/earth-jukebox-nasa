@@ -1,11 +1,11 @@
 const COPY = {
   steps: [
     ["1. Choose an experience", "Use the Experience menu to choose one of seven NASA Earth variables, such as temperature, wind, precipitation, humidity, or air quality. Each variable turns its changing data into a distinct sound."],
-    ["2. Focus on a place, or keep the whole planet", "The optional place section is below the map. First choose Continent or Country, then choose one from the next menu. With no place selected, the sound and readings use the whole map. A selection changes both to that continent or country."],
+    ["2. Focus on a place, or keep the whole planet", "Below playback, Where do you want to listen lets you choose Whole map, Country group, or Country. Pick a place from the menus or try a suggested group. The highlighted place determines both readings and sound. Back to whole map clears the selection."],
     ["3. Move through time", "Play and Pause move through frames in order. Previous and Next move one frame at a time; the Frame position slider jumps to a point in the sequence. Use Tab and Shift plus Tab to reach controls, then Enter or Space to activate them. With focus outside controls, Space plays or pauses and the left and right arrows change frames."],
     ["4. Listen to a frame's readings", "Pause, then use your screen reader to explore the current date and time, data value and unit, and its sound description. Open View values by time for a table of mean, ninetieth percentile, and pixel coverage. Automatic playback does not announce every frame; selecting frames manually announces their readings."],
     ["5. Learn how values become sound", "Beside the player, From data to music explains how values map to notes or sound textures. Play sound legend gives a short comparison. Below the player, About the values and methods explains image-derived estimates, pixel coverage, and calculation limits."],
-    ["6. Compare variables", "In the Listening mode section beside the player, turn on Combined. Choose which variables to include with the checkboxes; their sounds are mixed and their maps appear in the Combination preview tab above the player. Playback and place controls still apply, and the layer list gives each variable's readings. You can return to one variable by turning Combined off."],
+    ["6. Compare variables", "Above the player, activate the Combination preview tab. Choose which variables to include with the checkboxes; their sounds are mixed and their maps appear in the Combination preview tab above the player. Playback and place controls still apply, and the layer list gives each variable's readings. Activate the Single visualization tab to return to one variable."],
   ],
   actions: [
     [["experience", "Go to the Experience menu"]],
@@ -13,7 +13,7 @@ const COPY = {
     [["playback", "Go to playback controls"]],
     [["readings", "Go to current readings"], ["table", "Open the values-by-time table"]],
     [["sound", "Go to the sound guide"], ["methods", "Open values and methods"]],
-    [["enable-layers", "Activate Combined and go to variable choices"]],
+    [["enable-layers", "Open Combination preview and go to variable choices"]],
   ],
 };
 
@@ -87,10 +87,9 @@ export function initGuidedIntro() {
     } else if (action === "region") {
       const section = document.getElementById("region-options");
       if (section.hidden) { status.textContent = "Place controls are unavailable for this visualization."; return; }
-      section.open = true;
-      focus(document.getElementById("region-level"));
+      focus(document.querySelector('input[name="region-scope"]:checked'));
     } else if (action === "playback") {
-      focus(document.getElementById("transport-controls"));
+      focus(document.getElementById("play-pause"));
     } else if (action === "readings") {
       focus(combined.checked ? document.getElementById("combined-layers") : document.getElementById("frame-readings"));
     } else if (action === "table") {

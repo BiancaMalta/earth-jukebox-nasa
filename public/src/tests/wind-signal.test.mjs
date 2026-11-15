@@ -35,7 +35,7 @@ test('visual wind legend labels indices instead of pretending they are meters pe
  globalThis.window={setTimeout(fn,delay){tasks.push({fn,delay});return tasks.length;},clearTimeout(){}};
  try{
   const legend=createLegend({audio:{stop(){},playWindActivity(v){values.push(v);return true;}},speech:{cancel(){},speak(){}},enableAudio:async()=>{},getKind:()=> 'windVisual',onBeforeStart(){},onState(){},onStep(s){steps.push(s)},onError(){assert.fail('Unexpected error')}});
-  await legend.toggle();tasks.find(t=>t.delay===2500).fn();tasks.find(t=>t.delay===5000).fn();
+  await legend.toggle();tasks.find(t=>t.delay===2500).fn();tasks.at(-1).fn();
   assert.deepEqual(values,[.01,.1]);assert.match(steps[0],/index 0.01/);assert.match(steps.at(-1),/not a wind-speed measurement/);
  }finally{globalThis.window=saved;}
 });

@@ -79,9 +79,9 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
 
     if (individualTab && combinedTab && mapPanel) {
       individualTab.setAttribute("aria-selected", String(!combined));
-      individualTab.tabIndex = combined ? -1 : 0;
+      individualTab.tabIndex = 0;
       combinedTab.setAttribute("aria-selected", String(combined));
-      combinedTab.tabIndex = combined ? 0 : -1;
+      combinedTab.tabIndex = 0;
       mapPanel.setAttribute(
         "aria-labelledby",
         combined ? combinedTab.id : individualTab.id
@@ -113,7 +113,7 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
     document.getElementById("frame-readings")?.toggleAttribute("hidden", combined);
   }
   controls.innerHTML = LAYERS.map(([, key, name, instrument]) => `<div class="combined-layer">
-    <label class="checkbox-label"><input id="layer-${key}" type="checkbox" ${instrument || key !== "carbon-monoxide" && key !== "ozone" ? "checked" : ""}> ${name}</label>
+    <label class="checkbox-label"><input id="layer-${key}" type="checkbox" aria-describedby="reading-${key}" ${instrument || key !== "carbon-monoxide" && key !== "ozone" ? "checked" : ""}> ${name}</label>
     ${instrument ? "" : `<span class="control-help">Visual layer only; a dedicated sound mapping is not available yet.</span>`}
     <span id="reading-${key}" class="control-help">Unavailable</span></div>`).join("");
   function layerKey(track) { return LAYERS.find(([id]) => id === track?.id)?.[1] ?? null; }
@@ -198,7 +198,7 @@ export function initCombined({ audio, getFrame, restoreSingle = () => {}, getReg
       if (soundSettings) soundSettings.hidden = false;
       restoreSingle();
       audio.stop(); audio.setCombinedMode(false); applyControls();
-      status.textContent = `Combined sound unavailable: ${error.message} Individual playback remains available. Toggle to retry.`;
+      status.textContent = `Combined sound unavailable: ${error.message} Individual playback remains available. Activate Combination preview to retry.`;
       onChange();
     }
   });

@@ -13,7 +13,7 @@ import { initCombined } from "./ui/combined.js";
 import { initGuidedIntro } from "./ui/guidedIntro.js";
 import { initPageNarration } from "./ui/pageNarration.js";
 
-initPageNarration();
+const pageNarration = initPageNarration();
 initGuidedIntro();
 
 // Elements from the removed sound panel may not exist; look them up through an inert fallback.
@@ -144,6 +144,7 @@ const legend = createLegend({
   getKind: () => combined.enabled ? combined.legendKind : player?.currentTrack?.sonification?.input === "visualSignal" ? (soundKind(player?.currentTrack) === "pm25" ? "pm25Visual" : "windVisual") : soundKind(player?.currentTrack),
   onBeforeStart: () => { player?.pause("Playback paused for the sound legend."); releaseSound(); },
   onState: (active) => {
+    pageNarration?.setSuspended(active);
     combined.setLegendMode(active);
     legendButtons.forEach((button) => {
       button.textContent = active ? "Stop sound legend" : "Play sound legend";
@@ -278,6 +279,7 @@ try {
     },
   });
   removeKeyboard = initKeyboard(player);
+  pageNarration?.refresh();
 } catch (error) {
   announce(`Could not load the player. ${error.message}`);
   const message = document.createElement("p");

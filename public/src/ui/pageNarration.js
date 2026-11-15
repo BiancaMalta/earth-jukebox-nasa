@@ -1,136 +1,221 @@
+// AI-assisted: OpenAI Codex
+const OFF_HELP = "Spoken navigation is off. Turn it on to hear focused controls. If your screen reader already reads the page, leave this off to avoid overlapping voices. Press Escape to stop spoken navigation.";
+const ON_HELP = "Spoken navigation is on. Use Tab and Shift plus Tab to move between controls. Sections announce their name and whether they are expanded. Press Escape to turn the voice off.";
+
+function textOf(element) {
+  return (element?.innerText || element?.textContent || "").replace(/\s+/g, " ").trim();
+}
+
+function labelOf(element, doc) {
+  const labelledBy = element.getAttribute("aria-labelledby");
+  if (labelledBy) {
+    const label = labelledBy.split(/\s+/).map(id => textOf(doc.getElementById(id))).filter(Boolean).join(". ");
+    if (label) return label;
+  }
+  const ariaLabel = element.getAttribute("aria-label");
+  if (ariaLabel) return ariaLabel;
+  if (element.labels?.length) return [...element.labels].map(textOf).filter(Boolean).join(". ");
+  // Reading a select's textContent would announce its entire option list.
+  if (element.matches("select")) return "Menu";
+  if (element.matches("[role='group'], [role='region']")) return "Section";
+  return textOf(element);
+}
+
+export function describeNavigationTarget(element, doc = element.ownerDocument ?? globalThis.document) {
+  const parts = [labelOf(element, doc)];
+  const tag = element.tagName.toLowerCase();
+  if (tag === "summary") {
+    // Never collect text from the parent details: it may contain 124 table rows.
+    parts.push(element.parentElement?.open ? "Expanded" : "Collapsed", "Press Enter or Space to toggle");
+  } else if (tag === "select") {
+    parts.push("Menu");
+    const selected = textOf(element.selectedOptions?.[0]);
+    if (selected) parts.push(`Selected: ${selected}`);
+  } else if (tag === "input") {
+    if (["checkbox", "radio"].includes(element.type)) {
+      parts.push(element.getAttribute("role") === "switch" ? (element.checked ? "On" : "Off") : (element.checked ? "Selected" : "Not selected"));
+    } else if (["range", "number"].includes(element.type)) {
+      parts.push(element.getAttribute("aria-valuetext") || `Value: ${element.value}${element.max ? ` of ${element.max}` : ""}`);
+    }
+  } else if (element.getAttribute("role") === "tab") {
+    parts.push("Tab", element.getAttribute("aria-selected") === "true" ? "Selected" : "Not selected");
+  } else if (tag === "button") {
+    parts.push("Button");
+  } else if (tag === "a") {
+    parts.push("Link");
+  }
+
+  // Current readings are a small, explicitly requested group, unlike layer lists.
+  if (element.id === "frame-readings") parts.push(textOf(element));
+  if (element.matches("figure")) parts.push(textOf(element.querySelector("figcaption")));
+  const describedBy = element.getAttribute("aria-describedby");
+  if (describedBy && tag !== "summary" && element.id !== "frame-readings") {
+    parts.push(...describedBy.split(/\s+/).map(id => textOf(doc.getElementById(id))).filter(Boolean));
+  }
+  if (element.hasAttribute("aria-pressed")) parts.push(element.getAttribute("aria-pressed") === "true" ? "On" : "Off");
+  return [...new Set(parts.filter(Boolean))].join(". ");
+}
+
+export function describeCurrentTableRow(doc = document) {
+  const row = doc.querySelector("#time-series-body tr[aria-current='true']");
+  if (!row) return "No current frame row is available. Select a frame and try again.";
+  const headers = [...doc.querySelectorAll(".time-series-table th")];
+  return [...row.cells].map((cell, index) => `${textOf(headers[index])}: ${textOf(cell)}`).join(". ");
+}
+
 export function initPageNarration() {
   const toggle = document.getElementById("spoken-navigation-toggle");
   const decline = document.getElementById("spoken-navigation-no");
   const status = document.getElementById("spoken-navigation-status");
   const question = document.getElementById("spoken-navigation-question");
-  if (!toggle || !decline) return;
+  if (!toggle || !decline || !status || !question) return;
 
-  let enabled = false;
-  let utteranceId = 0;
+  const synthesis = window.speechSynthesis;
+  let enabled = false, requested = false, utterance, watchdog, utteranceId = 0;
+  let lastElement, lastMessage, lastTime = 0;
+  let suspended = false;
 
-  function speak(message) {
-    if (!enabled || !message || !window.speechSynthesis || !window.SpeechSynthesisUtterance) return;
-    const id = ++utteranceId;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(message);
-    utterance.lang = document.documentElement.lang || "en";
-    utterance.onend = () => { if (id === utteranceId) utteranceId += 1; };
-    window.speechSynthesis.speak(utterance);
+  function render() {
+    const focusedVoiceControl = !enabled && document.activeElement?.matches("[data-spoken-only]") ? document.activeElement : null;
+    toggle.setAttribute("aria-pressed", String(enabled));
+    toggle.textContent = enabled ? "Turn off spoken navigation" : requested ? "Cancel voice check" : "Turn on spoken navigation";
+    decline.hidden = requested;
+    question.textContent = enabled ? ON_HELP : OFF_HELP;
+    document.querySelectorAll("[data-spoken-only]").forEach(element => { element.hidden = !enabled; });
+    focusedVoiceControl?.closest("details")?.querySelector(":scope > summary")?.focus();
   }
 
-  function textOf(element) {
-    return (element?.innerText || element?.textContent || "").replace(/\s+/g, " ").trim();
+  function cancel() {
+    ++utteranceId;
+    clearTimeout(watchdog);
+    if (utterance) {
+      utterance.onstart = utterance.onend = utterance.onerror = null;
+      utterance = undefined;
+      synthesis?.cancel();
+    }
   }
 
-  function labelOf(element) {
-    const labelledBy = element.getAttribute("aria-labelledby");
-    if (labelledBy) {
-      const label = labelledBy.split(/\s+/).map((id) => textOf(document.getElementById(id))).filter(Boolean).join(". ");
-      if (label) return label;
-    }
-    const ariaLabel = element.getAttribute("aria-label");
-    if (ariaLabel) return ariaLabel;
-    if (element.labels?.length) return [...element.labels].map(textOf).filter(Boolean).join(". ");
-    return textOf(element);
+  function stop(message = "Spoken navigation is off.") {
+    requested = enabled = false;
+    cancel();
+    lastElement = lastMessage = undefined;
+    render();
+    status.textContent = message;
   }
 
-  function describe(element) {
-    const label = labelOf(element);
-    const tag = element.tagName.toLowerCase();
-    const parts = [label];
-    if (tag === "select") {
-      const selected = element.selectedOptions?.[0]?.textContent?.trim();
-      if (selected) parts.push(`Selected: ${selected}`);
-    } else if (tag === "input") {
-      if (element.type === "checkbox" || element.type === "radio") parts.push(element.checked ? "Selected" : "Not selected");
-      if (element.type === "range" || element.type === "number") parts.push(`Value: ${element.value}`);
-      if (element.type === "range" && element.max) parts.push(`of ${element.max}`);
+  function voice() {
+    const language = (document.documentElement.lang || "en").toLowerCase().split(/[-_]/)[0];
+    const voices = synthesis.getVoices();
+    return voices.find(item => item.lang.toLowerCase() === (document.documentElement.lang || "en").toLowerCase())
+      ?? voices.find(item => item.lang.toLowerCase().split(/[-_]/)[0] === language);
+  }
+
+  function speak(message, initial = false) {
+    if (!requested || !message) return;
+    cancel();
+    const selected = voice();
+    if (!selected) {
+      stop("No voice for the page language is available. Install a system voice, fully restart the browser, and try again. Your screen reader can still read the page.");
+      return;
     }
-    const describedBy = element.getAttribute("aria-describedby");
-    if (describedBy) {
-      const detail = describedBy.split(/\s+/).map((id) => textOf(document.getElementById(id))).filter(Boolean).join(". ");
-      if (detail) parts.push(detail);
+    const id = utteranceId;
+    const current = new window.SpeechSynthesisUtterance(message);
+    utterance = current;
+    current.voice = selected;
+    current.lang = selected.lang;
+    current.onstart = () => {
+      if (id !== utteranceId) return;
+      clearTimeout(watchdog);
+      if (initial) {
+        enabled = true;
+        render();
+        status.textContent = "Spoken navigation is on. Tab moves to the next control. Escape turns the voice off.";
+      }
+    };
+    current.onend = () => {
+      if (id !== utteranceId) return;
+      clearTimeout(watchdog);
+      utterance = undefined;
+    };
+    current.onerror = event => {
+      if (id === utteranceId) stop(`Spoken navigation could not play (${event.error || "unknown error"}). Check system voices and try again.`);
+    };
+    watchdog = setTimeout(() => {
+      if (id === utteranceId) stop("The browser did not start the voice. Fully restart the browser after installing voices, then try again.");
+    }, 5000);
+    try {
+      synthesis.resume();
+      synthesis.speak(current);
+    } catch {
+      stop("Spoken navigation could not start. Check your browser and system voice settings.");
     }
-    if (element.matches("summary") && element.parentElement?.open) {
-      const detailsText = textOf(element.parentElement);
-      if (detailsText && detailsText !== label) parts.push(detailsText);
-    }
-    if (element.matches("[role='group']") && !element.matches("#transport-controls")) {
-      const contents = textOf(element);
-      if (contents && contents !== label) parts.push(contents);
-    }
-    if (element.matches(".time-series-scroll")) {
-      const caption = textOf(element.querySelector("caption"));
-      const firstRow = textOf(element.querySelector("tbody tr"));
-      if (caption) parts.push(caption);
-      if (firstRow) parts.push(`First row: ${firstRow}`);
-    }
-    if (element.matches("figure")) {
-      const caption = textOf(element.querySelector("figcaption"));
-      if (caption) parts.push(caption);
-    }
-    if (element.getAttribute("aria-pressed") === "true") parts.push("On");
-    else if (element.getAttribute("aria-pressed") === "false") parts.push("Off");
-    return [...new Set(parts.filter(Boolean))].join(". ");
+  }
+
+  function begin() {
+    if (!requested) return;
+    clearTimeout(watchdog);
+    speak("Spoken navigation is on. Use Tab to move between controls. Press Escape to turn the voice off.", true);
   }
 
   toggle.addEventListener("click", () => {
-    if (!enabled && (!window.speechSynthesis || !window.SpeechSynthesisUtterance)) {
+    if (requested) { stop(); return; }
+    if (!synthesis || !window.SpeechSynthesisUtterance) {
       status.textContent = "Spoken navigation is not available in this browser. Your screen reader can still read the page.";
       return;
     }
-    enabled = !enabled;
-    toggle.setAttribute("aria-pressed", String(enabled));
-    toggle.textContent = enabled ? "Turn off spoken navigation" : "Turn on spoken navigation";
-    decline.hidden = enabled;
-    if (enabled) {
-      question.textContent = "Spoken navigation is on. Move through controls with Tab and Shift plus Tab. Focused controls and their instructions will be spoken. Activate the toggle again to turn it off.";
-      status.textContent = "Spoken navigation is on. Move through page controls with Tab and Shift plus Tab. Activate a control with Enter or Space.";
-      speak(status.textContent);
-    } else {
-      decline.hidden = false;
-      question.textContent = "Spoken navigation is off. Activate the first button to turn it on. If your screen reader already reads the page aloud, leave spoken navigation off to avoid overlapping voices. The voice reads focused controls; press Escape at any time to stop it and turn it off.";
-      utteranceId += 1;
-      window.speechSynthesis?.cancel();
-      status.textContent = "Spoken navigation is off. Your screen reader can still read the page.";
-    }
+    requested = true;
+    render();
+    status.textContent = "Checking the browser voice…";
+    if (voice()) begin();
+    else watchdog = setTimeout(() => {
+      if (requested && !enabled) begin();
+    }, 3000);
   });
 
-  document.addEventListener("keydown", (event) => {
-    if (!enabled || event.key !== "Escape") return;
-    enabled = false;
-    utteranceId += 1;
-    window.speechSynthesis?.cancel();
-    toggle.setAttribute("aria-pressed", "false");
-    toggle.textContent = "Turn on spoken navigation";
-    decline.hidden = false;
-    question.textContent = "Spoken navigation is off. Activate the first button to turn it on. If your screen reader already reads the page aloud, leave spoken navigation off to avoid overlapping voices. The voice reads focused controls; press Escape at any time to stop it and turn it off.";
-    status.textContent = "Spoken navigation is off.";
+  synthesis?.addEventListener("voiceschanged", () => {
+    if (requested && !enabled && !utterance && voice()) begin();
   });
 
+  document.addEventListener("keydown", event => {
+    if (requested && event.key === "Escape") stop();
+  });
   decline.addEventListener("click", () => {
+    stop("Spoken navigation was not enabled. Use your screen reader or the keyboard guide if needed.");
     decline.hidden = true;
-    status.textContent = "Spoken navigation was not enabled. Use your screen reader or the page's keyboard guide if needed.";
     document.querySelector("#intro-start")?.focus();
   });
 
-  document.addEventListener("focusin", (event) => {
-    if (!enabled) return;
-    const element = event.target;
-    if (!(element instanceof HTMLElement) || element === toggle || element === decline) return;
-    speak(describe(element));
-  });
+  function announce(element) {
+    if (!enabled || suspended || element === toggle || element === decline) return;
+    const message = describeNavigationTarget(element);
+    const now = Date.now();
+    if (element === lastElement && message === lastMessage && now - lastTime < 350) return;
+    lastElement = element; lastMessage = message; lastTime = now;
+    speak(message);
+  }
 
-  document.addEventListener("change", (event) => {
-    if (enabled && event.target instanceof HTMLElement && document.activeElement === event.target) {
-      speak(describe(event.target));
+  document.addEventListener("focusin", event => {
+    if (event.target instanceof HTMLElement) announce(event.target);
+  });
+  document.addEventListener("change", event => {
+    if (event.target instanceof HTMLElement && document.activeElement === event.target) announce(event.target);
+  });
+  document.addEventListener("toggle", event => {
+    if (!event.target.matches?.("details")) return;
+    const summary = event.target.querySelector(":scope > summary");
+    if (document.activeElement === summary) announce(summary);
+  }, true);
+  document.addEventListener("click", event => {
+    if (!enabled || suspended || !(event.target instanceof Element)) return;
+    if (event.target.closest("#read-current-row")) {
+      speak(describeCurrentTableRow());
+      return;
     }
+    const control = event.target.closest("button, a, input, select");
+    if (control && document.activeElement === control) setTimeout(() => {
+      if (document.activeElement === control) announce(control);
+    }, 0);
   });
-
-  document.addEventListener("click", (event) => {
-    if (!enabled || !(event.target instanceof Element)) return;
-    const control = event.target.closest("button, summary, a, input, select");
-    if (control === toggle || control === decline) return;
-    if (control && document.activeElement === control) setTimeout(() => speak(describe(control)), 0);
-  });
+  window.addEventListener("pagehide", () => stop());
+  return { refresh: render, setSuspended(value) { suspended = Boolean(value); if (suspended) cancel(); } };
 }
