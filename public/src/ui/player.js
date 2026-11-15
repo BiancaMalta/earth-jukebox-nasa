@@ -28,11 +28,11 @@ export function initPlayer(index, hooks = {}) {
     <p id="data-caveat" class="data-caveat" hidden></p>
     <figure id="frame-map-panel" class="player-visualization" role="tabpanel" aria-labelledby="individual-preview-tab" tabindex="0"><div class="frame-map"><img id="frame-image" alt="Global map of near-surface air temperature from NASA GEOS-FP." hidden width="1024" height="512"><svg id="region-overlay" viewBox="0 0 1024 512" aria-hidden="true" hidden></svg><div id="combined-frame-grid" class="combined-frame-grid" role="group" aria-label="Selected combined map frames" hidden></div></div><figcaption id="frame-description">Select a visualization to begin.</figcaption></figure>
     <details id="region-options" class="region-options" hidden>
-      <summary>Explore a country or continent (optional)</summary>
+      <summary aria-describedby="region-help">Explore a country or continent (optional)</summary>
       <section id="regional-explorer" class="regional-explorer" aria-labelledby="regional-heading" hidden>
-      <div><p class="eyebrow">Explore a place</p><h3 id="regional-heading">Focus the map and listen to a region</h3><p class="control-help">Choose a country group or country. The area stays highlighted as the video plays, and Python-calculated regional values determine the reading and sound. Groups follow whole-country assignments, not physical continental boundaries.</p></div>
+      <div><p class="eyebrow">Explore a place</p><h3 id="regional-heading">Focus the map and listen to a region</h3><p id="region-help" class="control-help">Choose a country group or country. The area stays highlighted as the video plays, and Python-calculated regional values determine the reading and sound. Groups follow whole-country assignments, not physical continental boundaries.</p></div>
       <div class="region-controls">
-        <label for="region-level">Explore by</label><select id="region-level"><option value="continent">Country group</option><option value="country">Country</option></select>
+        <label for="region-level">Explore by</label><select id="region-level" aria-describedby="region-help"><option value="continent">Country group</option><option value="country">Country</option></select>
         <label for="region-continent">Country group</label><select id="region-continent"><option value="">Choose a country group</option></select>
         <label for="region-country" hidden>Country</label><select id="region-country" hidden disabled><option value="">Choose a country</option></select>
       </div>
@@ -42,13 +42,13 @@ export function initPlayer(index, hooks = {}) {
       </section>
     </details>
     <p id="readings-help" class="sr-only">Frame readings summarize image-derived pixels. Coverage is the share of analyzed image pixels used, not geographic area or accuracy. Choosing a region changes the reading and sound.</p>
-    <dl id="frame-readings" class="frame-readings" aria-describedby="readings-help">
+    <dl id="frame-readings" class="frame-readings" role="group" aria-label="Current frame readings" tabindex="-1" aria-describedby="readings-help">
       <div class="reading reading--date"><dt>Dataset time</dt><dd><time id="frame-date">Unavailable</time><span id="frame-time" class="reading-detail">No frame selected</span></dd></div>
       <div class="reading"><dt id="measure-label">Dataset measure</dt><dd><span id="frame-mean">Unavailable</span><span id="measure-detail" class="reading-detail">Value and unit for this dataset</span><span id="coverage-detail" class="reading-detail" hidden></span></dd></div>
       <div class="reading"><dt id="sound-label">Mapped musical note</dt><dd><span id="current-note">Unavailable</span><span id="note-status" class="reading-detail">Enable sound to listen.</span></dd></div>
     </dl>
     <details id="time-series-panel" class="time-series-panel">
-      <summary>View values by time</summary>
+      <summary aria-describedby="time-series-scope">View values by time</summary>
       <p id="time-series-scope" class="control-help">Full-frame estimates for this experience.</p>
       <div class="time-series-scroll" role="region" tabindex="0" aria-label="Time-series data table; scroll horizontally if needed">
         <table class="time-series-table">
@@ -58,7 +58,7 @@ export function initPlayer(index, hooks = {}) {
         </table>
       </div>
     </details>
-    <div class="player-controls transport" role="group" aria-label="Playback controls">
+    <div id="transport-controls" class="player-controls transport" role="group" aria-label="Playback controls" tabindex="-1">
       <button id="previous-frame" type="button" aria-label="Previous frame" disabled><span aria-hidden="true">←</span> Previous</button>
       <button id="play-pause" class="primary-button" type="button" aria-pressed="false" disabled>Play</button>
       <button id="next-frame" type="button" aria-label="Next frame" disabled>Next <span aria-hidden="true">→</span></button>
