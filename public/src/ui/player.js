@@ -22,13 +22,14 @@ export function initPlayer(index, hooks = {}) {
     <p id="data-caveat" class="data-caveat" hidden></p>
     <figure class="player-visualization"><div class="frame-map"><img id="frame-image" alt="Global map of near-surface air temperature from NASA GEOS-FP." hidden width="1024" height="512"><svg id="region-overlay" viewBox="0 0 1024 512" aria-hidden="true" hidden></svg></div><figcaption id="frame-description">Select a visualization to begin.</figcaption></figure>
     <section id="regional-explorer" class="regional-explorer" aria-labelledby="regional-heading" hidden>
-      <div><p class="eyebrow">Explore a place</p><h3 id="regional-heading">Focus the map and listen to a region</h3><p class="control-help">Choose a continent or country. The area stays highlighted as the video plays, and Python-calculated regional values determine the reading and sound.</p></div>
+      <div><p class="eyebrow">Explore a place</p><h3 id="regional-heading">Focus the map and listen to a region</h3><p class="control-help">Choose a country group or country. The area stays highlighted as the video plays, and Python-calculated regional values determine the reading and sound. Groups follow whole-country assignments, not physical continental boundaries.</p></div>
       <div class="region-controls">
-        <label for="region-level">Explore by</label><select id="region-level"><option value="continent">Continent</option><option value="country">Country</option></select>
-        <label for="region-continent">Continent</label><select id="region-continent"><option value="">Choose a continent</option></select>
+        <label for="region-level">Explore by</label><select id="region-level"><option value="continent">Country group</option><option value="country">Country</option></select>
+        <label for="region-continent">Country group</label><select id="region-continent"><option value="">Choose a country group</option></select>
         <label for="region-country" hidden>Country</label><select id="region-country" hidden disabled><option value="">Choose a country</option></select>
       </div>
-      <p id="region-status" class="status-text" role="status" aria-live="polite">Choose a continent to focus and hear its regional values.</p>
+      <p class="control-help">The Europe group includes all of Russia, including its Asian territory; the Asia group excludes Russia. Oceans are not included in these land groups.</p>
+      <p id="region-status" class="status-text" role="status" aria-live="polite">Choose a country group to focus and hear its regional values.</p>
       <p id="region-current" class="regional-reading">No region selected. Playback uses the full-frame value.</p>
     </section>
     <dl id="frame-readings" class="frame-readings" aria-describedby="readings-help">
@@ -237,6 +238,7 @@ export function initPlayer(index, hooks = {}) {
     find("track-title").textContent = trackId;
     updateControls();
     status.textContent = "Loading track…";
+    document.getElementById("pixel-filter-method").textContent = "Loading color-filter settings…";
     try {
       const signal = trackController.signal;
       const track = await fetchJSON(`tracks/${encodeURIComponent(trackId)}.json`, signal);
@@ -251,7 +253,7 @@ export function initPlayer(index, hooks = {}) {
       }
       if (id !== trackRequestId || destroyed) return;
       frameDirectory = directory;
-      activeTrack = { ...track, unit: data.unit };
+      activeTrack = { ...track, unit: data.unit, statistics: data.statistics, sonification: data.sonification };
       frames = data.frames;
       regionalTable = null;
       renderTimeSeries();
@@ -260,7 +262,7 @@ export function initPlayer(index, hooks = {}) {
       find("data-caveat").hidden = data.mock || !experience.caveat;
       hooks.onTrack?.(activeTrack);
       hooks.onTrackData?.({ track: activeTrack, data, frames, frameDirectory, colorbar });
-      document.getElementById("normalization-range").textContent = data.vmin === null ? "Normalization limits are unavailable." : `The supplied range is ${data.vmin} to ${data.vmax} ${data.unit}${data.mock ? " (demo values)" : ""}.`;
+      document.getElementById("normalization-range").textContent = data.sonification?.input === "visualSignal" ? `Pixel color legend: ${data.vmin} to ${data.vmax} ${data.unit}. The visible signal index is dimensionless (0–1), not wind speed.` : data.vmin === null ? "Normalization limits are unavailable." : `The supplied range is ${data.vmin} to ${data.vmax} ${data.unit}${data.mock ? " (demo values)" : ""}.`;
       find("track-title").textContent = track.title?.en ?? trackId;
       select.selectedOptions[0].textContent = experience.name;
       find("demo-data").hidden = !data.mock;

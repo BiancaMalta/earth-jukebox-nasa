@@ -8,6 +8,13 @@ export function mapValue(norm) {
   return PENTATONIC_NOTES[Math.round(norm * (PENTATONIC_NOTES.length - 1))];
 }
 
+// Fixed visual-signal transfer: both intensity and detected color extent count.
+// Not a wind-speed conversion; unknown/transparent areas are not measured zero.
+export function mapWindActivity(activity) {
+  if (typeof activity !== "number" || !Number.isFinite(activity) || activity < 0 || activity > 1) return null;
+  return 0.3 + 3.7 * (1 - Math.exp(-activity / 0.04));
+}
+
 // Fixed physical mapping, independent of the dataset's observed min/max:
 // rate = 0.3 + 3.7 * (1 - exp(-speed_m_s / 12)).
 // Monotonic, deterministic and bounded in [0.3, 4] Hz; no invented gusts,
@@ -49,7 +56,7 @@ export function mapFrameSound(frame, track) {
     return note ? { kind, note } : null;
   }
   if (kind === "wind") {
-    const rate = mapWindSpeed(frame?.mean);
+    const rate = track?.sonification?.input === "visualSignal" ? mapWindActivity(frame?.visualSignal) : mapWindSpeed(frame?.mean);
     return rate === null ? null : { kind, rate };
   }
   if (kind === "precipitation") {

@@ -9,330 +9,371 @@
     {
       "file": "frame_000001.webp",
       "date": "2026-10-30T06:00",
-      "mean": 9.289,
+      "mean": 9.35,
       "p90": 12.853,
-      "norm": 0.232,
-      "coverage": 0.483
+      "norm": 0.234,
+      "coverage": 0.482929,
+      "visualSignal": 0.09873
     },
     {
       "file": "frame_000002.webp",
       "date": "2026-10-30T09:00",
-      "mean": 9.376,
+      "mean": 9.436,
       "p90": 12.956,
-      "norm": 0.234,
-      "coverage": 0.476
+      "norm": 0.236,
+      "coverage": 0.476291,
+      "visualSignal": 0.098182
     },
     {
       "file": "frame_000003.webp",
       "date": "2026-10-30T12:00",
-      "mean": 9.499,
+      "mean": 9.573,
       "p90": 13.059,
-      "norm": 0.237,
-      "coverage": 0.472
+      "norm": 0.239,
+      "coverage": 0.471767,
+      "visualSignal": 0.09847
     },
     {
       "file": "frame_000004.webp",
       "date": "2026-10-30T15:00",
-      "mean": 9.567,
+      "mean": 9.643,
       "p90": 13.265,
-      "norm": 0.239,
-      "coverage": 0.473
+      "norm": 0.241,
+      "coverage": 0.473485,
+      "visualSignal": 0.099185
     },
     {
       "file": "frame_000005.webp",
       "date": "2026-10-30T18:00",
-      "mean": 9.533,
+      "mean": 9.525,
       "p90": 13.265,
       "norm": 0.238,
-      "coverage": 0.473
+      "coverage": 0.473175,
+      "visualSignal": 0.09851
     },
     {
       "file": "frame_000006.webp",
       "date": "2026-10-30T21:00",
-      "mean": 9.631,
+      "mean": 9.626,
       "p90": 13.265,
       "norm": 0.241,
-      "coverage": 0.471
+      "coverage": 0.470792,
+      "visualSignal": 0.099527
     },
     {
       "file": "frame_000007.webp",
       "date": "2026-10-31T00:00",
-      "mean": 9.654,
+      "mean": 9.699,
       "p90": 13.265,
-      "norm": 0.241,
-      "coverage": 0.474
+      "norm": 0.242,
+      "coverage": 0.473769,
+      "visualSignal": 0.101351
     },
     {
       "file": "frame_000008.webp",
       "date": "2026-10-31T03:00",
-      "mean": 9.572,
+      "mean": 9.576,
       "p90": 13.265,
       "norm": 0.239,
-      "coverage": 0.48
+      "coverage": 0.480204,
+      "visualSignal": 0.102645
     },
     {
       "file": "frame_000009.webp",
       "date": "2026-10-31T06:00",
-      "mean": 9.504,
+      "mean": 9.479,
       "p90": 13.265,
-      "norm": 0.238,
-      "coverage": 0.483
+      "norm": 0.237,
+      "coverage": 0.482923,
+      "visualSignal": 0.102837
     },
     {
       "file": "frame_000010.webp",
       "date": "2026-10-31T09:00",
-      "mean": 9.537,
+      "mean": 9.544,
       "p90": 13.368,
-      "norm": 0.238,
-      "coverage": 0.476
+      "norm": 0.239,
+      "coverage": 0.475885,
+      "visualSignal": 0.101702
     },
     {
       "file": "frame_000011.webp",
       "date": "2026-10-31T12:00",
-      "mean": 9.598,
+      "mean": 9.647,
       "p90": 13.368,
-      "norm": 0.24,
-      "coverage": 0.466
+      "norm": 0.241,
+      "coverage": 0.465771,
+      "visualSignal": 0.099529
     },
     {
       "file": "frame_000012.webp",
       "date": "2026-10-31T15:00",
-      "mean": 9.62,
+      "mean": 9.692,
       "p90": 13.47,
-      "norm": 0.24,
-      "coverage": 0.464
+      "norm": 0.242,
+      "coverage": 0.464285,
+      "visualSignal": 0.099839
     },
     {
       "file": "frame_000013.webp",
       "date": "2026-10-31T18:00",
-      "mean": 9.6,
+      "mean": 9.681,
       "p90": 13.47,
-      "norm": 0.24,
-      "coverage": 0.466
+      "norm": 0.242,
+      "coverage": 0.465861,
+      "visualSignal": 0.100361
     },
     {
       "file": "frame_000014.webp",
       "date": "2026-10-31T21:00",
-      "mean": 9.591,
+      "mean": 9.671,
       "p90": 13.368,
-      "norm": 0.24,
-      "coverage": 0.459
+      "norm": 0.242,
+      "coverage": 0.459148,
+      "visualSignal": 0.099024
     },
     {
       "file": "frame_000015.webp",
       "date": "2026-11-01T00:00",
-      "mean": 9.567,
+      "mean": 9.62,
       "p90": 13.368,
-      "norm": 0.239,
-      "coverage": 0.46
+      "norm": 0.24,
+      "coverage": 0.460428,
+      "visualSignal": 0.099342
     },
     {
       "file": "frame_000016.webp",
       "date": "2026-11-01T02:00",
-      "mean": 9.538,
+      "mean": 9.588,
       "p90": 13.368,
-      "norm": 0.238,
-      "coverage": 0.468
+      "norm": 0.24,
+      "coverage": 0.467672,
+      "visualSignal": 0.101681
     },
     {
       "file": "frame_000017.webp",
       "date": "2026-11-01T05:00",
-      "mean": 9.529,
+      "mean": 9.561,
       "p90": 13.625,
-      "norm": 0.238,
-      "coverage": 0.462
+      "norm": 0.239,
+      "coverage": 0.461931,
+      "visualSignal": 0.10064
     },
     {
       "file": "frame_000018.webp",
       "date": "2026-11-01T08:00",
-      "mean": 9.625,
+      "mean": 9.728,
       "p90": 13.779,
-      "norm": 0.241,
-      "coverage": 0.455
+      "norm": 0.243,
+      "coverage": 0.454795,
+      "visualSignal": 0.099899
     },
     {
       "file": "frame_000019.webp",
       "date": "2026-11-01T11:00",
-      "mean": 9.677,
+      "mean": 9.832,
       "p90": 13.625,
-      "norm": 0.242,
-      "coverage": 0.444
+      "norm": 0.246,
+      "coverage": 0.443789,
+      "visualSignal": 0.097494
     },
     {
       "file": "frame_000020.webp",
       "date": "2026-11-01T14:00",
-      "mean": 9.669,
+      "mean": 9.805,
       "p90": 13.47,
-      "norm": 0.242,
-      "coverage": 0.442
+      "norm": 0.245,
+      "coverage": 0.442105,
+      "visualSignal": 0.096507
     },
     {
       "file": "frame_000021.webp",
       "date": "2026-11-01T17:00",
-      "mean": 9.659,
+      "mean": 9.787,
       "p90": 13.47,
-      "norm": 0.241,
-      "coverage": 0.447
+      "norm": 0.245,
+      "coverage": 0.44679,
+      "visualSignal": 0.097486
     },
     {
       "file": "frame_000022.webp",
       "date": "2026-11-01T20:00",
-      "mean": 9.698,
+      "mean": 9.821,
       "p90": 13.368,
-      "norm": 0.242,
-      "coverage": 0.445
+      "norm": 0.246,
+      "coverage": 0.444887,
+      "visualSignal": 0.097268
     },
     {
       "file": "frame_000023.webp",
       "date": "2026-11-01T23:00",
-      "mean": 9.712,
+      "mean": 9.86,
       "p90": 13.368,
-      "norm": 0.243,
-      "coverage": 0.451
+      "norm": 0.246,
+      "coverage": 0.450597,
+      "visualSignal": 0.099309
     },
     {
       "file": "frame_000024.webp",
       "date": "2026-11-02T02:00",
-      "mean": 9.649,
+      "mean": 9.744,
       "p90": 13.368,
-      "norm": 0.241,
-      "coverage": 0.457
+      "norm": 0.244,
+      "coverage": 0.456716,
+      "visualSignal": 0.10058
     },
     {
       "file": "frame_000025.webp",
       "date": "2026-11-02T05:00",
-      "mean": 9.65,
+      "mean": 9.743,
       "p90": 13.368,
-      "norm": 0.241,
-      "coverage": 0.459
+      "norm": 0.244,
+      "coverage": 0.458542,
+      "visualSignal": 0.102101
     },
     {
       "file": "frame_000026.webp",
       "date": "2026-11-02T08:00",
-      "mean": 9.564,
+      "mean": 9.682,
       "p90": 13.368,
-      "norm": 0.239,
-      "coverage": 0.456
+      "norm": 0.242,
+      "coverage": 0.455986,
+      "visualSignal": 0.100587
     },
     {
       "file": "frame_000027.webp",
       "date": "2026-11-02T11:00",
-      "mean": 9.559,
+      "mean": 9.724,
       "p90": 13.368,
-      "norm": 0.239,
-      "coverage": 0.449
+      "norm": 0.243,
+      "coverage": 0.448656,
+      "visualSignal": 0.098639
     },
     {
       "file": "frame_000028.webp",
       "date": "2026-11-02T14:00",
-      "mean": 9.547,
+      "mean": 9.713,
       "p90": 13.368,
-      "norm": 0.239,
-      "coverage": 0.445
+      "norm": 0.243,
+      "coverage": 0.445279,
+      "visualSignal": 0.097807
     },
     {
       "file": "frame_000029.webp",
       "date": "2026-11-02T17:00",
-      "mean": 9.581,
+      "mean": 9.729,
       "p90": 13.368,
-      "norm": 0.24,
-      "coverage": 0.447
+      "norm": 0.243,
+      "coverage": 0.447278,
+      "visualSignal": 0.09892
     },
     {
       "file": "frame_000030.webp",
       "date": "2026-11-02T20:00",
-      "mean": 9.581,
+      "mean": 9.688,
       "p90": 13.368,
-      "norm": 0.24,
-      "coverage": 0.447
+      "norm": 0.242,
+      "coverage": 0.447416,
+      "visualSignal": 0.098707
     },
     {
       "file": "frame_000031.webp",
       "date": "2026-11-02T23:00",
-      "mean": 9.482,
+      "mean": 9.61,
       "p90": 13.265,
-      "norm": 0.237,
-      "coverage": 0.455
+      "norm": 0.24,
+      "coverage": 0.455397,
+      "visualSignal": 0.099049
     },
     {
       "file": "frame_000032.webp",
       "date": "2026-11-03T02:00",
-      "mean": 9.443,
+      "mean": 9.543,
       "p90": 13.265,
-      "norm": 0.236,
-      "coverage": 0.469
+      "norm": 0.239,
+      "coverage": 0.468548,
+      "visualSignal": 0.102001
     },
     {
       "file": "frame_000033.webp",
       "date": "2026-11-03T05:00",
-      "mean": 9.418,
+      "mean": 9.494,
       "p90": 13.265,
-      "norm": 0.235,
-      "coverage": 0.468
+      "norm": 0.237,
+      "coverage": 0.468088,
+      "visualSignal": 0.101724
     },
     {
       "file": "frame_000034.webp",
       "date": "2026-11-03T08:00",
-      "mean": 9.421,
+      "mean": 9.448,
       "p90": 13.368,
       "norm": 0.236,
-      "coverage": 0.457
+      "coverage": 0.457462,
+      "visualSignal": 0.099517
     },
     {
       "file": "frame_000035.webp",
       "date": "2026-11-03T11:00",
-      "mean": 9.523,
+      "mean": 9.585,
       "p90": 13.47,
-      "norm": 0.238,
-      "coverage": 0.445
+      "norm": 0.24,
+      "coverage": 0.444701,
+      "visualSignal": 0.097559
     },
     {
       "file": "frame_000036.webp",
       "date": "2026-11-03T14:00",
-      "mean": 9.522,
+      "mean": 9.57,
       "p90": 13.47,
-      "norm": 0.238,
-      "coverage": 0.443
+      "norm": 0.239,
+      "coverage": 0.442503,
+      "visualSignal": 0.097314
     },
     {
       "file": "frame_000037.webp",
       "date": "2026-11-03T17:00",
-      "mean": 9.525,
+      "mean": 9.502,
       "p90": 13.47,
       "norm": 0.238,
-      "coverage": 0.443
+      "coverage": 0.443447,
+      "visualSignal": 0.097473
     },
     {
       "file": "frame_000038.webp",
       "date": "2026-11-03T20:00",
-      "mean": 9.555,
+      "mean": 9.504,
       "p90": 13.47,
-      "norm": 0.239,
-      "coverage": 0.443
+      "norm": 0.238,
+      "coverage": 0.443141,
+      "visualSignal": 0.097617
     },
     {
       "file": "frame_000039.webp",
       "date": "2026-11-03T23:00",
-      "mean": 9.592,
+      "mean": 9.524,
       "p90": 13.368,
-      "norm": 0.24,
-      "coverage": 0.447
+      "norm": 0.238,
+      "coverage": 0.447492,
+      "visualSignal": 0.098466
     },
     {
       "file": "frame_000040.webp",
       "date": "2026-11-04T02:00",
-      "mean": 9.412,
+      "mean": 9.351,
       "p90": 13.265,
-      "norm": 0.235,
-      "coverage": 0.459
+      "norm": 0.234,
+      "coverage": 0.459378,
+      "visualSignal": 0.100248
     },
     {
       "file": "frame_000041.webp",
       "date": "2026-11-04T05:00",
-      "mean": 9.305,
+      "mean": 9.233,
       "p90": 13.265,
-      "norm": 0.233,
-      "coverage": 0.463
+      "norm": 0.231,
+      "coverage": 0.462643,
+      "visualSignal": 0.100263
     },
     {
       "file": "frame_000042.webp",
@@ -340,663 +381,757 @@
       "mean": 9.256,
       "p90": 13.265,
       "norm": 0.231,
-      "coverage": 0.463
+      "coverage": 0.463499,
+      "visualSignal": 0.100621
     },
     {
       "file": "frame_000043.webp",
       "date": "2026-11-04T11:00",
-      "mean": 9.234,
+      "mean": 9.302,
       "p90": 13.265,
-      "norm": 0.231,
-      "coverage": 0.459
+      "norm": 0.233,
+      "coverage": 0.459108,
+      "visualSignal": 0.099451
     },
     {
       "file": "frame_000044.webp",
       "date": "2026-11-04T14:00",
-      "mean": 9.275,
+      "mean": 9.321,
       "p90": 13.265,
-      "norm": 0.232,
-      "coverage": 0.46
+      "norm": 0.233,
+      "coverage": 0.459724,
+      "visualSignal": 0.099079
     },
     {
       "file": "frame_000045.webp",
       "date": "2026-11-04T17:00",
-      "mean": 9.264,
+      "mean": 9.35,
       "p90": 13.265,
-      "norm": 0.232,
-      "coverage": 0.464
+      "norm": 0.234,
+      "coverage": 0.464267,
+      "visualSignal": 0.099938
     },
     {
       "file": "frame_000046.webp",
       "date": "2026-11-04T20:00",
-      "mean": 9.349,
+      "mean": 9.448,
       "p90": 13.265,
-      "norm": 0.234,
-      "coverage": 0.462
+      "norm": 0.236,
+      "coverage": 0.462081,
+      "visualSignal": 0.100487
     },
     {
       "file": "frame_000047.webp",
       "date": "2026-11-04T23:00",
-      "mean": 9.391,
+      "mean": 9.499,
       "p90": 13.265,
-      "norm": 0.235,
-      "coverage": 0.463
+      "norm": 0.237,
+      "coverage": 0.463459,
+      "visualSignal": 0.101532
     },
     {
       "file": "frame_000048.webp",
       "date": "2026-11-05T02:00",
-      "mean": 9.31,
+      "mean": 9.409,
       "p90": 13.368,
-      "norm": 0.233,
-      "coverage": 0.478
+      "norm": 0.235,
+      "coverage": 0.478276,
+      "visualSignal": 0.105394
     },
     {
       "file": "frame_000049.webp",
       "date": "2026-11-05T05:00",
-      "mean": 9.252,
+      "mean": 9.341,
       "p90": 13.368,
-      "norm": 0.231,
-      "coverage": 0.48
+      "norm": 0.234,
+      "coverage": 0.479862,
+      "visualSignal": 0.105725
     },
     {
       "file": "frame_000050.webp",
       "date": "2026-11-05T08:00",
-      "mean": 9.245,
+      "mean": 9.333,
       "p90": 13.368,
-      "norm": 0.231,
-      "coverage": 0.481
+      "norm": 0.233,
+      "coverage": 0.480848,
+      "visualSignal": 0.106351
     },
     {
       "file": "frame_000051.webp",
       "date": "2026-11-05T11:00",
-      "mean": 9.305,
+      "mean": 9.383,
       "p90": 13.47,
-      "norm": 0.233,
-      "coverage": 0.476
+      "norm": 0.235,
+      "coverage": 0.475751,
+      "visualSignal": 0.105692
     },
     {
       "file": "frame_000052.webp",
       "date": "2026-11-05T14:00",
-      "mean": 9.385,
+      "mean": 9.481,
       "p90": 13.625,
-      "norm": 0.235,
-      "coverage": 0.474
+      "norm": 0.237,
+      "coverage": 0.473969,
+      "visualSignal": 0.106044
     },
     {
       "file": "frame_000053.webp",
       "date": "2026-11-05T17:00",
-      "mean": 9.442,
+      "mean": 9.49,
       "p90": 13.779,
-      "norm": 0.236,
-      "coverage": 0.476
+      "norm": 0.237,
+      "coverage": 0.476053,
+      "visualSignal": 0.106972
     },
     {
       "file": "frame_000054.webp",
       "date": "2026-11-05T20:00",
-      "mean": 9.518,
+      "mean": 9.554,
       "p90": 13.882,
-      "norm": 0.238,
-      "coverage": 0.478
+      "norm": 0.239,
+      "coverage": 0.478066,
+      "visualSignal": 0.107584
     },
     {
       "file": "frame_000055.webp",
       "date": "2026-11-05T23:00",
-      "mean": 9.586,
+      "mean": 9.579,
       "p90": 13.882,
-      "norm": 0.24,
-      "coverage": 0.484
+      "norm": 0.239,
+      "coverage": 0.483615,
+      "visualSignal": 0.109876
     },
     {
       "file": "frame_000056.webp",
       "date": "2026-11-06T02:00",
-      "mean": 9.519,
+      "mean": 9.455,
       "p90": 13.882,
-      "norm": 0.238,
-      "coverage": 0.494
+      "norm": 0.236,
+      "coverage": 0.494187,
+      "visualSignal": 0.11196
     },
     {
       "file": "frame_000057.webp",
       "date": "2026-11-06T05:00",
-      "mean": 9.503,
+      "mean": 9.44,
       "p90": 13.882,
-      "norm": 0.238,
-      "coverage": 0.499
+      "norm": 0.236,
+      "coverage": 0.498612,
+      "visualSignal": 0.113259
     },
     {
       "file": "frame_000058.webp",
       "date": "2026-11-06T08:00",
-      "mean": 9.494,
+      "mean": 9.429,
       "p90": 13.882,
-      "norm": 0.237,
-      "coverage": 0.499
+      "norm": 0.236,
+      "coverage": 0.498774,
+      "visualSignal": 0.113052
     },
     {
       "file": "frame_000059.webp",
       "date": "2026-11-06T11:00",
-      "mean": 9.546,
+      "mean": 9.526,
       "p90": 13.882,
-      "norm": 0.239,
-      "coverage": 0.495
+      "norm": 0.238,
+      "coverage": 0.495435,
+      "visualSignal": 0.112307
     },
     {
       "file": "frame_000060.webp",
       "date": "2026-11-06T14:00",
-      "mean": 9.559,
+      "mean": 9.562,
       "p90": 13.985,
       "norm": 0.239,
-      "coverage": 0.495
+      "coverage": 0.494825,
+      "visualSignal": 0.111485
     },
     {
       "file": "frame_000061.webp",
       "date": "2026-11-06T17:00",
-      "mean": 9.595,
+      "mean": 9.561,
       "p90": 13.985,
-      "norm": 0.24,
-      "coverage": 0.496
+      "norm": 0.239,
+      "coverage": 0.496357,
+      "visualSignal": 0.112126
     },
     {
       "file": "frame_000062.webp",
       "date": "2026-11-06T20:00",
-      "mean": 9.597,
+      "mean": 9.533,
       "p90": 13.882,
-      "norm": 0.24,
-      "coverage": 0.498
+      "norm": 0.238,
+      "coverage": 0.4977,
+      "visualSignal": 0.112167
     },
     {
       "file": "frame_000063.webp",
       "date": "2026-11-06T23:00",
-      "mean": 9.593,
+      "mean": 9.534,
       "p90": 13.882,
-      "norm": 0.24,
-      "coverage": 0.5
+      "norm": 0.238,
+      "coverage": 0.500094,
+      "visualSignal": 0.114082
     },
     {
       "file": "frame_000064.webp",
       "date": "2026-11-07T02:00",
-      "mean": 9.519,
+      "mean": 9.438,
       "p90": 13.779,
-      "norm": 0.238,
-      "coverage": 0.509
+      "norm": 0.236,
+      "coverage": 0.509352,
+      "visualSignal": 0.116644
     },
     {
       "file": "frame_000065.webp",
       "date": "2026-11-07T05:00",
-      "mean": 9.452,
+      "mean": 9.388,
       "p90": 13.625,
-      "norm": 0.236,
-      "coverage": 0.514
+      "norm": 0.235,
+      "coverage": 0.514211,
+      "visualSignal": 0.117662
     },
     {
       "file": "frame_000066.webp",
       "date": "2026-11-07T08:00",
-      "mean": 9.488,
+      "mean": 9.397,
       "p90": 13.625,
-      "norm": 0.237,
-      "coverage": 0.512
+      "norm": 0.235,
+      "coverage": 0.51209,
+      "visualSignal": 0.116988
     },
     {
       "file": "frame_000067.webp",
       "date": "2026-11-07T11:00",
-      "mean": 9.509,
+      "mean": 9.448,
       "p90": 13.625,
-      "norm": 0.238,
-      "coverage": 0.503
+      "norm": 0.236,
+      "coverage": 0.502556,
+      "visualSignal": 0.114921
     },
     {
       "file": "frame_000068.webp",
       "date": "2026-11-07T14:00",
-      "mean": 9.529,
+      "mean": 9.461,
       "p90": 13.625,
-      "norm": 0.238,
-      "coverage": 0.498
+      "norm": 0.237,
+      "coverage": 0.498436,
+      "visualSignal": 0.113904
     },
     {
       "file": "frame_000069.webp",
       "date": "2026-11-07T17:00",
-      "mean": 9.529,
+      "mean": 9.496,
       "p90": 13.47,
-      "norm": 0.238,
-      "coverage": 0.503
+      "norm": 0.237,
+      "coverage": 0.502699,
+      "visualSignal": 0.115553
     },
     {
       "file": "frame_000070.webp",
       "date": "2026-11-07T20:00",
-      "mean": 9.448,
+      "mean": 9.47,
       "p90": 13.368,
-      "norm": 0.236,
-      "coverage": 0.503
+      "norm": 0.237,
+      "coverage": 0.503457,
+      "visualSignal": 0.115216
     },
     {
       "file": "frame_000071.webp",
       "date": "2026-11-07T23:00",
-      "mean": 9.363,
+      "mean": 9.379,
       "p90": 13.265,
       "norm": 0.234,
-      "coverage": 0.505
+      "coverage": 0.504557,
+      "visualSignal": 0.114436
     },
     {
       "file": "frame_000072.webp",
       "date": "2026-11-08T02:00",
-      "mean": 9.284,
+      "mean": 9.315,
       "p90": 13.265,
-      "norm": 0.232,
-      "coverage": 0.506
+      "norm": 0.233,
+      "coverage": 0.506049,
+      "visualSignal": 0.114502
     },
     {
       "file": "frame_000073.webp",
       "date": "2026-11-08T05:00",
-      "mean": 9.34,
+      "mean": 9.354,
       "p90": 13.265,
-      "norm": 0.233,
-      "coverage": 0.503
+      "norm": 0.234,
+      "coverage": 0.503229,
+      "visualSignal": 0.114615
     },
     {
       "file": "frame_000074.webp",
       "date": "2026-11-08T08:00",
-      "mean": 9.317,
+      "mean": 9.349,
       "p90": 13.265,
-      "norm": 0.233,
-      "coverage": 0.498
+      "norm": 0.234,
+      "coverage": 0.497636,
+      "visualSignal": 0.112408
     },
     {
       "file": "frame_000075.webp",
       "date": "2026-11-08T11:00",
-      "mean": 9.411,
+      "mean": 9.489,
       "p90": 13.265,
-      "norm": 0.235,
-      "coverage": 0.49
+      "norm": 0.237,
+      "coverage": 0.490044,
+      "visualSignal": 0.111557
     },
     {
       "file": "frame_000076.webp",
       "date": "2026-11-08T14:00",
-      "mean": 9.386,
+      "mean": 9.445,
       "p90": 13.265,
-      "norm": 0.235,
-      "coverage": 0.484
+      "norm": 0.236,
+      "coverage": 0.483641,
+      "visualSignal": 0.109566
     },
     {
       "file": "frame_000077.webp",
       "date": "2026-11-08T17:00",
-      "mean": 9.432,
+      "mean": 9.462,
       "p90": 13.368,
-      "norm": 0.236,
-      "coverage": 0.483
+      "norm": 0.237,
+      "coverage": 0.483389,
+      "visualSignal": 0.109686
     },
     {
       "file": "frame_000078.webp",
       "date": "2026-11-08T20:00",
-      "mean": 9.489,
+      "mean": 9.544,
       "p90": 13.368,
-      "norm": 0.237,
-      "coverage": 0.484
+      "norm": 0.239,
+      "coverage": 0.484313,
+      "visualSignal": 0.110833
     },
     {
       "file": "frame_000079.webp",
       "date": "2026-11-08T23:00",
-      "mean": 9.483,
+      "mean": 9.56,
       "p90": 13.368,
-      "norm": 0.237,
-      "coverage": 0.486
+      "norm": 0.239,
+      "coverage": 0.486107,
+      "visualSignal": 0.111421
     },
     {
       "file": "frame_000080.webp",
       "date": "2026-11-09T02:00",
-      "mean": 9.413,
+      "mean": 9.484,
       "p90": 13.368,
-      "norm": 0.235,
-      "coverage": 0.495
+      "norm": 0.237,
+      "coverage": 0.495359,
+      "visualSignal": 0.11387
     },
     {
       "file": "frame_000081.webp",
       "date": "2026-11-09T05:00",
-      "mean": 9.407,
+      "mean": 9.467,
       "p90": 13.47,
-      "norm": 0.235,
-      "coverage": 0.493
+      "norm": 0.237,
+      "coverage": 0.492907,
+      "visualSignal": 0.114235
     },
     {
       "file": "frame_000082.webp",
       "date": "2026-11-09T08:00",
-      "mean": 9.355,
+      "mean": 9.383,
       "p90": 13.47,
-      "norm": 0.234,
-      "coverage": 0.484
+      "norm": 0.235,
+      "coverage": 0.483835,
+      "visualSignal": 0.111427
     },
     {
       "file": "frame_000083.webp",
       "date": "2026-11-09T11:00",
-      "mean": 9.419,
+      "mean": 9.459,
       "p90": 13.47,
-      "norm": 0.235,
-      "coverage": 0.478
+      "norm": 0.236,
+      "coverage": 0.477852,
+      "visualSignal": 0.110276
     },
     {
       "file": "frame_000084.webp",
       "date": "2026-11-09T14:00",
-      "mean": 9.382,
+      "mean": 9.392,
       "p90": 13.47,
       "norm": 0.235,
-      "coverage": 0.474
+      "coverage": 0.473765,
+      "visualSignal": 0.108145
     },
     {
       "file": "frame_000085.webp",
       "date": "2026-11-09T17:00",
-      "mean": 9.388,
+      "mean": 9.394,
       "p90": 13.47,
       "norm": 0.235,
-      "coverage": 0.477
+      "coverage": 0.476764,
+      "visualSignal": 0.108731
     },
     {
       "file": "frame_000086.webp",
       "date": "2026-11-09T20:00",
-      "mean": 9.407,
+      "mean": 9.421,
       "p90": 13.368,
-      "norm": 0.235,
-      "coverage": 0.48
+      "norm": 0.236,
+      "coverage": 0.479926,
+      "visualSignal": 0.109722
     },
     {
       "file": "frame_000087.webp",
       "date": "2026-11-09T23:00",
-      "mean": 9.401,
+      "mean": 9.422,
       "p90": 13.368,
-      "norm": 0.235,
-      "coverage": 0.484
+      "norm": 0.236,
+      "coverage": 0.483677,
+      "visualSignal": 0.110608
     },
     {
       "file": "frame_000088.webp",
       "date": "2026-11-10T02:00",
-      "mean": 9.337,
+      "mean": 9.351,
       "p90": 13.265,
-      "norm": 0.233,
-      "coverage": 0.492
+      "norm": 0.234,
+      "coverage": 0.492439,
+      "visualSignal": 0.111613
     },
     {
       "file": "frame_000089.webp",
       "date": "2026-11-10T05:00",
-      "mean": 9.275,
+      "mean": 9.302,
       "p90": 13.265,
-      "norm": 0.232,
-      "coverage": 0.496
+      "norm": 0.233,
+      "coverage": 0.495621,
+      "visualSignal": 0.112028
     },
     {
       "file": "frame_000090.webp",
       "date": "2026-11-10T08:00",
-      "mean": 9.233,
+      "mean": 9.251,
       "p90": 13.162,
       "norm": 0.231,
-      "coverage": 0.498
+      "coverage": 0.498444,
+      "visualSignal": 0.111413
     },
     {
       "file": "frame_000091.webp",
       "date": "2026-11-10T11:00",
-      "mean": 9.216,
+      "mean": 9.3,
       "p90": 13.059,
-      "norm": 0.23,
-      "coverage": 0.494
+      "norm": 0.233,
+      "coverage": 0.493791,
+      "visualSignal": 0.109784
     },
     {
       "file": "frame_000092.webp",
       "date": "2026-11-10T14:00",
-      "mean": 9.24,
+      "mean": 9.354,
       "p90": 13.059,
-      "norm": 0.231,
-      "coverage": 0.496
+      "norm": 0.234,
+      "coverage": 0.495609,
+      "visualSignal": 0.109844
     },
     {
       "file": "frame_000093.webp",
       "date": "2026-11-10T17:00",
-      "mean": 9.241,
+      "mean": 9.346,
       "p90": 13.162,
-      "norm": 0.231,
-      "coverage": 0.498
+      "norm": 0.234,
+      "coverage": 0.497992,
+      "visualSignal": 0.109767
     },
     {
       "file": "frame_000094.webp",
       "date": "2026-11-10T20:00",
-      "mean": 9.261,
+      "mean": 9.334,
       "p90": 12.956,
-      "norm": 0.232,
-      "coverage": 0.5
+      "norm": 0.233,
+      "coverage": 0.499808,
+      "visualSignal": 0.109893
     },
     {
       "file": "frame_000095.webp",
       "date": "2026-11-10T23:00",
-      "mean": 9.322,
+      "mean": 9.398,
       "p90": 12.853,
-      "norm": 0.233,
-      "coverage": 0.498
+      "norm": 0.235,
+      "coverage": 0.49809,
+      "visualSignal": 0.109859
     },
     {
       "file": "frame_000096.webp",
       "date": "2026-11-11T02:00",
-      "mean": 9.283,
+      "mean": 9.358,
       "p90": 12.853,
-      "norm": 0.232,
-      "coverage": 0.501
+      "norm": 0.234,
+      "coverage": 0.50095,
+      "visualSignal": 0.110203
     },
     {
       "file": "frame_000097.webp",
       "date": "2026-11-11T05:00",
-      "mean": 9.271,
+      "mean": 9.334,
       "p90": 12.853,
-      "norm": 0.232,
-      "coverage": 0.501
+      "norm": 0.233,
+      "coverage": 0.50056,
+      "visualSignal": 0.110236
     },
     {
       "file": "frame_000098.webp",
       "date": "2026-11-11T08:00",
-      "mean": 9.251,
+      "mean": 9.304,
       "p90": 12.853,
-      "norm": 0.231,
-      "coverage": 0.492
+      "norm": 0.233,
+      "coverage": 0.492481,
+      "visualSignal": 0.107745
     },
     {
       "file": "frame_000099.webp",
       "date": "2026-11-11T11:00",
-      "mean": 9.338,
+      "mean": 9.444,
       "p90": 12.853,
-      "norm": 0.233,
-      "coverage": 0.483
+      "norm": 0.236,
+      "coverage": 0.483099,
+      "visualSignal": 0.106144
     },
     {
       "file": "frame_000100.webp",
       "date": "2026-11-11T14:00",
-      "mean": 9.398,
+      "mean": 9.493,
       "p90": 13.162,
-      "norm": 0.235,
-      "coverage": 0.477
+      "norm": 0.237,
+      "coverage": 0.476668,
+      "visualSignal": 0.104933
     },
     {
       "file": "frame_000101.webp",
       "date": "2026-11-11T17:00",
-      "mean": 9.452,
+      "mean": 9.524,
       "p90": 13.265,
-      "norm": 0.236,
-      "coverage": 0.476
+      "norm": 0.238,
+      "coverage": 0.475929,
+      "visualSignal": 0.105073
     },
     {
       "file": "frame_000102.webp",
       "date": "2026-11-11T20:00",
-      "mean": 9.477,
+      "mean": 9.546,
       "p90": 13.368,
-      "norm": 0.237,
-      "coverage": 0.472
+      "norm": 0.239,
+      "coverage": 0.472167,
+      "visualSignal": 0.104403
     },
     {
       "file": "frame_000103.webp",
       "date": "2026-11-11T23:00",
-      "mean": 9.414,
+      "mean": 9.492,
       "p90": 13.368,
-      "norm": 0.235,
-      "coverage": 0.473
+      "norm": 0.237,
+      "coverage": 0.473327,
+      "visualSignal": 0.103817
     },
     {
       "file": "frame_000104.webp",
       "date": "2026-11-12T02:00",
-      "mean": 9.408,
+      "mean": 9.475,
       "p90": 13.368,
-      "norm": 0.235,
-      "coverage": 0.483
+      "norm": 0.237,
+      "coverage": 0.483327,
+      "visualSignal": 0.106441
     },
     {
       "file": "frame_000105.webp",
       "date": "2026-11-12T05:00",
-      "mean": 9.409,
+      "mean": 9.455,
       "p90": 13.368,
-      "norm": 0.235,
-      "coverage": 0.484
+      "norm": 0.236,
+      "coverage": 0.484435,
+      "visualSignal": 0.106841
     },
     {
       "file": "frame_000106.webp",
       "date": "2026-11-12T08:00",
-      "mean": 9.423,
+      "mean": 9.464,
       "p90": 13.47,
-      "norm": 0.236,
-      "coverage": 0.483
+      "norm": 0.237,
+      "coverage": 0.483201,
+      "visualSignal": 0.107073
     },
     {
       "file": "frame_000107.webp",
       "date": "2026-11-12T11:00",
-      "mean": 9.469,
+      "mean": 9.526,
       "p90": 13.625,
-      "norm": 0.237,
-      "coverage": 0.473
+      "norm": 0.238,
+      "coverage": 0.472985,
+      "visualSignal": 0.105364
     },
     {
       "file": "frame_000108.webp",
       "date": "2026-11-12T14:00",
-      "mean": 9.543,
+      "mean": 9.618,
       "p90": 13.779,
-      "norm": 0.239,
-      "coverage": 0.471
+      "norm": 0.24,
+      "coverage": 0.471056,
+      "visualSignal": 0.10606
     },
     {
       "file": "frame_000109.webp",
       "date": "2026-11-12T17:00",
-      "mean": 9.561,
+      "mean": 9.587,
       "p90": 13.779,
-      "norm": 0.239,
-      "coverage": 0.469
+      "norm": 0.24,
+      "coverage": 0.468554,
+      "visualSignal": 0.105278
     },
     {
       "file": "frame_000110.webp",
       "date": "2026-11-12T20:00",
-      "mean": 9.563,
+      "mean": 9.593,
       "p90": 13.779,
-      "norm": 0.239,
-      "coverage": 0.469
+      "norm": 0.24,
+      "coverage": 0.469018,
+      "visualSignal": 0.105294
     },
     {
       "file": "frame_000111.webp",
       "date": "2026-11-12T23:00",
-      "mean": 9.508,
+      "mean": 9.559,
       "p90": 13.779,
-      "norm": 0.238,
-      "coverage": 0.467
+      "norm": 0.239,
+      "coverage": 0.46717,
+      "visualSignal": 0.104495
     },
     {
       "file": "frame_000112.webp",
       "date": "2026-11-13T02:00",
-      "mean": 9.437,
+      "mean": 9.493,
       "p90": 13.625,
-      "norm": 0.236,
-      "coverage": 0.471
+      "norm": 0.237,
+      "coverage": 0.471308,
+      "visualSignal": 0.105602
     },
     {
       "file": "frame_000113.webp",
       "date": "2026-11-13T05:00",
-      "mean": 9.402,
+      "mean": 9.411,
       "p90": 13.47,
       "norm": 0.235,
-      "coverage": 0.472
+      "coverage": 0.472257,
+      "visualSignal": 0.105428
     },
     {
       "file": "frame_000114.webp",
       "date": "2026-11-13T08:00",
-      "mean": 9.424,
+      "mean": 9.425,
       "p90": 13.47,
       "norm": 0.236,
-      "coverage": 0.475
+      "coverage": 0.474945,
+      "visualSignal": 0.10582
     },
     {
       "file": "frame_000115.webp",
       "date": "2026-11-13T11:00",
-      "mean": 9.468,
+      "mean": 9.47,
       "p90": 13.47,
       "norm": 0.237,
-      "coverage": 0.468
+      "coverage": 0.468398,
+      "visualSignal": 0.103354
     },
     {
       "file": "frame_000116.webp",
       "date": "2026-11-13T14:00",
-      "mean": 9.515,
+      "mean": 9.498,
       "p90": 13.625,
-      "norm": 0.238,
-      "coverage": 0.468
+      "norm": 0.237,
+      "coverage": 0.468256,
+      "visualSignal": 0.103161
     },
     {
       "file": "frame_000117.webp",
       "date": "2026-11-13T17:00",
-      "mean": 9.563,
+      "mean": 9.523,
       "p90": 13.882,
-      "norm": 0.239,
-      "coverage": 0.474
+      "norm": 0.238,
+      "coverage": 0.474297,
+      "visualSignal": 0.104394
     },
     {
       "file": "frame_000118.webp",
       "date": "2026-11-13T20:00",
-      "mean": 9.65,
+      "mean": 9.605,
       "p90": 13.882,
-      "norm": 0.241,
-      "coverage": 0.472
+      "norm": 0.24,
+      "coverage": 0.472123,
+      "visualSignal": 0.103845
     },
     {
       "file": "frame_000119.webp",
       "date": "2026-11-13T23:00",
-      "mean": 9.68,
+      "mean": 9.62,
       "p90": 13.985,
-      "norm": 0.242,
-      "coverage": 0.473
+      "norm": 0.24,
+      "coverage": 0.472541,
+      "visualSignal": 0.10402
     },
     {
       "file": "frame_000120.webp",
       "date": "2026-11-14T02:00",
-      "mean": 9.674,
+      "mean": 9.622,
       "p90": 13.985,
-      "norm": 0.242,
-      "coverage": 0.483
+      "norm": 0.241,
+      "coverage": 0.482711,
+      "visualSignal": 0.107429
     },
     {
       "file": "frame_000121.webp",
       "date": "2026-11-14T05:00",
-      "mean": 9.573,
+      "mean": 9.504,
       "p90": 13.985,
-      "norm": 0.239,
-      "coverage": 0.489
+      "norm": 0.238,
+      "coverage": 0.48856,
+      "visualSignal": 0.107778
     },
     {
       "file": "frame_000122.webp",
       "date": "2026-11-14T08:00",
-      "mean": 9.613,
+      "mean": 9.588,
       "p90": 14.19,
       "norm": 0.24,
-      "coverage": 0.488
+      "coverage": 0.487572,
+      "visualSignal": 0.108373
     },
     {
       "file": "frame_000123.webp",
       "date": "2026-11-14T11:00",
-      "mean": 9.649,
+      "mean": 9.675,
       "p90": 13.985,
-      "norm": 0.241,
-      "coverage": 0.478
+      "norm": 0.242,
+      "coverage": 0.477926,
+      "visualSignal": 0.105987
     },
     {
       "file": "frame_000124.webp",
       "date": "2026-11-14T14:00",
-      "mean": 9.617,
+      "mean": 9.636,
       "p90": 13.985,
-      "norm": 0.24,
-      "coverage": 0.48
+      "norm": 0.241,
+      "coverage": 0.479626,
+      "visualSignal": 0.105133
     }
-  ]
+  ],
+  "statistics": {
+    "mean": "area_weighted",
+    "weighting": "cos_latitude",
+    "p90": "unweighted_pixel_percentile",
+    "coverage": "accepted_pixel_fraction"
+  },
+  "sonification": {
+    "input": "visualSignal",
+    "quantity": "visible wind color signal",
+    "unit": "1"
+  }
 }

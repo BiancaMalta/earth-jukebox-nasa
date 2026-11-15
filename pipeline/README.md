@@ -19,7 +19,7 @@ python pipeline/features.py --frames-dir public/data/clima-vento/frames --colorb
 
 The wind legend fades into transparency at low speeds and becomes difficult to
 distinguish from the basemap at its high end. Its `mean` and `p90` therefore
-describe only confidently color-matched pixels; `coverage` records their share
+describe only accepted color-matched pixels; `coverage` records their share
 of the analyzed frame.
 
 For total precipitation (SVS 5149), calibrate its millimeter colorbar and extract
@@ -31,7 +31,7 @@ python pipeline/features.py --frames-dir public/data/clima-chuva/frames --colorb
 ```
 
 The precipitation visualization overlays the color field on clouds and the
-basemap. Its `mean` and `p90` therefore describe confidently color-matched
+basemap. Its `mean` and `p90` therefore describe accepted color-matched
 pixels, not a global-area average; `coverage` records the matched share.
 
 For near-surface specific humidity (SVS 5150), calibrate the 0–22 g/kg colorbar
@@ -42,7 +42,7 @@ python pipeline/calibrate_colorbar.py --svs-id 5150
 python pipeline/features.py --frames-dir public/data/clima-umidade/frames --colorbar public/data/clima-umidade/colorbar.json --output public/data/clima-umidade/features.json --track clima-umidade --svs-id 5150 --start-utc 2026-10-30T10:00:00Z
 ```
 
-The mean and p90 use confidently color-matched humidity pixels; `coverage`
+The mean and p90 use accepted color-matched humidity pixels; `coverage`
 records their share of the analyzed frame.
 
 The published PM2.5, ozone, and CO tracks use the same 124 timestamps as the
@@ -118,9 +118,9 @@ Raw downloads stay in `raw/` (git-ignored) and on the shared Drive.
 After generating `features.json`, run from the repository root:
 
 ```bash
-python pipeline/regions.py
+python pipeline/regions.py --update-features
 # Or select one or more tracks:
-python pipeline/regions.py --track clima-temperatura --track clima-vento
+python pipeline/regions.py --update-features --track clima-temperatura --track clima-vento
 ```
 
 The generator reuses `features.py` for pixel decoding, filtering, mean, p90 and
@@ -132,8 +132,8 @@ is active, without recalculating statistics. Regenerate after changing any
 input; the generator rejects stale full-frame features.
 
 All frame times are copied from existing features. Regions with no valid pixels
-have null statistics, not zero values. Country/continent means use equal pixel
-weights and retain image-derived limitations. See `docs/FEATURES_CONTRACT.md`
+have null statistics, not zero values. Country/group means use cosine-latitude area
+weights over accepted pixels and retain image-derived limitations. See `docs/FEATURES_CONTRACT.md`
 for the versioned regional schema and pixel-center mask definition.
 
 Validation:
@@ -142,3 +142,33 @@ Validation:
 python -m unittest discover -s pipeline -p 'test_*.py'
 node --test public/src/tests/*.test.mjs
 ```
+
+Pixel inclusion (`coverage`) is a pixel-count ratio, not statistical confidence or geographic area. New outputs retain six decimal places; existing full-frame files may retain three.
+
+
+Area-weighted means use the same positive cosine-latitude weights in the
+full-frame and regional pipelines. P90 remains an unweighted pixel percentile;
+coverage remains pixel inclusion. The statistics metadata versions this choice.
+The regional generator preserves source dates; --update-features updates both
+JSONs together. Existing data methods cannot be mixed silently in Combined Earth.
+Group labels follow whole-country assignments (Europe includes all Russia), not
+physical continental boundaries. A previous pre-area snapshot was preserved
+locally under /tmp/earth-jukebox-before-area-weighting for comparison.
+
+## Qualitative wind sonification and study reproduction
+
+Wind now exports `visualSignal`, an area-weighted visible-color index combining
+intensity and extent. Original mean/p90/norm remain diagnostic physical-value
+statistics over accepted pixels. No accepted pixels yields null, never measured
+zero wind. Only wind's regional table uses version 3 with a fifth column.
+
+The [study](../docs/ESTUDO_CIENTIFICO.md) includes the archived reference samples,
+figures, ordering/trend evaluation and limitations. Reproduce without network:
+
+```bash
+python pipeline/compare_reference.py --output /tmp/reference-comparison.csv
+python pipeline/evaluate_wind_signal.py --output /tmp/wind-evaluation.json
+```
+
+NumPy and scikit-image are already pipeline dependencies. Regenerating figures
+additionally needs Matplotlib, used only by the study plotting script.

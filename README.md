@@ -70,3 +70,7 @@ AI tools were used for research, planning and to generate the initial repository
 ## License
 
 [Apache-2.0](LICENSE)
+
+## Scientific study and qualitative validation
+
+The [scientific study](docs/ESTUDO_CIENTIFICO.md) contains the comparisons, graphs, source snapshots, limitations and commands to reproduce the evaluation. Wind uses an explicitly labeled visual-signal index for qualitative sonification, not an inferred full-region wind-speed measurement.

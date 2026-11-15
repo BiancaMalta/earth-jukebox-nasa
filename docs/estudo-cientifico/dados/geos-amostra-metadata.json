@@ -1,0 +1,51 @@
+{
+  "source": "NASA GMAO GEOS-FP assimilation",
+  "utc_center": "2026-10-30T10:30:00Z",
+  "utc_interval": [
+    "2026-10-30T10:00:00Z",
+    "2026-10-30T11:00:00Z"
+  ],
+  "image_label": "2026-10-30T06:00",
+  "image_timezone_assumption": "America/New_York (inferred by existing pipeline; exact scientific equivalence not established)",
+  "time_index": 78130,
+  "lat_index_selection": [
+    0,
+    5,
+    720
+  ],
+  "lon_index_selection": [
+    0,
+    4,
+    1151
+  ],
+  "shape": [
+    145,
+    288
+  ],
+  "native_resolution_degrees": [
+    0.25,
+    0.3125
+  ],
+  "sample_resolution_degrees": [
+    1.25,
+    1.25
+  ],
+  "units": {
+    "t2m": "K",
+    "qv2m": "kg/kg",
+    "u10m": "m/s",
+    "v10m": "m/s",
+    "prectot": "kg/m2/s"
+  },
+  "units_reference": "https://gmao.gsfc.nasa.gov/pubs/docs/Lucchesi1203.pdf",
+  "sources": [
+    "https://opendap.nccs.nasa.gov/dods/GEOS-5/fp/0.25_deg/assim/tavg1_2d_slv_Nx",
+    "https://opendap.nccs.nasa.gov/dods/GEOS-5/fp/0.25_deg/assim/tavg1_2d_flx_Nx"
+  ],
+  "source_response_hashes": {
+    "earth-geos-reference.ascii": "b314c382652911cad3a95d48473634a04a7c1cc8f8e7058f0045b27166ec4c76",
+    "earth-geos-precip.ascii": "bc70fbc91e904ee5c4ecb1a3958cc609dceaaa0e745beb1d9f26c76ca96da0b0",
+    "earth-geos-reference.das": "217b7b38a5e418d99e1609ebd377cebbc2d89f1c63fb588c7144c2bf9a137383"
+  },
+  "retrieval_note": "Collected during this session; exact HTTP retrieval timestamp was not recorded. This is an archived sample, not a live validation of all 124 frames."
+}
