@@ -1,8 +1,7 @@
 // AI-assisted: OpenAI Codex
-import {setLocalizedText} from '../i18n/index.js';
 export function announce(message) {
   const live = document.getElementById("live");
-  setLocalizedText(live, message);
+  if (live) live.textContent = message;
 }
 
 export function initKeyboard(player, target = document) {

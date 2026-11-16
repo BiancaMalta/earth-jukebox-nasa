@@ -17,8 +17,6 @@
 - Site: https://biancamalta.github.io/earth-jukebox-nasa/
 - Video demo (≤ 30 s): [Watch on Google Drive](https://drive.google.com/file/d/1B_zJFzn7VzFnmy0WPEAe7VhTcL05-tN_/view)
 
-The EN / PT-BR buttons switch the interface and spoken navigation language while preserving the current listening session. See [language support and maintenance](docs/LOCALIZATION.md).
-
 ## Project documentation
 
 The following project article and technical documents were produced by the Earth Jukebox team. They describe our methods, scientific evaluations, and sound mappings:

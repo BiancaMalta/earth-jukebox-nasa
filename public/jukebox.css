@@ -294,9 +294,3 @@ footer a { color: #e2d3aa; text-underline-offset: 2px; }
 .spoken-navigation .spoken-navigation-close:hover { background: #24413e; }
 
 #intro-description { display: block; max-width: 72ch; margin: 8px 0 4px; font-size: .88rem; line-height: 1.6; }
-
-.language-switch { position: fixed; right: max(14px, env(safe-area-inset-right)); bottom: max(14px, env(safe-area-inset-bottom)); z-index: 10; display: flex; gap: 3px; padding: 4px; border: 1px solid #c4ab79; border-radius: 9px; background: #102729f5; box-shadow: 0 4px 18px #0007; }
-.language-switch button { min-height: 44px; min-width: 46px; padding: 7px 10px; border: 0; background: transparent; color: #e9debf; box-shadow: none; font-size: .75rem; }
-.language-switch button[aria-pressed=true] { background: #e5d2a8; color: #203a35; }
-html { scroll-padding-bottom: 84px; }
-footer { padding-bottom: 76px; }

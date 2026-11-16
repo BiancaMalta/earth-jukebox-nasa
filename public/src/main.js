@@ -1,4 +1,3 @@
-import { initI18n } from "./i18n/index.js";
 // AI-assisted: OpenAI Codex
 import { fetchJSON } from "./data/features.js";
 import { initPlayer } from "./ui/player.js";
@@ -15,7 +14,6 @@ import { initCombined } from "./ui/combined.js";
 import { initGuidedIntro } from "./ui/guidedIntro.js";
 import { initPageNarration } from "./ui/pageNarration.js";
 
-await initI18n();
 const pageNarration = initPageNarration();
 initGuidedIntro();
 
@@ -172,9 +170,6 @@ const legend = createLegend({
     combinedLegendStatus.textContent = error;
     combinedLegendStatus.hidden = !combined.enabled;
   },
-});
-document.addEventListener("jukebox:languagechange", () => {
-  legend.cancel(); speech.cancel(); speech.refreshVoices(); pageNarration?.refreshLanguage();
 });
 for (const button of legendButtons) button.addEventListener("click", () => { void legend.toggle(); });
 
