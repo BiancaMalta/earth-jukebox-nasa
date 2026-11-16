@@ -288,3 +288,9 @@ footer a { color: #e2d3aa; text-underline-offset: 2px; }
 
 /* Mobile-specific guidance is shown by mobile.css only. */
 .record-browse-help { display: none; }
+
+.spoken-navigation { position: relative; padding-right: 66px; }
+.spoken-navigation .spoken-navigation-close { position: absolute; top: 5px; right: 5px; display: grid; place-items: center; width: 44px; height: 44px; min-height: 44px; padding: 0; margin: 0; border: 0; background: transparent; color: #e6d5ad; box-shadow: none; font-size: 1.7rem; line-height: 1; }
+.spoken-navigation .spoken-navigation-close:hover { background: #24413e; }
+
+#intro-description { display: block; max-width: 72ch; margin: 8px 0 4px; font-size: .88rem; line-height: 1.6; }

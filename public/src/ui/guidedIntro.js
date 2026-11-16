@@ -44,6 +44,7 @@ export function initGuidedIntro() {
       button.dataset.introAction = action;
       return button;
     }));
+    progress.hidden = false;
     progress.textContent = `Step ${index + 1} of ${COPY.steps.length}. Use Next step to continue; move at your own pace.`;
     content.hidden = false;
     start.hidden = true;
@@ -61,6 +62,7 @@ export function initGuidedIntro() {
     start.hidden = false;
     previous.hidden = next.hidden = stop.hidden = true;
     previous.disabled = true;
+    progress.hidden = true;
     progress.textContent = "Seven short steps. Use the buttons to move at your own pace.";
     status.textContent = "Introduction ended.";
     start.focus();

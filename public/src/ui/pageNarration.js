@@ -187,6 +187,12 @@ export function initPageNarration() {
   document.addEventListener("keydown", event => {
     if (requested && event.key === "Escape") stop();
   });
+  document.getElementById("spoken-navigation-close")?.addEventListener("click", () => {
+    stop();
+    document.getElementById("spoken-navigation").hidden = true;
+    const next = document.querySelector("#intro-start:not([hidden])") ?? document.getElementById("guided-intro-heading");
+    next?.focus({ preventScroll: true });
+  });
   decline.addEventListener("click", () => {
     stop("Spoken navigation was not enabled. Use your screen reader or the keyboard guide if needed.");
     decline.hidden = true;

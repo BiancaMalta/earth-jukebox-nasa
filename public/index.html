@@ -20,21 +20,23 @@
     <a class="skip" href="#play-pause">Skip to playback</a>
   </nav>
   <section id="spoken-navigation" class="spoken-navigation" aria-labelledby="spoken-navigation-question">
+    <button id="spoken-navigation-close" class="spoken-navigation-close" type="button" aria-label="Close spoken navigation and turn voice off"><span aria-hidden="true">×</span></button>
     <p id="spoken-navigation-question">Would you like the page to speak controls and their instructions as you navigate with the keyboard? If your screen reader already reads this page aloud, choose No to avoid overlapping voices. This optional voice reads focused controls; press Escape at any time to stop it and turn it off.</p>
     <button id="spoken-navigation-toggle" type="button" aria-pressed="false" aria-describedby="spoken-navigation-question">Yes, turn on spoken navigation</button>
     <button id="spoken-navigation-no" type="button" aria-describedby="spoken-navigation-question">No, continue without spoken navigation</button>
     <p id="spoken-navigation-status" class="status-text" role="status" aria-atomic="true"></p>
   </section>
   <header class="site-header">
-    <div class="jukebox-marquee"><p class="eyebrow">NASA Space Apps · The planetary record collection</p><h1><span class="brand-earth">Earth</span> <span class="brand-jukebox">Jukebox</span></h1><p class="intro">One planet. Seven records. A world of sound.</p></div>
+    <div class="jukebox-marquee"><p class="eyebrow">NASA Space Apps · The planetary record collection</p><h1><span class="brand-earth">Earth</span> <span class="brand-jukebox">Jukebox</span></h1><p id="project-summary" class="intro">NASA Earth maps become sound. Explore places and hear how our planet changes.</p></div>
     <p class="header-note"><span aria-hidden="true">✦</span> Real Earth data. Your next discovery.<span aria-hidden="true"> ✦</span></p>
   </header>
   <main id="main" tabindex="-1">
     <section id="guided-intro" class="panel guided-intro" aria-labelledby="guided-intro-heading">
       <p class="eyebrow">Guided introduction</p>
       <h2 id="guided-intro-heading" tabindex="-1">Get to know Earth Jukebox</h2>
-      <p id="guided-intro-progress" class="control-help">Seven short steps. Use the buttons to move at your own pace.</p>
-      <button id="intro-start" class="primary-button" type="button">Start introduction</button>
+      <p id="intro-description" class="control-help">Earth Jukebox turns NASA visualizations of Earth's temperature, weather and air quality into sound. Choose a variable and a place to hear how our planet changes over time.</p>
+      <p id="guided-intro-progress" class="control-help" hidden>Seven short steps. Use the buttons to move at your own pace.</p>
+      <button id="intro-start" class="primary-button" type="button" aria-describedby="intro-description">Start introduction</button>
       <div id="intro-content" hidden>
         <h3 id="intro-step-heading" tabindex="-1" aria-describedby="intro-step-text"></h3>
         <p id="intro-step-text"></p>

@@ -68,6 +68,9 @@ try {
   }
   await call('browsingContext.setViewport', { context, viewport: { width: 740, height: 390 }, devicePixelRatio: 1 });
   await check('Landscape leaves sticky playback off to preserve map space', 'getComputedStyle(document.getElementById("transport-controls")).position!=="sticky"');
+  await evaluate('document.getElementById("spoken-navigation-close").click()');
+  await check('Closing spoken navigation hides the panel and keeps the voice off', 'document.getElementById("spoken-navigation").hidden && document.getElementById("spoken-navigation-toggle").getAttribute("aria-pressed")==="false"');
+  await check('Closing spoken navigation moves focus to the introduction', 'document.activeElement.id==="intro-start"');
   fs.writeFileSync(output, JSON.stringify({ checks, note: 'Firefox resized viewports, not physical iOS/Android device testing.' }, null, 2) + '\n');
   console.log(`Passed ${checks.length} mobile browser checks. Evidence: ${output}`);
 } finally {
