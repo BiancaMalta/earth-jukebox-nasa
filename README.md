@@ -15,7 +15,7 @@
 ## Live demo
 
 - Site: https://biancamalta.github.io/earth-jukebox-nasa/
-- Video (≤ 30 s): _coming soon_
+- Video demo (≤ 30 s): [Watch on Google Drive](https://drive.google.com/file/d/1B_zJFzn7VzFnmy0WPEAe7VhTcL05-tN_/view)
 
 ## Project documentation
 
