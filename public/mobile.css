@@ -1,0 +1,122 @@
+/* Phone/tablet layout only. Loaded with media="(max-width: 800px)". */
+@media (max-width: 800px) {
+  html { scroll-padding-top: 88px; }
+  h2, h3 { overflow-wrap: anywhere; }
+  .tuning-heading label, .tuning-heading h3 { min-width: 0; overflow-wrap: anywhere; }
+  body { padding: max(10px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left)); }
+  button, select, summary { min-height: 44px; touch-action: manipulation; }
+  select, input[type=number] { font-size: 16px; }
+  button, select, summary, label { -webkit-tap-highlight-color: #eadcb833; }
+  .spoken-navigation { padding: 12px; gap: 9px; margin-bottom: 14px; }
+  .spoken-navigation #spoken-navigation-question { flex-basis: 100%; font-size: .85rem; line-height: 1.5; }
+  .spoken-navigation button { min-height: 44px; font-size: .8rem; flex: 1 1 145px; }
+  .spoken-navigation #spoken-navigation-status { font-size: .8rem; }
+  .site-header { padding: 34px 12px 22px; margin-top: 12px; border-width: 4px; border-radius: 160px 160px 0 0 / 85px 85px 0 0; animation: none; }
+  .site-header::before { inset: 10px 9px -12px; border-radius: 145px 145px 0 0 / 75px 75px 0 0; }
+  .jukebox-marquee .eyebrow { font-size: .52rem; letter-spacing: .1em; }
+  .jukebox-marquee h1 { gap: 0 10px; margin: 8px 0 12px; }
+  .brand-earth { font-size: clamp(2.7rem, 10vw, 4.8rem); }
+  .brand-jukebox { font-size: clamp(2.15rem, 8vw, 3.8rem); }
+  .site-header .intro { font-size: .8rem; letter-spacing: 0; }
+  #main { padding: 12px 6px 18px; border-width: 4px; box-shadow: inset 2px 0 #98784b, inset -2px 0 #98784b, 0 0 0 2px #584634; }
+  .experience-layout { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .guided-intro { padding: 13px; margin-bottom: 16px; }
+  .guided-intro h2 { font-size: 1.15rem; }
+  .guided-intro > .control-help { display: block; font-size: .8rem; line-height: 1.5; margin-right: 0; }
+  .guided-intro > button { min-height: 44px; font-size: .82rem; }
+  #intro-step-text { font-size: .9rem; line-height: 1.65; }
+  .intro-controls, .intro-actions { gap: 8px; }
+  .intro-controls button, .intro-actions button { flex: 1 1 130px; font-size: .82rem; }
+  .player-panel { padding: 12px 10px; border-width: 2px; border-radius: 10px; }
+  .player-preview-tabs [role=tab] { min-height: 48px; font-size: .85rem; padding: 8px; }
+  .mode-description { font-size: .8rem; margin-bottom: 16px; }
+  .player-heading { align-items: center; gap: 8px; margin-bottom: 14px; }
+  .player-heading h2 { font-size: 1.35rem; }
+  .player-heading .eyebrow { font-size: .58rem; }
+  .playback-state { padding: 5px 7px; font-size: .58rem; }
+  .record-collection legend { font-size: .9rem; margin-bottom: 6px; }
+  .record-collection legend span { font-size: .74rem; }
+  .record-browse-help { display: block; margin: 0 0 8px; color: #c6d2c1; font-size: .75rem; }
+  .record-sleeves { display: flex; gap: 9px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scroll-padding-inline: 7px; padding: 5px 5px 12px; scrollbar-width: thin; scrollbar-color: #c7aa78 #0c2024; }
+  .record-sleeves .record-sleeve { flex: 0 0 104px; padding: 5px 5px 9px; scroll-snap-align: start; }
+  .record-sleeve strong { font-size: .82rem; }
+  .record-sleeve small { font-size: .7rem; }
+  .record-cover { width: 90px; }
+  .record-sleeve:has(input:focus-visible) { outline-offset: 1px; }
+  .player-panel > .region-options { margin: 16px 0; padding: 12px; }
+  .regional-explorer > summary.region-intro { min-height: 48px; gap: 8px; }
+  #regional-heading { font-size: 1.12rem; }
+  .region-intro .eyebrow { font-size: .52rem; letter-spacing: .08em; }
+  #region-summary-place { display: none; } /* The persistent Listening to line names the place. */
+  .region-scopes { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-top: 14px; }
+  .region-scope { min-width: 0; overflow-wrap: anywhere; flex-direction: column; justify-content: center; text-align: center; padding: 9px 4px; gap: 6px; min-height: 72px; border-radius: 6px; }
+  .region-scope strong { font-size: .8rem; }
+  .region-scope small { display: none; }
+  .region-options .region-controls { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .region-field label { font-size: .85rem; }
+  .region-field select { min-height: 48px; padding: 8px; font-size: 16px; }
+  #region-help, .region-suggestions-intro { font-size: .8rem; line-height: 1.55; }
+  .region-suggestion-buttons { gap: 8px; }
+  .region-suggestion-buttons .place-track { flex: 1 1 115px; min-height: 52px; padding: 8px; gap: 7px; }
+  .place-track-label strong { font-size: .8rem; }
+  .region-suggestion-buttons .place-track small { font-size: .58rem; }
+  #region-suggestions-help, .region-options .regional-reading, #region-status, .region-boundaries summary { font-size: .75rem; }
+  .region-options .regional-reading { padding: 10px; }
+  .listening-now { align-items: center; gap: 6px; margin-top: 10px; }
+  .listening-now .region-selection-label { font-size: .65rem; }
+  .listening-now #region-selection-name { font-size: .88rem; }
+  .listening-now #region-reset { min-height: 44px; font-size: .72rem; }
+  .transport { padding: 8px; gap: 7px; border-radius: 8px; }
+  .transport button { min-height: 48px; font-size: .78rem; letter-spacing: .025em; padding: 8px 4px; }
+  .transport .primary-button { min-height: 52px; font-size: .95rem; }
+  .frame-progress { margin-top: 14px; }
+  .frame-progress label, #frame-count { font-size: .8rem; }
+  #frame-position { min-height: 48px; }
+  #frame-position-help { font-size: .75rem; line-height: 1.5; }
+  .jukebox-tuning { margin: 16px 0; padding: 8px 10px; border-radius: 8px; }
+  .jukebox-tuning > summary.tuning-plaque { min-height: 44px; font-size: .72rem; }
+  .tuning-brand { display: none; }
+  .tuning-controls { grid-template-columns: minmax(0, 1fr); }
+  .tuning-card { padding: 13px; }
+  .tuning-card select { min-height: 48px; font-size: 16px; }
+  .tuning-card .control-help { font-size: .78rem; }
+  .metronome-switch { font-size: .85rem; }
+  .metronome-settings { flex-wrap: wrap; }
+  .metronome-settings select { flex-basis: 150px; }
+  .metronome-settings button { min-height: 48px; font-size: .82rem; }
+  .data-caveat { font-size: .75rem; padding: 10px; }
+  .player-visualization { margin: 16px -4px; padding: 4px; border-width: 1px; border-radius: 6px; }
+  .player-visualization figcaption { font-size: .75rem; line-height: 1.5; padding: 3px; }
+  .combined-frame-grid--multiple { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .combined-frame { padding: 0 7px 7px; }
+  .combined-frame .combined-layer { padding: 9px 1px; }
+  .combined-frame .checkbox-label { min-height: 48px; font-size: .9rem; }
+  .combined-frame .control-help { font-size: .78rem; }
+  .combined-frame .layer-state { font-size: .65rem; }
+  .frame-readings { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 13px; }
+  .reading, .reading:first-child, .reading:last-child { border: 0; padding: 0; }
+  .reading + .reading { border-top: 1px solid #476563; padding-top: 12px; }
+  .reading--date { grid-column: auto; border-bottom: 0; }
+  .reading dt { font-size: .7rem; margin-bottom: 5px; }
+  .reading dd { font-size: 1.15rem; }
+  .reading-detail { font-size: .78rem; line-height: 1.5; }
+  .listening-sidebar, .listening-sidebar.combined-active { grid-template-columns: minmax(0, 1fr); align-self: start; gap: 16px; }
+  .listening-sidebar .exploration-options, .listening-sidebar .explanation-details { padding: 16px; }
+  .listening-sidebar .guide-panel { padding: 13px; }
+  .listening-sidebar .guide-panel p, .listening-sidebar .explanation-panel p { font-size: .88rem; }
+  .listening-sidebar .pitch-legend p > span:last-child { font-size: .78rem; }
+  .listening-sidebar .combined-variable-control select { font-size: 16px; }
+  .listening-sidebar #sound-legend { min-height: 48px; font-size: .9rem; }
+  .time-series-panel summary, .calculation-panel summary { font-size: .85rem; }
+  .time-series-panel > a { display: inline-flex; align-items: center; min-height: 44px; }
+  .time-series-scroll { overscroll-behavior-x: contain; }
+  footer { padding-inline: 6px; font-size: .75rem; overflow-wrap: anywhere; }
+  .jukebox-speaker { height: 80px; border-width: 4px; }
+}
+@media (max-width: 800px) and (min-height: 600px) {
+  .transport { position: sticky; top: max(8px, env(safe-area-inset-top)); z-index: 3; box-shadow: 0 3px 0 #09191a, 0 8px 20px #0006; }
+}
+@media (min-width: 600px) and (max-width: 800px) {
+  .combined-frame-grid--multiple { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .region-options .region-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

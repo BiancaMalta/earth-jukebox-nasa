@@ -285,3 +285,6 @@ footer a { color: #e2d3aa; text-underline-offset: 2px; }
 .listening-now #region-selection-name { color: #f1dbad; font-size: .8rem; font-weight: 500; }
 .listening-now #region-reset { min-height: 32px; padding: 3px 8px; font-size: .6rem; background: transparent; border-color: #6a8071; }
 .listening-now + .transport { margin-top: 5px; }
+
+/* Mobile-specific guidance is shown by mobile.css only. */
+.record-browse-help { display: none; }
