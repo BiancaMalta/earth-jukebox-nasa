@@ -1,16 +1,19 @@
+import { getLocale, t } from "../i18n/index.js";
 // AI-assisted: OpenAI Codex
 export function createSpeechEngine(scope = window, onStatus = () => {}, onSpeaking = () => {}) {
   const supported = Boolean(scope.speechSynthesis && scope.SpeechSynthesisUtterance);
   let utterance, watchdog, voice, lastStatus, completion;
   function complete() { const callback = completion; completion = undefined; callback?.(); }
   function report(message) {
-    if (message !== lastStatus) { lastStatus = message; onStatus(message); }
+    if (message !== lastStatus) { lastStatus = message; onStatus(t(message)); }
   }
   function refreshVoices() {
     const voices = supported ? scope.speechSynthesis.getVoices() : [];
-    voice = voices.find((item) => /^en-US$/i.test(item.lang)) ?? voices.find((item) => /^en[-_]/i.test(item.lang) || item.lang === "en");
+    const language = scope.document?.documentElement?.lang ?? getLocale();
+    const family = language.split(/[-_]/)[0].toLowerCase();
+    voice = voices.find(item => item.lang.toLowerCase() === language.toLowerCase()) ?? voices.find(item => item.lang.toLowerCase().split(/[-_]/)[0] === family);
     report(!supported ? "Speech synthesis is unavailable in this browser. Dates and legend text remain available."
-      : voice ? `English voice ready: ${voice.name}. Use Test voice to check speech.`
+      : voice ? `English voice ready: ${voice.name}.`
         : "No English speech voice is available in this browser. Enable a system voice or try a browser with English voices. Music and date text still work.");
     return voice;
   }
@@ -33,7 +36,7 @@ export function createSpeechEngine(scope = window, onStatus = () => {}, onSpeaki
       if (interrupt) cancel();
       if (!refreshVoices()) return false;
       synthesis.resume();
-      const current = new scope.SpeechSynthesisUtterance(text);
+      const current = new scope.SpeechSynthesisUtterance(t(text));
       utterance = current;
       completion = onComplete;
       current.voice = voice;

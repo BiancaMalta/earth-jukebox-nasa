@@ -85,7 +85,7 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
         } else {
           level.value = "country"; scope = "country";
           continentSelect.value = countries.get(item.name) ?? ""; changeLevel();
-          const option = [...countrySelect.options].find(option => option.textContent === item.name);
+          const option = [...countrySelect.options].find(option => option.value !== "" && (geojson.features[Number(option.value)]?.properties.NAME_EN || geojson.features[Number(option.value)]?.properties.ADMIN || geojson.features[Number(option.value)]?.properties.NAME) === item.name);
           countrySelect.value = option?.value ?? ""; loading = changeCountry();
         }
         const selectionRequest = requestId;
@@ -114,7 +114,10 @@ export function initRegionalExplorer({ onSelection = () => {}, onValueChange = (
   }
 
   function selectedName() {
-    return level.value === "continent" ? continentSelect.value : countrySelect.selectedOptions[0]?.textContent;
+    if (level.value === "continent") return continentSelect.value;
+    if (countrySelect.value === "") return undefined;
+    const properties = geojson.features[Number(countrySelect.value)]?.properties;
+    return properties?.NAME_EN || properties?.ADMIN || properties?.NAME;
   }
 
   function selectedDisplayName() {

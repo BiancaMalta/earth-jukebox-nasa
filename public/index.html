@@ -8,7 +8,7 @@
   <title>Earth Jukebox — Hear our changing planet</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="overrides.css">
-  <link rel="stylesheet" href="jukebox.css?v=jukebox-controls-4">
+  <link rel="stylesheet" href="jukebox.css?v=languages-1">
   <link rel="stylesheet" href="mobile.css?v=mobile-1" media="(max-width: 800px)">
   <script type="importmap">
     { "imports": { "tone": "https://cdn.jsdelivr.net/npm/tone@15.0.4/+esm" } }
@@ -19,6 +19,10 @@
     <a class="skip" href="#main">Skip to main content</a>
     <a class="skip" href="#play-pause">Skip to playback</a>
   </nav>
+  <div class="language-switch" role="group" aria-label="Language" data-i18n-ignore>
+    <button type="button" lang="en" data-language="en" aria-label="English" aria-pressed="true">EN</button>
+    <button type="button" lang="pt-BR" data-language="pt-BR" aria-label="Português do Brasil" aria-pressed="false">PT-BR</button>
+  </div>
   <section id="spoken-navigation" class="spoken-navigation" aria-labelledby="spoken-navigation-question">
     <button id="spoken-navigation-close" class="spoken-navigation-close" type="button" aria-label="Close spoken navigation and turn voice off"><span aria-hidden="true">×</span></button>
     <p id="spoken-navigation-question">Would you like the page to speak controls and their instructions as you navigate with the keyboard? If your screen reader already reads this page aloud, choose No to avoid overlapping voices. This optional voice reads focused controls; press Escape at any time to stop it and turn it off.</p>
