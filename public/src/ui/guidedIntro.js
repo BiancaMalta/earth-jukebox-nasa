@@ -1,3 +1,5 @@
+import {setLocalizedText} from '../i18n/index.js';
+
 const COPY = {
   steps: [
     ["1. Keyboard guide", "Use Tab and Shift plus Tab to move between controls. Enter or Space activates a button or opens a section. Arrow keys change a menu, radio selection or focused slider. With focus outside controls, Space plays or pauses and left or right moves one frame. Press Escape to turn off spoken navigation. Pause playback to inspect readings; automatic playback does not read every frame."],
@@ -35,8 +37,8 @@ export function initGuidedIntro() {
 
   function render(focusHeading = false) {
     const [title, description] = COPY.steps[index];
-    heading.textContent = title;
-    text.textContent = description;
+    setLocalizedText(heading, title);
+    setLocalizedText(text, description);
     actions.replaceChildren(...COPY.actions[index].map(([action, label]) => {
       const button = document.createElement("button");
       button.type = "button";

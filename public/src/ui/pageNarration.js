@@ -1,3 +1,4 @@
+import { t } from "../i18n/index.js";
 // AI-assisted: OpenAI Codex
 const OFF_HELP = "Spoken navigation is off. Turn it on to hear focused controls. If your screen reader already reads the page, leave this off to avoid overlapping voices. Press Escape to stop spoken navigation.";
 const ON_HELP = "Spoken navigation is on. Use Tab and Shift plus Tab to move between controls. Sections announce their name and whether they are expanded. Press Escape to turn the voice off.";
@@ -60,7 +61,7 @@ export function describeNavigationTarget(element, doc = element.ownerDocument ??
     parts.push(...describedBy.split(/\s+/).map(id => textOf(doc.getElementById(id))).filter(Boolean));
   }
   if (element.hasAttribute("aria-pressed")) parts.push(element.getAttribute("aria-pressed") === "true" ? "On" : "Off");
-  return [...new Set(parts.filter(Boolean))].join(". ");
+  return [...new Set(parts.filter(Boolean).map(part => t(part)))].join(". ");
 }
 
 export function describeCurrentTableRow(doc = document) {
@@ -126,7 +127,7 @@ export function initPageNarration() {
       return;
     }
     const id = utteranceId;
-    const current = new window.SpeechSynthesisUtterance(message);
+    const current = new window.SpeechSynthesisUtterance(t(message));
     utterance = current;
     current.voice = selected;
     current.lang = selected.lang;
@@ -237,5 +238,8 @@ export function initPageNarration() {
     }, 0);
   });
   window.addEventListener("pagehide", () => stop());
-  return { refresh: render, get enabled() { return enabled; }, setSuspended(value) { suspended = Boolean(value); if (suspended) cancel(); } };
+  return { refresh: render, refreshLanguage() {
+    cancel(); render();
+    if (requested) speak("Page language changed. Use Tab to explore the controls.");
+  }, get enabled() { return enabled; }, setSuspended(value) { suspended = Boolean(value); if (suspended) cancel(); } };
 }
