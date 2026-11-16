@@ -26,7 +26,7 @@ export function initPlayer(index, hooks = {}) {
       <div><p class="eyebrow">Now on the turntable</p><h2 id="track-title">Earth player</h2></div>
       <span id="playback-state" class="playback-state">Paused</span>
     </div>
-    <div class="track-toolbar"><label class="sr-only" for="track-select">Experience</label><select id="track-select" hidden></select><fieldset class="record-collection"><legend>Choose your record <span>Seven ways to hear our planet</span></legend><div id="record-sleeves" class="record-sleeves"></div></fieldset><span id="demo-data" class="badge" hidden>Demo data</span></div>
+    <div class="track-toolbar"><label class="sr-only" for="track-select">Experience</label><select id="track-select" hidden></select><fieldset class="record-collection"><legend>Choose your record <span>Seven ways to hear our planet</span></legend><p class="record-browse-help">Swipe to browse all seven records. Use arrow keys when a record is focused.</p><div id="record-sleeves" class="record-sleeves"></div></fieldset><span id="demo-data" class="badge" hidden>Demo data</span></div>
     <section id="region-options" class="region-options" aria-labelledby="regional-heading" hidden>
       <details id="regional-explorer" class="regional-explorer" hidden open>
       <summary class="region-intro" data-spoken-description="Choose a place or play a suggested one. The selection stays visible above Play."><span><span class="eyebrow">A different place. A different sound.</span><span id="regional-heading">Where do you want to listen?</span></span><span class="region-badge" id="region-summary-place">Whole map</span><span class="region-chevron" aria-hidden="true">⌄</span></summary>
@@ -539,6 +539,14 @@ export function initPlayer(index, hooks = {}) {
     const title = document.createElement("strong"); title.textContent = name;
     const subtitle = document.createElement("small"); subtitle.textContent = instrument;
     cover.append(number, vinyl); sleeve.append(input, cover, title, subtitle);
+    input.addEventListener("focus", () => {
+      const shelf = find("record-sleeves");
+      if (shelf.scrollWidth <= shelf.clientWidth) return;
+      const bounds = shelf.getBoundingClientRect(), record = sleeve.getBoundingClientRect();
+      // Scroll only the record shelf, preserving the page's vertical position.
+      if (record.left < bounds.left + 6) shelf.scrollLeft += record.left - bounds.left - 6;
+      else if (record.right > bounds.right - 6) shelf.scrollLeft += record.right - bounds.right + 6;
+    });
     input.addEventListener("change", () => {
       if (!input.checked) return;
       select.value = id;
